@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DateElement" customModule="TeamTTI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfR-1J-EpT" userLabel="Blur Background View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iAk-0F-foc" userLabel="Calendar Container View">
+                    <rect key="frame" x="30" y="108.5" width="315" height="450"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37s-l5-nW0" userLabel="Header View">
+                            <rect key="frame" x="0.0" y="0.0" width="315" height="90"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule Estimated Finish Date" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8a-Ce-CFt">
+                                    <rect key="frame" x="16" y="16" width="172" height="64"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" name="white_smoke"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Y8a-Ce-CFt" secondAttribute="bottom" constant="10" id="H59-Sl-o4H"/>
+                                <constraint firstAttribute="trailing" secondItem="Y8a-Ce-CFt" secondAttribute="trailing" constant="127" id="M8j-OX-TPt"/>
+                                <constraint firstAttribute="height" constant="90" id="OEE-cU-8PR"/>
+                                <constraint firstItem="Y8a-Ce-CFt" firstAttribute="top" secondItem="37s-l5-nW0" secondAttribute="top" constant="16" id="QRO-nc-HUN"/>
+                                <constraint firstItem="Y8a-Ce-CFt" firstAttribute="leading" secondItem="37s-l5-nW0" secondAttribute="leading" constant="16" id="uWm-Ey-wlP"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="keS-40-gy0">
+                            <rect key="frame" x="10" y="90" width="295" height="310"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="OUg-bk-8fy">
+                            <rect key="frame" x="100" y="410" width="205" height="30"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbg-ep-qB7">
+                                    <rect key="frame" x="0.0" y="0.0" width="92.5" height="30"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="cancel:" destination="iN0-l3-epB" eventType="touchUpInside" id="x0e-6k-SjT"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unx-dE-akY">
+                                    <rect key="frame" x="112.5" y="0.0" width="92.5" height="30"/>
+                                    <color key="backgroundColor" name="tti_blue"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
+                                    <state key="normal" title="Save">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="ok:" destination="iN0-l3-epB" eventType="touchUpInside" id="GPz-dH-LVq"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="Nr2-VY-RYH"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" name="white_smoke"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="OUg-bk-8fy" secondAttribute="bottom" constant="10" id="Aw7-ui-cXg"/>
+                        <constraint firstItem="keS-40-gy0" firstAttribute="top" secondItem="37s-l5-nW0" secondAttribute="bottom" id="CLN-yj-g2t"/>
+                        <constraint firstAttribute="height" constant="450" id="DAU-gB-hya"/>
+                        <constraint firstAttribute="trailing" secondItem="OUg-bk-8fy" secondAttribute="trailing" constant="10" id="FHe-On-Oom"/>
+                        <constraint firstAttribute="trailing" secondItem="keS-40-gy0" secondAttribute="trailing" constant="10" id="NIm-uP-gR7"/>
+                        <constraint firstItem="37s-l5-nW0" firstAttribute="leading" secondItem="iAk-0F-foc" secondAttribute="leading" id="P2p-En-fy2"/>
+                        <constraint firstItem="keS-40-gy0" firstAttribute="leading" secondItem="iAk-0F-foc" secondAttribute="leading" constant="10" id="TN6-5t-PDM"/>
+                        <constraint firstAttribute="trailing" secondItem="37s-l5-nW0" secondAttribute="trailing" id="aXn-Fo-DHf"/>
+                        <constraint firstItem="OUg-bk-8fy" firstAttribute="top" secondItem="keS-40-gy0" secondAttribute="bottom" constant="10" id="fVx-Gc-79Z"/>
+                        <constraint firstItem="OUg-bk-8fy" firstAttribute="leading" secondItem="iAk-0F-foc" secondAttribute="leading" constant="100" id="pXb-Ob-20A"/>
+                        <constraint firstItem="37s-l5-nW0" firstAttribute="top" secondItem="iAk-0F-foc" secondAttribute="top" id="xXd-hO-rBn"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="iAk-0F-foc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="4ya-o7-MWe"/>
+                <constraint firstAttribute="trailing" secondItem="iAk-0F-foc" secondAttribute="trailing" constant="30" id="GQx-XT-bLB"/>
+                <constraint firstItem="lfR-1J-EpT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OpJ-7r-u87"/>
+                <constraint firstAttribute="bottom" secondItem="lfR-1J-EpT" secondAttribute="bottom" id="dOP-Ig-pnz"/>
+                <constraint firstItem="iAk-0F-foc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="e6q-5r-8Qe"/>
+                <constraint firstAttribute="trailing" secondItem="lfR-1J-EpT" secondAttribute="trailing" id="hsP-cr-6QH"/>
+                <constraint firstItem="lfR-1J-EpT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sHf-ux-Xme"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="OKButton" destination="unx-dE-akY" id="xHN-hv-Wq4"/>
+                <outlet property="bottomView" destination="OUg-bk-8fy" id="rpL-VE-7Fz"/>
+                <outlet property="calenderContainerView" destination="keS-40-gy0" id="gxn-FV-7qA"/>
+                <outlet property="cancelButton" destination="nbg-ep-qB7" id="uZl-it-uz4"/>
+                <outlet property="headerView" destination="37s-l5-nW0" id="s28-KG-Mz0"/>
+                <outlet property="yearLabel" destination="Y8a-Ce-CFt" id="BqV-eF-apr"/>
+            </connections>
+            <point key="canvasLocation" x="-244.5" y="35.5"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="tti_blue">
+            <color red="0.0" green="0.61176470588235299" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="white_smoke">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
