@@ -20,10 +20,12 @@
 		00F6C61621AC50DF003D697A /* HUSemiCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F6C61321AC50DF003D697A /* HUSemiCircleChart.m */; };
 		00F6C61721AC50DF003D697A /* HUChartEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F6C61421AC50DF003D697A /* HUChartEntry.m */; };
 		0AD4B9635C6B129730AD7547 /* Pods_TeamTTIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0FB0F0C91EC64F2F8F892E /* Pods_TeamTTIUITests.framework */; };
+		354F562F21C8E9CC002F8A37 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354F562E21C8E9CC002F8A37 /* TaskViewController.swift */; };
 		3573797E21C7B7EA007DDF42 /* PlaybookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573797D21C7B7EA007DDF42 /* PlaybookTableViewController.swift */; };
 		3573798021C7B7F2007DDF42 /* Playbook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3573797F21C7B7F2007DDF42 /* Playbook.storyboard */; };
 		3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */; };
 		3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */; };
+		359EA79121C902B000B1B25A /* UIViewBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359EA79021C902B000B1B25A /* UIViewBorder.swift */; };
 		35B6749921C4D043000238DD /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749821C4D043000238DD /* NewsViewController.swift */; };
 		35B6749B21C4D17F000238DD /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749A21C4D17F000238DD /* News.swift */; };
 		35B6749D21C4DAD1000238DD /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35B6749C21C4DAD1000238DD /* News.storyboard */; };
@@ -94,10 +96,12 @@
 		00F6C61821AC5252003D697A /* TeamTTI-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamTTI-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C0FB0F0C91EC64F2F8F892E /* Pods_TeamTTIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamTTIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A21F8E4E4DD82AE9982A38 /* Pods_TeamTTI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamTTI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		354F562E21C8E9CC002F8A37 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		3573797D21C7B7EA007DDF42 /* PlaybookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookTableViewController.swift; sourceTree = "<group>"; };
 		3573797F21C7B7F2007DDF42 /* Playbook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Playbook.storyboard; sourceTree = "<group>"; };
 		3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
 		3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		359EA79021C902B000B1B25A /* UIViewBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewBorder.swift; sourceTree = "<group>"; };
 		35B6749821C4D043000238DD /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		35B6749A21C4D17F000238DD /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		35B6749C21C4DAD1000238DD /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
@@ -377,6 +381,7 @@
 				00F6C61021AC5092003D697A /* Graph Component */,
 				003D87D221A715110095D52F /* Custom Navigation Bar */,
 				CFAB0FA1218F4CC4000765F8 /* String+Validations.swift */,
+				359EA79021C902B000B1B25A /* UIViewBorder.swift */,
 				0008804E21940A3300AA8EFC /* Constant.swift */,
 				005D9D7C2194AD9B003F8CA2 /* Alert.swift */,
 				CFF45BF821A18D930045B56D /* Date+Formatting.swift */,
@@ -393,6 +398,7 @@
 				CFC7295F2198B4250065BCAC /* HomeViewController.swift */,
 				3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */,
 				CFF45C4421A1CFEC0045B56D /* Cells */,
+				354F562E21C8E9CC002F8A37 /* TaskViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -654,7 +660,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0008804F21940A3300AA8EFC /* Constant.swift in Sources */,
+				354F562F21C8E9CC002F8A37 /* TaskViewController.swift in Sources */,
 				CFF45C4321A1B59D0045B56D /* StoreObjective.swift in Sources */,
+				359EA79121C902B000B1B25A /* UIViewBorder.swift in Sources */,
 				3573797E21C7B7EA007DDF42 /* PlaybookTableViewController.swift in Sources */,
 				CF4832BD217CF3C1000660C6 /* LoginViewController.swift in Sources */,
 				35B6749921C4D043000238DD /* NewsViewController.swift in Sources */,

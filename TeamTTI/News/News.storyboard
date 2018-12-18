@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -176,10 +177,10 @@
             </objects>
             <point key="canvasLocation" x="661.60000000000002" y="766.86656671664173"/>
         </scene>
-        <!--News-->
+        <!--News Details-->
         <scene sceneID="gsI-RB-sqS">
             <objects>
-                <viewController title="News" id="Qon-ri-5dV" customClass="NewsDetailViewController" customModule="TeamTTI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="News Details" id="Qon-ri-5dV" customClass="NewsDetailViewController" customModule="TeamTTI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Uic-hK-i6r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
