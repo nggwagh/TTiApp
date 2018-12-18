@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "IconCalender.png",
+      "filename" : "IconforwardArrow.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "IconCalender-1.png",
+      "filename" : "IconforwardArrow-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "IconCalender@2x.png",
+      "filename" : "IconforwardArrow@2x.png",
       "scale" : "3x"
     }
   ],

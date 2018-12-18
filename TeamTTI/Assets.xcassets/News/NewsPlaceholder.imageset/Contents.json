@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "IconCalender.png",
+      "filename" : "NewPlaceholder.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "IconCalender-1.png",
+      "filename" : "NewPlaceholder-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "IconCalender@2x.png",
+      "filename" : "NewPlaceholder@2x.png",
       "scale" : "3x"
     }
   ],

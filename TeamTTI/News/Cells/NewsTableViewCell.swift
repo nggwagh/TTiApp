@@ -28,7 +28,7 @@ class NewsTableViewCell: UITableViewCell {
     func configureCell(for newsObject : News) {
         self.newsTitleLabel?.text = newsObject.title
         self.newsDateLabel?.text = newsObject.date
-        self.newsImageView?.image = UIImage(named: "ttilogo")
+        self.newsImageView?.image = UIImage(named: "NewsPlaceholder")
         
         self.accessoryView = UIImageView(image: UIImage(named: "accessoryDisclosure"))
     }
