@@ -19,9 +19,6 @@ class GraphTableViewCell: UITableViewCell {
         semiCircleChart = HUSemiCircleChart(frame: CGRect.init(x: 50, y: -100, width: 250, height: 320))
         semiCircleChart.colors = NSMutableArray.init(array: [UIColor.init(named: "tti_blue")!,UIColor.init(named: "graph_unfinished_color")!])
         containerView.addSubview(semiCircleChart)
-        
-        let centerX = NSLayoutConstraint(item: semiCircleChart, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: containerView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
-        containerView.addConstraint(centerX)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,10 +27,15 @@ class GraphTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        semiCircleChart.center.x = self.contentView.center.x
+    }
+    
     func configure(unfinished: NSNumber, finished: NSNumber, total: NSNumber)  {
         //TODO:- handle this with default value and refactor this dirtiness
-        
-       
+
         //data
         let dataSource = NSMutableArray()
         dataSource.add(HUChartEntry.init(name: "Finished", value: finished))
