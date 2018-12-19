@@ -25,6 +25,7 @@
 		3573798021C7B7F2007DDF42 /* Playbook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3573797F21C7B7F2007DDF42 /* Playbook.storyboard */; };
 		3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */; };
 		3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */; };
+		3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */; };
 		35B6749921C4D043000238DD /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749821C4D043000238DD /* NewsViewController.swift */; };
 		35B6749B21C4D17F000238DD /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749A21C4D17F000238DD /* News.swift */; };
 		35B6749D21C4DAD1000238DD /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35B6749C21C4DAD1000238DD /* News.storyboard */; };
@@ -100,6 +101,7 @@
 		3573797F21C7B7F2007DDF42 /* Playbook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Playbook.storyboard; sourceTree = "<group>"; };
 		3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
 		3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		35B6749821C4D043000238DD /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		35B6749A21C4D17F000238DD /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		35B6749C21C4DAD1000238DD /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				CFC7295F2198B4250065BCAC /* HomeViewController.swift */,
 				3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */,
 				CFF45C4421A1CFEC0045B56D /* Cells */,
+				3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				CFF45BF921A18D930045B56D /* Date+Formatting.swift in Sources */,
 				35B674A021C4DFD1000238DD /* NewsTableViewCell.swift in Sources */,
 				CFC7295E21989FCD0065BCAC /* StoreApi.swift in Sources */,
+				3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */,
 				007427DF21AA94AE005C8554 /* StoreSearchTableViewCell.swift in Sources */,
 				00D6AAA121ADBD080059F6F1 /* DateElement.swift in Sources */,
 				CF4832BB217CF3C1000660C6 /* AppDelegate.swift in Sources */,

@@ -46,7 +46,7 @@ class PlaybookTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        searchController.isActive = false
-        self.performSegue(withIdentifier: Constant.Storyboard.Playbook.ViewPlaybookIdentifier, sender: indexPath)
+        self.performSegue(withIdentifier: Constant.Storyboard.Playbook.viewPlaybookIdentifier, sender: indexPath)
     }
 
     //MARK: - IBAction methods

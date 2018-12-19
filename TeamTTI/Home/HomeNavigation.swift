@@ -22,7 +22,9 @@ extension Constant.Storyboard {
     
     struct Playbook {
         static let id = "Playbook"
-        static let ViewPlaybookIdentifier = "ViewPlaybookIdentifier"
+        static let viewPlaybookIdentifier = "ViewPlaybookIdentifier"
+        static let playbookDetailViewController = "PlaybookDetailViewController"
+        
     }
     
 }

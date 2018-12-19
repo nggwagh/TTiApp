@@ -26,6 +26,7 @@ class TaskDetailViewController: UIViewController {
         setButtonBorders()
     }
     
+    // MARK: - Private Methods
     func setButtonBorders() {
         if taskButton.isSelected {
             taskButton.add(border: ViewBorder.bottom, color: UIColor.init(named: "tti_blue")!, width: 3)
@@ -37,6 +38,7 @@ class TaskDetailViewController: UIViewController {
         }
     }
     
+    // MARK: - IBAction Methods
     @IBAction func handleTaskButtonTap(_ sender: UIButton) {
         sender.isSelected = true
         submissionButton.isSelected = false
