@@ -233,7 +233,7 @@
                     <connections>
                         <outlet property="navigationBar" destination="fCG-cV-VLH" id="PwC-oO-MWQ"/>
                         <outlet property="tableView" destination="pZJ-yi-wYM" id="45K-CN-Ta7"/>
-                        <segue destination="3Mk-UB-NSg" kind="push" identifier="TaskDetailIdentifier" id="dbJ-hu-xCu"/>
+                        <segue destination="3Mk-UB-NSg" kind="show" identifier="TaskDetailIdentifier" id="dbJ-hu-xCu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mHy-Gv-yev" userLabel="First Responder" sceneMemberID="firstResponder"/>
