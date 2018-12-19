@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iTunesArtwork@1x-1.png",
+      "filename" : "ttilogoAppIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "iTunesArtwork@1x.png",
+      "filename" : "ttilogoAppIcon1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "iTunesArtwork@1x-2.png",
+      "filename" : "ttilogoAppIcon1-1.png",
       "scale" : "3x"
     }
   ],

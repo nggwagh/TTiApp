@@ -28,12 +28,12 @@ class TaskDetailViewController: UIViewController {
     
     func setButtonBorders() {
         if taskButton.isSelected {
-            taskButton.addBorder(side: UIViewBorderSide.Bottom, color: UIColor.init(named: "tti_blue")!, width: 3)
-            submissionButton.removeBorder()
+            taskButton.add(border: ViewBorder.bottom, color: UIColor.init(named: "tti_blue")!, width: 3)
+            submissionButton.remove(border: ViewBorder.bottom)
         }
         else if submissionButton.isSelected {
-            submissionButton.addBorder(side: UIViewBorderSide.Bottom, color: UIColor.init(named: "tti_blue")!, width: 3)
-            taskButton.removeBorder()
+            submissionButton.add(border: ViewBorder.bottom, color: UIColor.init(named: "tti_blue")!, width: 3)
+            taskButton.remove(border: ViewBorder.bottom)
         }
     }
     

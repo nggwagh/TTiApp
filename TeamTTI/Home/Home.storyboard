@@ -433,7 +433,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="tti_blue"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="tSL-TO-daA">
+                        <view key="tableFooterView" contentMode="scaleToFill" id="tSL-TO-daA">
                             <rect key="frame" x="0.0" y="72" width="414" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -655,9 +655,9 @@
     </scenes>
     <resources>
         <image name="accessoryDisclosure" width="7" height="11"/>
-        <image name="calender" width="55" height="56"/>
+        <image name="calender" width="47" height="48"/>
         <image name="down_arrow" width="21" height="12"/>
-        <image name="left_menu" width="54" height="41"/>
+        <image name="left_menu" width="30.666666030883789" height="22"/>
         <image name="mallImage" width="240" height="115.44000244140625"/>
         <image name="objective_complete" width="23" height="23"/>
         <image name="ttilogo" width="405" height="372"/>
