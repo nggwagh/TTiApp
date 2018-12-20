@@ -26,6 +26,8 @@
 		3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */; };
 		3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */; };
 		3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */; };
+		35A5259821CB599700C43A16 /* MBProgressHudUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */; };
+		35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259921CB664600C43A16 /* SubmissionViewController.swift */; };
 		35B6749921C4D043000238DD /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749821C4D043000238DD /* NewsViewController.swift */; };
 		35B6749B21C4D17F000238DD /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749A21C4D17F000238DD /* News.swift */; };
 		35B6749D21C4DAD1000238DD /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35B6749C21C4DAD1000238DD /* News.storyboard */; };
@@ -102,6 +104,8 @@
 		3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
 		3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBProgressHudUtility.swift; sourceTree = "<group>"; };
+		35A5259921CB664600C43A16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
 		35B6749821C4D043000238DD /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		35B6749A21C4D17F000238DD /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		35B6749C21C4DAD1000238DD /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
@@ -386,6 +390,7 @@
 				005D9D7C2194AD9B003F8CA2 /* Alert.swift */,
 				CFF45BF821A18D930045B56D /* Date+Formatting.swift */,
 				00C1929F21ADC46900F42026 /* XIB+Load.swift */,
+				35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -397,8 +402,9 @@
 				CFC7295721986FF60065BCAC /* HomeNavigation.swift */,
 				CFC7295F2198B4250065BCAC /* HomeViewController.swift */,
 				3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */,
-				CFF45C4421A1CFEC0045B56D /* Cells */,
 				3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */,
+				35A5259921CB664600C43A16 /* SubmissionViewController.swift */,
+				CFF45C4421A1CFEC0045B56D /* Cells */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -628,10 +634,12 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Lift/Lift.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PresentationFramework/Presentation.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -642,10 +650,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Presentation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -671,6 +681,7 @@
 				CFC729672198EB1A0065BCAC /* Objective.swift in Sources */,
 				3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */,
 				CFF45BF721A0ABA90045B56D /* ObjectiveDataProvider.swift in Sources */,
+				35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */,
 				0008804D219408BA00AA8EFC /* UserApi.swift in Sources */,
 				35B6749B21C4D17F000238DD /* News.swift in Sources */,
 				CF4832C3217CF3C1000660C6 /* TeamTTI.xcdatamodeld in Sources */,
@@ -697,6 +708,7 @@
 				003D87D621A72A230095D52F /* HomeNavigationBar.swift in Sources */,
 				00D6AAA321ADBD080059F6F1 /* TTICalendar.m in Sources */,
 				00C192A021ADC46900F42026 /* XIB+Load.swift in Sources */,
+				35A5259821CB599700C43A16 /* MBProgressHudUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

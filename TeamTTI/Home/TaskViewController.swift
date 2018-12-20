@@ -10,10 +10,17 @@ import UIKit
 
 class TaskViewController: UIViewController {
 
+    @IBOutlet weak var scheduledDateBackgroundView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scheduledDateBackgroundView.dropShadow(scale: true)
     }
     
     // MARK: - Private Methods

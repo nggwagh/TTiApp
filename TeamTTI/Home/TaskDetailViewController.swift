@@ -11,6 +11,7 @@ import UIKit
 class TaskDetailViewController: UIViewController {
 
     @IBOutlet private weak var taskDetailsContainerView: UIView!
+    @IBOutlet private weak var submissionDetailsContainerView: UIView!
     @IBOutlet private weak var taskButton: UIButton!
     @IBOutlet private weak var submissionButton: UIButton!
     
@@ -39,11 +40,15 @@ class TaskDetailViewController: UIViewController {
         sender.isSelected = true
         submissionButton.isSelected = false
         setButtonBorders()
+        self.submissionDetailsContainerView.isHidden = true;
+        self.taskDetailsContainerView.isHidden = false;
     }
     
     @IBAction func handleSubmissionButtonTap(_ sender: UIButton) {
         sender.isSelected = true
         taskButton.isSelected = false
         setButtonBorders()
+        self.taskDetailsContainerView.isHidden = true;
+        self.submissionDetailsContainerView.isHidden = false;
     }
 }

@@ -44,7 +44,13 @@ extension LoginViewController {
     private func performLogin() {
         guard self.validate() else { return }
         
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
         MoyaProvider<UserApi>().request(.login(email: txtEmail.text ?? "" , password: txtPassword.text ?? "")) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
             
             switch result {
             //TODO:- make generic solution for error handling

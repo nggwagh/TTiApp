@@ -15,7 +15,8 @@ pod 'KeychainSwift', '~> 13.0'
 pod 'Moya'
 pod 'FSCalendar'
 pod 'MMDrawerController', '~> 0.5.7'
-
+pod 'MBProgressHUD', '~> 1.1.0'
+pod 'UITextView+Placeholder'
 
   target 'TeamTTITests' do
     inherit! :search_paths

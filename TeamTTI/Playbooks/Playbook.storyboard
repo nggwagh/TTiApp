@@ -39,7 +39,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="lPA-Wi-gAW">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="lPA-Wi-gAW">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -50,11 +50,11 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlaybookCell" textLabel="2Df-8R-v8T" detailTextLabel="5tz-Wp-VTe" imageView="HkF-5z-Oo4" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="KUK-Va-Aga">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PlaybookCell" textLabel="2Df-8R-v8T" detailTextLabel="5tz-Wp-VTe" imageView="HkF-5z-Oo4" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="KUK-Va-Aga">
                                 <rect key="frame" x="0.0" y="38" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KUK-Va-Aga" id="4PQ-pJ-9e5">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="August 2018 Playbook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Df-8R-v8T">
@@ -129,7 +129,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Playbook" id="WBL-vB-w7n"/>
                     <connections>
-                        <outlet property="wkWebView" destination="YCB-Op-Nlv" id="bMp-Nf-pec"/>
+                        <outlet property="wkWebView" destination="YCB-Op-Nlv" id="JY6-og-nJS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JgK-vm-g2P" userLabel="First Responder" sceneMemberID="firstResponder"/>

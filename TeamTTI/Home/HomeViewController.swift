@@ -47,9 +47,16 @@ class HomeViewController: UIViewController {
     }
     
     func loadStores() {
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
         storeNetworkTask?.cancel()
         
         storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.stores()) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
             
             switch result {
             case let .success(response):
