@@ -22,9 +22,15 @@ class LeftSideMenuController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        menuItems = ["Home", "Stores", "News", "Playbooks", "Logout"]
+        menuItems = [""]
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        menuItems = ["Home", "Stores", "News", "Playbooks", "Logout"]
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Private Methods
     
     func logoutTheUser() {
