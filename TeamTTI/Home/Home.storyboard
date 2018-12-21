@@ -821,7 +821,7 @@
                                                     <constraint firstAttribute="height" constant="200" id="8je-Jy-e0a"/>
                                                 </constraints>
                                                 <connections>
-                                                    <action selector="handleUploadPhotoButtonTap:" destination="Ukv-6f-XxK" eventType="touchUpInside" id="kea-DM-hh9"/>
+                                                    <action selector="handleUploadPhotoButtonTap:" destination="Ukv-6f-XxK" eventType="touchUpInside" id="BhS-th-ywq"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completion Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGB-bx-Hih">
@@ -1062,6 +1062,7 @@
                         <outlet property="completionTypesBackgroundView" destination="pof-oF-7I5" id="PrR-XG-tPW"/>
                         <outlet property="scheduledDateBackgroundView" destination="nXc-do-QoU" id="pMH-nz-Aps"/>
                         <outlet property="scheduledDateLabel" destination="ZuC-Og-74N" id="vFT-Sg-dvr"/>
+                        <outlet property="taskImageView" destination="nYm-va-9IW" id="AiJ-cs-zTX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7Z-2Q-eLm" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -9,13 +9,14 @@
 import UIKit
 import UITextView_Placeholder
 
-class SubmissionViewController: UIViewController, DateElementDelegate {
+class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPickerDelegate {
     
     @IBOutlet weak var completionTypesBackgroundView: UIView!
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var completionTypeTextField: UITextField!
     @IBOutlet weak var scheduledDateLabel: UILabel!
+    @IBOutlet weak var taskImageView: UIImageView!
 
 
     let completionTypes : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
@@ -38,6 +39,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate {
     // MARK: - IBAction methods
     
     @IBAction func handleUploadPhotoButtonTap(_ sender: UIButton) {
+       _ = PhotoPickerController(buttonToPresentPopoverForiPad: sender, viewControllerToPresent: self, imagePickerDelegate: self as PhotoPickerDelegate)
     }
     
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
@@ -63,7 +65,12 @@ class SubmissionViewController: UIViewController, DateElementDelegate {
     func selectedDate(_ date: Date){
         scheduledDateLabel.text = DateFormatter.formatter_MMMddyyyy.string(from: date)
     }
+    
+    // MARK: - PhotoPickerDelegate methods
 
+    func photoPicker(picker: PhotoPickerController, didSelectImage image: UIImage){
+        taskImageView.image = image
+    }
 }
 
 extension UITextField {

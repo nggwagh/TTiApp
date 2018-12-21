@@ -34,6 +34,7 @@
 		35B674A021C4DFD1000238DD /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749F21C4DFD1000238DD /* NewsTableViewCell.swift */; };
 		35B674A221C58278000238DD /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B674A121C58278000238DD /* NewsDetailViewController.swift */; };
 		35FDFEFD21CCC40C00389C49 /* PickerViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */; };
+		35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */; };
 		35FFC30C21C3B14500F80EA8 /* LeftSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */; };
 		4EF22748183F0DF7A45DDE8D /* Pods_TeamTTITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC85DAEA5DE46733D854EC5E /* Pods_TeamTTITests.framework */; };
 		808A173D9C4668D8A90B68C1 /* Pods_TeamTTI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A21F8E4E4DD82AE9982A38 /* Pods_TeamTTI.framework */; };
@@ -113,6 +114,7 @@
 		35B6749F21C4DFD1000238DD /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		35B674A121C58278000238DD /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewUtility.swift; sourceTree = "<group>"; };
+		35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerController.swift; sourceTree = "<group>"; };
 		35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSideMenuController.swift; sourceTree = "<group>"; };
 		7FDAF4D000B29CB0B4C42E25 /* Pods-TeamTTIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTTIUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamTTIUITests/Pods-TeamTTIUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8BEC00D1775FCD6F632960D6 /* Pods-TeamTTITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTTITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamTTITests/Pods-TeamTTITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				00C1929F21ADC46900F42026 /* XIB+Load.swift */,
 				35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */,
 				35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */,
+				35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				CF4832BD217CF3C1000660C6 /* LoginViewController.swift in Sources */,
 				35B6749921C4D043000238DD /* NewsViewController.swift in Sources */,
 				CFAB0FA2218F4CC4000765F8 /* String+Validations.swift in Sources */,
+				35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */,
 				CFAB0F9F218F332B000765F8 /* RootViewController.swift in Sources */,
 				35B674A221C58278000238DD /* NewsDetailViewController.swift in Sources */,
 				CFC7295821986FF60065BCAC /* HomeNavigation.swift in Sources */,
