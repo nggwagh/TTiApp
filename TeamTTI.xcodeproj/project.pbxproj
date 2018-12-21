@@ -209,7 +209,7 @@
 			path = "Search Store";
 			sourceTree = "<group>";
 		};
-		00D6AA9C21ADBC950059F6F1 /* calendar */ = {
+		00D6AA9C21ADBC950059F6F1 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
 				00D6AA9E21ADBD080059F6F1 /* DateElement.swift */,
@@ -217,7 +217,7 @@
 				00D6AA9D21ADBD080059F6F1 /* TTICalendar.h */,
 				00D6AAA021ADBD080059F6F1 /* TTICalendar.m */,
 			);
-			path = calendar;
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		00F6C61021AC5092003D697A /* Graph Component */ = {
@@ -327,7 +327,7 @@
 				35B6749721C4CFE5000238DD /* Playbooks */,
 				35B6749621C4CFDA000238DD /* News */,
 				35FFC30A21C3B11D00F80EA8 /* Left Menu */,
-				00D6AA9C21ADBC950059F6F1 /* calendar */,
+				00D6AA9C21ADBC950059F6F1 /* Calendar */,
 				CF4832BA217CF3C1000660C6 /* AppDelegate.swift */,
 				003D87D721A72FCD0095D52F /* Search Store */,
 				CFC729632198D87C0065BCAC /* Model */,
