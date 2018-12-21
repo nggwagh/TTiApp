@@ -9,12 +9,14 @@
 import UIKit
 import UITextView_Placeholder
 
-class SubmissionViewController: UIViewController {
+class SubmissionViewController: UIViewController, DateElementDelegate {
     
     @IBOutlet weak var completionTypesBackgroundView: UIView!
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var completionTypeTextField: UITextField!
+    @IBOutlet weak var scheduledDateLabel: UILabel!
+
 
     let completionTypes : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
 
@@ -38,6 +40,16 @@ class SubmissionViewController: UIViewController {
     @IBAction func handleUploadPhotoButtonTap(_ sender: UIButton) {
     }
     
+    @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
+        let calender = DateElement.instanceFromNib() as! DateElement
+        calender.dateDelegate = self
+        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
+            
+        )
+        calender.center = self.view.center
+        self.view.addSubview(calender)
+    }
+    
     // MARK: - Picker View  methods
     
     @objc func completionTypeSelected(selectedText: String) {
@@ -45,6 +57,12 @@ class SubmissionViewController: UIViewController {
     }
     
     // MARK: - Private methods
+    
+    // MARK: - DateElementDelegate methods
+    
+    func selectedDate(_ date: Date){
+        scheduledDateLabel.text = DateFormatter.formatter_MMMddyyyy.string(from: date)
+    }
 
 }
 

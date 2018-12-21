@@ -193,16 +193,6 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         self.performSegue(withIdentifier: Constant.Storyboard.Home.taskDetailIdentifier, sender: indexPath)
     }
-    
-//    {
-//        let calender = DateElement.instanceFromNib() as! DateElement
-//        calender.dateDelegate = self
-//        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
-//
-//        )
-//        self.view.addSubview(calender)
-//    }
-    
 }
 
 //MARK:- HomeNavigationBarDelegate methods

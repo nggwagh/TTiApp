@@ -8,10 +8,11 @@
 
 import UIKit
 
-class TaskViewController: UIViewController {
+class TaskViewController: UIViewController, DateElementDelegate {
 
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
-
+    @IBOutlet weak var scheduledDateLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,5 +33,20 @@ class TaskViewController: UIViewController {
         let viewPlaybookViewController = playbookStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Playbook.playbookDetailViewController)
         self.navigationController?.pushViewController(viewPlaybookViewController, animated: true)
     }
-
+    
+    @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
+        let calender = DateElement.instanceFromNib() as! DateElement
+        calender.dateDelegate = self
+        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
+            
+        )
+        calender.center = self.view.center
+        self.view.addSubview(calender)
+    }
+    
+    // MARK: - DateElementDelegate methods
+    
+    func selectedDate(_ date: Date){
+        scheduledDateLabel.text = DateFormatter.formatter_MMMddyyyy.string(from: date)
+    }
 }

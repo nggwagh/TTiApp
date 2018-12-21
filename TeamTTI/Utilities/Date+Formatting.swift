@@ -11,11 +11,13 @@ import Foundation
 enum DateFormat: String {
     case yyyyMMdd_hhmmss = "yyyy-MM-dd hh:mm:ss"
     case yyyyMMdd = "yyyy-MM-dd"
+    case MMMddyyyy = "MMMM dd, yyyy"
 }
 
 extension DateFormatter {
     static let formatter_yyyyMMdd: DateFormatter = .create(with: .yyyyMMdd)
     static let formatter_yyyyMMdd_hhmmss: DateFormatter = .create(with: .yyyyMMdd_hhmmss)
+    static let formatter_MMMddyyyy: DateFormatter = .create(with: .MMMddyyyy)
 }
 
 extension DateFormatter {

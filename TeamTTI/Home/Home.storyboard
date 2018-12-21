@@ -570,16 +570,16 @@
                                                 <rect key="frame" x="20" y="379.66666666666669" width="374" height="60"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="dvb-Gu-g3p">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="60"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="159.66666666666666" height="60"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcV-J3-Hi9">
-                                                                <rect key="frame" x="0.0" y="0.0" width="187" height="17"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="159.66666666666666" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="September 18, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sis-zu-l9r">
-                                                                <rect key="frame" x="0.0" y="29" width="187" height="31"/>
+                                                                <rect key="frame" x="0.0" y="29" width="159.66666666666666" height="31"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -591,19 +591,19 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-xC-sfU">
-                                                        <rect key="frame" x="187" y="0.0" width="187" height="60"/>
+                                                        <rect key="frame" x="214.33333333333337" y="0.0" width="159.66666666666663" height="60"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scheduled Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yn7-e8-mNb">
-                                                                <rect key="frame" x="0.0" y="0.0" width="187" height="18"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="159.66666666666666" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXM-IV-F4N">
-                                                                <rect key="frame" x="0.0" y="30" width="187" height="30"/>
+                                                                <rect key="frame" x="0.0" y="30" width="159.66666666666666" height="30"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jm8-F6-8ZM">
-                                                                        <rect key="frame" x="5" y="5" width="177" height="20"/>
+                                                                        <rect key="frame" x="5" y="5" width="149.66666666666666" height="20"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CalenderIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mFy-Rm-EWa">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -613,7 +613,10 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="September 16, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nth-OX-yNA">
-                                                                                <rect key="frame" x="28" y="0.0" width="149" height="20"/>
+                                                                                <rect key="frame" x="27.999999999999979" y="0.0" width="121.66666666666669" height="20"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="fPe-M1-Wwa"/>
+                                                                                </constraints>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -621,7 +624,10 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLK-o5-uT4">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="159.66666666666666" height="30"/>
+                                                                        <connections>
+                                                                            <action selector="handleScheduleDateButtonTap:" destination="vqy-cf-NEL" eventType="touchUpInside" id="HTQ-vD-Fe0"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -781,6 +787,7 @@
                     <navigationItem key="navigationItem" title="Second Objective" id="dT9-kM-vEu"/>
                     <connections>
                         <outlet property="scheduledDateBackgroundView" destination="XXM-IV-F4N" id="anU-P4-ztD"/>
+                        <outlet property="scheduledDateLabel" destination="nth-OX-yNA" id="FUX-kI-uDl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uRd-YX-sEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -906,6 +913,9 @@
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="September 16, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuC-Og-74N">
                                                                                 <rect key="frame" x="28" y="0.0" width="149" height="20"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="120" id="Kba-61-Xf6"/>
+                                                                                </constraints>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -914,6 +924,9 @@
                                                                     </stackView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2S-MA-bwD">
                                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                                                        <connections>
+                                                                            <action selector="handleScheduleDateButtonTap:" destination="Ukv-6f-XxK" eventType="touchUpInside" id="gV6-p9-Ani"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1048,6 +1061,7 @@
                         <outlet property="completionTypeTextField" destination="a2s-0c-dh9" id="mFd-FS-fXW"/>
                         <outlet property="completionTypesBackgroundView" destination="pof-oF-7I5" id="PrR-XG-tPW"/>
                         <outlet property="scheduledDateBackgroundView" destination="nXc-do-QoU" id="pMH-nz-Aps"/>
+                        <outlet property="scheduledDateLabel" destination="ZuC-Og-74N" id="vFT-Sg-dvr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7Z-2Q-eLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
