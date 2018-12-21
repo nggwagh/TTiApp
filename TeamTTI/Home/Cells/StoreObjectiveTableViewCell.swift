@@ -14,7 +14,8 @@ class StoreObjectiveTableViewCell: UITableViewCell {
     @IBOutlet weak var completionIcon: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPriority: UILabel!
-
+    @IBOutlet weak var checkMarkButton: UIButton!
+    @IBOutlet weak var checkMarkButtonWidthConstraint: NSLayoutConstraint!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,9 +31,18 @@ class StoreObjectiveTableViewCell: UITableViewCell {
 }
 
 extension StoreObjectiveTableViewCell {
-    func configure(with storeObjective: StoreObjective) {
+    func configure(with storeObjective: StoreObjective, isSelectionOn: Bool) {
         completionIcon.image = storeObjective.status.iconImage
         lblTitle.text = storeObjective.objective?.title
         lblPriority.text = storeObjective.objective?.priority.displayValue
+        
+        if isSelectionOn && storeObjective.objective?.priority == Priority.high {
+            checkMarkButton.isHidden = false
+            checkMarkButtonWidthConstraint.constant = 30;
+        }
+        else{
+            checkMarkButton.isHidden = true
+            checkMarkButtonWidthConstraint.constant = 0;
+        }
     }
 }

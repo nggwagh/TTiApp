@@ -171,7 +171,7 @@ extension HomeViewController: UITableViewDataSource {
             guard let storeObjective = self.storeObjectives?[indexPath.row] else { return UITableViewCell() }
             
             let storeObjectiveCell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell") as! StoreObjectiveTableViewCell
-            storeObjectiveCell.configure(with: storeObjective)
+            storeObjectiveCell.configure(with: storeObjective, isSelectionOn: self.navigationBar.calendarButton.isSelected)
             return storeObjectiveCell
         default:
             return UITableViewCell()
@@ -212,6 +212,8 @@ extension HomeViewController: HomeNavigationBarDelegate {
     
     func calendarClicked() {
         //open calendar
+        self.navigationBar.calendarButton.isSelected = !self.navigationBar.calendarButton.isSelected
+        tableView.reloadData()
     }
     
     func performSearch() {
