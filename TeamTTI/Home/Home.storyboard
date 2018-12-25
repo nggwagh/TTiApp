@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -150,7 +150,8 @@
                                                         <constraint firstAttribute="height" constant="30" id="71m-PQ-wdM"/>
                                                         <constraint firstAttribute="width" constant="30" id="kl5-9m-2lp"/>
                                                     </constraints>
-                                                    <state key="normal" image="objective_complete"/>
+                                                    <state key="normal" image="unCheck"/>
+                                                    <state key="selected" image="check"/>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="objective_complete" translatesAutoresizingMaskIntoConstraints="NO" id="iM3-yB-AzH">
                                                     <rect key="frame" x="53" y="16" width="23" height="23"/>
@@ -1079,15 +1080,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CalenderIcon" width="28" height="29"/>
-        <image name="UploadImage" width="1296" height="780"/>
+        <image name="CalenderIcon" width="18" height="19"/>
+        <image name="UploadImage" width="432" height="260"/>
         <image name="accessoryDisclosure" width="7" height="11"/>
         <image name="calender" width="47" height="48"/>
-        <image name="down_arrow" width="21" height="12"/>
-        <image name="down_arrow_blue" width="34" height="22"/>
-        <image name="left_menu" width="30.666666030883789" height="22"/>
-        <image name="mallImage" width="240" height="115.44000244140625"/>
+        <image name="check" width="20" height="20"/>
+        <image name="down_arrow" width="14" height="8"/>
+        <image name="down_arrow_blue" width="11" height="7"/>
+        <image name="left_menu" width="30" height="22"/>
+        <image name="mallImage" width="500" height="240"/>
         <image name="objective_complete" width="23" height="23"/>
+        <image name="unCheck" width="20" height="20"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

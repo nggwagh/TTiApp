@@ -127,20 +127,6 @@ class HomeViewController: UIViewController {
     func reloadTableView() {
         tableView.reloadData()
     }
-    
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
 extension HomeViewController: UITableViewDataSource {
@@ -172,6 +158,8 @@ extension HomeViewController: UITableViewDataSource {
             
             let storeObjectiveCell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell") as! StoreObjectiveTableViewCell
             storeObjectiveCell.configure(with: storeObjective, isSelectionOn: self.navigationBar.calendarButton.isSelected)
+            storeObjectiveCell.checkMarkButton.isSelected = true
+            
             return storeObjectiveCell
         default:
             return UITableViewCell()
