@@ -37,6 +37,7 @@
 		35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */; };
 		35FFC30C21C3B14500F80EA8 /* LeftSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */; };
 		4EF22748183F0DF7A45DDE8D /* Pods_TeamTTITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC85DAEA5DE46733D854EC5E /* Pods_TeamTTITests.framework */; };
+		526A60E021D2113500E5CD65 /* NewsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A60DF21D2113400E5CD65 /* NewsApi.swift */; };
 		808A173D9C4668D8A90B68C1 /* Pods_TeamTTI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A21F8E4E4DD82AE9982A38 /* Pods_TeamTTI.framework */; };
 		CF4832BB217CF3C1000660C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4832BA217CF3C1000660C6 /* AppDelegate.swift */; };
 		CF4832BD217CF3C1000660C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4832BC217CF3C1000660C6 /* LoginViewController.swift */; };
@@ -116,6 +117,7 @@
 		35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewUtility.swift; sourceTree = "<group>"; };
 		35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerController.swift; sourceTree = "<group>"; };
 		35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSideMenuController.swift; sourceTree = "<group>"; };
+		526A60DF21D2113400E5CD65 /* NewsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsApi.swift; sourceTree = "<group>"; };
 		7FDAF4D000B29CB0B4C42E25 /* Pods-TeamTTIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTTIUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamTTIUITests/Pods-TeamTTIUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8BEC00D1775FCD6F632960D6 /* Pods-TeamTTITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTTITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamTTITests/Pods-TeamTTITests.release.xcconfig"; sourceTree = "<group>"; };
 		C59F4BC19391D414DBA11845 /* Pods-TeamTTITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTTITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamTTITests/Pods-TeamTTITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				0008804C219408BA00AA8EFC /* UserApi.swift */,
 				CFC7295D21989FCD0065BCAC /* StoreApi.swift */,
 				CFC729682198EC7A0065BCAC /* ObjectiveApi.swift */,
+				526A60DF21D2113400E5CD65 /* NewsApi.swift */,
 			);
 			path = "Network Services";
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */,
 				CFF45BF721A0ABA90045B56D /* ObjectiveDataProvider.swift in Sources */,
 				35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */,
+				526A60E021D2113500E5CD65 /* NewsApi.swift in Sources */,
 				0008804D219408BA00AA8EFC /* UserApi.swift in Sources */,
 				35B6749B21C4D17F000238DD /* News.swift in Sources */,
 				CF4832C3217CF3C1000660C6 /* TeamTTI.xcdatamodeld in Sources */,

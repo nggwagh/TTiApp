@@ -26,11 +26,17 @@ class NewsTableViewCell: UITableViewCell {
     }
 
     func configureCell(for newsObject : News) {
-        self.newsTitleLabel?.text = newsObject.title
-        self.newsDateLabel?.text = newsObject.date
-        self.newsImageView?.image = UIImage(named: "NewsPlaceholder")
         
+        self.newsTitleLabel?.text = newsObject.title
+//      self.newsDateLabel?.text = newsObject.date
+        self.newsDateLabel?.text = DateFormatter.convertDateStringToMMMddyyyy(newsObject.date!)
         self.accessoryView = UIImageView(image: UIImage(named: "accessoryDisclosure"))
+
+        if newsObject.imageURL?.count == 0 {
+            self.newsImageView?.image = UIImage(named: "NewsPlaceholder")
+        } else{
+            self.newsImageView?.image = UIImage(named: "NewsPlaceholder")
+        }
     }
 }
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import MMDrawerController
+import Moya
 
 protocol NewsSearchViewControllerDelegate: class {
     func selected(store: Store)
@@ -18,28 +19,38 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     weak var delegate: NewsSearchViewControllerDelegate?
     
+    //MARK: IBOutlets
     @IBOutlet private weak var searchedNewsTableView: UITableView!
-    //    @IBOutlet private weak var searchBarContainer: UIView!
     @IBOutlet private weak var searchBar: UISearchBar!
-    
+//  @IBOutlet private weak var searchBarContainer: UIView!
+
+    //MARK: Instance variables
+    private var newsNetworkTask: Cancellable?
     private var news = [News]()
-    
     private var filteredNews = [News]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         
+        //Calling API function
+        self.getNewsList()
+
+        //New with hardcoded data
+        /*
         for i in 1...15 {
-            let newsObj = News(title: "Branded Tent Survey", id: i, date: "Sep 25, 2018", imageURL: "imageURL")
+            let newsObj = News(title: "Branded Tent Survey", detail: "asdasdsa", id: i, date: "Sep 25, 2018", imageURL: [])
             news.append(newsObj)
         }
         
-        let newsObj = News(title: "Heated Gear", id: 16, date: "Sep 18, 2018", imageURL: "imageUrl")
+        let newsObj = News(title: "Heated Gear", detail: "asdasdsad", id: 16, date: "Sep 18, 2018", imageURL: [])
         news.append(newsObj)
         
         filteredNews = news
+        */
+ 
         
         // Glass Icon Customization
         if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
@@ -49,6 +60,58 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = UIColor.init(named: "tti_blue")
         }
+    }
+    
+    //MARK: Api call
+    func getNewsList() {
+        
+    //Show progress hud
+    self.showHUD(progressLabel: "")
+        
+    newsNetworkTask?.cancel()
+        
+        newsNetworkTask = MoyaProvider<NewsApi>(plugins: [AuthPlugin()]).request(.news()) { result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                  
+                    do{
+                        let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
+                        
+                        self.news = News.build(from: jsonDict)
+                        self.filteredNews = self.news
+                        self.searchedNewsTableView.reloadData()
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+                
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                break
+            }
+            
+            
+            
+        }
+        
     }
     
     // MARK: - Table view data source

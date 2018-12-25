@@ -32,5 +32,17 @@ private extension DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = format.rawValue
         return formatter
+    } 
+}
+
+extension DateFormatter {
+    static func convertDateStringToMMMddyyyy(_ date: String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateFormatter.date(from: date)
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        return  dateFormatter.string(from: date!)
     }
 }
+

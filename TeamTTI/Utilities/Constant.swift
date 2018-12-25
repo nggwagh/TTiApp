@@ -26,6 +26,11 @@ struct Constant {
         struct Objective {
             static let path = "api/v1/objective"
         }
+        
+        struct New {
+            static let path = "api/v1/news"
+        }
+        
     }
 
     struct Storyboard {
