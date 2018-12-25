@@ -36,13 +36,17 @@ extension StoreObjectiveTableViewCell {
         lblTitle.text = storeObjective.objective?.title
         lblPriority.text = storeObjective.objective?.priority.displayValue
         
-        if isSelectionOn && storeObjective.objective?.priority == Priority.high {
+        if !isSelectionOn {
+            checkMarkButton.isHidden = true
+            checkMarkButtonWidthConstraint.constant = 0;
+        }
+        else if isSelectionOn && storeObjective.objective?.priority == Priority.high {
             checkMarkButton.isHidden = false
             checkMarkButtonWidthConstraint.constant = 30;
         }
         else{
             checkMarkButton.isHidden = true
-            checkMarkButtonWidthConstraint.constant = 0;
+            checkMarkButtonWidthConstraint.constant = 30;
         }
     }
 }
