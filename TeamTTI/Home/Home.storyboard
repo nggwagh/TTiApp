@@ -219,6 +219,54 @@
                                     <outlet property="delegate" destination="4Jh-aR-zil" id="seP-Ef-ZRO"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htV-N0-BVL">
+                                <rect key="frame" x="0.0" y="109" width="414" height="50"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calender" translatesAutoresizingMaskIntoConstraints="NO" id="YeM-ga-HnQ">
+                                        <rect key="frame" x="20" y="15" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="0eD-LM-x2M"/>
+                                            <constraint firstAttribute="height" constant="20" id="5Bg-4q-YG7"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAv-Mv-M20">
+                                        <rect key="frame" x="346" y="8.6666666666666714" width="48" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="ViB-Ux-ePX"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleCancelButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="CTK-BF-lTJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1c-gg-hKK">
+                                        <rect key="frame" x="50" y="8.6666666666666714" width="65" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="65" id="cRP-3D-2JJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Schedule">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleScheduleButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="hXY-3T-YlV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="tti_blue"/>
+                                <constraints>
+                                    <constraint firstItem="uAv-Mv-M20" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="7Nt-tI-CQA"/>
+                                    <constraint firstItem="YeM-ga-HnQ" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="8gu-GT-XhQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="uAv-Mv-M20" secondAttribute="trailing" constant="20" id="HfQ-tI-LrU"/>
+                                    <constraint firstItem="M1c-gg-hKK" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="cHc-3p-vUo"/>
+                                    <constraint firstItem="M1c-gg-hKK" firstAttribute="leading" secondItem="YeM-ga-HnQ" secondAttribute="trailing" constant="10" id="oLp-Mb-aWa"/>
+                                    <constraint firstAttribute="height" constant="50" id="veS-tr-Lg8"/>
+                                    <constraint firstItem="YeM-ga-HnQ" firstAttribute="leading" secondItem="htV-N0-BVL" secondAttribute="leading" constant="20" id="z7Q-Al-bcV"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -227,8 +275,11 @@
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="trailing" secondItem="wCw-pi-nst" secondAttribute="trailing" id="4wb-GP-2zA"/>
                             <constraint firstItem="wCw-pi-nst" firstAttribute="bottom" secondItem="pZJ-yi-wYM" secondAttribute="bottom" id="5a5-03-pg5"/>
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="bottom" secondItem="fCG-cV-VLH" secondAttribute="bottom" id="CqX-iI-ryX"/>
+                            <constraint firstItem="htV-N0-BVL" firstAttribute="trailing" secondItem="wCw-pi-nst" secondAttribute="trailing" id="MuL-Lf-8yw"/>
                             <constraint firstItem="wCw-pi-nst" firstAttribute="trailing" secondItem="KJ6-P2-9rk" secondAttribute="trailing" id="OKB-wO-mlz"/>
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="top" secondItem="fCG-cV-VLH" secondAttribute="bottom" id="bVt-hl-Yik"/>
+                            <constraint firstItem="htV-N0-BVL" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="bq3-28-R2D"/>
+                            <constraint firstItem="htV-N0-BVL" firstAttribute="top" secondItem="KJ6-P2-9rk" secondAttribute="bottom" constant="1" id="fNf-6N-ZpU"/>
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="itY-W1-mLL"/>
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="top" secondItem="Nby-ir-Gtw" secondAttribute="top" id="mkk-3B-aAQ"/>
                             <constraint firstItem="fCG-cV-VLH" firstAttribute="top" secondItem="wCw-pi-nst" secondAttribute="top" id="p4f-2v-Lif"/>
@@ -241,6 +292,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="navigationBar" destination="fCG-cV-VLH" id="PwC-oO-MWQ"/>
+                        <outlet property="scheduleView" destination="htV-N0-BVL" id="lW9-0y-EbM"/>
                         <outlet property="tableView" destination="pZJ-yi-wYM" id="45K-CN-Ta7"/>
                         <segue destination="3Mk-UB-NSg" kind="show" identifier="TaskDetailIdentifier" id="dbJ-hu-xCu"/>
                     </connections>

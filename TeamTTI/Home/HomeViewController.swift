@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     
     //MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var scheduleView: UIView!
     
     //MARK: Instance variables
     private var storeNetworkTask: Cancellable?
@@ -127,6 +127,31 @@ class HomeViewController: UIViewController {
     func reloadTableView() {
         tableView.reloadData()
     }
+    
+    //MARK: - IBAction methods
+    @objc func handleCheckUncheckButtonTap(sender : UIButton) {
+        sender.isSelected = !sender.isSelected;
+    }
+    
+    @IBAction func handleCancelButtonTap(sender : UIButton) {
+        
+        self.navigationBar.calendarButton.isSelected = false
+        self.reloadTableView()
+
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.scheduleView.isHidden = true
+        })
+    }
+    
+    @IBAction func handleScheduleButtonTap(sender : UIButton) {
+        let calender = DateElement.instanceFromNib() as! DateElement
+        calender.dateDelegate = self
+        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
+            
+        )
+//        calender.center = self.view.center
+        self.view.addSubview(calender)
+    }
 }
 
 extension HomeViewController: UITableViewDataSource {
@@ -159,7 +184,7 @@ extension HomeViewController: UITableViewDataSource {
             let storeObjectiveCell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell") as! StoreObjectiveTableViewCell
             storeObjectiveCell.configure(with: storeObjective, isSelectionOn: self.navigationBar.calendarButton.isSelected)
             storeObjectiveCell.checkMarkButton.isSelected = true
-            
+            storeObjectiveCell.checkMarkButton.addTarget(self, action: #selector(handleCheckUncheckButtonTap(sender:)), for: UIControlEvents.touchUpInside)
             return storeObjectiveCell
         default:
             return UITableViewCell()
@@ -202,6 +227,10 @@ extension HomeViewController: HomeNavigationBarDelegate {
         //open calendar
         self.navigationBar.calendarButton.isSelected = !self.navigationBar.calendarButton.isSelected
         tableView.reloadData()
+        
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.scheduleView.isHidden = false
+        })
     }
     
     func performSearch() {
