@@ -29,7 +29,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var news = [News]()
     private var filteredNews = [News]()
     
-    
+    //MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,6 +61,27 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
             glassIconView.tintColor = UIColor.init(named: "tti_blue")
         }
     }
+    
+    
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+        
+        if segue.identifier == Constant.Storyboard.News.newsDetailsSegueIdentifier {
+            
+            let row: Int = sender as! Int
+            
+            let selectedNew = self.filteredNews[row]
+            
+            let destinationVC = segue.destination as! NewsDetailViewController
+            
+            destinationVC.new = selectedNew
+        }
+    }
+    
     
     //MARK: Api call
     func getNewsList() {
@@ -140,7 +161,8 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        searchController.isActive = false
-        self.performSegue(withIdentifier: Constant.Storyboard.News.newsDetailsSegueIdentifier, sender: indexPath)
+        
+       self.performSegue(withIdentifier: Constant.Storyboard.News.newsDetailsSegueIdentifier, sender: indexPath.row)
     }
     
     // MARK: - Private Methods

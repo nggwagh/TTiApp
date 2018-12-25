@@ -294,18 +294,23 @@ It is a long established fact that a reader will be distracted by the readable c
                     </view>
                     <connections>
                         <outlet property="containerView" destination="iGr-se-VEE" id="bHu-fD-M0W"/>
+                        <outlet property="newDate" destination="pRh-7j-g9V" id="3Dr-bg-AUA"/>
+                        <outlet property="newDetails" destination="yd8-3r-QMz" id="cBT-Ij-IPC"/>
+                        <outlet property="newImageView" destination="iHr-Tt-JLj" id="Qcl-3p-840"/>
+                        <outlet property="newTitle" destination="pGd-bz-DEx" id="f3S-zF-ydK"/>
+                        <outlet property="postBy" destination="MQr-dH-aOS" id="AZP-OA-Ua1"/>
                         <outlet property="scrollView" destination="agC-H2-7le" id="dTu-E4-nlS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgp-Cb-ncj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1290" y="769"/>
+            <point key="canvasLocation" x="1430" y="779"/>
         </scene>
     </scenes>
     <resources>
-        <image name="NewsPlaceholder" width="47" height="47"/>
-        <image name="left_menu" width="23" height="16.5"/>
-        <image name="newsImages" width="233" height="216"/>
+        <image name="NewsPlaceholder" width="23" height="23"/>
+        <image name="left_menu" width="23" height="16"/>
+        <image name="newsImages" width="116" height="108"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

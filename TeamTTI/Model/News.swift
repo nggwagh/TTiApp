@@ -23,10 +23,14 @@ extension News {
             return News(title: newsJsonObject["subject"] as! String,
                         detail: newsJsonObject["content"] as! String,
                          id: newsJsonObject["id"] as! Int,
-                         date: newsJsonObject["date"] as? String,
-                         imageURL: newsJsonObject["images"] as? Array)
+                         date: DateFormatter.convertDateStringToMMMddyyyy(newsJsonObject["date"] as! String),
+                         imageURL: ["https://pngimage.net/wp-content/uploads/2018/06/todays-news-png-2.png"])
+                         //newsJsonObject["images"] as? Array
+            
         })
     }
+    
+    
     
     init(title: String, detail: String, id: Int, date: String, imageURL : [String]) {
         self.title = title
