@@ -47,6 +47,9 @@ class HomeNavigationBar: UIView {
         delegate?.performSearch()
     }
 
+    func setTitle(_ title: String) {
+        self.titleLabel.text = title
+    }
 
 
 }

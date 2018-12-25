@@ -90,6 +90,8 @@ class HomeViewController: UIViewController {
     func selectStore(_ store: Store) {
         self.selectedStore = store
         
+        self.setStoreDetails()
+        
         storeObjectiveNetworkTask?.cancel()
         
         guard let storeId = self.selectedStore?.id else { return }
@@ -128,6 +130,10 @@ class HomeViewController: UIViewController {
         tableView.reloadData()
     }
     
+    func setStoreDetails(){
+        self.navigationBar.setTitle((selectedStore?.name)!)
+    }
+    
     //MARK: - IBAction methods
     @objc func handleCheckUncheckButtonTap(sender : UIButton) {
         sender.isSelected = !sender.isSelected;
@@ -149,7 +155,6 @@ class HomeViewController: UIViewController {
         calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
             
         )
-//        calender.center = self.view.center
         self.view.addSubview(calender)
     }
 }
@@ -252,7 +257,7 @@ extension HomeViewController: HomeNavigationBarDelegate {
 
 extension HomeViewController: StoreSearchViewControllerDelegate {
     func selected(store: Store) {
-        print(store.name)
+        self.selectStore(store)
     }
     
     func cancel() {
