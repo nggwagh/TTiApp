@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import SDWebImage
-import MediaView
+import AlamofireImage
+import Optik
 
 class NewsDetailViewController: UIViewController {
 
@@ -35,19 +35,25 @@ class NewsDetailViewController: UIViewController {
         self.newTitle?.text = self.new?.title
         self.postBy?.text = "By Admin"
         self.newDetails?.text = self.new?.detail
-        
-        self.newImageView?.sd_setImage(with: URL(string: (self.new?.imageURL?[0])!), placeholderImage: UIImage(named: "NewsPlaceholder"))
+        self.newImageView.af_setImage(withURL: URL(string: (self.new?.imageURL?[0])!)!, placeholderImage: UIImage(named: "NewsPlaceholder")!)
     }
    
     //MARK: - IBAction methods
-    
     @IBAction func handleViewImageButtonTap(sender : UIButton) {
-        let mediaView : MediaView = MediaView(frame: self.view.frame)
-        mediaView.contentMode = UIViewContentMode.scaleAspectFit
-        mediaView.topBuffer = 20
-        mediaView.setImage(url: (self.new?.imageURL?[0])!)
-        mediaView.setImage(url: (self.new?.imageURL?[0])!)
-        MediaQueue.shared.present(mediaView: mediaView)
+
+        let imageDownloader = AlamofireImageDownloader()
+
+        guard
+            let url1 = URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Caesio_teres_in_Fiji_by_Nick_Hobgood.jpg"),
+            let url2 = URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Croissant%2C_cross_section.jpg"),
+            let url3 = URL(string: "https://upload.wikimedia.org/wikipedia/en/9/9d/Link_%28Hyrule_Historia%29.png"),
+            let url4 = URL(string: "https://upload.wikimedia.org/wikipedia/en/3/34/RickAstleyNeverGonnaGiveYouUp7InchSingleCover.jpg") else {
+                return
+        }
+        
+        let imageViewer = Optik.imageViewer(withURLs: [url1,url2,url3,url4], initialImageDisplayIndex: 0, imageDownloader: imageDownloader, activityIndicatorColor: UIColor.white, dismissButtonImage: nil, dismissButtonPosition: DismissButtonPosition.topLeading)
+
+        self.present(imageViewer, animated: true, completion: nil)
     }
 
 }

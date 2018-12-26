@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import AlamofireImage
 
 class NewsTableViewCell: UITableViewCell {
 
@@ -35,8 +35,8 @@ class NewsTableViewCell: UITableViewCell {
         
         if newsObject.imageURL?.count == 0 {
             self.newsImageView?.image = UIImage(named: "NewsPlaceholder")
-        } else {
-            self.newsImageView?.sd_setImage(with: URL(string: newsObject.imageURL![0]), placeholderImage: UIImage(named: "NewsPlaceholder"))
+        } else {           
+            self.newsImageView.af_setImage(withURL: URL(string: ((newsObject.imageURL?[0])!))!, placeholderImage: UIImage(named: "NewsPlaceholder")!)
         }
         
     }
