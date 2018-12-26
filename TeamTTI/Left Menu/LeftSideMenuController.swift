@@ -27,7 +27,7 @@ class LeftSideMenuController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        menuItems = ["Home", "Stores", "News", "Playbooks", "Logout"]
+        menuItems = ["Home", "Planner", "Stores", "News", "Playbooks", "Logout"]
         self.tableView.reloadData()
     }
     
@@ -79,18 +79,20 @@ class LeftSideMenuController: UITableViewController {
         case 1:
             break;
         case 2:
+            break;
+        case 3:
             let newsStoryboard = UIStoryboard.init(name: Constant.Storyboard.News.id, bundle: nil)
             let newsViewController = newsStoryboard.instantiateInitialViewController()
             RootViewControllerFactory.centerContainer.centerViewController = newsViewController
             RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
             break;
-        case 3:
+        case 4:
             let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
             let playbookViewController = playbookStoryboard.instantiateInitialViewController()
             RootViewControllerFactory.centerContainer.centerViewController = playbookViewController
             RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
             break;
-        case 4:
+        case 5:
             self.logoutTheUser()
             break;
         default:
