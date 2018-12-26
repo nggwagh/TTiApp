@@ -197,6 +197,12 @@
                                                     <constraint firstAttribute="height" constant="200" id="qOU-Zd-ZwG"/>
                                                 </constraints>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LvP-Dc-kgs">
+                                                <rect key="frame" x="20" y="20" width="335" height="200"/>
+                                                <connections>
+                                                    <action selector="handleViewImageButtonTapWithSender:" destination="Qon-ri-5dV" eventType="touchUpInside" id="D2c-RI-V7P"/>
+                                                </connections>
+                                            </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cl6-NV-2d3">
                                                 <rect key="frame" x="20" y="240" width="335" height="44"/>
                                                 <subviews>
@@ -259,17 +265,21 @@ It is a long established fact that a reader will be distracted by the readable c
                                         <constraints>
                                             <constraint firstItem="FYp-uA-URc" firstAttribute="top" secondItem="cl6-NV-2d3" secondAttribute="bottom" constant="15" id="H0X-K6-fdB"/>
                                             <constraint firstAttribute="trailing" secondItem="iHr-Tt-JLj" secondAttribute="trailing" constant="20" id="Je5-H4-X72"/>
+                                            <constraint firstItem="LvP-Dc-kgs" firstAttribute="height" secondItem="iHr-Tt-JLj" secondAttribute="height" id="LWL-3s-sMU"/>
                                             <constraint firstItem="yd8-3r-QMz" firstAttribute="leading" secondItem="iGr-se-VEE" secondAttribute="leading" constant="20" id="Ld0-tM-zKt"/>
                                             <constraint firstItem="cl6-NV-2d3" firstAttribute="top" secondItem="iHr-Tt-JLj" secondAttribute="bottom" constant="20" id="QSS-q2-peo"/>
                                             <constraint firstAttribute="trailing" secondItem="FYp-uA-URc" secondAttribute="trailing" constant="20" id="WJO-6O-dWx"/>
                                             <constraint firstAttribute="trailing" secondItem="cl6-NV-2d3" secondAttribute="trailing" constant="20" id="WMa-F4-Gaa"/>
+                                            <constraint firstItem="LvP-Dc-kgs" firstAttribute="centerY" secondItem="iHr-Tt-JLj" secondAttribute="centerY" id="XKx-ar-08X"/>
                                             <constraint firstItem="yd8-3r-QMz" firstAttribute="top" secondItem="FYp-uA-URc" secondAttribute="bottom" constant="15" id="gPl-WK-PoQ"/>
                                             <constraint firstItem="cl6-NV-2d3" firstAttribute="leading" secondItem="iGr-se-VEE" secondAttribute="leading" constant="20" id="gpQ-af-Wnd"/>
                                             <constraint firstItem="iHr-Tt-JLj" firstAttribute="top" secondItem="iGr-se-VEE" secondAttribute="top" constant="20" id="k3N-lQ-ijz"/>
                                             <constraint firstItem="iHr-Tt-JLj" firstAttribute="leading" secondItem="iGr-se-VEE" secondAttribute="leading" constant="20" id="m55-Wf-CSE"/>
                                             <constraint firstAttribute="trailing" secondItem="yd8-3r-QMz" secondAttribute="trailing" constant="20" id="mSt-ko-opH"/>
                                             <constraint firstItem="FYp-uA-URc" firstAttribute="leading" secondItem="iGr-se-VEE" secondAttribute="leading" constant="20" id="nEf-Hm-8oM"/>
+                                            <constraint firstItem="LvP-Dc-kgs" firstAttribute="centerX" secondItem="iHr-Tt-JLj" secondAttribute="centerX" id="sGv-aH-Wwt"/>
                                             <constraint firstAttribute="bottom" secondItem="yd8-3r-QMz" secondAttribute="bottom" constant="30" id="xHc-Yl-lGO"/>
+                                            <constraint firstItem="LvP-Dc-kgs" firstAttribute="width" secondItem="iHr-Tt-JLj" secondAttribute="width" id="xjh-dj-xzi"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -308,9 +318,9 @@ It is a long established fact that a reader will be distracted by the readable c
         </scene>
     </scenes>
     <resources>
-        <image name="NewsPlaceholder" width="23" height="23"/>
-        <image name="left_menu" width="23" height="16"/>
-        <image name="newsImages" width="116" height="108"/>
+        <image name="NewsPlaceholder" width="47" height="47"/>
+        <image name="left_menu" width="23" height="16.5"/>
+        <image name="newsImages" width="233" height="216"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

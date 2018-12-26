@@ -18,6 +18,7 @@ pod 'MMDrawerController', '~> 0.5.7'
 pod 'MBProgressHUD', '~> 1.1.0'
 pod 'UITextView+Placeholder'
 pod 'SDWebImage', '~> 4.0'
+pod 'MediaView'
 
   target 'TeamTTITests' do
     inherit! :search_paths

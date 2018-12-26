@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import MediaView
 
 class NewsDetailViewController: UIViewController {
 
@@ -36,17 +37,17 @@ class NewsDetailViewController: UIViewController {
         self.newDetails?.text = self.new?.detail
         
         self.newImageView?.sd_setImage(with: URL(string: (self.new?.imageURL?[0])!), placeholderImage: UIImage(named: "NewsPlaceholder"))
-        
     }
    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: - IBAction methods
+    
+    @IBAction func handleViewImageButtonTap(sender : UIButton) {
+        let mediaView : MediaView = MediaView(frame: self.view.frame)
+        mediaView.contentMode = UIViewContentMode.scaleAspectFit
+        mediaView.topBuffer = 20
+        mediaView.setImage(url: (self.new?.imageURL?[0])!)
+        mediaView.setImage(url: (self.new?.imageURL?[0])!)
+        MediaQueue.shared.present(mediaView: mediaView)
     }
-    */
 
 }

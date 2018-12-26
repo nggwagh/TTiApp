@@ -38,20 +38,6 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Calling API function
         self.getNewsList()
 
-        //New with hardcoded data
-        /*
-        for i in 1...15 {
-            let newsObj = News(title: "Branded Tent Survey", detail: "asdasdsa", id: i, date: "Sep 25, 2018", imageURL: [])
-            news.append(newsObj)
-        }
-        
-        let newsObj = News(title: "Heated Gear", detail: "asdasdsad", id: 16, date: "Sep 18, 2018", imageURL: [])
-        news.append(newsObj)
-        
-        filteredNews = news
-        */
- 
-        
         // Glass Icon Customization
         if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
