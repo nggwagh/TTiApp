@@ -11,15 +11,21 @@ import UITextView_Placeholder
 
 class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPickerDelegate {
     
-    @IBOutlet weak var completionTypesBackgroundView: UIView!
-    @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var completionTypeTextField: UITextField!
+    @IBOutlet weak var completionTypesBackgroundView: UIView!
+    @IBOutlet weak var reasonTextField: UITextField!
+    @IBOutlet weak var reasonBackgroundView: UIView!
+    @IBOutlet weak var reasonViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scheduledDateLabel: UILabel!
+    @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskImageView: UIImageView!
 
 
-    let completionTypes : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
+    let completionTypes : [String] = ["Complete", "Schedule", "Incomplete"]
+    let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
+
+    var isViewLoadedForFirstTime : Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +34,12 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidLayoutSubviews()
-        completionTypesBackgroundView.dropShadow(scale: true)
-        scheduledDateBackgroundView.dropShadow(scale: true)
-        commentTextView.placeholder = "Type your comment here"
-        commentTextView.placeholderColor = UIColor.lightGray
-        completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
+        super.viewDidAppear(animated)
+        
+        if isViewLoadedForFirstTime {
+            isViewLoadedForFirstTime = false
+            self.setUpInitialView()
+        }
     }
     
     // MARK: - IBAction methods
@@ -55,10 +61,30 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - Picker View  methods
     
     @objc func completionTypeSelected(selectedText: String) {
+        if selectedText == "Incomplete" {
+            self.reasonViewHeightConstraint.constant = 112;
+        }
+        else {
+            self.reasonViewHeightConstraint.constant = 0;
+        }
+    }
+    
+    @objc func reasonSelected(selectedText: String) {
         
     }
     
     // MARK: - Private methods
+    
+    func setUpInitialView() {
+        completionTypesBackgroundView.dropShadow(scale: true)
+        reasonBackgroundView.dropShadow(scale: true)
+        scheduledDateBackgroundView.dropShadow(scale: true)
+        commentTextView.placeholder = "Type your comment here"
+        commentTextView.placeholderColor = UIColor.lightGray
+        completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
+        reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
+        self.reasonViewHeightConstraint.constant = 0;
+    }
     
     // MARK: - DateElementDelegate methods
     
