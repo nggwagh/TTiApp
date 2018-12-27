@@ -109,11 +109,11 @@ class HomeViewController: UIViewController {
             case let .success(response):
                 if case 200..<400 = response.statusCode {
                     do {
-                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
                         
                         //TODO: Parse StoreObjectives
-                        self.storeObjectives = StoreObjective.build(from: jsonDict)
+                        self.storeObjectives = StoreObjective.build(from: jsonDict["objectives"] as! Array)
                         self.reloadTableView()
                     }
                     catch let error {
