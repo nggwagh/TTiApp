@@ -21,7 +21,7 @@ extension NewsApi: TargetType {
     var path: String {
         switch self {
         case .news():
-            return Constant.API.New.path
+            return Constant.API.News.path
         }
     }
     

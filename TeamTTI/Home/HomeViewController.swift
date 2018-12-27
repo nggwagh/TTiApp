@@ -88,6 +88,10 @@ class HomeViewController: UIViewController {
     }
     
     func selectStore(_ store: Store) {
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
         self.selectedStore = store
         
         self.setStoreDetails()
@@ -97,6 +101,10 @@ class HomeViewController: UIViewController {
         guard let storeId = self.selectedStore?.id else { return }
         
         storeObjectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.storeObjectivesFor(storeId: storeId)) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
             switch result {
             case let .success(response):
                 if case 200..<400 = response.statusCode {

@@ -27,7 +27,7 @@ struct Constant {
             static let path = "api/v1/objective"
         }
         
-        struct New {
+        struct News {
             static let path = "api/v1/news"
         }
         
