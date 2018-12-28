@@ -21,10 +21,13 @@ class TaskViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var taskImageView2: UIImageView!
     @IBOutlet weak var taskImageView3: UIImageView!
     
+    public var tastDetails : StoreObjective!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setUIValues()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,6 +36,13 @@ class TaskViewController: UIViewController, DateElementDelegate {
     }
     
     // MARK: - Private Methods
+    
+    func setUIValues(){
+        taskPriorityLabel.text = self.tastDetails.objective?.priority.displayValue
+        taskDetailLabel.text = self.tastDetails.objective?.description
+        dueDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.dueDate)!)
+        scheduledDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.startDate)!)
+    }
     
     // MARK: - IBAction Methods
     
@@ -45,9 +55,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
         let calender = DateElement.instanceFromNib() as! DateElement
         calender.dateDelegate = self
-        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
-            
-        )
+        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         calender.center = self.view.center
         self.view.addSubview(calender)
     }

@@ -11,7 +11,7 @@ import Foundation
 enum DateFormat: String {
     case yyyyMMdd_hhmmss = "yyyy-MM-dd hh:mm:ss"
     case yyyyMMdd = "yyyy-MM-dd"
-    case MMMddyyyy = "MMMM dd, yyyy"
+    case MMMddyyyy = "MMM dd, yyyy"
 }
 
 extension DateFormatter {
@@ -43,6 +43,13 @@ extension DateFormatter {
         let date = dateFormatter.date(from: date)
         dateFormatter.dateFormat = "MMM dd, yyyy"
         return  dateFormatter.string(from: date!)
+    }
+    
+    static func convertDateToMMMMddyyyy(_ date: Date) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        return  dateFormatter.string(from: date)
     }
 }
 

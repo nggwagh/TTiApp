@@ -12,7 +12,9 @@ extension Constant.Storyboard {
     struct Home {
         static let id = "Home"
         static let leftSideMenuNavigationController = "LeftSideMenuNavigationController"
-        static let taskDetailIdentifier = "TaskDetailIdentifier"
+        static let TaskDetailSegueIdentifier = "TaskDetailSegueIdentifier"
+        static let TaskSegueIdentifier = "TaskSegueIdentifier"
+        static let SubmissionSegueIdentifier = "SubmissionSegueIdentifier"
     }
     
     struct News {

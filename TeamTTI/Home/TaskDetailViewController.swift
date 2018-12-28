@@ -15,11 +15,14 @@ class TaskDetailViewController: UIViewController {
     @IBOutlet private weak var taskButton: UIButton!
     @IBOutlet private weak var submissionButton: UIButton!
     
+    public var tastDetails : StoreObjective!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.title = self.tastDetails.objective?.title
         setButtonBorders()
     }
     
@@ -50,5 +53,22 @@ class TaskDetailViewController: UIViewController {
         setButtonBorders()
         self.taskDetailsContainerView.isHidden = true;
         self.submissionDetailsContainerView.isHidden = false;
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == Constant.Storyboard.Home.TaskSegueIdentifier {
+            
+            let destinationVC = segue.destination as! TaskViewController
+            
+            destinationVC.tastDetails = self.tastDetails
+        }
+        else if segue.identifier == Constant.Storyboard.Home.SubmissionSegueIdentifier {
+            
+            let destinationVC = segue.destination as! SubmissionViewController
+            
+            destinationVC.tastDetails = self.tastDetails
+        }
+        
     }
 }

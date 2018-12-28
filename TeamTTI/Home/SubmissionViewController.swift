@@ -22,6 +22,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskImageView: UIImageView!
 
+    public var tastDetails : StoreObjective!
 
     let completionTypes : [String] = ["Complete", "Schedule", "Incomplete"]
     let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
@@ -32,6 +33,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        setUIValues()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,7 +41,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         
         if isViewLoadedForFirstTime {
             isViewLoadedForFirstTime = false
-            self.setUpInitialView()
+            setUpInitialView()
         }
     }
     
@@ -52,9 +54,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
         let calender = DateElement.instanceFromNib() as! DateElement
         calender.dateDelegate = self
-        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
-            
-        )
+        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         calender.center = self.view.center
         self.view.addSubview(calender)
     }
@@ -85,6 +85,11 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
         reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
         self.reasonViewHeightConstraint.constant = 0;
+    }
+    
+    func setUIValues(){
+        dueDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.dueDate)!)
+        scheduledDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.startDate)!)
     }
     
     // MARK: - DateElementDelegate methods

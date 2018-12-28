@@ -173,6 +173,25 @@ class HomeViewController: UIViewController {
         )
         self.view.addSubview(calender)
     }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == Constant.Storyboard.Home.TaskDetailSegueIdentifier {
+            
+            let row: Int = sender as! Int
+            
+            let selectedTask = self.storeObjectives?[row]
+            
+            let destinationVC = segue.destination as! TaskDetailViewController
+            
+            destinationVC.tastDetails = selectedTask
+        }
+    }
 }
 
 extension HomeViewController: UITableViewDataSource {
@@ -225,7 +244,7 @@ extension HomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        self.performSegue(withIdentifier: Constant.Storyboard.Home.taskDetailIdentifier, sender: indexPath)
+        self.performSegue(withIdentifier: Constant.Storyboard.Home.TaskDetailSegueIdentifier, sender: indexPath.row)
     }
 }
 
