@@ -264,7 +264,7 @@ extension HomeViewController: HomeNavigationBarDelegate {
             self.addChildViewController(storeSearchViewController)
             self.tableView.addSubview(storeSearchViewController.view)
             storeSearchViewController.didMove(toParentViewController: self)
-          //  isAlreadyShownSearchView.toggle()
+            isAlreadyShownSearchView.toggle()
         }
     }
 }
