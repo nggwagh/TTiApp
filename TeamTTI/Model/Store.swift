@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 struct Store {
     let name: String
@@ -39,6 +40,8 @@ struct Store {
 
     let latitude: Double?
     let longitude: Double?
+    
+    let distanceFromCurrentLocation: Double?
 }
 
 extension Store {
@@ -70,8 +73,21 @@ extension Store {
                          created_at: storeJsonObject["created_at"] as? Int,
                          isHDC: storeJsonObject["isHDC"] as! Bool,
                          latitude: storeJsonObject["latitude"] as? Double,
-                         longitude: storeJsonObject["longitude"] as? Double)
+                         longitude: storeJsonObject["longitude"] as? Double,
+                         distanceFromCurrentLocation: distanceFromCurrentLocationInMiles(latitude: storeJsonObject["latitude"] as? Double ?? 0, longitude: storeJsonObject["longitude"] as? Double ?? 0))
         })
+    }
+    
+    static func distanceFromCurrentLocationInMiles(latitude: Double, longitude: Double) -> Double{
+
+        let currentCoordinate = CLLocation(latitude: 5.0, longitude: 3.0)
+        let storeCoordinate = CLLocation(latitude: latitude, longitude: longitude)
+        
+        var distanceInMeters = currentCoordinate.distance(from: storeCoordinate) // result is in meters
+        
+        distanceInMeters = distanceInMeters / 1609.344 //result in miles
+        
+        return distanceInMeters
     }
 }
 
@@ -83,6 +99,7 @@ extension Array where Element == Store {
         }
     }
 }
+
 
 /*
 {

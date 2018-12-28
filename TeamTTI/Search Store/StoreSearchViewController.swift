@@ -21,6 +21,9 @@ class StoreSearchViewController: UIViewController {
         }
     }
     private var filteredStores: [Store]!
+    private var myStores: [Store]!
+    private var closestStores: [Store]! = []
+    private var allStores: [Store]! = []
     
     private lazy var searchController: UISearchController = { [unowned self] in
         let searchController = UISearchController(searchResultsController: nil)
@@ -53,7 +56,7 @@ class StoreSearchViewController: UIViewController {
         super.viewDidLoad()
         searchController.searchBar.frame = searchBarContainer.bounds
         searchBarContainer.addSubview(searchController.searchBar)
-
+//        buildStoreSectionsArray();
         // Do any additional setup after loading the view.
     }
     
@@ -69,6 +72,8 @@ class StoreSearchViewController: UIViewController {
 
     }
     
+    //MARK: - Private methods
+
     class func loadFromStoryboard() -> StoreSearchViewController {
         
        let storyboard =  UIStoryboard.init(name: "Home", bundle: nil)
@@ -89,6 +94,26 @@ class StoreSearchViewController: UIViewController {
         delegate?.cancel()
         
     }
+    
+    private func buildStoreSectionsArray(){
+        var storesArray : [Store] = stores
+        
+        myStores = storesArray.filter({$0.userID == 4})
+        storesArray.removeAll { (store : Store) -> Bool in
+            store.userID == 4
+        }
+        
+        if storesArray.count >= 3 {
+            for i in 1...storesArray.count {
+                if (i <= 3){
+                closestStores.append(storesArray[i])
+                }
+                else{
+                   allStores.append(storesArray[i])
+                }
+            }
+        }
+    }
 
 }
 
@@ -96,9 +121,8 @@ extension StoreSearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        delegate?.selected(store: filteredStores[indexPath.row])
         cancelSearch()
-        delegate?.selected(store: stores[indexPath.row])
-
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -117,6 +141,11 @@ extension StoreSearchViewController: UITableViewDelegate {
 }
 
 extension StoreSearchViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredStores.count
     }

@@ -24,16 +24,16 @@ class HomeViewController: UIViewController {
     private var storeObjectives: [StoreObjective]?
     private var isAlreadyShownSearchView = false
     
+    private var totalTasks : Int = 10
+    private var completedTasks : Int = 0
+    
     @IBOutlet weak var navigationBar: HomeNavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.delegate = self
         // Do any additional setup after loading the view.
-        
+        navigationBar.delegate = self
         loadStores()
-        //        tableView.rowHeight = UITableViewAutomaticDimension
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +65,10 @@ class HomeViewController: UIViewController {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
-                        self.stores = Store.build(from: jsonDict)
+                        self.stores = Store.build(from: jsonDict).sorted(by: { (store1 : Store, store2 : Store) -> Bool in
+                            return Int(store1.distanceFromCurrentLocation!) < Int(store2.distanceFromCurrentLocation!)
+                        })
+                        
                         if self.selectedStore == nil, let closestStore = self.stores?.closest {
                             self.selectStore(closestStore)
                         }
@@ -114,6 +117,11 @@ class HomeViewController: UIViewController {
                         
                         //TODO: Parse StoreObjectives
                         self.storeObjectives = StoreObjective.build(from: jsonDict["objectives"] as! Array)
+                        
+                        let countDictionary = jsonDict["counts"] as? [String: Any]
+                        self.totalTasks = (countDictionary?["totalObjectives"] as? Int)!
+                        self.completedTasks = (countDictionary?["completed"] as? Int)!
+                        
                         self.reloadTableView()
                     }
                     catch let error {
@@ -189,7 +197,7 @@ extension HomeViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let  graphTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "GraphTableViewCell") as! GraphTableViewCell
-            graphTableViewCell.configure(unfinished: NSNumber.init(value: 50), finished: 106, total: 156)
+            graphTableViewCell.configure(unfinished: (self.totalTasks - self.completedTasks), finished: self.completedTasks, total: self.totalTasks)
             return graphTableViewCell
         case 1:
             guard let storeObjective = self.storeObjectives?[indexPath.row] else { return UITableViewCell() }

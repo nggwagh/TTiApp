@@ -22,7 +22,6 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK: IBOutlets
     @IBOutlet private weak var searchedNewsTableView: UITableView!
     @IBOutlet private weak var searchBar: UISearchBar!
-//  @IBOutlet private weak var searchBarContainer: UIView!
 
     //MARK: Instance variables
     private var newsNetworkTask: Cancellable?

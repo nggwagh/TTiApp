@@ -15,10 +15,7 @@ class GraphTableViewCell: UITableViewCell {
         
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        semiCircleChart = HUSemiCircleChart(frame: CGRect.init(x: 50, y: -100, width: 250, height: 320))
-        semiCircleChart.colors = NSMutableArray.init(array: [UIColor.init(named: "tti_blue")!,UIColor.init(named: "graph_unfinished_color")!])
-        containerView.addSubview(semiCircleChart)
+    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,19 +30,31 @@ class GraphTableViewCell: UITableViewCell {
         semiCircleChart.center.x = self.contentView.center.x
     }
     
-    func configure(unfinished: NSNumber, finished: NSNumber, total: NSNumber)  {
+    func configure(unfinished: Int, finished: Int, total: Int)  {
         //TODO:- handle this with default value and refactor this dirtiness
-
+        
+        if total == 0 {
+            return
+        }
+        
+        if (semiCircleChart != nil){
+            semiCircleChart.removeFromSuperview()
+        }
+        
+        semiCircleChart = HUSemiCircleChart(frame: CGRect.init(x: 50, y: -100, width: 250, height: 320))
+        semiCircleChart.colors = NSMutableArray.init(array: [UIColor.init(named: "tti_blue")!,UIColor.init(named: "graph_unfinished_color")!])
+        containerView.addSubview(semiCircleChart)
+        
         //data
         let dataSource = NSMutableArray()
-        dataSource.add(HUChartEntry.init(name: "Finished", value: finished))
-        dataSource.add(HUChartEntry.init(name: "UnFinished", value: unfinished))
+        dataSource.add(HUChartEntry.init(name: "Finished", value: NSNumber(integerLiteral: finished)))
+        dataSource.add(HUChartEntry.init(name: "UnFinished", value: NSNumber(integerLiteral: unfinished)))
 
         semiCircleChart.data = dataSource
-        semiCircleChart.completedPercentage = Int32(round(Double(truncating: finished) / Double(truncating: total) * 100)
+        semiCircleChart.completedPercentage = Int32(round(Double(truncating: NSNumber(integerLiteral: finished)) / Double(truncating: NSNumber(integerLiteral: total)) * 100)
 )
-        semiCircleChart.completedTask = Int32(truncating: finished)
-        semiCircleChart.totalTask = Int32(truncating: total)
+        semiCircleChart.completedTask = Int32(truncating: NSNumber(integerLiteral: finished))
+        semiCircleChart.totalTask = Int32(truncating: NSNumber(integerLiteral: total))
         semiCircleChart.title = "test" // we already fixed everything in third party code, this is
         semiCircleChart.showPortionTextType = DONT_SHOW_PORTION
     }
