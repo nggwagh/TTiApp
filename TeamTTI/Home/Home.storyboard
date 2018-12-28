@@ -58,7 +58,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="1le-NG-A03">
-                                                <rect key="frame" x="221.66666666666669" y="19" width="10" height="6"/>
+                                                <rect key="frame" x="224.66666666666669" y="19" width="10" height="6"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="10" id="l4Q-E8-y6C"/>
                                                     <constraint firstAttribute="height" constant="6" id="xSI-dh-Lsa"/>
@@ -69,7 +69,7 @@
                                         <constraints>
                                             <constraint firstItem="nMG-DA-Zio" firstAttribute="centerY" secondItem="9nk-Pf-6gK" secondAttribute="centerY" id="8NZ-F0-ICT"/>
                                             <constraint firstItem="1le-NG-A03" firstAttribute="centerY" secondItem="nMG-DA-Zio" secondAttribute="centerY" id="GRX-SR-LQy"/>
-                                            <constraint firstItem="1le-NG-A03" firstAttribute="leading" secondItem="nMG-DA-Zio" secondAttribute="trailing" constant="2" id="SCf-5s-dva"/>
+                                            <constraint firstItem="1le-NG-A03" firstAttribute="leading" secondItem="nMG-DA-Zio" secondAttribute="trailing" constant="5" id="SCf-5s-dva"/>
                                             <constraint firstItem="nMG-DA-Zio" firstAttribute="centerX" secondItem="9nk-Pf-6gK" secondAttribute="centerX" id="T6e-Ze-twz"/>
                                         </constraints>
                                     </view>

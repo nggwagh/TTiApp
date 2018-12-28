@@ -51,5 +51,8 @@ class HomeNavigationBar: UIView {
         self.titleLabel.text = title
     }
 
+    func setArrowImage(_ imageName: String) {
+        self.downArrowImageView.image = UIImage.init(named: imageName)
+    }
 
 }

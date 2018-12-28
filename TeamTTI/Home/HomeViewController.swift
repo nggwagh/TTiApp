@@ -265,6 +265,7 @@ extension HomeViewController: HomeNavigationBarDelegate {
             self.tableView.addSubview(storeSearchViewController.view)
             storeSearchViewController.didMove(toParentViewController: self)
             isAlreadyShownSearchView.toggle()
+            navigationBar.setArrowImage("UpArrow")
         }
     }
 }
@@ -278,6 +279,7 @@ extension HomeViewController: StoreSearchViewControllerDelegate {
     
     func cancel() {
         isAlreadyShownSearchView = false
+        navigationBar.setArrowImage("down_arrow")
     }
 }
 
