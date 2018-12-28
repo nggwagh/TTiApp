@@ -847,8 +847,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="Second Objective" id="dT9-kM-vEu"/>
                     <connections>
+                        <outlet property="dueDateLabel" destination="Sis-zu-l9r" id="UFT-Lm-Kox"/>
+                        <outlet property="playBookNameLabel" destination="tAL-nZ-goG" id="TYI-8t-fFF"/>
                         <outlet property="scheduledDateBackgroundView" destination="XXM-IV-F4N" id="anU-P4-ztD"/>
-                        <outlet property="scheduledDateLabel" destination="nth-OX-yNA" id="FUX-kI-uDl"/>
+                        <outlet property="scheduledDateLabel" destination="nth-OX-yNA" id="c4Z-i8-MZi"/>
+                        <outlet property="taskDetailLabel" destination="ZyI-d4-Sg6" id="1Ea-eq-PRL"/>
+                        <outlet property="taskDetailPosterImageView" destination="Xlv-Im-Njt" id="0C3-wg-2n5"/>
+                        <outlet property="taskImageView1" destination="prK-F9-cVz" id="1GZ-5z-Ba1"/>
+                        <outlet property="taskImageView2" destination="Cg0-r1-b9V" id="ND7-rQ-3D6"/>
+                        <outlet property="taskImageView3" destination="Mqf-oM-9nJ" id="SXy-Ll-wq2"/>
+                        <outlet property="taskPriorityLabel" destination="3vt-3d-VMW" id="K03-rJ-Pl5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uRd-YX-sEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1180,6 +1188,7 @@
                         <outlet property="commentTextView" destination="Qrp-Me-Xg7" id="TIQ-Io-t9b"/>
                         <outlet property="completionTypeTextField" destination="a2s-0c-dh9" id="mFd-FS-fXW"/>
                         <outlet property="completionTypesBackgroundView" destination="pof-oF-7I5" id="PrR-XG-tPW"/>
+                        <outlet property="dueDateLabel" destination="gWY-xv-cbf" id="Xvz-1j-wVg"/>
                         <outlet property="reasonBackgroundView" destination="6Bt-gK-bVo" id="YuL-yQ-R2b"/>
                         <outlet property="reasonTextField" destination="Qou-NQ-yO2" id="mD1-FR-10U"/>
                         <outlet property="reasonViewHeightConstraint" destination="vp5-dw-t06" id="u1C-cq-r0M"/>

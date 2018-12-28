@@ -11,7 +11,15 @@ import UIKit
 class TaskViewController: UIViewController, DateElementDelegate {
 
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
+    @IBOutlet weak var taskDetailPosterImageView: UIImageView!
+    @IBOutlet weak var taskPriorityLabel: UILabel!
+    @IBOutlet weak var taskDetailLabel: UILabel!
+    @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var scheduledDateLabel: UILabel!
+    @IBOutlet weak var playBookNameLabel: UILabel!
+    @IBOutlet weak var taskImageView1: UIImageView!
+    @IBOutlet weak var taskImageView2: UIImageView!
+    @IBOutlet weak var taskImageView3: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

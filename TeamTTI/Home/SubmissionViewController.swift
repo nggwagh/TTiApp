@@ -17,6 +17,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var reasonTextField: UITextField!
     @IBOutlet weak var reasonBackgroundView: UIView!
     @IBOutlet weak var reasonViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var scheduledDateLabel: UILabel!
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskImageView: UIImageView!
