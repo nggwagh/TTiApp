@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum Stores : Int {
+    case MyStores = 0
+    case ClosestStores
+    case AllStores
+}
+
+
 protocol StoreSearchViewControllerDelegate: class {
     func selected(store: Store)
     func cancel()
@@ -54,10 +61,12 @@ class StoreSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
         searchController.searchBar.frame = searchBarContainer.bounds
         searchBarContainer.addSubview(searchController.searchBar)
-//        buildStoreSectionsArray();
-        // Do any additional setup after loading the view.
+        buildStoreSectionsArray();
+        searchedStoreTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,13 +87,11 @@ class StoreSearchViewController: UIViewController {
         
        let storyboard =  UIStoryboard.init(name: "Home", bundle: nil)
        return storyboard.instantiateViewController(withIdentifier: "StoreSearchViewController") as! StoreSearchViewController
-        
     }
     
     @IBAction func close(_ sender: Any) {
         cancelSearch()
     }
-    
     
     private func cancelSearch() {
         self.view.removeFromSuperview()
@@ -104,8 +111,8 @@ class StoreSearchViewController: UIViewController {
         }
         
         if storesArray.count >= 3 {
-            for i in 1...storesArray.count {
-                if (i <= 3){
+            for i in 0...(storesArray.count - 1) {
+                if (i < 3){
                 closestStores.append(storesArray[i])
                 }
                 else{
@@ -115,48 +122,156 @@ class StoreSearchViewController: UIViewController {
         }
     }
 
+    private func getHeaderTitle(ForSection section : Int) -> String {
+        
+        var headerTitle : String? = ""
+        
+        if !(searchController.searchBar.text?.isEmpty)! {
+            if (filteredStores.count > 0){
+                headerTitle = "Suggestions"
+            }
+        }
+        else{
+            let storeType = Stores(rawValue: section)!
+            
+            switch storeType {
+            case .MyStores:
+                if (myStores.count > 0){
+                    headerTitle = "My Stores"
+                }
+                
+            case .ClosestStores:
+                if (closestStores.count > 0){
+                    headerTitle = "Closest Stores to you"
+                }
+                
+            case .AllStores:
+                if (allStores.count > 0){
+                    headerTitle = "All Stores"
+                }
+            }
+        }
+        
+        return headerTitle!
+    }
+    
 }
 
 extension StoreSearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        delegate?.selected(store: filteredStores[indexPath.row])
+        if !(searchController.searchBar.text?.isEmpty)! {
+            delegate?.selected(store: filteredStores[indexPath.row])
+        }
+        else{
+            let storeType = Stores(rawValue: indexPath.section)!
+            
+            switch storeType {
+            case .MyStores:
+                delegate?.selected(store: myStores[indexPath.row])
+
+            case .ClosestStores:
+                delegate?.selected(store: closestStores[indexPath.row])
+
+            case .AllStores:
+                delegate?.selected(store: allStores[indexPath.row])
+            }
+        }
+        
         cancelSearch()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 60))
+
+        let headerTitle : String? = getHeaderTitle(ForSection: section)
+
+        if !(headerTitle?.isEmpty)! {
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 28))
+
+            let label = UILabel()
+            label.frame = CGRect.init(x: 20, y: 0, width: headerView.frame.width, height: headerView.frame.height)
+            label.text = headerTitle
+            label.font = UIFont.init(name: "Avenir", size: 12.5)
+            label.textColor = UIColor.init(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 1.0)
+            headerView.addSubview(label)
+
+            return headerView
+        }
+        else{
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         
-        let label = UILabel()
-        label.frame = CGRect.init(x: 20, y: 0, width: headerView.frame.width-10, height: headerView.frame.height-20)
-        label.text = "All Stores"
-        label.font = UIFont.init(name: "Avenir", size: 12.5)
-        label.textColor = UIColor.init(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 1.0)
-        
-        headerView.addSubview(label)
-        
-        return headerView
+        let headerTitle : String? = getHeaderTitle(ForSection: section)
+
+        if !(headerTitle?.isEmpty)! {
+            return 28
+        }
+        else{
+            return 0
+        }
     }
 }
 
 extension StoreSearchViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        
+        if !(searchController.searchBar.text?.isEmpty)! {
+            return 1
+        }
+        else{
+            return 3
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredStores.count
+        
+        if !(searchController.searchBar.text?.isEmpty)! {
+            return filteredStores.count
+        }
+        else{
+            let storeType = Stores(rawValue: section)!
+            
+            switch storeType {
+            case .MyStores:
+                return myStores.count
+                
+            case .ClosestStores:
+                return closestStores.count
+                
+            case .AllStores:
+                return allStores.count
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "StoreSearchTableViewCell", for: indexPath) as! StoreSearchTableViewCell
-        tableViewCell.storeNameLabel.text = filteredStores[indexPath.row].name
+        
+        if !(searchController.searchBar.text?.isEmpty)! {
+            tableViewCell.storeNameLabel.text = filteredStores[indexPath.row].name
+        }
+        else{
+            let storeType = Stores(rawValue: indexPath.section)!
+            
+            switch storeType {
+            case .MyStores:
+                tableViewCell.storeNameLabel.text = myStores[indexPath.row].name
+
+            case .ClosestStores:
+                tableViewCell.storeNameLabel.text = closestStores[indexPath.row].name
+
+            case .AllStores:
+                tableViewCell.storeNameLabel.text = allStores[indexPath.row].name
+            }
+        }
+    
         return tableViewCell
     }
-    
-    
 }
 
 extension StoreSearchViewController: UISearchControllerDelegate {
@@ -180,8 +295,6 @@ extension StoreSearchViewController: UISearchResultsUpdating {
         }
        searchedStoreTableView.reloadData()
     }
-    
-    
 }
 
 extension StoreSearchViewController: UISearchBarDelegate {
