@@ -9,13 +9,17 @@
 import Foundation
 
 enum ObjectiveStatus: Int {
-    case defaultStatus = 0
+    case status0 = 0
+    case status1 = 1
 
+}
+
+extension ObjectiveStatus{
     static func status(for value: Any) -> ObjectiveStatus {
         if let value = value as? Int {
             return ObjectiveStatus(rawValue: value)!
         }
-        return .defaultStatus
+        return .status0
     }
 }
 
