@@ -16,13 +16,19 @@ enum StoreApi {
 
 extension StoreApi: TargetType {
     var baseURL: URL {
-        return Constant.API.baseURL
+        
+        switch self {
+        case .stores():
+            return URL(string: "\(Constant.API.baseURL)/?showCounts=1")!
+        default:
+            return Constant.API.baseURL
+        }
     }
 
     var path: String {
         switch self {
         case .stores():
-            return Constant.API.Store.path
+            return Constant.API.Store.path 
         case let .storeObjectivesFor(storeId):
             return Constant.API.Store.path + "/\(storeId)/objective"
         }
@@ -45,7 +51,7 @@ extension StoreApi: TargetType {
     var task: Task {
         switch self {
         case .stores():
-            return .requestPlain
+               return .requestPlain
         case .storeObjectivesFor:
             return .requestPlain
         }

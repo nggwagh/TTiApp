@@ -41,6 +41,9 @@ struct Store {
     let latitude: Double?
     let longitude: Double?
     
+    let totalObjectives: Int?
+    let completed: Int?
+    
     let distanceFromCurrentLocation: Double?
 }
 
@@ -48,6 +51,9 @@ extension Store {
 
     static func build(from storesJsonObjects: [[String:Any]]) -> [Store] {
         return storesJsonObjects.compactMap({ storeJsonObject in
+            
+            let countDictionary = storeJsonObject["counts"] as? [String: Any]
+            
             return Store(name: storeJsonObject["name"] as! String,
                          id: storeJsonObject["id"] as! Int,
                          regionID: storeJsonObject["regionID"] as! Int,
@@ -74,6 +80,8 @@ extension Store {
                          isHDC: storeJsonObject["isHDC"] as! Bool,
                          latitude: storeJsonObject["latitude"] as? Double,
                          longitude: storeJsonObject["longitude"] as? Double,
+                         totalObjectives:countDictionary?["totalObjectives"] as? Int,
+                         completed:countDictionary?["completed"] as? Int,
                          distanceFromCurrentLocation: distanceFromCurrentLocationInMiles(latitude: storeJsonObject["latitude"] as? Double ?? 0, longitude: storeJsonObject["longitude"] as? Double ?? 0))
         })
     }

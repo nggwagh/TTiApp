@@ -10,9 +10,16 @@ import Foundation
 import UIKit
 
 enum StoreObjectiveStatus: Int {
-    case incomplete = 0
-    case complete = 1
-    case notApplicable = 2
+
+    case open = 1 //OPEN
+    case schedule = 2 //Scheduled
+    case complete = 3 // Completed
+    case overdue = 4 //Overdue
+    case incomplete = 5 //Incomplete
+    
+//    case incomplete = 0
+//    case complete = 1
+//    case notApplicable = 2
 }
 
 extension StoreObjectiveStatus {
@@ -29,9 +36,13 @@ extension StoreObjectiveStatus {
         switch self {
         case .incomplete:
             return UIImage(named: "objective_incomplete")!
+        case .overdue:
+            return UIImage(named: "objective_incomplete")!
         case .complete:
             return UIImage(named: "objective_complete")!
-        case .notApplicable:
+        case .open:
+            return UIImage(named: "objective_paused")!
+        case .schedule:
             return UIImage(named: "objective_paused")!
         }
     }
@@ -74,7 +85,7 @@ extension StoreObjective {
                            deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["deleted_at"]),
                            createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["created_at"]),
                            updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["updated_at"]),
-                           images: (storeObjectiveJsonObject["images"] as! [String]).compactMap{ return URL(string: $0) } )
+                           images: ((storeObjectiveJsonObject["images"] as! [String]).compactMap{ return URL(string: $0)}))
         }
     }
 }

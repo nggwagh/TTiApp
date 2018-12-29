@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Moya
 
 class TaskViewController: UIViewController, DateElementDelegate {
 
@@ -64,5 +65,58 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     func selectedDate(_ date: Date){
         scheduledDateLabel.text = DateFormatter.formatter_MMMddyyyy.string(from: date)
+        
+        //Show progress hud
+        self.showHUD(progressLabel: "")
+        
+        var postParaDict = [String: Any]()
+        
+        postParaDict["objectiveID"] = self.tastDetails.objectiveID
+        postParaDict["storeID"] = self.tastDetails.storeId
+        postParaDict["estimatedCompletionDate"] = DateFormatter.formatter_yyyyMMdd_hhmmss.string(from: date).components(separatedBy: " ")[0]
+        postParaDict["comments"] = ""
+        
+        let postArray = [postParaDict]
+        
+        MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request( .schedule(objectiveArray: postArray as [AnyObject])){ result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                    
+                    do{
+                        let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
+                        
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+                
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                break
+            }
+            
+            
+            
+        }
+        
+        
     }
 }
