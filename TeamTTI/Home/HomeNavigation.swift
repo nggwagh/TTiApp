@@ -29,4 +29,9 @@ extension Constant.Storyboard {
         
     }
     
+    struct Planner {
+        static let id = "Planner"
+        static let PlannerViewControllerIdentifier = "PlannerViewControllerIdentifier"
+    }
+    
 }

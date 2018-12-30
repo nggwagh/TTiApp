@@ -77,6 +77,10 @@ class LeftSideMenuController: UITableViewController {
             RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
             break;
         case 1:
+            let plannerStoryboard = UIStoryboard.init(name: Constant.Storyboard.Planner.id, bundle: nil)
+            let plannerViewController = plannerStoryboard.instantiateInitialViewController()
+            RootViewControllerFactory.centerContainer.centerViewController = plannerViewController
+            RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
             break;
         case 2:
             let newsStoryboard = UIStoryboard.init(name: Constant.Storyboard.News.id, bundle: nil)
