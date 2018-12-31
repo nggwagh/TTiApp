@@ -29,11 +29,20 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var navigationBar: HomeNavigationBar!
     
+    var refreshControl   = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationBar.delegate = self
         loadStores()
+        
+        // Refresh control add in tableview.
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(refreshStore), for: .valueChanged)
+//        let refreshControlImageView : UIImageView = UIImageView(image: UIImage(named: "objective_incomplete"))
+//        self.refreshControl.insertSubview(refreshControlImageView, at: 0)
+        self.tableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +53,57 @@ class HomeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    @objc func refreshStore() {
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
+        // Call webservice here.
+        storeObjectiveNetworkTask?.cancel()
+        
+        guard let storeId = self.selectedStore?.id else { return }
+        
+        storeObjectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.storeObjectivesFor(storeId: storeId)) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            self.refreshControl.endRefreshing()
+            
+            switch result {
+            case let .success(response):
+                if case 200..<400 = response.statusCode {
+                    do {
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
+                        print(jsonDict)
+                        
+                        //TODO: Parse StoreObjectives
+                        self.storeObjectives = StoreObjective.build(from: jsonDict["objectives"] as! Array)
+                        
+                        let countDictionary = jsonDict["counts"] as? [String: Any]
+                        self.totalTasks = (countDictionary?["totalObjectives"] as? Int)!
+                        self.completedTasks = (countDictionary?["completed"] as? Int)!
+                        
+                        self.reloadTableView()
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    //TODO:- handle an invaild status code
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                    
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+            }
+        }
+        
     }
     
     func loadStores() {
@@ -92,54 +152,11 @@ class HomeViewController: UIViewController {
     
     func selectStore(_ store: Store) {
         
-        //show progress hud
-        self.showHUD(progressLabel: "")
-        
         self.selectedStore = store
         
         self.setStoreDetails()
         
-        storeObjectiveNetworkTask?.cancel()
-        
-        guard let storeId = self.selectedStore?.id else { return }
-        
-        storeObjectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.storeObjectivesFor(storeId: storeId)) { result in
-            
-            //hide progress hud
-            self.dismissHUD(isAnimated: true)
-            
-            switch result {
-            case let .success(response):
-                if case 200..<400 = response.statusCode {
-                    do {
-                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
-                        print(jsonDict)
-                        
-                        //TODO: Parse StoreObjectives
-                        self.storeObjectives = StoreObjective.build(from: jsonDict["objectives"] as! Array)
-                        
-                        let countDictionary = jsonDict["counts"] as? [String: Any]
-                        self.totalTasks = (countDictionary?["totalObjectives"] as? Int)!
-                        self.completedTasks = (countDictionary?["completed"] as? Int)!
-                        
-                        self.reloadTableView()
-                    }
-                    catch let error {
-                        print(error.localizedDescription)
-                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
-                    }
-                } else {
-                    print("unhandled status code\(response.statusCode)")
-                    //TODO:- handle an invaild status code
-                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
-                    
-                }
-                
-            case let .failure(error):
-                print(error.localizedDescription) //MOYA error
-            }
-        }
-        
+       self.refreshStore()
     }
     
     func reloadTableView() {
