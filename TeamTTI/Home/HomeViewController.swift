@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
     //MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scheduleView: UIView!
+    @IBOutlet weak var cancelButton: UIButton!
     
     //MARK: Instance variables
     private var storeNetworkTask: Cancellable?
@@ -26,6 +27,8 @@ class HomeViewController: UIViewController {
     
     private var totalTasks : Int = 10
     private var completedTasks : Int = 0
+    
+    private var storeSearchViewController = StoreSearchViewController()
     
     @IBOutlet weak var navigationBar: HomeNavigationBar!
     
@@ -173,13 +176,16 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func handleCancelButtonTap(sender : UIButton) {
-        
-        self.navigationBar.calendarButton.isSelected = false
-        self.reloadTableView()
-
-        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.scheduleView.isHidden = true
-        })
+        if self.navigationBar.calendarButton.isSelected {
+            
+            self.navigationBar.calendarButton.isSelected = false
+            
+            self.reloadTableView()
+            
+            UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.scheduleView.isHidden = true
+            })
+        }
     }
     
     @IBAction func handleScheduleButtonTap(sender : UIButton) {
@@ -281,20 +287,26 @@ extension HomeViewController: HomeNavigationBarDelegate {
     }
     
     func calendarClicked() {
+        
+        //remove store list if already present
+        if isAlreadyShownSearchView {
+            storeSearchViewController.cancelSearch()
+        }
+
         //open calendar
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.scheduleView.isHidden = self.navigationBar.calendarButton.isSelected
+        })
         self.navigationBar.calendarButton.isSelected = !self.navigationBar.calendarButton.isSelected
         tableView.reloadData()
-        
-        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.scheduleView.isHidden = false
-        })
     }
     
     func performSearch() {
         
         //open serach controller
         if !isAlreadyShownSearchView {
-            let storeSearchViewController = StoreSearchViewController.loadFromStoryboard()
+            self.handleCancelButtonTap(sender: cancelButton)
+            storeSearchViewController = StoreSearchViewController.loadFromStoryboard()
             storeSearchViewController.delegate = self
             storeSearchViewController.stores = self.stores ?? [Store]()
             self.addChildViewController(storeSearchViewController)
@@ -302,6 +314,10 @@ extension HomeViewController: HomeNavigationBarDelegate {
             storeSearchViewController.didMove(toParentViewController: self)
             isAlreadyShownSearchView.toggle()
             navigationBar.setArrowImage("UpArrow")
+        }
+        else{
+            isAlreadyShownSearchView.toggle()
+            storeSearchViewController.cancelSearch()
         }
     }
 }

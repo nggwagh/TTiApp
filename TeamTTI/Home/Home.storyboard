@@ -291,6 +291,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="9rd-Qv-1J6"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="uAv-Mv-M20" id="ND7-bR-Z26"/>
                         <outlet property="navigationBar" destination="fCG-cV-VLH" id="PwC-oO-MWQ"/>
                         <outlet property="scheduleView" destination="htV-N0-BVL" id="lW9-0y-EbM"/>
                         <outlet property="tableView" destination="pZJ-yi-wYM" id="45K-CN-Ta7"/>

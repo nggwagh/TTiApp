@@ -91,10 +91,10 @@ class StoreSearchViewController: UIViewController {
     }
     
     @IBAction func close(_ sender: Any) {
-        cancelSearch()
+        self.cancelSearch()
     }
     
-    private func cancelSearch() {
+    func cancelSearch() {
         self.view.removeFromSuperview()
         self.removeFromParentViewController()
         searchController.isActive = false
