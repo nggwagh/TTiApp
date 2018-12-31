@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1158,6 +1158,38 @@
                                     <constraint firstItem="cP6-hX-mOL" firstAttribute="leading" secondItem="EpD-YL-c6R" secondAttribute="leading" id="zjQ-a8-Bvu"/>
                                 </constraints>
                             </scrollView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SgI-HP-2KZ">
+                                <rect key="frame" x="0.0" y="20" width="414" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEW-IH-Fis">
+                                        <rect key="frame" x="379" y="14" width="20" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="Zjz-IJ-vIM"/>
+                                            <constraint firstAttribute="height" constant="22" id="qV4-28-nVI"/>
+                                        </constraints>
+                                        <state key="normal" image="CloseIcon"/>
+                                        <connections>
+                                            <action selector="closeCommentWarningButtonTapped:" destination="Ukv-6f-XxK" eventType="touchUpInside" id="cXB-sc-fjs"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please fill in the comment section reason on scheduled date to submit." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfQ-gp-UPy">
+                                        <rect key="frame" x="15" y="5" width="349" height="40"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.81568627450980391" green="0.13333333333333333" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="GfQ-gp-UPy" firstAttribute="leading" secondItem="SgI-HP-2KZ" secondAttribute="leading" constant="15" id="8x5-ZN-1ry"/>
+                                    <constraint firstItem="kEW-IH-Fis" firstAttribute="leading" secondItem="GfQ-gp-UPy" secondAttribute="trailing" constant="15" id="Ag8-0a-QTm"/>
+                                    <constraint firstItem="GfQ-gp-UPy" firstAttribute="top" secondItem="SgI-HP-2KZ" secondAttribute="top" constant="5" id="Pvv-Ww-k7A"/>
+                                    <constraint firstAttribute="height" constant="50" id="SKL-Q5-B0b"/>
+                                    <constraint firstAttribute="trailing" secondItem="kEW-IH-Fis" secondAttribute="trailing" constant="15" id="Wgq-X8-lWL"/>
+                                    <constraint firstAttribute="bottom" secondItem="GfQ-gp-UPy" secondAttribute="bottom" constant="5" id="Yrn-EN-81f"/>
+                                    <constraint firstItem="kEW-IH-Fis" firstAttribute="centerY" secondItem="SgI-HP-2KZ" secondAttribute="centerY" id="u69-4o-mgR"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYB-Hy-ipb">
                                 <rect key="frame" x="15" y="556" width="384" height="50"/>
                                 <color key="backgroundColor" name="tti_blue"/>
@@ -1170,11 +1202,17 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="submitButtonTapped:" destination="Ukv-6f-XxK" eventType="touchUpInside" id="PhG-vp-J0u"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bwl-lW-dac" firstAttribute="bottom" secondItem="eYB-Hy-ipb" secondAttribute="bottom" constant="20" id="8uf-aq-50k"/>
+                            <constraint firstItem="SgI-HP-2KZ" firstAttribute="top" secondItem="bwl-lW-dac" secondAttribute="top" id="BCX-qe-9EC"/>
+                            <constraint firstItem="SgI-HP-2KZ" firstAttribute="leading" secondItem="bwl-lW-dac" secondAttribute="leading" id="C6n-Vy-6hb"/>
+                            <constraint firstItem="SgI-HP-2KZ" firstAttribute="trailing" secondItem="bwl-lW-dac" secondAttribute="trailing" id="Wg9-Np-UZL"/>
                             <constraint firstItem="eYB-Hy-ipb" firstAttribute="leading" secondItem="bwl-lW-dac" secondAttribute="leading" constant="15" id="YTD-SJ-bvV"/>
                             <constraint firstItem="eYB-Hy-ipb" firstAttribute="top" secondItem="EpD-YL-c6R" secondAttribute="bottom" constant="15" id="as0-Gt-K6N"/>
                             <constraint firstItem="bwl-lW-dac" firstAttribute="trailing" secondItem="eYB-Hy-ipb" secondAttribute="trailing" constant="15" id="eQn-cA-cBk"/>
@@ -1188,6 +1226,7 @@
                     <navigationItem key="navigationItem" title="Second Objective" id="D6P-9U-ITw"/>
                     <connections>
                         <outlet property="commentTextView" destination="Qrp-Me-Xg7" id="TIQ-Io-t9b"/>
+                        <outlet property="commentWarningView" destination="SgI-HP-2KZ" id="giA-nb-76J"/>
                         <outlet property="completionTypeTextField" destination="a2s-0c-dh9" id="mFd-FS-fXW"/>
                         <outlet property="completionTypesBackgroundView" destination="pof-oF-7I5" id="PrR-XG-tPW"/>
                         <outlet property="dueDateLabel" destination="gWY-xv-cbf" id="Xvz-1j-wVg"/>
@@ -1205,17 +1244,18 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CalenderIcon" width="28" height="29"/>
-        <image name="UploadImage" width="1296" height="780"/>
+        <image name="CalenderIcon" width="18" height="19"/>
+        <image name="CloseIcon" width="20" height="20"/>
+        <image name="UploadImage" width="432" height="260"/>
         <image name="accessoryDisclosure" width="7" height="11"/>
         <image name="calender" width="47" height="48"/>
-        <image name="check" width="30" height="30"/>
-        <image name="down_arrow" width="21" height="12"/>
-        <image name="down_arrow_blue" width="34" height="22"/>
-        <image name="left_menu" width="30.666666030883789" height="22"/>
-        <image name="mallImage" width="240" height="115.44000244140625"/>
+        <image name="check" width="20" height="20"/>
+        <image name="down_arrow" width="14" height="8"/>
+        <image name="down_arrow_blue" width="11" height="7"/>
+        <image name="left_menu" width="30" height="22"/>
+        <image name="mallImage" width="500" height="240"/>
         <image name="objective_complete" width="23" height="23"/>
-        <image name="unCheck" width="30" height="30"/>
+        <image name="unCheck" width="20" height="20"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

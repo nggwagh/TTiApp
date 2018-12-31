@@ -21,6 +21,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var scheduledDateLabel: UILabel!
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskImageView: UIImageView!
+    @IBOutlet weak var commentWarningView: UIView!
 
     public var tastDetails : StoreObjective!
 
@@ -57,6 +58,24 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         calender.center = self.view.center
         self.view.addSubview(calender)
+    }
+    
+    @IBAction func submitButtonTapped(_ sender: Any) {
+        if commentTextView.text!.count == 0 {
+            UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.commentWarningView.isHidden = false
+            })
+        }
+        else{
+            UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.commentWarningView.isHidden = true
+            })
+        }
+    }
+    @IBAction func closeCommentWarningButtonTapped(_ sender: Any) {
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.commentWarningView.isHidden = true
+        })
     }
     
     // MARK: - Picker View  methods
