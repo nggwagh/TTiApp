@@ -12,12 +12,16 @@ enum DateFormat: String {
     case yyyyMMdd_hhmmss = "yyyy-MM-dd hh:mm:ss"
     case yyyyMMdd = "yyyy-MM-dd"
     case MMMddyyyy = "MMM dd, yyyy"
+    case MMMMddyyyy = "MMMM dd, yyyy"
+
 }
 
 extension DateFormatter {
     static let formatter_yyyyMMdd: DateFormatter = .create(with: .yyyyMMdd)
     static let formatter_yyyyMMdd_hhmmss: DateFormatter = .create(with: .yyyyMMdd_hhmmss)
     static let formatter_MMMddyyyy: DateFormatter = .create(with: .MMMddyyyy)
+    static let formatter_MMMMddyyyy: DateFormatter = .create(with: .MMMMddyyyy)
+
 }
 
 extension DateFormatter {
@@ -51,5 +55,6 @@ extension DateFormatter {
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         return  dateFormatter.string(from: date)
     }
+    
 }
 

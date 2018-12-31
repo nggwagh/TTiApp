@@ -42,7 +42,14 @@ class TaskViewController: UIViewController, DateElementDelegate {
         taskPriorityLabel.text = self.tastDetails.objective?.priority.displayValue
         taskDetailLabel.text = self.tastDetails.objective?.description
         dueDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.dueDate)!)
-        scheduledDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.startDate)!)
+        
+        if self.tastDetails.estimatedCompletionDate != nil {
+            scheduledDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.estimatedCompletionDate)!)
+        }
+        else
+        {
+            scheduledDateLabel.text = ""
+        }
     }
     
     // MARK: - IBAction Methods
@@ -64,7 +71,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
     // MARK: - DateElementDelegate methods
     
     func selectedDate(_ date: Date){
-        scheduledDateLabel.text = DateFormatter.formatter_MMMddyyyy.string(from: date)
+        scheduledDateLabel.text = DateFormatter.formatter_MMMMddyyyy.string(from: date)
         
         //Show progress hud
         self.showHUD(progressLabel: "")
@@ -90,14 +97,17 @@ class TaskViewController: UIViewController, DateElementDelegate {
                 
                 if case 200..<400 = response.statusCode {
                     
-                    do{
-                        let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
-                        print(jsonDict)
+                    if (response.statusCode == 200)
+                    {
+                        let alertContoller =  UIAlertController.init(title: "Success", message: "Objective scheduled successfully.", preferredStyle: .alert)
                         
-                    }
-                    catch let error {
-                        print(error.localizedDescription)
-                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                        let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                            print("You have pressed OK")
+                        }
+                        
+                        alertContoller.addAction(action)
+                        self.present(alertContoller, animated: true, completion: nil)
+
                     }
                 }
                 else

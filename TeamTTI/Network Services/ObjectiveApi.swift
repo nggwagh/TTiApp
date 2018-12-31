@@ -8,13 +8,40 @@
 
 import Foundation
 import Moya
+import Alamofire
 
 enum ObjectiveApi {
     case list
     case schedule(objectiveArray: [AnyObject])
 }
 
+/*
+struct JsonArrayEncoding: Moya.ParameterEncoding {
+    
+    public static var `default`: JsonArrayEncoding { return JsonArrayEncoding() }
+    
+    
+    /// Creates a URL request by encoding parameters and applying them onto an existing request.
+    ///
+    /// - parameter urlRequest: The request to have parameters applied.
+    /// - parameter parameters: The parameters to apply.
+    ///
+    /// - throws: An `AFError.parameterEncodingFailed` error if encoding fails.
+    ///
+    /// - returns: The encoded request.
+    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        var req = try urlRequest.asURLRequest()
+        let json = try JSONSerialization.data(withJSONObject: parameters!["jsonArray"]!, options: JSONSerialization.WritingOptions.prettyPrinted)
+        req.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        req.httpBody = json
+        return req
+    }
+    
+}
+*/
+
 extension ObjectiveApi: TargetType {
+    
     var baseURL: URL {
         return Constant.API.baseURL
     }
@@ -39,42 +66,45 @@ extension ObjectiveApi: TargetType {
         }
     }
 
-//    var parameters: [String: AnyObject]? {
-//
-//        switch self {
-//            case .schedule(let objectiveArray):
-//                return [ "parameterName": objectiveArray as AnyObject ]
-//        case .list:
-//            return nil
-//        }
-//    }
-//
-//    var parameterEncoding: Moya.ParameterEncoding {
-//        switch self {
-//        case .schedule(_):
-//            return JSONEncoding.default
-//        default:
-//            return JSONEncoding.default
-//        }
-//    }
-    
     var sampleData: Data {
         return Data()
     }
-
+    
     var task: Task {
         
         switch self {
         case .list:
             return .requestPlain
-        case .schedule(_):
-            return .requestPlain
-          //  return .requestParameters(parameters: (objectiveArray as AnyObject) as! [String : Any], encoding: JSONEncoding.default)
+        case .schedule(let objectiveArray):
+            return .requestParameters(parameters:
+                ["objectives": objectiveArray],encoding: JSONEncoding.default)
         }
     }
-
+    
     var headers: [String : String]? {
         return nil
     }
+    
+    /*
+    var parameters: [String: AnyObject]? {
+
+        switch self {
+            case .schedule(let objectiveArray):
+                return ["jsonArray": objectiveArray as AnyObject]
+        case .list:
+            return nil
+        }
+    }
+
+    var parameterEncoding: Moya.ParameterEncoding {
+    
+        switch self {
+        case .schedule(_):
+            return JsonArrayEncoding.default
+        default:
+            return JSONEncoding.default
+        }
+    }
+    */
 
 }
