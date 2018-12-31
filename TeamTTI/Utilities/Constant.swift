@@ -17,6 +17,7 @@ struct Constant {
             static let path = "oauth/token"
             static let accessToken = "access_token"
             static let refreshToken = "refresh_token"
+            static let userID = "userId"
         }
 
         struct Store {
