@@ -61,6 +61,9 @@ extension LoginViewController {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
                         let keychain = KeychainSwift()
+                        //set hard coded userid
+                        keychain.set( "1" , forKey: Constant.API.Login.userID )
+
                         if let refreshToken = jsonDict[Constant.API.Login.refreshToken] as? String {
                             keychain.set( refreshToken , forKey: Constant.API.Login.refreshToken )
                         }
