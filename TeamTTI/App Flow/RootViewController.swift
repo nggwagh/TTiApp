@@ -18,7 +18,8 @@ class RootViewControllerFactory {
     static func getRootViewController() -> UIViewController {
         
         if let _ = KeychainSwift().get(Constant.API.Login.accessToken) {
-            ObjectiveDataProvider.shared.loadData { _ in }
+            //Nikhil to check
+//            ObjectiveDataProvider.shared.loadData { _ in }
             let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
             let homeViewController = homeStoryboard.instantiateInitialViewController()
             let leftSideMenuNavitationController = homeStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Home.leftSideMenuNavigationController) as! UINavigationController

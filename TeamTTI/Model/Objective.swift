@@ -100,7 +100,25 @@ extension Objective {
                       updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["updated_at"]))
         }
     }
-}
+    
+    static func build(from objectiveJsonObject: [String: Any]) -> Objective {
+        return Objective(id: objectiveJsonObject["id"] as! Int,
+                      title: objectiveJsonObject["title"] as! String,
+                      startDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["startDate"]),
+                      endDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["endDate"]),
+                      description: objectiveJsonObject["description"] as? String,
+                      status: .status(for: objectiveJsonObject["status"]!),
+                      dueDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["dueDate"]),
+                      priority: .priority(for: objectiveJsonObject["priority"]!),
+                      type: .type(for: objectiveJsonObject["type"]!),
+                      trackProgress: objectiveJsonObject["trackProgress"] as? Int,
+                      createdBy: objectiveJsonObject["createdBy"] as? Int,
+                      updatedBy: objectiveJsonObject["updatedBy"] as? Int,
+                      deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["deleted_at"]),
+                      createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["created_at"]),
+                      updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["updated_at"]))
+        }
+    }
 
 private extension Objective {
 

@@ -69,9 +69,12 @@ extension LoginViewController {
                         }
                         if let token = jsonDict[Constant.API.Login.accessToken] as? String {
                             keychain.set( token , forKey: Constant.API.Login.accessToken )
-                            ObjectiveDataProvider.shared.loadData(completion: { (_) in
+                            //Nikhil to check
+                            /* ObjectiveDataProvider.shared.loadData(completion: { (_) in
                                 RootViewControllerManager.refreshRootViewController()
-                            })
+                            }) */
+                            
+                            RootViewControllerManager.refreshRootViewController()
                         }
                         
                     }

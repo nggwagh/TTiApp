@@ -51,6 +51,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.refreshStore()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,6 +60,10 @@ class HomeViewController: UIViewController {
     }
     
     @objc func refreshStore() {
+        
+        if self.selectedStore == nil {
+            return
+        }
         
         //show progress hud
         self.showHUD(progressLabel: "")
