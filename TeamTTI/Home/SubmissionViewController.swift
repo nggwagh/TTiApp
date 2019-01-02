@@ -8,9 +8,11 @@
 
 import UIKit
 import UITextView_Placeholder
+import Moya
 
 class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPickerDelegate {
     
+    //MARK: IBOutlets
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var completionTypeTextField: UITextField!
     @IBOutlet weak var completionTypesBackgroundView: UIView!
@@ -23,13 +25,18 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var taskImageView: UIImageView!
     @IBOutlet weak var commentWarningView: UIView!
 
+    //MARK: Instance variables
+    private var submitObjectiveTask: Cancellable?
     public var tastDetails : StoreObjective!
+
 
     let completionTypes : [String] = ["Complete", "Schedule", "Incomplete"]
     let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
 
     var isViewLoadedForFirstTime : Bool = true
 
+    //MARK: View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +50,75 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         if isViewLoadedForFirstTime {
             isViewLoadedForFirstTime = false
             setUpInitialView()
+        }
+    }
+    
+    //MARK: Private Method
+    
+    func submitObective() {
+        
+        self.showHUD(progressLabel: "")
+        
+        submitObjectiveTask?.cancel()
+        
+        var submitObject = [String: Any]()
+        
+        if self.completionTypeTextField.text == "Complete"
+        {
+            submitObject["status"] = 3 //Complete
+            submitObject["completionType"] = ""
+        }
+        else if self.completionTypeTextField.text == "Incomplete"
+        {
+            submitObject["status"] = 5 //Incomplete
+            submitObject["completionType"] = self.reasonTextField.text
+        }
+        else
+        {
+            submitObject["status"] = 2 //Schedule
+            submitObject["completionType"] = ""
+        }
+        
+        submitObject["comments"] = self.commentTextView.text
+        submitObject["completionTypeID"] = 0 //FOR NOW COMPLETIONTYPE WILL BE 0 UNTILL API GUY COMMUNICATE
+        
+        submitObjectiveTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.submitObjective(storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID, submitJson: submitObject)){ result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                    
+                    if (response.statusCode == 200)
+                    {
+                        let alertContoller =  UIAlertController.init(title: "Success", message: "Objectives Submitted successfully.", preferredStyle: .alert)
+                        
+                        let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                            
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                        
+                        alertContoller.addAction(action)
+                        self.present(alertContoller, animated: true, completion: nil)
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                break
+            }
+
+            
         }
     }
     
@@ -60,18 +136,71 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         self.view.addSubview(calender)
     }
     
+    
+    
     @IBAction func submitButtonTapped(_ sender: Any) {
-        if commentTextView.text!.count == 0 {
-            UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.commentWarningView.isHidden = false
-            })
+        
+        if (scheduledDateLabel.text?.count != 0)
+        {
+            if ((self.taskImageView.image != nil) && (self.completionTypeTextField.text?.count != 0))
+            {
+                if (self.tastDetails.status != StoreObjectiveStatus.overdue)
+                {
+                    self.submitObective()
+                }
+                else
+                {
+                    if commentTextView.text!.count == 0
+                    {
+                        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                            self.commentWarningView.isHidden = false
+                        })
+                    }
+                    else
+                    {
+                        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                            self.commentWarningView.isHidden = true
+                        })
+
+                        self.submitObective()
+                    }
+                }
+            }
+            else
+            {
+                var errorMessage: String!
+                
+                if (self.completionTypeTextField.text?.count == 0)
+                {
+                    errorMessage = "Please select Completion Type."
+                }
+                else
+                {
+                    errorMessage = "Please upload Photo from Camera/Gallery."
+                }
+                
+                let alertContoller =  UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)
+
+                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                }
+                
+                alertContoller.addAction(action)
+                self.present(alertContoller, animated: true, completion: nil)
+            }
         }
-        else{
-            UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.commentWarningView.isHidden = true
-            })
+        else
+        {
+            let alertContoller =  UIAlertController.init(title: "Error", message: "Scheduled Date is empty. Please set scheduled date first.", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            }
+            
+            alertContoller.addAction(action)
+            self.present(alertContoller, animated: true, completion: nil)
         }
     }
+    
+    
     @IBAction func closeCommentWarningButtonTapped(_ sender: Any) {
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.commentWarningView.isHidden = true
@@ -81,8 +210,10 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - Picker View  methods
     
     @objc func completionTypeSelected(selectedText: String) {
+        
         if selectedText == "Incomplete" {
             self.reasonViewHeightConstraint.constant = 112;
+            
         }
         else {
             self.reasonViewHeightConstraint.constant = 0;
@@ -107,8 +238,16 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     }
     
     func setUIValues(){
+        
         dueDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.dueDate)!)
-        scheduledDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.startDate)!)
+        
+        if self.tastDetails.estimatedCompletionDate != nil {
+            scheduledDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.estimatedCompletionDate)!)
+        }
+        else
+        {
+            scheduledDateLabel.text = ""
+        }
     }
     
     // MARK: - DateElementDelegate methods

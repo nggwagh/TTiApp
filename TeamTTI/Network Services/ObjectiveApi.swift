@@ -11,8 +11,12 @@ import Moya
 import Alamofire
 
 enum ObjectiveApi {
+   
     case list
+    
     case schedule(objectiveArray: [AnyObject])
+    
+    case submitObjective(storeID: Int, objectiveID: Int, submitJson: [String: Any])
 }
 
 /*
@@ -48,21 +52,30 @@ extension ObjectiveApi: TargetType {
 
     var path: String {
         switch self {
+            
         case .list:
             return Constant.API.Objective.path
             
         case .schedule(_):
             return "api/v1/store_objective/schedule"
+            
+        case .submitObjective(let storeID, let objectiveID,_):
+            return "api/v1/store/\(storeID)/objective/\(objectiveID)"
         }
     }
 
     var method: Moya.Method {
         
         switch self {
+            
         case .list:
             return .get
+            
         case .schedule(_):
             return .post
+            
+        case .submitObjective(_,_,_):
+            return .put
         }
     }
 
@@ -73,11 +86,18 @@ extension ObjectiveApi: TargetType {
     var task: Task {
         
         switch self {
+        
         case .list:
             return .requestPlain
+            
         case .schedule(let objectiveArray):
             return .requestParameters(parameters:
                 ["objectives": objectiveArray],encoding: JSONEncoding.default)
+            
+            
+        case .submitObjective(_,_, let submitJson):
+            return .requestParameters(parameters: submitJson, encoding: JSONEncoding.default)
+
         }
     }
     
