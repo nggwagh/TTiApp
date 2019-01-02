@@ -30,6 +30,8 @@ class HomeViewController: UIViewController {
     
     private var storeSearchViewController = StoreSearchViewController()
     
+    private var selectedStoreObjectives = [StoreObjective]()
+    
     @IBOutlet weak var navigationBar: HomeNavigationBar!
     
     var refreshControl   = UIRefreshControl()
@@ -178,6 +180,16 @@ class HomeViewController: UIViewController {
     //MARK: - IBAction methods
     @objc func handleCheckUncheckButtonTap(sender : UIButton) {
         sender.isSelected = !sender.isSelected;
+        
+        let storeObjectiveObj = (self.storeObjectives?[sender.tag])!
+        
+        if sender.isSelected {
+            self.selectedStoreObjectives.append(storeObjectiveObj)
+        }
+        else{
+            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.id }))
+
+        }
     }
     
     @IBAction func handleCancelButtonTap(sender : UIButton) {
@@ -251,8 +263,9 @@ extension HomeViewController: UITableViewDataSource {
             
             let storeObjectiveCell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell") as! StoreObjectiveTableViewCell
             storeObjectiveCell.configure(with: storeObjective, isSelectionOn: self.navigationBar.calendarButton.isSelected)
-            storeObjectiveCell.checkMarkButton.isSelected = true
+            storeObjectiveCell.checkMarkButton.tag = indexPath.row
             storeObjectiveCell.checkMarkButton.addTarget(self, action: #selector(handleCheckUncheckButtonTap(sender:)), for: UIControlEvents.touchUpInside)
+            
             return storeObjectiveCell
         default:
             return UITableViewCell()
@@ -298,6 +311,8 @@ extension HomeViewController: HomeNavigationBarDelegate {
             storeSearchViewController.cancelSearch()
         }
 
+        self.selectedStoreObjectives = (self.storeObjectives?.filter({$0.objective?.priority == Priority.high }))!
+        
         //open calendar
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.scheduleView.isHidden = self.navigationBar.calendarButton.isSelected
@@ -344,6 +359,66 @@ extension HomeViewController: StoreSearchViewControllerDelegate {
 extension HomeViewController: DateElementDelegate {
     func selectedDate(_ date: Date) {
         print(date)
+        
+        //Show progress hud
+        self.showHUD(progressLabel: "")
+        
+        var postArray = [[String : Any]]()
+
+        for storeObj in self.selectedStoreObjectives{
+            var postParaDict = [String: Any]()
+            
+            postParaDict["objectiveID"] = storeObj.objectiveID
+            postParaDict["storeID"] = storeObj.storeId
+            postParaDict["estimatedCompletionDate"] = DateFormatter.formatter_yyyyMMdd_hhmmss.string(from: date).components(separatedBy: " ")[0]
+            postParaDict["comments"] = ""
+            
+            postArray.append(postParaDict)
+        }
+        
+        MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request( .schedule(objectiveArray: postArray as [AnyObject])){ result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                    
+                    if (response.statusCode == 200)
+                    {
+                        let alertContoller =  UIAlertController.init(title: "Success", message: "Objectives scheduled successfully.", preferredStyle: .alert)
+                        
+                        let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                            self.navigationBar.calendarButton.isSelected = false
+                            
+                            self.reloadTableView()
+                            
+                            UIView.transition(with: self.view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                                self.scheduleView.isHidden = true
+                            })
+                            
+                            self.refreshStore()
+                        }
+                        
+                        alertContoller.addAction(action)
+                        self.present(alertContoller, animated: true, completion: nil)
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                break
+            }
+        }
     }
 }
 

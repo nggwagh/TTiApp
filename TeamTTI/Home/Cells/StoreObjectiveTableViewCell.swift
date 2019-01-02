@@ -41,10 +41,12 @@ extension StoreObjectiveTableViewCell {
             checkMarkButtonWidthConstraint.constant = 0;
         }
         else if isSelectionOn && storeObjective.objective?.priority == Priority.high {
+            checkMarkButton.isSelected = true
             checkMarkButton.isHidden = false
             checkMarkButtonWidthConstraint.constant = 30;
         }
         else{
+            checkMarkButton.isSelected = false
             checkMarkButton.isHidden = true
             checkMarkButtonWidthConstraint.constant = 30;
         }
