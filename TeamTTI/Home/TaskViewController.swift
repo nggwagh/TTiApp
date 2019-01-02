@@ -8,9 +8,11 @@
 
 import UIKit
 import Moya
+import AlamofireImage
+import Optik
 
 class TaskViewController: UIViewController, DateElementDelegate {
-
+    
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskDetailPosterImageView: UIImageView!
     @IBOutlet weak var taskPriorityLabel: UILabel!
@@ -23,12 +25,17 @@ class TaskViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var taskImageView3: UIImageView!
     
     public var tastDetails : StoreObjective!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         setUIValues()
+        
+        taskDetailPosterImageView.af_setImage(withURL: URL(string: "https://airtower.files.wordpress.com/2011/01/7-11-christmas_deko.jpg")!, placeholderImage: UIImage(named: "mallImage")!)
+        taskImageView1.af_setImage(withURL: URL(string: "https://airtower.files.wordpress.com/2011/01/7-11-christmas_deko.jpg")!, placeholderImage: UIImage(named: "mallImage")!)
+        taskImageView2.af_setImage(withURL: URL(string: "https://cdn.winsightmedia.com/platform/files/public/cspdn/7-11-entrance-885_0.jpg")!, placeholderImage: UIImage(named: "mallImage")!)
+        taskImageView3.af_setImage(withURL: URL(string: "https://pbs.twimg.com/media/DaArxTKVQAAGfvw.jpg:large")!, placeholderImage: UIImage(named: "mallImage")!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,6 +59,22 @@ class TaskViewController: UIViewController, DateElementDelegate {
         }
     }
     
+    func loadFullScreenImage(at index : Int) {
+        let imageDownloader = AlamofireImageDownloader()
+        
+        guard
+        let url1 = URL(string: "https://airtower.files.wordpress.com/2011/01/7-11-christmas_deko.jpg"),
+        let url2 = URL(string: "https://cdn.winsightmedia.com/platform/files/public/cspdn/7-11-entrance-885_0.jpg"),
+        let url3 = URL(string: "https://pbs.twimg.com/media/DaArxTKVQAAGfvw.jpg:large")
+        else {
+            return
+        }
+        
+        let imageViewer = Optik.imageViewer(withURLs: [url1, url2, url3], initialImageDisplayIndex: index, imageDownloader: imageDownloader, activityIndicatorColor: UIColor.white, dismissButtonImage: nil, dismissButtonPosition: DismissButtonPosition.topLeading)
+        
+        self.present(imageViewer, animated: true, completion: nil)
+    }
+    
     // MARK: - IBAction Methods
     
     @IBAction func viewPlaybookButtonTapped(_ sender: UIButton) {
@@ -66,6 +89,25 @@ class TaskViewController: UIViewController, DateElementDelegate {
         calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         calender.center = self.view.center
         self.view.addSubview(calender)
+    }
+    
+    // MARK: - Gesture recognizers
+    
+    @IBAction func taskDetailPosterImageViewTap(_ sender: UITapGestureRecognizer) {
+        
+        loadFullScreenImage(at: 0)
+    }
+    
+    @IBAction func taskDetailImageView1Tap(_ sender: UITapGestureRecognizer) {
+        loadFullScreenImage(at: 0)
+    }
+    
+    @IBAction func taskDetailImageView2Tap(_ sender: UITapGestureRecognizer) {
+        loadFullScreenImage(at: 1)
+    }
+    
+    @IBAction func taskDetailImageView3Tap(_ sender: UITapGestureRecognizer) {
+        loadFullScreenImage(at: 2)
     }
     
     // MARK: - DateElementDelegate methods
@@ -107,7 +149,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
                         
                         alertContoller.addAction(action)
                         self.present(alertContoller, animated: true, completion: nil)
-
+                        
                     }
                 }
                 else

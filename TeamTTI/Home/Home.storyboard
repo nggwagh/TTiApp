@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -599,11 +599,15 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XW-Bf-OYZ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="595.33333333333337"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="Xlv-Im-Njt">
+                                            <imageView tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="Xlv-Im-Njt">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="mjh-bR-IUI"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="7aY-H9-NQL" appends="YES" id="phX-pd-UeS"/>
+                                                </connections>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vt-3d-VMW">
                                                 <rect key="frame" x="20" y="210" width="50" height="25"/>
@@ -783,14 +787,26 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Omr-Vg-eny">
                                                 <rect key="frame" x="3" y="468" width="408" height="130"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="prK-F9-cVz">
+                                                    <imageView tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="prK-F9-cVz">
                                                         <rect key="frame" x="0.0" y="0.0" width="134" height="130"/>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="Ps7-Nm-KEB" appends="YES" id="49c-0e-l9z"/>
+                                                        </connections>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="Cg0-r1-b9V">
+                                                    <imageView tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="Cg0-r1-b9V">
                                                         <rect key="frame" x="137" y="0.0" width="134" height="130"/>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="Hen-3E-osz" appends="YES" id="hfV-og-RZZ"/>
+                                                        </connections>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="Mqf-oM-9nJ">
+                                                    <imageView tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mallImage" translatesAutoresizingMaskIntoConstraints="NO" id="Mqf-oM-9nJ">
                                                         <rect key="frame" x="274" y="0.0" width="134" height="130"/>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="zGg-yO-dED" appends="YES" id="6Ha-Gh-4ro"/>
+                                                        </connections>
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
@@ -863,6 +879,26 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uRd-YX-sEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="7aY-H9-NQL">
+                    <connections>
+                        <action selector="taskDetailPosterImageViewTap:" destination="vqy-cf-NEL" id="FdO-yA-aeX"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Ps7-Nm-KEB">
+                    <connections>
+                        <action selector="taskDetailImageView1Tap:" destination="vqy-cf-NEL" id="43Z-Xt-esZ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Hen-3E-osz">
+                    <connections>
+                        <action selector="taskDetailImageView2Tap:" destination="vqy-cf-NEL" id="ETa-mc-AnO"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="zGg-yO-dED">
+                    <connections>
+                        <action selector="taskDetailImageView3Tap:" destination="vqy-cf-NEL" id="pdb-YS-NtK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1037.68115942029" y="809.91847826086962"/>
         </scene>
@@ -1245,18 +1281,18 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CalenderIcon" width="18" height="19"/>
+        <image name="CalenderIcon" width="28" height="29"/>
         <image name="CloseIcon" width="20" height="20"/>
-        <image name="UploadImage" width="432" height="260"/>
+        <image name="UploadImage" width="1296" height="780"/>
         <image name="accessoryDisclosure" width="7" height="11"/>
         <image name="calender" width="47" height="48"/>
-        <image name="check" width="20" height="20"/>
-        <image name="down_arrow" width="14" height="8"/>
-        <image name="down_arrow_blue" width="11" height="7"/>
-        <image name="left_menu" width="30" height="22"/>
-        <image name="mallImage" width="500" height="240"/>
+        <image name="check" width="30" height="30"/>
+        <image name="down_arrow" width="21" height="12"/>
+        <image name="down_arrow_blue" width="34" height="22"/>
+        <image name="left_menu" width="30.666666030883789" height="22"/>
+        <image name="mallImage" width="240" height="115.44000244140625"/>
         <image name="objective_complete" width="23" height="23"/>
-        <image name="unCheck" width="20" height="20"/>
+        <image name="unCheck" width="30" height="30"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
