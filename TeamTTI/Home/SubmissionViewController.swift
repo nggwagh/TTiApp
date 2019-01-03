@@ -85,6 +85,28 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         submitObject["comments"] = self.commentTextView.text
         submitObject["completionTypeID"] = 0 //FOR NOW COMPLETIONTYPE WILL BE 0 UNTILL API GUY COMMUNICATE
         
+        //IF ESTIMATED DATE IS EMPTY SEND AS TODAYS DATE ELSE SEND SET DATE
+        if scheduledDateLabel.text?.count == 0 {
+            
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let todaysDate = formatter.string(from: date)
+
+            print("Date:\(todaysDate)")
+            
+            submitObject["estimatedCompletionDate"] = todaysDate
+        }
+        else
+        {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let estimateDate = formatter.string(from: self.tastDetails.estimatedCompletionDate!)
+            
+            submitObject["estimatedCompletionDate"] = estimateDate
+        }
+        
+        
         submitObjectiveTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.submitObjective(storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID, submitJson: submitObject)){ result in
             
             // hiding progress hud
@@ -142,9 +164,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     
     
     @IBAction func submitButtonTapped(_ sender: Any) {
-        
-        if (scheduledDateLabel.text?.count != 0)
-        {
+    
             if ((self.taskImageView.image != nil) && (self.completionTypeTextField.text?.count != 0))
             {
                 if (self.tastDetails.status != StoreObjectiveStatus.overdue)
@@ -190,17 +210,6 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 alertContoller.addAction(action)
                 self.present(alertContoller, animated: true, completion: nil)
             }
-        }
-        else
-        {
-            let alertContoller =  UIAlertController.init(title: "Error", message: "Scheduled Date is empty. Please set scheduled date first.", preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-            }
-            
-            alertContoller.addAction(action)
-            self.present(alertContoller, animated: true, completion: nil)
-        }
     }
     
     

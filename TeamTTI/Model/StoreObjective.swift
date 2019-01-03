@@ -63,6 +63,8 @@ struct StoreObjective {
     let updatedAt: Date?
     let images: [URL]
 
+    let incompleteReasonID: String?
+
     //Nikhil to check
    /* var objective: Objective? {
         get {
@@ -90,6 +92,7 @@ extension StoreObjective {
                            createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["created_at"]),
                            updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["updated_at"]),
                            images: ((storeObjectiveJsonObject["images"] as! [String]).compactMap{ return URL(string: $0)}),
+                           incompleteReasonID: storeObjectiveJsonObject["incompleteReasonID"] as? String,
                            objective: Objective.build(from: storeObjectiveJsonObject["objective"] as! [String : Any]))
         }
     }
