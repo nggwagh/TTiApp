@@ -108,10 +108,10 @@ class StoreSearchViewController: UIViewController {
         
         let keychain = KeychainSwift()
         
-        myStores = storesArray.filter({$0.userID == Int(keychain.get(Constant.API.Login.userID)!)})
+        myStores = storesArray.filter({$0.userID == Int(keychain.get(Constant.API.User.userID)!)})
         
         storesArray.removeAll { (store : Store) -> Bool in
-            store.userID == Int(keychain.get(Constant.API.Login.userID)!)
+            store.userID == Int(keychain.get(Constant.API.User.userID)!)
         }
         
         if storesArray.count >= 3 {
@@ -199,7 +199,7 @@ extension StoreSearchViewController: UITableViewDelegate {
             label.font = UIFont.init(name: "Avenir", size: 12.5)
             label.textColor = UIColor.init(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 1.0)
             headerView.addSubview(label)
-
+            headerView.backgroundColor = tableView.backgroundColor;
             return headerView
         }
         else{

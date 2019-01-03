@@ -61,8 +61,6 @@ extension LoginViewController {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
                         let keychain = KeychainSwift()
-                        //set hard coded userid
-                        keychain.set( "1" , forKey: Constant.API.Login.userID )
 
                         if let refreshToken = jsonDict[Constant.API.Login.refreshToken] as? String {
                             keychain.set( refreshToken , forKey: Constant.API.Login.refreshToken )
@@ -74,7 +72,7 @@ extension LoginViewController {
                                 RootViewControllerManager.refreshRootViewController()
                             }) */
                             
-                            RootViewControllerManager.refreshRootViewController()
+                            self.getUserDetails()
                         }
                         
                     }
@@ -96,6 +94,47 @@ extension LoginViewController {
         }
     }
 
+    private func getUserDetails() {
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
+        MoyaProvider<UserApi>(plugins: [AuthPlugin()]).request(.userDetails()) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+            //TODO:- make generic solution for error handling
+            case let .success(response) :
+                
+                if case 200..<400 = response.statusCode {
+                    do {
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
+                        print(jsonDict)
+                        let keychain = KeychainSwift()
+
+                        if let userID = jsonDict["id"] as? Int {
+                            keychain.set( String(userID) , forKey: Constant.API.User.userID )
+                            RootViewControllerManager.refreshRootViewController()
+                        }
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    //TODO:- handle an invaild status code
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+            }
+        }
+    }
+    
     private func validate() -> Bool {
         guard let email = txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines), email.isValidEmail() else {
             txtEmail.becomeFirstResponder()

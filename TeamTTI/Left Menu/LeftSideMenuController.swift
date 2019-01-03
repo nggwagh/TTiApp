@@ -38,7 +38,8 @@ class LeftSideMenuController: UITableViewController {
         //clear user details from keychain
         KeychainSwift().delete(Constant.API.Login.refreshToken)
         KeychainSwift().delete(Constant.API.Login.accessToken)
-        
+        KeychainSwift().delete(Constant.API.User.userID)
+
         //Move to login screen
         RootViewControllerManager.refreshRootViewController()
     }

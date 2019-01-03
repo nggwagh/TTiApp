@@ -17,7 +17,7 @@ class RootViewControllerFactory {
     
     static func getRootViewController() -> UIViewController {
         
-        if let _ = KeychainSwift().get(Constant.API.Login.accessToken) {
+        if let _ = KeychainSwift().get(Constant.API.User.userID) {
             //Nikhil to check
 //            ObjectiveDataProvider.shared.loadData { _ in }
             let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)

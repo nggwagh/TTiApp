@@ -13,6 +13,7 @@ import Moya
 
 enum UserApi {
     case login(email: String, password: String)
+    case userDetails()
 }
 
 
@@ -26,6 +27,8 @@ extension UserApi: TargetType {
         case .login(_, _):
             return Constant.API.Login.path
         
+        case .userDetails():
+            return Constant.API.User.path
         }
     }
     
@@ -33,7 +36,9 @@ extension UserApi: TargetType {
         switch self {
         case .login(_, _):
             return .post
-            
+           
+        case .userDetails():
+            return .get
         }
     }
     
@@ -52,6 +57,9 @@ extension UserApi: TargetType {
                  "username": email,
                  "password": password,
                  "scope": "*"],encoding: JSONEncoding.default)
+            
+        case .userDetails():
+            return .requestPlain
             
         }
     }
