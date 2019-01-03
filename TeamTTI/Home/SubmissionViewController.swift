@@ -24,7 +24,10 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskImageView: UIImageView!
     @IBOutlet weak var commentWarningView: UIView!
-
+    @IBOutlet weak var completionTypeDropdownArrow: UIImageView!
+    @IBOutlet weak var statusStackView: UIStackView!
+    @IBOutlet weak var completionTypeAndStatusPartition: UIView!
+    
     //MARK: Instance variables
     private var submitObjectiveTask: Cancellable?
     public var tastDetails : StoreObjective!
@@ -227,13 +230,28 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - Private methods
     
     func setUpInitialView() {
-        completionTypesBackgroundView.dropShadow(scale: true)
-        reasonBackgroundView.dropShadow(scale: true)
-        scheduledDateBackgroundView.dropShadow(scale: true)
-        commentTextView.placeholder = "Type your comment here"
-        commentTextView.placeholderColor = UIColor.lightGray
-        completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
-        reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
+        let editable : Bool = true
+        
+        if editable{
+            statusStackView.isHidden = true
+            completionTypeAndStatusPartition.isHidden = true
+            completionTypesBackgroundView.dropShadow(scale: true)
+            reasonBackgroundView.dropShadow(scale: true)
+            scheduledDateBackgroundView.dropShadow(scale: true)
+            completionTypeDropdownArrow.isHidden = false
+            commentTextView.placeholder = "Type your comment here"
+            commentTextView.placeholderColor = UIColor.lightGray
+            completionTypeTextField.isUserInteractionEnabled = true
+            completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
+            reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
+        }
+        else{
+            statusStackView.isHidden = false
+            completionTypeDropdownArrow.isHidden = true
+            completionTypeAndStatusPartition.isHidden = true
+            completionTypeTextField.isUserInteractionEnabled = false
+        }
+
         self.reasonViewHeightConstraint.constant = 0;
     }
     
