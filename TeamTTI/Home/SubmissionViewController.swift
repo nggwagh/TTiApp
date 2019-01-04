@@ -163,6 +163,42 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         }
     }
     
+    func uploadImage(image : UIImage){
+        self.showHUD(progressLabel: "")
+        
+        submitObjectiveTask?.cancel()
+        
+        submitObjectiveTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.uploadStoreObjectiveImage(image: image, storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID)){ result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                    
+                    if (response.statusCode == 200)
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                break
+            }
+            
+        }
+    }
+    
     // MARK: - IBAction methods
     
     @IBAction func handleUploadPhotoButtonTap(_ sender: UIButton) {
@@ -316,6 +352,8 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
 
     func photoPicker(picker: PhotoPickerController, didSelectImage image: UIImage){
         taskImageView.image = image
+        
+        uploadImage(image: image)
     }
 }
 

@@ -17,6 +17,8 @@ enum ObjectiveApi {
     case schedule(objectiveArray: [AnyObject])
     
     case submitObjective(storeID: Int, objectiveID: Int, submitJson: [String: Any])
+    
+    case uploadStoreObjectiveImage(image: UIImage, storeID: Int, objectiveID: Int)
 }
 
 /*
@@ -61,6 +63,9 @@ extension ObjectiveApi: TargetType {
             
         case .submitObjective(let storeID, let objectiveID,_):
             return "api/v1/store/\(storeID)/objective/\(objectiveID)"
+            
+        case .uploadStoreObjectiveImage(image: _, let storeID, let objectiveID):
+            return "api/v1/store/\(storeID)/objective/\(objectiveID)/images"
         }
     }
 
@@ -76,6 +81,9 @@ extension ObjectiveApi: TargetType {
             
         case .submitObjective(_,_,_):
             return .put
+            
+        case .uploadStoreObjectiveImage(_,_,_):
+            return .post
         }
     }
 
@@ -98,13 +106,20 @@ extension ObjectiveApi: TargetType {
         case .submitObjective(_,_, let submitJson):
             return .requestParameters(parameters: submitJson, encoding: JSONEncoding.default)
 
+        case .uploadStoreObjectiveImage(let image, _, _):
+            let imageData = UIImagePNGRepresentation(image)
+            let vName = "Taken at store"
+            let vNameData = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(vName.data(using: .utf8)!), name: "comments")
+
+            let data = MultipartFormData(provider: MultipartFormData.FormDataProvider.data(imageData!), name: "file", fileName: "objectives.jpeg", mimeType: "image/jpeg")
+            return .uploadMultipart([vNameData, data])
         }
     }
     
     var headers: [String : String]? {
-        return nil
+        return ["Content-type" : "application/json"]
     }
-    
+
     /*
     var parameters: [String: AnyObject]? {
 
