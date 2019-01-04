@@ -91,7 +91,10 @@ extension StoreObjective {
                            deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["deleted_at"]),
                            createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["created_at"]),
                            updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["updated_at"]),
-                           images: ((storeObjectiveJsonObject["images"] as! [String]).compactMap{ return URL(string: $0)}),
+                           images: ((storeObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
+                            {
+                                return URL(string: $0["fileURL"] as! String)
+                           }),
                            incompleteReasonID: storeObjectiveJsonObject["incompleteReasonID"] as? Int,
                            objective: Objective.build(from: storeObjectiveJsonObject["objective"] as! [String : Any]))
         }
