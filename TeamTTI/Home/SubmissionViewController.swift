@@ -27,11 +27,14 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var completionTypeDropdownArrow: UIImageView!
     @IBOutlet weak var statusStackView: UIStackView!
     @IBOutlet weak var completionTypeAndStatusPartition: UIView!
-    
+    @IBOutlet weak var submitOrEditButton: UIButton!
+    @IBOutlet weak var scheduleDateButton: UIButton!
+    @IBOutlet weak var commentInfoLabel: UILabel!
+
     //MARK: Instance variables
     private var submitObjectiveTask: Cancellable?
     public var tastDetails : StoreObjective!
-
+    private var isViewEditable: Bool? = false
 
     let completionTypes : [String] = ["Complete", "Schedule", "Incomplete"]
     let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
@@ -52,11 +55,24 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         
         if isViewLoadedForFirstTime {
             isViewLoadedForFirstTime = false
+            
+            if (tastDetails.status == .complete || tastDetails.status == .incomplete) {
+                submitOrEditButton.setTitle("Edit", for: UIControlState.normal)
+                isViewEditable = false
+            }
             setUpInitialView()
         }
     }
     
-    //MARK: Private Method
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if (isViewEditable! && !isViewLoadedForFirstTime) {
+            completionTypesBackgroundView.dropShadow(scale: true)
+        }
+    }
+    
+    //MARK: Private Methods
     
     func submitObective() {
         
@@ -165,6 +181,13 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     
     @IBAction func submitButtonTapped(_ sender: Any) {
     
+        if submitOrEditButton.title(for: UIControlState.normal) == "Edit" {
+            isViewEditable = true
+            setUpInitialView()
+            submitOrEditButton.setTitle("Submit", for: UIControlState.normal)
+            return
+        }
+        
             if ((self.taskImageView.image != nil) && (self.completionTypeTextField.text?.count != 0))
             {
                 if (self.tastDetails.status != StoreObjectiveStatus.overdue)
@@ -239,26 +262,32 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - Private methods
     
     func setUpInitialView() {
-        let editable : Bool = true
         
-        if editable{
+        if isViewEditable! {
             statusStackView.isHidden = true
             completionTypeAndStatusPartition.isHidden = true
-            completionTypesBackgroundView.dropShadow(scale: true)
             reasonBackgroundView.dropShadow(scale: true)
             scheduledDateBackgroundView.dropShadow(scale: true)
             completionTypeDropdownArrow.isHidden = false
+            commentTextView.isUserInteractionEnabled = true
             commentTextView.placeholder = "Type your comment here"
             commentTextView.placeholderColor = UIColor.lightGray
             completionTypeTextField.isUserInteractionEnabled = true
             completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
             reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
+            scheduleDateButton.isUserInteractionEnabled = true
+            commentInfoLabel.isHidden = false
         }
         else{
             statusStackView.isHidden = false
             completionTypeDropdownArrow.isHidden = true
-            completionTypeAndStatusPartition.isHidden = true
+            completionTypeAndStatusPartition.isHidden = false
             completionTypeTextField.isUserInteractionEnabled = false
+            commentTextView.isUserInteractionEnabled = false
+            completionTypesBackgroundView.removeShadow()
+            commentTextView.text = tastDetails.comments
+            scheduleDateButton.isUserInteractionEnabled = false
+            commentInfoLabel.isHidden = true
         }
 
         self.reasonViewHeightConstraint.constant = 0;

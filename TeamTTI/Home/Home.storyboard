@@ -1175,7 +1175,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Deu-P3-S65">
                                                 <rect key="frame" x="20" y="529" width="374" height="36"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dg6-Ul-LF0">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dg6-Ul-LF0">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <nil key="textColor"/>
@@ -1314,6 +1314,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Second Objective" id="D6P-9U-ITw"/>
                     <connections>
+                        <outlet property="commentInfoLabel" destination="U2T-fj-lCg" id="CpW-UA-riB"/>
                         <outlet property="commentTextView" destination="Qrp-Me-Xg7" id="TIQ-Io-t9b"/>
                         <outlet property="commentWarningView" destination="SgI-HP-2KZ" id="giA-nb-76J"/>
                         <outlet property="completionTypeAndStatusPartition" destination="pwX-yI-z5r" id="LzC-ms-fpv"/>
@@ -1324,9 +1325,11 @@
                         <outlet property="reasonBackgroundView" destination="6Bt-gK-bVo" id="YuL-yQ-R2b"/>
                         <outlet property="reasonTextField" destination="Qou-NQ-yO2" id="mD1-FR-10U"/>
                         <outlet property="reasonViewHeightConstraint" destination="vp5-dw-t06" id="u1C-cq-r0M"/>
+                        <outlet property="scheduleDateButton" destination="T2S-MA-bwD" id="DnI-rM-P6X"/>
                         <outlet property="scheduledDateBackgroundView" destination="nXc-do-QoU" id="pMH-nz-Aps"/>
                         <outlet property="scheduledDateLabel" destination="ZuC-Og-74N" id="vFT-Sg-dvr"/>
                         <outlet property="statusStackView" destination="Jwg-Ah-Pbq" id="mKS-tN-2ZG"/>
+                        <outlet property="submitOrEditButton" destination="eYB-Hy-ipb" id="ULI-E0-7WO"/>
                         <outlet property="taskImageView" destination="nYm-va-9IW" id="AiJ-cs-zTX"/>
                     </connections>
                 </viewController>

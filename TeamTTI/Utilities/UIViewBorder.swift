@@ -68,4 +68,8 @@ extension UIView {
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
     
+    func removeShadow() {
+        layer.shadowColor = UIColor.clear.cgColor
+    }
+    
 }
