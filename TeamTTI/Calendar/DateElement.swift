@@ -25,9 +25,15 @@ class DateElement: UIView, XibInstance, TTICalendarDelegate {
     @IBOutlet weak var OKButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
+    @IBOutlet weak var pastDueLabel: UILabel!
+    
+    @IBOutlet weak var pastDueHeight: NSLayoutConstraint!
+    
+    
     weak var dateDelegate: DateElementDelegate?
     //MARK:- variables
     var selectedDate: Date?
+    public var isDueDatePassed: Bool = false
     private var calender: TTICalendar!
     
     
@@ -58,7 +64,17 @@ class DateElement: UIView, XibInstance, TTICalendarDelegate {
         OKButton.clipsToBounds = true;
         
         calenderContainerView.dropShadow(color: .gray, opacity: 0.5, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
-
+        
+        if self.isDueDatePassed {
+            self.pastDueLabel.isHidden = false
+            self.pastDueHeight.constant = 48
+        }
+        else
+        {
+            self.pastDueLabel.isHidden = true
+            self.pastDueHeight.constant = 0
+        }
+        
     }
     
     func updateHeaderDetails(selectedDate: Date!) {

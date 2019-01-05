@@ -219,7 +219,21 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
         let calender = DateElement.instanceFromNib() as! DateElement
         calender.dateDelegate = self
-        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
+        
+        //Overdue: Status = 4
+        if (self.tastDetails.status == StoreObjectiveStatus.overdue){
+
+            calender.isDueDatePassed = true
+
+            calender.configure(withThemeColor: UIColor.orange, headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
+        }
+        else{
+            
+            calender.isDueDatePassed = false
+
+            calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
+        }
+        
         calender.center = self.view.center
         self.view.addSubview(calender)
     }

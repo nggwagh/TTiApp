@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -42,7 +43,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="keS-40-gy0">
-                            <rect key="frame" x="10" y="90" width="295" height="310"/>
+                            <rect key="frame" x="10" y="90" width="295" height="260"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="OUg-bk-8fy">
@@ -74,18 +75,29 @@
                                 <constraint firstAttribute="height" constant="30" id="Nr2-VY-RYH"/>
                             </constraints>
                         </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please fill in the comment section reason on scheduled date." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP9-dD-rCi">
+                            <rect key="frame" x="10" y="356" width="295" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="aWD-ng-F8G"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" name="white_smoke"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="xP9-dD-rCi" secondAttribute="trailing" constant="10" id="1Md-Gv-EuM"/>
                         <constraint firstAttribute="bottom" secondItem="OUg-bk-8fy" secondAttribute="bottom" constant="10" id="Aw7-ui-cXg"/>
                         <constraint firstItem="keS-40-gy0" firstAttribute="top" secondItem="37s-l5-nW0" secondAttribute="bottom" id="CLN-yj-g2t"/>
                         <constraint firstAttribute="height" constant="450" id="DAU-gB-hya"/>
                         <constraint firstAttribute="trailing" secondItem="OUg-bk-8fy" secondAttribute="trailing" constant="10" id="FHe-On-Oom"/>
+                        <constraint firstItem="OUg-bk-8fy" firstAttribute="top" secondItem="xP9-dD-rCi" secondAttribute="bottom" constant="6" id="MgD-Lp-1jH"/>
                         <constraint firstAttribute="trailing" secondItem="keS-40-gy0" secondAttribute="trailing" constant="10" id="NIm-uP-gR7"/>
                         <constraint firstItem="37s-l5-nW0" firstAttribute="leading" secondItem="iAk-0F-foc" secondAttribute="leading" id="P2p-En-fy2"/>
                         <constraint firstItem="keS-40-gy0" firstAttribute="leading" secondItem="iAk-0F-foc" secondAttribute="leading" constant="10" id="TN6-5t-PDM"/>
+                        <constraint firstItem="xP9-dD-rCi" firstAttribute="leading" secondItem="iAk-0F-foc" secondAttribute="leading" constant="10" id="VSP-hA-6jD"/>
                         <constraint firstAttribute="trailing" secondItem="37s-l5-nW0" secondAttribute="trailing" id="aXn-Fo-DHf"/>
-                        <constraint firstItem="OUg-bk-8fy" firstAttribute="top" secondItem="keS-40-gy0" secondAttribute="bottom" constant="10" id="fVx-Gc-79Z"/>
+                        <constraint firstItem="xP9-dD-rCi" firstAttribute="top" secondItem="keS-40-gy0" secondAttribute="bottom" constant="6" id="kCN-tB-c1K"/>
                         <constraint firstItem="OUg-bk-8fy" firstAttribute="leading" secondItem="iAk-0F-foc" secondAttribute="leading" constant="100" id="pXb-Ob-20A"/>
                         <constraint firstItem="37s-l5-nW0" firstAttribute="top" secondItem="iAk-0F-foc" secondAttribute="top" id="xXd-hO-rBn"/>
                     </constraints>
@@ -108,9 +120,11 @@
                 <outlet property="calenderContainerView" destination="keS-40-gy0" id="gxn-FV-7qA"/>
                 <outlet property="cancelButton" destination="nbg-ep-qB7" id="uZl-it-uz4"/>
                 <outlet property="headerView" destination="37s-l5-nW0" id="s28-KG-Mz0"/>
+                <outlet property="pastDueHeight" destination="aWD-ng-F8G" id="Dyb-al-NpI"/>
+                <outlet property="pastDueLabel" destination="xP9-dD-rCi" id="T13-CI-xGZ"/>
                 <outlet property="yearLabel" destination="Y8a-Ce-CFt" id="BqV-eF-apr"/>
             </connections>
-            <point key="canvasLocation" x="-244.5" y="35.5"/>
+            <point key="canvasLocation" x="-245.59999999999999" y="34.632683658170919"/>
         </view>
     </objects>
     <resources>
