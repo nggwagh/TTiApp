@@ -12,7 +12,7 @@ import Moya
 
 class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPickerDelegate {
     
-    //MARK: IBOutlets
+    //MARK:- IBOutlets
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var completionTypeTextField: UITextField!
     @IBOutlet weak var completionTypesBackgroundView: UIView!
@@ -30,24 +30,39 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var submitOrEditButton: UIButton!
     @IBOutlet weak var scheduleDateButton: UIButton!
     @IBOutlet weak var commentInfoLabel: UILabel!
+    @IBOutlet weak var calenderImageView: UIImageView!
 
-    //MARK: Instance variables
+    //MARK:- Instance variables
     private var submitObjectiveTask: Cancellable?
     public var tastDetails : StoreObjective!
-    private var isViewEditable: Bool? = false
+    private var isViewEditable: Bool? = true
+    private var isImageSet: Bool? = false
 
-    let completionTypes : [String] = ["Complete", "Schedule", "Incomplete"]
+    let completionTypes : [String] = ["Complete", "Incomplete"]
     let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
 
     var isViewLoadedForFirstTime : Bool = true
 
-    //MARK: View Lifecycle
+    //MARK:- View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setUIValues()
+        
+        //Overdue: Status = 4
+        if (self.tastDetails.status == StoreObjectiveStatus.overdue){
+            self.commentInfoLabel.isHidden = false
+            self.scheduledDateLabel.textColor = UIColor.orange
+            calenderImageView.image = UIImage.init(named: "OrangeCalenderIcon")
+
+        }
+        else{
+            self.commentInfoLabel.isHidden = true
+            self.scheduledDateLabel.textColor = UIColor.black
+            calenderImageView.image = UIImage.init(named: "CalenderIcon")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,7 +87,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         }
     }
     
-    //MARK: Private Methods
+    //MARK:- Private Methods
     
     func submitObective() {
         
@@ -87,16 +102,12 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             submitObject["status"] = 3 //Complete
             submitObject["completionType"] = ""
         }
-        else if self.completionTypeTextField.text == "Incomplete"
+        else
         {
             submitObject["status"] = 5 //Incomplete
             submitObject["completionType"] = self.reasonTextField.text
         }
-        else
-        {
-            submitObject["status"] = 2 //Schedule
-            submitObject["completionType"] = ""
-        }
+        
         
         submitObject["comments"] = self.commentTextView.text
         submitObject["completionTypeID"] = 0 //FOR NOW COMPLETIONTYPE WILL BE 0 UNTILL API GUY COMMUNICATE
@@ -182,7 +193,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                     
                     if (response.statusCode == 200)
                     {
-                        
+                        self.submitObective()
                     }
                 }
                 else
@@ -224,11 +235,11 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             return
         }
         
-            if ((self.taskImageView.image != nil) && (self.completionTypeTextField.text?.count != 0))
+        if (isImageSet!)
             {
                 if (self.tastDetails.status != StoreObjectiveStatus.overdue)
                 {
-                    self.submitObective()
+                    uploadImage(image: taskImageView.image!)
                 }
                 else
                 {
@@ -244,24 +255,13 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                             self.commentWarningView.isHidden = true
                         })
 
-                        self.submitObective()
+                        uploadImage(image: taskImageView.image!)
                     }
                 }
             }
             else
             {
-                var errorMessage: String!
-                
-                if (self.completionTypeTextField.text?.count == 0)
-                {
-                    errorMessage = "Please select Completion Type."
-                }
-                else
-                {
-                    errorMessage = "Please upload Photo from Camera/Gallery."
-                }
-                
-                let alertContoller =  UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)
+                let alertContoller =  UIAlertController.init(title: "Error", message: "Please upload Photo from Camera/Gallery.", preferredStyle: .alert)
 
                 let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                 }
@@ -299,7 +299,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     
     func setUpInitialView() {
         
-        if isViewEditable! {
+        if  isViewEditable! {
             statusStackView.isHidden = true
             completionTypeAndStatusPartition.isHidden = true
             reasonBackgroundView.dropShadow(scale: true)
@@ -312,9 +312,9 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
             reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
             scheduleDateButton.isUserInteractionEnabled = true
-            commentInfoLabel.isHidden = false
         }
-        else{
+        else
+        {
             statusStackView.isHidden = false
             completionTypeDropdownArrow.isHidden = true
             completionTypeAndStatusPartition.isHidden = false
@@ -323,7 +323,16 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             completionTypesBackgroundView.removeShadow()
             commentTextView.text = tastDetails.comments
             scheduleDateButton.isUserInteractionEnabled = false
-            commentInfoLabel.isHidden = true
+            
+            if self.tastDetails.status == StoreObjectiveStatus.complete {
+                
+                completionTypeTextField.text = "Complete"
+            }
+            else {
+                
+                 completionTypeTextField.text = "Incomplete"
+            }
+            
         }
 
         self.reasonViewHeightConstraint.constant = 0;
@@ -351,9 +360,10 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - PhotoPickerDelegate methods
 
     func photoPicker(picker: PhotoPickerController, didSelectImage image: UIImage){
-        taskImageView.image = image
+       
+        isImageSet = true
         
-        uploadImage(image: image)
+        taskImageView.image = image
     }
 }
 

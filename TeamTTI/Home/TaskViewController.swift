@@ -13,6 +13,8 @@ import Optik
 
 class TaskViewController: UIViewController, DateElementDelegate {
     
+    //MARK:- IBOutlets
+
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskDetailPosterImageView: UIImageView!
     @IBOutlet weak var taskPriorityLabel: UILabel!
@@ -23,19 +25,23 @@ class TaskViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var taskImageView1: UIImageView!
     @IBOutlet weak var taskImageView2: UIImageView!
     @IBOutlet weak var taskImageView3: UIImageView!
-    
+    @IBOutlet weak var calenderImageView: UIImageView!
+
+    //MARK:- Instance Variable
+
     public var tastDetails : StoreObjective!
+    var imageArray = [URL]()
+
+    //MARK:- View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setUIValues()
+        setObjectiveImages()
         
-        taskDetailPosterImageView.af_setImage(withURL: URL(string: "https://airtower.files.wordpress.com/2011/01/7-11-christmas_deko.jpg")!, placeholderImage: UIImage(named: "mallImage")!)
-        taskImageView1.af_setImage(withURL: URL(string: "https://airtower.files.wordpress.com/2011/01/7-11-christmas_deko.jpg")!, placeholderImage: UIImage(named: "mallImage")!)
-        taskImageView2.af_setImage(withURL: URL(string: "https://cdn.winsightmedia.com/platform/files/public/cspdn/7-11-entrance-885_0.jpg")!, placeholderImage: UIImage(named: "mallImage")!)
-        taskImageView3.af_setImage(withURL: URL(string: "https://pbs.twimg.com/media/DaArxTKVQAAGfvw.jpg:large")!, placeholderImage: UIImage(named: "mallImage")!)
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +50,42 @@ class TaskViewController: UIViewController, DateElementDelegate {
     }
     
     // MARK: - Private Methods
+    
+    func setObjectiveImages() {
+        
+        print("Images array:\(self.tastDetails.images)")
+        
+        if self.tastDetails.images.count > 0
+        {
+            imageArray.append(self.tastDetails.images[0])
+            
+            taskDetailPosterImageView.af_setImage(withURL:self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
+            
+            taskImageView1.af_setImage(withURL: self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
+            
+            taskImageView1.isUserInteractionEnabled = true
+        }
+        
+        if self.tastDetails.images.count == 2
+        {
+            imageArray.append(self.tastDetails.images[1])
+            
+            taskImageView2.af_setImage(withURL: self.tastDetails.images[1], placeholderImage: UIImage(named: "ImageNotFound")!)
+            
+            taskImageView2.isUserInteractionEnabled = true
+            
+        }
+        
+        if self.tastDetails.images.count == 3
+        {
+            imageArray.append(self.tastDetails.images[2])
+            
+            taskImageView3.af_setImage(withURL: self.tastDetails.images[2], placeholderImage: UIImage(named: "ImageNotFound")!)
+            
+            taskImageView3.isUserInteractionEnabled = true
+            
+        }
+    }
     
     func setUIValues(){
         taskPriorityLabel.text = self.tastDetails.objective?.priority.displayValue
@@ -57,20 +99,23 @@ class TaskViewController: UIViewController, DateElementDelegate {
         {
             scheduledDateLabel.text = ""
         }
+        
+        //Overdue: Status = 4
+        if (self.tastDetails.status == StoreObjectiveStatus.overdue){
+            self.scheduledDateLabel.textColor = UIColor.orange
+            calenderImageView.image = UIImage.init(named: "OrangeCalenderIcon")
+        }
+        else{
+            self.scheduledDateLabel.textColor = UIColor.black
+            calenderImageView.image = UIImage.init(named: "CalenderIcon")
+        }
+        
     }
     
     func loadFullScreenImage(at index : Int) {
         let imageDownloader = AlamofireImageDownloader()
         
-        guard
-        let url1 = URL(string: "https://airtower.files.wordpress.com/2011/01/7-11-christmas_deko.jpg"),
-        let url2 = URL(string: "https://cdn.winsightmedia.com/platform/files/public/cspdn/7-11-entrance-885_0.jpg"),
-        let url3 = URL(string: "https://pbs.twimg.com/media/DaArxTKVQAAGfvw.jpg:large")
-        else {
-            return
-        }
-        
-        let imageViewer = Optik.imageViewer(withURLs: [url1, url2, url3], initialImageDisplayIndex: index, imageDownloader: imageDownloader, activityIndicatorColor: UIColor.white, dismissButtonImage: nil, dismissButtonPosition: DismissButtonPosition.topLeading)
+        let imageViewer = Optik.imageViewer(withURLs: imageArray, initialImageDisplayIndex: index, imageDownloader: imageDownloader, activityIndicatorColor: UIColor.white, dismissButtonImage: nil, dismissButtonPosition: DismissButtonPosition.topLeading)
         
         self.present(imageViewer, animated: true, completion: nil)
     }

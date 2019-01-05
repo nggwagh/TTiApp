@@ -107,19 +107,39 @@ extension ObjectiveApi: TargetType {
             return .requestParameters(parameters: submitJson, encoding: JSONEncoding.default)
 
         case .uploadStoreObjectiveImage(let image, _, _):
-            let imageData = UIImagePNGRepresentation(image)
-            let vName = "Taken at store"
-            let vNameData = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(vName.data(using: .utf8)!), name: "comments")
-
+            
+//            let vName = "Taken at store"
+//            let vNameData = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(vName.data(using: .utf8)!), name: "comments")
+            
+            let imageData = UIImageJPEGRepresentation(image, 0.5)
+            print("Upload image size\(String(describing: imageData?.count))")
             let data = MultipartFormData(provider: MultipartFormData.FormDataProvider.data(imageData!), name: "file", fileName: "objectives.jpeg", mimeType: "image/jpeg")
-            return .uploadMultipart([vNameData, data])
+         // return .uploadMultipart([vNameData, data])
+            return .uploadMultipart([data])
+
+            
+            
         }
     }
     
     var headers: [String : String]? {
-        return ["Content-type" : "application/json"]
+        
+        switch self {
+            
+        case .list:
+            return ["Content-type" : "application/json"]
+            
+        case .schedule(_):
+            return ["Content-type" : "application/json"]
+            
+        case .submitObjective(_,_,_):
+            return ["Content-type" : "application/json"]
+            
+        case .uploadStoreObjectiveImage(_,_,_):
+            return ["Content-type" : "multipart/form-data"]
+            
+        }
     }
-
     /*
     var parameters: [String: AnyObject]? {
 
@@ -143,3 +163,4 @@ extension ObjectiveApi: TargetType {
     */
 
 }
+
