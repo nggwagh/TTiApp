@@ -127,10 +127,11 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         else
         {
             let formatter = DateFormatter()
+            formatter.dateFormat = "MMMM dd, yyyy"
+            let estimateDate = formatter.date(from: self.scheduledDateLabel.text!)
             formatter.dateFormat = "yyyy-MM-dd"
-            let estimateDate = formatter.string(from: self.tastDetails.estimatedCompletionDate!)
-            
-            submitObject["estimatedCompletionDate"] = estimateDate
+            let finalDate = formatter.string(from: estimateDate!)
+            submitObject["estimatedCompletionDate"] = finalDate
         }
         
         
@@ -368,7 +369,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - DateElementDelegate methods
     
     func selectedDate(_ date: Date){
-        scheduledDateLabel.text = DateFormatter.formatter_MMMddyyyy.string(from: date)
+        scheduledDateLabel.text = DateFormatter.formatter_MMMMddyyyy.string(from: date)
     }
     
     // MARK: - PhotoPickerDelegate methods

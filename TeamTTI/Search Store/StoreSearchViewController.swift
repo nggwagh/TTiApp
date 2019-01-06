@@ -116,7 +116,7 @@ class StoreSearchViewController: UIViewController {
         
         if storesArray.count >= 3 {
             for i in 0...(storesArray.count - 1) {
-                if (i < 3){
+                if (i < 5){
                 closestStores.append(storesArray[i])
                 }
                 else{
@@ -265,12 +265,16 @@ extension StoreSearchViewController: UITableViewDataSource {
             switch storeType {
             case .MyStores:
                 tableViewCell.storeNameLabel.text = myStores[indexPath.row].name
+                tableViewCell.distanceLabel.text = String(format: "(%d/%d)",myStores[indexPath.row].completed!,myStores[indexPath.row].totalObjectives!)
+
 
             case .ClosestStores:
                 tableViewCell.storeNameLabel.text = closestStores[indexPath.row].name
-
+                tableViewCell.distanceLabel.text = String(format: "%.2f miles away",closestStores[indexPath.row].distanceFromCurrentLocation!)
             case .AllStores:
                 tableViewCell.storeNameLabel.text = allStores[indexPath.row].name
+                tableViewCell.distanceLabel.text = String(format: "%.2f miles away",allStores[indexPath.row].distanceFromCurrentLocation!)
+
             }
         }
     

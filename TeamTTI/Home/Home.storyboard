@@ -51,14 +51,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9nk-Pf-6gK" userLabel="Title View">
                                         <rect key="frame" x="62" y="0.0" width="298" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Objective Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMG-DA-Zio">
-                                                <rect key="frame" x="78.666666666666657" y="10" width="141" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMG-DA-Zio">
+                                                <rect key="frame" x="149" y="22" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="1le-NG-A03">
-                                                <rect key="frame" x="224.66666666666669" y="19" width="10" height="6"/>
+                                                <rect key="frame" x="154" y="19" width="10" height="6"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="10" id="l4Q-E8-y6C"/>
                                                     <constraint firstAttribute="height" constant="6" id="xSI-dh-Lsa"/>
@@ -386,7 +386,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OFU-4s-JDK"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Second Objective" id="jDr-he-nZo"/>
+                    <navigationItem key="navigationItem" title="Second Objective" id="jDr-he-nZo">
+                        <barButtonItem key="backBarButtonItem" title="  " id="Nbr-H3-VET"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="submissionButton" destination="m79-Pb-IjH" id="nUS-Ak-LEW"/>
                         <outlet property="submissionDetailsContainerView" destination="MJa-zw-2cW" id="Ky0-wF-jvf"/>
@@ -783,6 +785,9 @@
                                                 <state key="normal" title="See all photos -&gt;">
                                                     <color key="titleColor" name="tti_blue"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="viewAllPhotosButtonTapped:" destination="vqy-cf-NEL" eventType="touchUpInside" id="5l2-Zy-mfp"/>
+                                                </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Omr-Vg-eny">
                                                 <rect key="frame" x="3" y="468" width="408" height="130"/>

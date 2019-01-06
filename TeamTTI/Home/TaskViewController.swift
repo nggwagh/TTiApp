@@ -128,6 +128,15 @@ class TaskViewController: UIViewController, DateElementDelegate {
         self.navigationController?.pushViewController(viewPlaybookViewController, animated: true)
     }
     
+    @IBAction func viewAllPhotosButtonTapped(_ sender: UIButton) {
+        
+        if self.tastDetails.images.count > 0
+        {
+            loadFullScreenImage(at: 0)
+        }
+
+    }
+    
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
         let calender = DateElement.instanceFromNib() as! DateElement
         calender.dateDelegate = self
