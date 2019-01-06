@@ -148,7 +148,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                     
                     if (response.statusCode == 200)
                     {
-                        let alertContoller =  UIAlertController.init(title: "Success", message: "Objectives Submitted successfully.", preferredStyle: .alert)
+                        let alertContoller =  UIAlertController.init(title: "Success", message: "Objective Submitted successfully.", preferredStyle: .alert)
                         
                         let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                             

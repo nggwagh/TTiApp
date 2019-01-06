@@ -88,7 +88,7 @@ extension Store {
     
     static func distanceFromCurrentLocationInMiles(latitude: Double, longitude: Double) -> Double{
 
-        let currentCoordinate = CLLocation(latitude: 5.0, longitude: 3.0)
+        let currentCoordinate = CLLocation(latitude: UserDefaults.standard.double(forKey: "Lat"), longitude: UserDefaults.standard.double(forKey: "Long"))
         let storeCoordinate = CLLocation(latitude: latitude, longitude: longitude)
         
         var distanceInMeters = currentCoordinate.distance(from: storeCoordinate) // result is in meters
