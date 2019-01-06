@@ -141,6 +141,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
         let calender = DateElement.instanceFromNib() as! DateElement
         calender.dateDelegate = self
         
+        
         //Overdue: Status = 4
         if (self.tastDetails.status == StoreObjectiveStatus.overdue){
 

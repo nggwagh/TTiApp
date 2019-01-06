@@ -116,7 +116,7 @@ class StoreSearchViewController: UIViewController {
         
         if storesArray.count >= 3 {
             for i in 0...(storesArray.count - 1) {
-                if (i < 5){
+                if (i < 3){
                 closestStores.append(storesArray[i])
                 }
                 else{

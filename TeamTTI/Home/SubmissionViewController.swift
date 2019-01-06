@@ -31,7 +31,8 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var scheduleDateButton: UIButton!
     @IBOutlet weak var commentInfoLabel: UILabel!
     @IBOutlet weak var calenderImageView: UIImageView!
-
+    @IBOutlet weak var statusLabel: UILabel!
+    
     //MARK:- Instance variables
     private var submitObjectiveTask: Cancellable?
     public var tastDetails : StoreObjective!
@@ -338,6 +339,22 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             completionTypesBackgroundView.removeShadow()
             commentTextView.text = tastDetails.comments
             scheduleDateButton.isUserInteractionEnabled = false
+            
+            switch self.tastDetails.status {
+                
+            case .open:
+                self.statusLabel?.text = "Open"
+            case .schedule:
+                self.statusLabel?.text = "Schedule"
+            case .complete:
+                self.statusLabel?.text = "Complete"
+            case .overdue:
+                self.statusLabel?.text = "Overdue"
+            case .incomplete:
+                self.statusLabel?.text = "Incomplete"
+
+            }
+            
             
             if self.tastDetails.status == StoreObjectiveStatus.complete {
                 

@@ -1005,7 +1005,6 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Pending Approval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykl-ID-bGm">
                                                                 <rect key="frame" x="0.0" y="32" width="179.33333333333334" height="40"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <color key="textColor" red="0.33725490200000002" green="0.69803921570000005" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -1335,6 +1334,7 @@
                         <outlet property="scheduleDateButton" destination="T2S-MA-bwD" id="DnI-rM-P6X"/>
                         <outlet property="scheduledDateBackgroundView" destination="nXc-do-QoU" id="pMH-nz-Aps"/>
                         <outlet property="scheduledDateLabel" destination="ZuC-Og-74N" id="vFT-Sg-dvr"/>
+                        <outlet property="statusLabel" destination="ykl-ID-bGm" id="7o7-gZ-1yy"/>
                         <outlet property="statusStackView" destination="Jwg-Ah-Pbq" id="mKS-tN-2ZG"/>
                         <outlet property="submitOrEditButton" destination="eYB-Hy-ipb" id="ULI-E0-7WO"/>
                         <outlet property="taskImageView" destination="nYm-va-9IW" id="AiJ-cs-zTX"/>
