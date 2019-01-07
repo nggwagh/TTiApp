@@ -24,10 +24,10 @@ struct Alert {
         case let .wrongStatusCode(statusCode):
             //check this as i am not sure
             if statusCode == 401 {
-                self.showMessage(onViewContoller: vc, title: "Error", message: "Wrong Crediential")
+                self.showMessage(onViewContoller: vc, title: "Error", message: "Incorrect credentials.")
             }
         case .parsingFailed:
-            self.showMessage(onViewContoller: vc, title: "Error", message: "Wrong response from server")
+            self.showMessage(onViewContoller: vc, title: "Error", message: "Wrong response from server.")
         }
         
     }
