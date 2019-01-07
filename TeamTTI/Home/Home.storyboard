@@ -957,11 +957,12 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pof-oF-7I5">
                                                                 <rect key="frame" x="0.0" y="32" width="179.66666666666666" height="40"/>
                                                                 <subviews>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GT6-al-0dg">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="GT6-al-0dg">
                                                                         <rect key="frame" x="10" y="5" width="149.66666666666666" height="30"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Completion Type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a2s-0c-dh9">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="30"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="154.66666666666666" height="30"/>
+                                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="30" id="tEL-AB-yug"/>
                                                                                 </constraints>
@@ -1042,11 +1043,12 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Bt-gK-bVo">
                                                         <rect key="frame" x="20" y="52" width="374" height="40"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="i5T-qm-gdV">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="i5T-qm-gdV">
                                                                 <rect key="frame" x="10" y="2.6666666666666856" width="354" height="35"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Reason" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qou-NQ-yO2">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="303" height="35"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="35"/>
+                                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="35" id="4wN-z4-Yo5"/>
                                                                         </constraints>
