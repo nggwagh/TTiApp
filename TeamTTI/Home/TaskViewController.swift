@@ -214,6 +214,9 @@ class TaskViewController: UIViewController, DateElementDelegate {
                         
                         let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                             print("You have pressed OK")
+
+                            self.navigationController?.popToRootViewController(animated: true)
+
                         }
                         
                         alertContoller.addAction(action)

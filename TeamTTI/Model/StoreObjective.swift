@@ -37,7 +37,7 @@ extension StoreObjectiveStatus {
         case .incomplete:
             return UIImage(named: "objective_incomplete")!
         case .overdue:
-            return UIImage(named: "objective_incomplete")!
+            return UIImage(named: "objective_duePass")!
         case .complete:
             return UIImage(named: "objective_complete")!
         case .open:
