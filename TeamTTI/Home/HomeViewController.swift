@@ -23,7 +23,7 @@ class HomeViewController: UIViewController {
     private var storeObjectiveNetworkTask: Cancellable?
     private var stores: [Store]?
     private var selectedStore: Store?
-    private var storeObjectives: [StoreObjective]?
+    private var storeObjectives: [StoreObjective]? = []
     private var isAlreadyShownSearchView = false
     
     private var totalTasks : Int = 10
@@ -92,8 +92,21 @@ class HomeViewController: UIViewController {
                         print(jsonDict)
                         
                         //TODO: Parse StoreObjectives
-                        self.storeObjectives = StoreObjective.build(from: jsonDict["objectives"] as! Array)
+                        let highPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .high && $0.status != .complete) })
                         
+                        let mediumPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
+
+                        let lowPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .low && $0.status != .complete) })
+
+                        let completedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.status == .complete) })
+
+                        //Build a list in order of priority  values high -> low -> Medium -> Completed
+                        self.storeObjectives?.removeAll()
+                        self.storeObjectives?.append(contentsOf: highPriorityNonCompletedObjectives)
+                        self.storeObjectives?.append(contentsOf: mediumPriorityNonCompletedObjectives)
+                        self.storeObjectives?.append(contentsOf: lowPriorityNonCompletedObjectives)
+                        self.storeObjectives?.append(contentsOf: completedObjectives)
+
                         let countDictionary = jsonDict["counts"] as? [String: Any]
                         self.totalTasks = (countDictionary?["totalObjectives"] as? Int)!
                         self.completedTasks = (countDictionary?["completed"] as? Int)!
