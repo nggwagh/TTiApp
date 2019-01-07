@@ -270,10 +270,10 @@ extension StoreSearchViewController: UITableViewDataSource {
 
             case .ClosestStores:
                 tableViewCell.storeNameLabel.text = closestStores[indexPath.row].name
-                tableViewCell.distanceLabel.text = String(format: "%.2f miles away",closestStores[indexPath.row].distanceFromCurrentLocation!)
+                tableViewCell.distanceLabel.text = String(format: "%.2f km away",closestStores[indexPath.row].distanceFromCurrentLocation!)
             case .AllStores:
                 tableViewCell.storeNameLabel.text = allStores[indexPath.row].name
-                tableViewCell.distanceLabel.text = String(format: "%.2f miles away",allStores[indexPath.row].distanceFromCurrentLocation!)
+                tableViewCell.distanceLabel.text = String(format: "%.2f km away",allStores[indexPath.row].distanceFromCurrentLocation!)
 
             }
         }
@@ -295,9 +295,8 @@ extension StoreSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
            filteredStores =  stores.filter { (store) -> Bool in
-                return store.name.lowercased().contains(searchText.lowercased())
+                return (store.name.lowercased().contains(searchText.lowercased()) || String(describing: store.storeNumber).lowercased().contains(searchText.lowercased()))
             }
-        
         } else {
             filteredStores = stores
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -157,28 +157,28 @@
                                                     <rect key="frame" x="53" y="16" width="23" height="23"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZL-T4-4hO">
-                                                    <rect key="frame" x="91" y="19" width="233" height="17"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
+                                                    <rect key="frame" x="91" y="17.666666666666671" width="226" height="19.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xma-g8-SKv">
-                                                    <rect key="frame" x="339" y="20.333333333333332" width="45" height="13.999999999999996"/>
+                                                    <rect key="frame" x="332" y="19.333333333333332" width="52" height="15.999999999999996"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HIGH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ge-Hz-T79">
-                                                            <rect key="frame" x="12" y="0.0" width="21" height="14"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="8"/>
+                                                            <rect key="frame" x="13.333333333333316" y="0.0" width="25.666666666666671" height="16"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="10"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.33725490196078434" green="0.69803921568627447" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="DOU-Mq-VYl"/>
+                                                        <constraint firstAttribute="height" constant="16" id="DOU-Mq-VYl"/>
                                                         <constraint firstItem="2Ge-Hz-T79" firstAttribute="centerX" secondItem="xma-g8-SKv" secondAttribute="centerX" id="MRG-yb-zYV"/>
                                                         <constraint firstAttribute="bottom" secondItem="2Ge-Hz-T79" secondAttribute="bottom" id="YQf-bP-BTw"/>
                                                         <constraint firstItem="2Ge-Hz-T79" firstAttribute="top" secondItem="xma-g8-SKv" secondAttribute="top" id="f1r-h7-mGL"/>
-                                                        <constraint firstAttribute="width" constant="45" id="lR6-nR-IIY"/>
+                                                        <constraint firstAttribute="width" constant="52" id="lR6-nR-IIY"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -220,15 +220,8 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htV-N0-BVL">
-                                <rect key="frame" x="0.0" y="109" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="50"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calender" translatesAutoresizingMaskIntoConstraints="NO" id="YeM-ga-HnQ">
-                                        <rect key="frame" x="20" y="15" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="0eD-LM-x2M"/>
-                                            <constraint firstAttribute="height" constant="20" id="5Bg-4q-YG7"/>
-                                        </constraints>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAv-Mv-M20">
                                         <rect key="frame" x="346" y="8.6666666666666714" width="48" height="33"/>
                                         <constraints>
@@ -242,15 +235,27 @@
                                             <action selector="handleCancelButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="CTK-BF-lTJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1c-gg-hKK">
-                                        <rect key="frame" x="50" y="8.6666666666666714" width="65" height="33"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1c-gg-hKK">
+                                        <rect key="frame" x="10" y="10" width="110" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="65" id="cRP-3D-2JJ"/>
+                                            <constraint firstAttribute="height" constant="30" id="NXb-7f-vpq"/>
+                                            <constraint firstAttribute="width" constant="110" id="cRP-3D-2JJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Schedule">
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Schedule" image="ScheduleIcon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="handleScheduleButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="hXY-3T-YlV"/>
                                         </connections>
@@ -259,12 +264,10 @@
                                 <color key="backgroundColor" name="tti_blue"/>
                                 <constraints>
                                     <constraint firstItem="uAv-Mv-M20" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="7Nt-tI-CQA"/>
-                                    <constraint firstItem="YeM-ga-HnQ" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="8gu-GT-XhQ"/>
                                     <constraint firstAttribute="trailing" secondItem="uAv-Mv-M20" secondAttribute="trailing" constant="20" id="HfQ-tI-LrU"/>
+                                    <constraint firstItem="M1c-gg-hKK" firstAttribute="leading" secondItem="htV-N0-BVL" secondAttribute="leading" constant="10" id="OJT-Cr-Wab"/>
                                     <constraint firstItem="M1c-gg-hKK" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="cHc-3p-vUo"/>
-                                    <constraint firstItem="M1c-gg-hKK" firstAttribute="leading" secondItem="YeM-ga-HnQ" secondAttribute="trailing" constant="10" id="oLp-Mb-aWa"/>
                                     <constraint firstAttribute="height" constant="50" id="veS-tr-Lg8"/>
-                                    <constraint firstItem="YeM-ga-HnQ" firstAttribute="leading" secondItem="htV-N0-BVL" secondAttribute="leading" constant="20" id="z7Q-Al-bcV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -279,7 +282,7 @@
                             <constraint firstItem="wCw-pi-nst" firstAttribute="trailing" secondItem="KJ6-P2-9rk" secondAttribute="trailing" id="OKB-wO-mlz"/>
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="top" secondItem="fCG-cV-VLH" secondAttribute="bottom" id="bVt-hl-Yik"/>
                             <constraint firstItem="htV-N0-BVL" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="bq3-28-R2D"/>
-                            <constraint firstItem="htV-N0-BVL" firstAttribute="top" secondItem="KJ6-P2-9rk" secondAttribute="bottom" constant="1" id="fNf-6N-ZpU"/>
+                            <constraint firstItem="htV-N0-BVL" firstAttribute="top" secondItem="KJ6-P2-9rk" secondAttribute="bottom" id="fNf-6N-ZpU"/>
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="itY-W1-mLL"/>
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="top" secondItem="Nby-ir-Gtw" secondAttribute="top" id="mkk-3B-aAQ"/>
                             <constraint firstItem="fCG-cV-VLH" firstAttribute="top" secondItem="wCw-pi-nst" secondAttribute="top" id="p4f-2v-Lif"/>
@@ -293,6 +296,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="uAv-Mv-M20" id="ND7-bR-Z26"/>
                         <outlet property="navigationBar" destination="fCG-cV-VLH" id="PwC-oO-MWQ"/>
+                        <outlet property="scheduleButton" destination="M1c-gg-hKK" id="edp-6C-OMp"/>
                         <outlet property="scheduleView" destination="htV-N0-BVL" id="lW9-0y-EbM"/>
                         <outlet property="tableView" destination="pZJ-yi-wYM" id="45K-CN-Ta7"/>
                         <segue destination="3Mk-UB-NSg" kind="show" identifier="TaskDetailSegueIdentifier" id="dbJ-hu-xCu"/>
@@ -919,8 +923,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EpD-YL-c6R">
                                 <rect key="frame" x="0.0" y="20" width="414" height="521"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cP6-hX-mOL">
-                                        <rect key="frame" x="0.0" y="-154" width="414" height="690"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cP6-hX-mOL">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="690"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UploadImage" translatesAutoresizingMaskIntoConstraints="NO" id="nYm-va-9IW">
                                                 <rect key="frame" x="0.0" y="10" width="414" height="200"/>
@@ -1346,18 +1350,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CalenderIcon" width="18" height="19"/>
+        <image name="CalenderIcon" width="28" height="29"/>
         <image name="CloseIcon" width="20" height="20"/>
-        <image name="ImageNotFound" width="103" height="103"/>
-        <image name="UploadImage" width="432" height="260"/>
+        <image name="ImageNotFound" width="309" height="309"/>
+        <image name="ScheduleIcon" width="18.666666030883789" height="19"/>
+        <image name="UploadImage" width="1296" height="780"/>
         <image name="accessoryDisclosure" width="7" height="11"/>
         <image name="calender" width="47" height="48"/>
-        <image name="check" width="20" height="20"/>
-        <image name="down_arrow" width="14" height="8"/>
-        <image name="down_arrow_blue" width="11" height="7"/>
-        <image name="left_menu" width="30" height="22"/>
+        <image name="check" width="30" height="30"/>
+        <image name="down_arrow" width="21" height="12"/>
+        <image name="down_arrow_blue" width="34" height="22"/>
+        <image name="left_menu" width="30.666666030883789" height="22"/>
         <image name="objective_complete" width="23" height="23"/>
-        <image name="unCheck" width="20" height="20"/>
+        <image name="unCheck" width="30" height="30"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

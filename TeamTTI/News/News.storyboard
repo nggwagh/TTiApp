@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6ia-sR-UJO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6ia-sR-UJO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -47,29 +47,17 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search..." translatesAutoresizingMaskIntoConstraints="NO" id="vMd-1T-0Kg">
-                                            <rect key="frame" x="15" y="0.0" width="299" height="64"/>
+                                            <rect key="frame" x="15" y="0.0" width="345" height="64"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
                                                 <outlet property="delegate" destination="GWa-4M-THM" id="SDm-ac-BDJ"/>
                                             </connections>
                                         </searchBar>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxk-vT-lkR">
-                                            <rect key="frame" x="329" y="17.5" width="31" height="29"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
-                                            <state key="normal" title="Close">
-                                                <color key="titleColor" name="tti_blue"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="close:" destination="GWa-4M-THM" eventType="touchUpInside" id="rfB-WF-bpk"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="cxk-vT-lkR" firstAttribute="leading" secondItem="vMd-1T-0Kg" secondAttribute="trailing" constant="15" id="Eik-Ox-NsB"/>
-                                        <constraint firstAttribute="trailing" secondItem="cxk-vT-lkR" secondAttribute="trailing" constant="15" id="K9b-kY-hod"/>
                                         <constraint firstAttribute="height" constant="64" id="M5y-jI-gkS"/>
-                                        <constraint firstItem="cxk-vT-lkR" firstAttribute="centerY" secondItem="Pw7-yb-ceS" secondAttribute="centerY" id="Z1P-5f-N7y"/>
+                                        <constraint firstAttribute="trailing" secondItem="vMd-1T-0Kg" secondAttribute="trailing" constant="15" id="Vkh-k9-aom"/>
                                         <constraint firstItem="vMd-1T-0Kg" firstAttribute="centerY" secondItem="Pw7-yb-ceS" secondAttribute="centerY" id="c5p-HI-QDg"/>
                                         <constraint firstItem="vMd-1T-0Kg" firstAttribute="leading" secondItem="Pw7-yb-ceS" secondAttribute="leading" constant="15" id="mRc-po-3N6"/>
                                         <constraint firstItem="vMd-1T-0Kg" firstAttribute="top" secondItem="Pw7-yb-ceS" secondAttribute="top" id="or7-aM-YYe"/>
@@ -323,9 +311,6 @@ It is a long established fact that a reader will be distracted by the readable c
         <image name="newsImages" width="233" height="216"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="tti_blue">
-            <color red="0.0" green="0.61176470588235299" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

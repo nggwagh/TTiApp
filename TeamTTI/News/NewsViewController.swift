@@ -188,5 +188,9 @@ extension NewsViewController: UISearchBarDelegate {
         }
         searchedNewsTableView.reloadData()
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 

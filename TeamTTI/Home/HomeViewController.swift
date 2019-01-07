@@ -16,7 +16,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scheduleView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
-    
+    @IBOutlet weak var scheduleButton: UIButton!
+
     //MARK: Instance variables
     private var storeNetworkTask: Cancellable?
     private var storeObjectiveNetworkTask: Cancellable?
@@ -48,6 +49,7 @@ class HomeViewController: UIViewController {
 //        let refreshControlImageView : UIImageView = UIImageView(image: UIImage(named: "objective_incomplete"))
 //        self.refreshControl.insertSubview(refreshControlImageView, at: 0)
         self.tableView.addSubview(refreshControl)
+        scheduleButton.layer.borderColor = UIColor.white.cgColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -187,13 +189,15 @@ class HomeViewController: UIViewController {
             self.selectedStoreObjectives.append(storeObjectiveObj)
         }
         else{
-            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.id }))
+            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
 
         }
     }
     
     @IBAction func handleCancelButtonTap(sender : UIButton) {
         if self.navigationBar.calendarButton.isSelected {
+            
+            selectedStoreObjectives.removeAll()
             
             self.navigationBar.calendarButton.isSelected = false
             
@@ -262,7 +266,17 @@ extension HomeViewController: UITableViewDataSource {
             guard let storeObjective = self.storeObjectives?[indexPath.row] else { return UITableViewCell() }
             
             let storeObjectiveCell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell") as! StoreObjectiveTableViewCell
-            storeObjectiveCell.configure(with: storeObjective, isSelectionOn: self.navigationBar.calendarButton.isSelected)
+            
+            var isChecked : Bool
+            
+            if (selectedStoreObjectives.contains(where: {$0.objective?.id == storeObjective.objectiveID })){
+                isChecked = true
+            }
+            else{
+                isChecked = false
+            }
+            
+            storeObjectiveCell.configure(with: storeObjective, isSelectionOn: self.navigationBar.calendarButton.isSelected, isChecked: isChecked)
             storeObjectiveCell.checkMarkButton.tag = indexPath.row
             storeObjectiveCell.checkMarkButton.addTarget(self, action: #selector(handleCheckUncheckButtonTap(sender:)), for: UIControlEvents.touchUpInside)
             
@@ -310,8 +324,6 @@ extension HomeViewController: HomeNavigationBarDelegate {
         if isAlreadyShownSearchView {
             storeSearchViewController.cancelSearch()
         }
-
-        self.selectedStoreObjectives = (self.storeObjectives?.filter({$0.objective?.priority == Priority.high }))!
         
         //open calendar
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {

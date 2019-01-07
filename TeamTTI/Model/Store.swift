@@ -93,7 +93,7 @@ extension Store {
         
         var distanceInMeters = currentCoordinate.distance(from: storeCoordinate) // result is in meters
         
-        distanceInMeters = distanceInMeters / 1609.344 //result in miles
+        distanceInMeters = distanceInMeters / 1000 //result in kilometers
         
         return distanceInMeters
     }

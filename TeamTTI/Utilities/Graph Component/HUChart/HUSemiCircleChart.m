@@ -220,9 +220,9 @@
             //[self.view addSubview:textFrame];
             
             NSString *text1 = @"Task Completed";
-            NSString *text2 = [NSString stringWithFormat:@"\n%d%%",_completedPercentage];
-            NSString *text3 = [NSString stringWithFormat:@"\n%d/%d",_completedTask,_totalTask];
-            
+            NSString *text2 = [NSString stringWithFormat:@"\n%d/%d",_completedTask,_totalTask];
+            NSString *text3 = [NSString stringWithFormat:@"\n%d%%",_completedPercentage];
+                        
             //change font name and size according to your need.
             //Task Completed
             UIFont *text1Font = [UIFont fontWithName:@"Avenir-Medium" size:14];

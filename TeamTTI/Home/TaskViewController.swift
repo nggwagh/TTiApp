@@ -155,9 +155,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
 
             calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         }
-        
-        
-        
+
         calender.center = self.view.center
         self.view.addSubview(calender)
     }

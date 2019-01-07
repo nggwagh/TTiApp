@@ -31,7 +31,7 @@ class StoreObjectiveTableViewCell: UITableViewCell {
 }
 
 extension StoreObjectiveTableViewCell {
-    func configure(with storeObjective: StoreObjective, isSelectionOn: Bool) {
+    func configure(with storeObjective: StoreObjective, isSelectionOn: Bool, isChecked: Bool) {
         completionIcon.image = storeObjective.status.iconImage
         lblTitle.text = storeObjective.objective?.title
         lblPriority.text = storeObjective.objective?.priority.displayValue
@@ -40,8 +40,9 @@ extension StoreObjectiveTableViewCell {
             checkMarkButton.isHidden = true
             checkMarkButtonWidthConstraint.constant = 0;
         }
-        else if isSelectionOn && storeObjective.objective?.priority == Priority.high {
-            checkMarkButton.isSelected = true
+        else if isSelectionOn && storeObjective.objective?.priority == Priority.high && storeObjective.status != .complete {
+            
+            checkMarkButton.isSelected = isChecked
             checkMarkButton.isHidden = false
             checkMarkButtonWidthConstraint.constant = 30;
         }
