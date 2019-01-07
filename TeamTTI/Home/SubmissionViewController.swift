@@ -38,12 +38,12 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     public var tastDetails : StoreObjective!
     private var isViewEditable: Bool? = true
     private var isImageSet: Bool? = false
-
+    
     let completionTypes : [String] = ["Complete", "Incomplete"]
     let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
-
+    
     var isViewLoadedForFirstTime : Bool = true
-
+    
     //MARK:- View Lifecycle
     
     override func viewDidLoad() {
@@ -57,7 +57,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             self.commentInfoLabel.isHidden = false
             self.scheduledDateLabel.textColor = UIColor.orange
             calenderImageView.image = UIImage.init(named: "OrangeCalenderIcon")
-
+            
         }
         else{
             self.commentInfoLabel.isHidden = true
@@ -120,7 +120,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let todaysDate = formatter.string(from: date)
-
+            
             print("Date:\(todaysDate)")
             
             submitObject["estimatedCompletionDate"] = todaysDate
@@ -171,7 +171,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 print(error.localizedDescription)
                 break
             }
-
+            
             
         }
     }
@@ -215,7 +215,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - IBAction methods
     
     @IBAction func handleUploadPhotoButtonTap(_ sender: UIButton) {
-       _ = PhotoPickerController(buttonToPresentPopoverForiPad: sender, viewControllerToPresent: self, imagePickerDelegate: self as PhotoPickerDelegate)
+        _ = PhotoPickerController(buttonToPresentPopoverForiPad: sender, viewControllerToPresent: self, imagePickerDelegate: self as PhotoPickerDelegate)
     }
     
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
@@ -224,15 +224,15 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         
         //Overdue: Status = 4
         if (self.tastDetails.status == StoreObjectiveStatus.overdue){
-
+            
             calender.isDueDatePassed = true
-
+            
             calender.configure(withThemeColor: UIColor.orange, headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         }
         else{
             
             calender.isDueDatePassed = false
-
+            
             calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         }
         
@@ -243,7 +243,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     
     
     @IBAction func submitButtonTapped(_ sender: Any) {
-    
+        
         if submitOrEditButton.title(for: UIControlState.normal) == "Edit" {
             isViewEditable = true
             setUpInitialView()
@@ -251,40 +251,35 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             return
         }
         
-        if (isImageSet!)
+        if (completionTypeTextField.text == "Incomplete"){
+            if commentTextView.text!.count == 0
             {
-                if (self.tastDetails.status != StoreObjectiveStatus.overdue)
-                {
-                    uploadImage(image: taskImageView.image!)
-                }
-                else
-                {
-                    if commentTextView.text!.count == 0
-                    {
-                        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                            self.commentWarningView.isHidden = false
-                        })
-                    }
-                    else
-                    {
-                        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                            self.commentWarningView.isHidden = true
-                        })
-
-                        uploadImage(image: taskImageView.image!)
-                    }
-                }
+                UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                    self.commentWarningView.isHidden = false
+                })
             }
             else
             {
+                UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                    self.commentWarningView.isHidden = true
+                    self.submitObective()
+                })
+            }
+        }
+        else{
+            if (!isImageSet!){
                 let alertContoller =  UIAlertController.init(title: "Error", message: "Please upload Photo from Camera/Gallery.", preferredStyle: .alert)
-
+                
                 let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                 }
                 
                 alertContoller.addAction(action)
                 self.present(alertContoller, animated: true, completion: nil)
             }
+            else{
+                uploadImage(image: taskImageView.image!)
+            }
+        }
     }
     
     
@@ -352,7 +347,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 self.statusLabel?.text = "Overdue"
             case .incomplete:
                 self.statusLabel?.text = "Incomplete"
-
+                
             }
             
             
@@ -362,11 +357,11 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             }
             else {
                 
-                 completionTypeTextField.text = "Incomplete"
+                completionTypeTextField.text = "Incomplete"
             }
             
         }
-
+        
         self.reasonViewHeightConstraint.constant = 0;
     }
     
@@ -390,9 +385,9 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     }
     
     // MARK: - PhotoPickerDelegate methods
-
+    
     func photoPicker(picker: PhotoPickerController, didSelectImage image: UIImage){
-       
+        
         isImageSet = true
         
         taskImageView.image = image
