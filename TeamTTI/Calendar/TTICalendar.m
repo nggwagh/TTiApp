@@ -143,6 +143,11 @@
 
 //set fill circle color
 -(UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance fillSelectionColorForDate:(NSDate *)date {
+    
+    //Show orange color if due date is passed
+    if (_dueDate && [date compare:_dueDate] == NSOrderedDescending) {
+        return [UIColor orangeColor];
+    }
     return _calendarThemeColor;
 }
 

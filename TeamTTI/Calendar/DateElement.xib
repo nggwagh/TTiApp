@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -119,10 +119,10 @@
                 <outlet property="bottomView" destination="OUg-bk-8fy" id="rpL-VE-7Fz"/>
                 <outlet property="calenderContainerView" destination="keS-40-gy0" id="gxn-FV-7qA"/>
                 <outlet property="cancelButton" destination="nbg-ep-qB7" id="uZl-it-uz4"/>
+                <outlet property="headerLabel" destination="Y8a-Ce-CFt" id="eQe-fW-yO6"/>
                 <outlet property="headerView" destination="37s-l5-nW0" id="s28-KG-Mz0"/>
                 <outlet property="pastDueHeight" destination="aWD-ng-F8G" id="Dyb-al-NpI"/>
                 <outlet property="pastDueLabel" destination="xP9-dD-rCi" id="T13-CI-xGZ"/>
-                <outlet property="yearLabel" destination="Y8a-Ce-CFt" id="BqV-eF-apr"/>
             </connections>
             <point key="canvasLocation" x="-245.59999999999999" y="34.632683658170919"/>
         </view>
