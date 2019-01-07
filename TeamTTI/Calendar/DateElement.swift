@@ -17,7 +17,7 @@ class DateElement: UIView, XibInstance, TTICalendarDelegate {
     //MARK:- IBOutlets
     //header view outlets
     @IBOutlet private weak var headerView: UIView!
-    @IBOutlet private weak var yearLabel: UILabel!
+    @IBOutlet private weak var headerLabel: UILabel!
     //container view outlets
     @IBOutlet private weak var calenderContainerView: UIView!
     //bottom view outlets
@@ -65,7 +65,17 @@ class DateElement: UIView, XibInstance, TTICalendarDelegate {
         
         calenderContainerView.dropShadow(color: .gray, opacity: 0.5, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
         
-        if self.isDueDatePassed {
+        self.setWarningMessage(isDuePassed: self.isDueDatePassed)
+        
+    }
+    
+    func updateHeaderDetails(selectedDate: Date!) {
+        let headerDetails =  HeaderDetails(selectedDate: selectedDate)
+    }
+
+    func setWarningMessage(isDuePassed: Bool) {
+        
+        if isDuePassed {
             self.pastDueLabel.isHidden = false
             self.pastDueHeight.constant = 48
         }
@@ -74,15 +84,11 @@ class DateElement: UIView, XibInstance, TTICalendarDelegate {
             self.pastDueLabel.isHidden = true
             self.pastDueHeight.constant = 0
         }
-        
     }
     
-    func updateHeaderDetails(selectedDate: Date!) {
-        let headerDetails =  HeaderDetails(selectedDate: selectedDate)
-    }
-
     //MARK:-IBActions
     @IBAction func ok(_ sender: Any) {
+        
         selectedDate = calender.selectedDate
         dateDelegate?.selectedDate(calender.selectedDate!)
 
@@ -97,8 +103,15 @@ class DateElement: UIView, XibInstance, TTICalendarDelegate {
     //MARK:- EEECalendarDelegate
     func selectedDate(_ date: Date!) {
         self.selectedDate = date
+        
+        if (calender.dueDate .compare(date!) == .orderedDescending) {
+            self.setWarningMessage(isDuePassed: false)
+        }
+        else{
+            self.setWarningMessage(isDuePassed: true)
+        }
+        
         self.updateHeaderDetails(selectedDate: date)
-
     }
     
      

@@ -41,9 +41,9 @@ extension StoreObjectiveStatus {
         case .complete:
             return UIImage(named: "objective_complete")!
         case .open:
-            return UIImage(named: "objective_paused")!
+            return UIImage(named: "objevtive_process")!
         case .schedule:
-            return UIImage(named: "objective_paused")!
+            return UIImage(named: "objevtive_schedule")!
         }
     }
 }
