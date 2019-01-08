@@ -1351,6 +1351,7 @@
                         <outlet property="statusStackView" destination="Jwg-Ah-Pbq" id="mKS-tN-2ZG"/>
                         <outlet property="submitOrEditButton" destination="eYB-Hy-ipb" id="ULI-E0-7WO"/>
                         <outlet property="taskImageView" destination="nYm-va-9IW" id="AiJ-cs-zTX"/>
+                        <outlet property="uploadPhoto" destination="Jdb-BE-nEw" id="b88-Qo-veQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7Z-2Q-eLm" userLabel="First Responder" sceneMemberID="firstResponder"/>

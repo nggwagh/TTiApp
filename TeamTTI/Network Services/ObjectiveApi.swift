@@ -19,6 +19,8 @@ enum ObjectiveApi {
     case submitObjective(storeID: Int, objectiveID: Int, submitJson: [String: Any])
     
     case uploadStoreObjectiveImage(image: UIImage, storeID: Int, objectiveID: Int)
+    
+    case deletePhoto(photoID: String)
 }
 
 /*
@@ -66,6 +68,10 @@ extension ObjectiveApi: TargetType {
             
         case .uploadStoreObjectiveImage(image: _, let storeID, let objectiveID):
             return "api/v1/store/\(storeID)/objective/\(objectiveID)/images"
+            
+        case .deletePhoto(let photoID):
+            return "api/v1/image/\(photoID)"
+
         }
     }
 
@@ -84,6 +90,9 @@ extension ObjectiveApi: TargetType {
             
         case .uploadStoreObjectiveImage(_,_,_):
             return .post
+            
+        case .deletePhoto(_):
+            return .delete
         }
     }
 
@@ -118,7 +127,8 @@ extension ObjectiveApi: TargetType {
             return .uploadMultipart([data])
 
             
-            
+        case .deletePhoto(_):
+            return .requestPlain
         }
     }
     
@@ -138,6 +148,9 @@ extension ObjectiveApi: TargetType {
         case .uploadStoreObjectiveImage(_,_,_):
             return ["Content-type" : "multipart/form-data"]
             
+        case .deletePhoto(_):
+            return ["Content-type" : "application/json"]
+
         }
     }
     /*

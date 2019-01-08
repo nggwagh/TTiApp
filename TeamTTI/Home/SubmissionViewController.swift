@@ -32,13 +32,18 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     @IBOutlet weak var commentInfoLabel: UILabel!
     @IBOutlet weak var calenderImageView: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var uploadPhoto: UIButton!
+
     
     //MARK:- Instance variables
     private var submitObjectiveTask: Cancellable?
+    private var deletePhotoTask: Cancellable?
+
     public var tastDetails : StoreObjective!
     private var isViewEditable: Bool? = true
     private var isImageSet: Bool? = false
-    
+    private var isImageDeleted: Bool? = false
+
     let completionTypes : [String] = ["Complete", "Incomplete"]
     let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
     
@@ -48,6 +53,13 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (self.tastDetails.images.count > 0) {
+            
+            taskImageView.af_setImage(withURL:self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
+        }
+        
+        
         
         // Do any additional setup after loading the view.
         setUIValues()
@@ -215,7 +227,60 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     // MARK: - IBAction methods
     
     @IBAction func handleUploadPhotoButtonTap(_ sender: UIButton) {
-        _ = PhotoPickerController(buttonToPresentPopoverForiPad: sender, viewControllerToPresent: self, imagePickerDelegate: self as PhotoPickerDelegate)
+        
+        if ((tastDetails.status == .complete || tastDetails.status == .incomplete) && (self.tastDetails.images.count > 0) && !self.isImageDeleted!) {
+            
+            let alertContoller =  UIAlertController.init(title: "Alert", message: "Would you like to delete this uploaded photo?", preferredStyle: .alert)
+            
+            let ok = UIAlertAction(title: "Delete", style: .default) { (action) in
+                
+                self.showHUD(progressLabel: "")
+                
+                self.deletePhotoTask?.cancel()
+                
+                self.deletePhotoTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.deletePhoto(photoID: "")){ result in
+                    
+                    // hiding progress hud
+                    self.dismissHUD(isAnimated: true)
+                    
+                    switch result {
+                        
+                    case let .success(response):
+                        print(response)
+                        
+                        if case 200..<400 = response.statusCode {
+                            
+                            if (response.statusCode == 200)
+                            {
+                             self.isImageDeleted = true
+                             self.taskImageView.image = UIImage.init(named: "UploadImage")
+                            }
+                        }
+                        else
+                        {
+                            print("Status code:\(response.statusCode)")
+                            Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                        }
+                        break
+                    case let .failure(error):
+                        print(error.localizedDescription)
+                        break
+                    }
+                }
+            }
+
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            }
+            
+            alertContoller.addAction(ok)
+            alertContoller.addAction(cancel)
+
+            self.present(alertContoller, animated: true, completion: nil)
+            
+        }
+        else {
+            _ = PhotoPickerController(buttonToPresentPopoverForiPad: sender, viewControllerToPresent: self, imagePickerDelegate: self as PhotoPickerDelegate)
+        }
     }
     
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
@@ -323,6 +388,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
             reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
             scheduleDateButton.isUserInteractionEnabled = true
+            uploadPhoto.isUserInteractionEnabled = true
         }
         else
         {
@@ -334,7 +400,8 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             completionTypesBackgroundView.removeShadow()
             commentTextView.text = tastDetails.comments
             scheduleDateButton.isUserInteractionEnabled = false
-            
+            uploadPhoto.isUserInteractionEnabled = false
+
             switch self.tastDetails.status {
                 
             case .open:
