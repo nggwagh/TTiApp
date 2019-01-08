@@ -238,7 +238,11 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 
                 self.deletePhotoTask?.cancel()
                 
-                self.deletePhotoTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.deletePhoto(photoID: "")){ result in
+                let imageCompArray = self.tastDetails.images[0].absoluteString.components(separatedBy: "/")
+                let imageId = imageCompArray.last!.components(separatedBy: ".")
+                print("Last:\(imageId[0])")
+                
+                self.deletePhotoTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.deletePhoto(photoID: imageId[0])){ result in
                     
                     // hiding progress hud
                     self.dismissHUD(isAnimated: true)
