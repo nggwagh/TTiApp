@@ -61,7 +61,8 @@ struct StoreObjective {
     let deletedAt: Date?
     let createdAt: Date?
     let updatedAt: Date?
-    let images: [URL]
+    var images: [URL]
+    var imageIds: [Int]
 
     let incompleteReasonID: Int?
 
@@ -79,6 +80,9 @@ struct StoreObjective {
 extension StoreObjective {
     static func build(from storeObjectiveJsonObjects: [[String: Any]]) -> [StoreObjective] {
         return storeObjectiveJsonObjects.compactMap{ storeObjectiveJsonObject in
+            
+            
+            
             StoreObjective(id: storeObjectiveJsonObject["id"] as! Int,
                            storeId: storeObjectiveJsonObject["storeID"] as! Int,
                            objectiveID: storeObjectiveJsonObject["objectiveID"] as! Int,
@@ -94,6 +98,10 @@ extension StoreObjective {
                            images: ((storeObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
                             {
                                 return URL(string: $0["fileURL"] as! String)
+                           }),
+                           imageIds: ((storeObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
+                            {
+                                return ($0["id"] as! Int)
                            }),
                            incompleteReasonID: storeObjectiveJsonObject["incompleteReasonID"] as? Int,
                            objective: Objective.build(from: storeObjectiveJsonObject["objective"] as! [String : Any]))

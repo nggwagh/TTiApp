@@ -52,7 +52,7 @@ extension ResetPasswordViewController {
                         let responseString =  String(decoding: response.data, as: UTF8.self)
                         
                         if(responseString == "true"){
-                            let alertContoller =  UIAlertController.init(title: "Reset Password", message: "A password reset message was sent to your email address. Please click the link in that message to reset your password.", preferredStyle: .alert)
+                            let alertContoller =  UIAlertController.init(title: "Success", message: "An email has been sent with your temporary password.", preferredStyle: .alert)
                             
                             let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                                 self.dismiss(animated: true, completion: nil)
