@@ -32,7 +32,7 @@ struct Alert {
         
     }
     
-    private static func showMessage(onViewContoller vc: UIViewController, title: String? ,message: String? ) {
+    static func showMessage(onViewContoller vc: UIViewController, title: String? ,message: String? ) {
        let alertContoller =  UIAlertController.init(title: title, message: message, preferredStyle: .alert)
         
         let action = UIAlertAction(title: "OK", style: .cancel) { (action) in

@@ -14,6 +14,7 @@ import Moya
 enum UserApi {
     case login(email: String, password: String)
     case userDetails()
+    case resetPassword(email: String)
 }
 
 
@@ -29,6 +30,9 @@ extension UserApi: TargetType {
         
         case .userDetails():
             return Constant.API.User.path
+            
+        case .resetPassword(_):
+            return Constant.API.User.resetPasswordAPIPath
         }
     }
     
@@ -39,6 +43,9 @@ extension UserApi: TargetType {
            
         case .userDetails():
             return .get
+            
+        case .resetPassword(_):
+            return .post
         }
     }
     
@@ -61,6 +68,9 @@ extension UserApi: TargetType {
         case .userDetails():
             return .requestPlain
             
+        case let .resetPassword(email):
+            return .requestParameters(parameters:
+                ["email": email],encoding: JSONEncoding.default)
         }
     }
     

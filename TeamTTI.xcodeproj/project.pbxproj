@@ -37,6 +37,7 @@
 		35C75A5821D921A20040BB2F /* PlannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C75A5721D921A20040BB2F /* PlannerViewController.swift */; };
 		35C75A5A21D929EA0040BB2F /* Planner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35C75A5921D929EA0040BB2F /* Planner.storyboard */; };
 		35C75A5D21D92DE10040BB2F /* PlannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C75A5C21D92DE10040BB2F /* PlannerTableViewCell.swift */; };
+		35D8109B21E62065001242B9 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D8109A21E62065001242B9 /* ResetPasswordViewController.swift */; };
 		35FDFEFD21CCC40C00389C49 /* PickerViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */; };
 		35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */; };
 		35FFC30C21C3B14500F80EA8 /* LeftSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */; };
@@ -122,6 +123,7 @@
 		35C75A5721D921A20040BB2F /* PlannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewController.swift; sourceTree = "<group>"; };
 		35C75A5921D929EA0040BB2F /* Planner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Planner.storyboard; path = TeamTTI/Planner/Planner.storyboard; sourceTree = SOURCE_ROOT; };
 		35C75A5C21D92DE10040BB2F /* PlannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTableViewCell.swift; sourceTree = "<group>"; };
+		35D8109A21E62065001242B9 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewUtility.swift; sourceTree = "<group>"; };
 		35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerController.swift; sourceTree = "<group>"; };
 		35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSideMenuController.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 			children = (
 				CF4832BC217CF3C1000660C6 /* LoginViewController.swift */,
 				CFAB0F9A218F19D4000765F8 /* Login.storyboard */,
+				35D8109A21E62065001242B9 /* ResetPasswordViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -727,6 +730,7 @@
 				35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */,
 				526A60E021D2113500E5CD65 /* NewsApi.swift in Sources */,
 				0008804D219408BA00AA8EFC /* UserApi.swift in Sources */,
+				35D8109B21E62065001242B9 /* ResetPasswordViewController.swift in Sources */,
 				35B6749B21C4D17F000238DD /* News.swift in Sources */,
 				CF4832C3217CF3C1000660C6 /* TeamTTI.xcdatamodeld in Sources */,
 				00F6C61721AC50DF003D697A /* HUChartEntry.m in Sources */,

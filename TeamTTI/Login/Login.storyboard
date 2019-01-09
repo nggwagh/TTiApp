@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -118,7 +119,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcM-BT-gir">
                                                 <rect key="frame" x="16" y="0.0" width="343" height="54"/>
-                                                <color key="backgroundColor" red="0.0" green="0.61176470589999998" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="tti_blue"/>
                                                 <state key="normal" title="Log In">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -158,6 +159,9 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA9-by-Gp9">
                                                 <rect key="frame" x="252.5" y="0.0" width="57.5" height="30"/>
+                                                <connections>
+                                                    <segue destination="ejF-wn-P3V" kind="show" id="fbL-Y6-Kfr"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -196,11 +200,128 @@
             </objects>
             <point key="canvasLocation" x="285.60000000000002" y="148.87556221889056"/>
         </scene>
+        <!--Reset Password View Controller-->
+        <scene sceneID="9uh-Um-TCp">
+            <objects>
+                <viewController storyboardIdentifier="ResetPasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ejF-wn-P3V" customClass="ResetPasswordViewController" customModule="TeamTTI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cAM-zJ-zGt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="oXx-fQ-JQX">
+                                <rect key="frame" x="15" y="165" width="345" height="357"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ttilogo" translatesAutoresizingMaskIntoConstraints="NO" id="4Sk-6R-nCX">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="136"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="136" id="Bes-EV-GXs"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YB8-8d-SCg">
+                                        <rect key="frame" x="0.0" y="157" width="345" height="50"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="email" translatesAutoresizingMaskIntoConstraints="NO" id="P06-ua-Emm">
+                                                <rect key="frame" x="8" y="13" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="NMV-4O-9Iu"/>
+                                                    <constraint firstAttribute="width" constant="24" id="YcM-TB-4zi"/>
+                                                </constraints>
+                                            </imageView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rzK-g8-2Qe">
+                                                <rect key="frame" x="48" y="16.5" width="277" height="17"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="ejF-wn-P3V" id="Lk7-eC-iBO"/>
+                                                </connections>
+                                            </textField>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield_underline" translatesAutoresizingMaskIntoConstraints="NO" id="099-bd-nFZ">
+                                                <rect key="frame" x="0.0" y="49" width="345" height="1"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="8CJ-bi-IlJ"/>
+                                                    <constraint firstAttribute="width" constant="345" id="JzT-zb-keO"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="P06-ua-Emm" firstAttribute="leading" secondItem="YB8-8d-SCg" secondAttribute="leading" constant="8" id="3li-zC-azd"/>
+                                            <constraint firstAttribute="trailing" secondItem="rzK-g8-2Qe" secondAttribute="trailing" constant="20" symbolic="YES" id="Dfg-GQ-8cy"/>
+                                            <constraint firstItem="rzK-g8-2Qe" firstAttribute="leading" secondItem="P06-ua-Emm" secondAttribute="trailing" constant="16" id="XhO-l6-5PI"/>
+                                            <constraint firstAttribute="height" constant="50" id="a98-zR-bfe"/>
+                                            <constraint firstAttribute="trailing" secondItem="099-bd-nFZ" secondAttribute="trailing" id="gN2-YP-mYN"/>
+                                            <constraint firstItem="099-bd-nFZ" firstAttribute="leading" secondItem="YB8-8d-SCg" secondAttribute="leading" id="k85-Bq-3bo"/>
+                                            <constraint firstItem="rzK-g8-2Qe" firstAttribute="centerY" secondItem="YB8-8d-SCg" secondAttribute="centerY" id="kGb-s2-a5g"/>
+                                            <constraint firstAttribute="bottom" secondItem="099-bd-nFZ" secondAttribute="bottom" id="rUm-P0-Qq0"/>
+                                            <constraint firstItem="P06-ua-Emm" firstAttribute="centerY" secondItem="YB8-8d-SCg" secondAttribute="centerY" id="ymN-Nq-shc"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diH-6U-rwc">
+                                        <rect key="frame" x="0.0" y="228" width="345" height="54"/>
+                                        <color key="backgroundColor" name="tti_blue"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="54" id="t1Z-5K-oSz"/>
+                                        </constraints>
+                                        <state key="normal" title="Reset Password">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="resetPasswordButtonTapped:" destination="ejF-wn-P3V" eventType="touchUpInside" id="175-tK-bN8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maV-6b-zd9">
+                                        <rect key="frame" x="0.0" y="303" width="345" height="54"/>
+                                        <color key="backgroundColor" name="tti_blue"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="54" id="Swa-yU-ang"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="ejF-wn-P3V" eventType="touchUpInside" id="pd6-lg-mbH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oXx-fQ-JQX" firstAttribute="centerX" secondItem="CR8-5f-3ra" secondAttribute="centerX" id="R6N-mR-Arz"/>
+                            <constraint firstItem="oXx-fQ-JQX" firstAttribute="centerY" secondItem="CR8-5f-3ra" secondAttribute="centerY" id="WSH-UJ-M4N"/>
+                            <constraint firstItem="CR8-5f-3ra" firstAttribute="trailing" secondItem="oXx-fQ-JQX" secondAttribute="trailing" constant="15" id="o60-To-Qou"/>
+                            <constraint firstItem="oXx-fQ-JQX" firstAttribute="leading" secondItem="CR8-5f-3ra" secondAttribute="leading" constant="15" id="xFr-jM-vh4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CR8-5f-3ra"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="x4W-K9-FPe"/>
+                    <connections>
+                        <outlet property="txtEmail" destination="rzK-g8-2Qe" id="vLl-so-cVe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d0C-ua-5t7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="945" y="149"/>
+        </scene>
     </scenes>
     <resources>
         <image name="email" width="48" height="48"/>
         <image name="password_lock" width="48" height="63"/>
         <image name="textfield_underline" width="345" height="1"/>
         <image name="ttilogo" width="405" height="372"/>
+        <namedColor name="tti_blue">
+            <color red="0.0" green="0.61176470588235299" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
