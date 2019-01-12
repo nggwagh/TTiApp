@@ -53,34 +53,34 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     func setObjectiveImages() {
         
-        print("Images array:\(self.tastDetails.images)")
+        print("Images array:\(self.tastDetails.descImages)")
         
-        if self.tastDetails.images.count > 0
+        if self.tastDetails.descImages.count > 0
         {
-            imageArray.append(self.tastDetails.images[0])
+            imageArray.append(self.tastDetails.descImages[0])
             
-            taskDetailPosterImageView.af_setImage(withURL:self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
+            taskDetailPosterImageView.af_setImage(withURL:self.tastDetails.descImages[0], placeholderImage: UIImage(named: "ImageNotFound")!)
             
-            taskImageView1.af_setImage(withURL: self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
+            taskImageView1.af_setImage(withURL: self.tastDetails.descImages[0], placeholderImage: UIImage(named: "ImageNotFound")!)
             
             taskImageView1.isUserInteractionEnabled = true
         }
         
-        if self.tastDetails.images.count == 2
+        if self.tastDetails.descImages.count == 2
         {
-            imageArray.append(self.tastDetails.images[1])
+            imageArray.append(self.tastDetails.descImages[1])
             
-            taskImageView2.af_setImage(withURL: self.tastDetails.images[1], placeholderImage: UIImage(named: "ImageNotFound")!)
+            taskImageView2.af_setImage(withURL: self.tastDetails.descImages[1], placeholderImage: UIImage(named: "ImageNotFound")!)
             
             taskImageView2.isUserInteractionEnabled = true
             
         }
         
-        if self.tastDetails.images.count == 3
+        if self.tastDetails.descImages.count == 3
         {
-            imageArray.append(self.tastDetails.images[2])
+            imageArray.append(self.tastDetails.descImages[2])
             
-            taskImageView3.af_setImage(withURL: self.tastDetails.images[2], placeholderImage: UIImage(named: "ImageNotFound")!)
+            taskImageView3.af_setImage(withURL: self.tastDetails.descImages[2], placeholderImage: UIImage(named: "ImageNotFound")!)
             
             taskImageView3.isUserInteractionEnabled = true
             
@@ -130,7 +130,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     @IBAction func viewAllPhotosButtonTapped(_ sender: UIButton) {
         
-        if self.tastDetails.images.count > 0
+        if self.tastDetails.descImages.count > 0
         {
             loadFullScreenImage(at: 0)
         }
