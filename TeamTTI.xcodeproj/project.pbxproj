@@ -29,6 +29,7 @@
 		3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */; };
 		35A5259821CB599700C43A16 /* MBProgressHudUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */; };
 		35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259921CB664600C43A16 /* SubmissionViewController.swift */; };
+		35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */; };
 		35B6749921C4D043000238DD /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749821C4D043000238DD /* NewsViewController.swift */; };
 		35B6749B21C4D17F000238DD /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749A21C4D17F000238DD /* News.swift */; };
 		35B6749D21C4DAD1000238DD /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35B6749C21C4DAD1000238DD /* News.storyboard */; };
@@ -115,6 +116,7 @@
 		3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBProgressHudUtility.swift; sourceTree = "<group>"; };
 		35A5259921CB664600C43A16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
+		35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocationManager.swift; sourceTree = "<group>"; };
 		35B6749821C4D043000238DD /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		35B6749A21C4D17F000238DD /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		35B6749C21C4DAD1000238DD /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		003D87D721A72FCD0095D52F /* Search Store */ = {
 			isa = PBXGroup;
 			children = (
+				35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */,
 				007427DC21AA8CE8005C8554 /* StoreSearchViewController.swift */,
 				007427DE21AA94AE005C8554 /* StoreSearchTableViewCell.swift */,
 			);
@@ -298,6 +301,7 @@
 			children = (
 				35C75A5B21D92DBC0040BB2F /* Cell */,
 				35C75A5721D921A20040BB2F /* PlannerViewController.swift */,
+				35C75A5921D929EA0040BB2F /* Planner.storyboard */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -438,7 +442,6 @@
 			isa = PBXGroup;
 			children = (
 				CFC7295521986F380065BCAC /* Home.storyboard */,
-				35C75A5921D929EA0040BB2F /* Planner.storyboard */,
 				CFC7295721986FF60065BCAC /* HomeNavigation.swift */,
 				CFC7295F2198B4250065BCAC /* HomeViewController.swift */,
 				3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */,
@@ -738,6 +741,7 @@
 				CFC729652198D8AA0065BCAC /* Store.swift in Sources */,
 				CFC729602198B4250065BCAC /* HomeViewController.swift in Sources */,
 				3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */,
+				35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */,
 				CFC729622198CBFF0065BCAC /* AuthPlugin.swift in Sources */,
 				005D9D7D2194AD9B003F8CA2 /* Alert.swift in Sources */,
 				CFF45BF921A18D930045B56D /* Date+Formatting.swift in Sources */,
