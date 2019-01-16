@@ -37,6 +37,9 @@ struct Constant {
             static let path = "api/v1/news"
         }
         
+        struct Planner {
+            static let path = "api/v1/user/me/schedule"
+        }
     }
 
     struct Storyboard {

@@ -8,9 +8,11 @@
 
 import UIKit
 import MMDrawerController
+import Moya
 
 class PlannerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    //MARK:- IBOutlets
     @IBOutlet weak var plannerCalender: PlannerCalender!
     @IBOutlet weak var plannerCalenderBackgroundView: UIView!
 
@@ -22,10 +24,19 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var arrowImageView: UIImageView!
 
+    //MARK:- Instance Variable
+    
+    var scheduleTask: Cancellable?
+    
+    
+    //MARK:- View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        self.getListOfSchedule()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +87,61 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         })
     }
 
+    func getListOfSchedule() {
+        
+        //Show progress hud
+        self.showHUD(progressLabel: "")
+        
+        scheduleTask?.cancel()
+        
+        scheduleTask = MoyaProvider<PlannerAPI>(plugins: [AuthPlugin()]).request(.getScheduleList()){ result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                    
+                    do{
+                        let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
+                        
+                        //Use this to show objectives
+                        let completedObjectives = (Planner.build(from: jsonDict))
+                        
+                        print("schedule: \(completedObjectives)")
+                        
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+                
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                break
+            }
+            
+            
+            
+        }
+        
+        
+        
+    }
+    
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
