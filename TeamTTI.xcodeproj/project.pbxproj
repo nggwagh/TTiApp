@@ -26,6 +26,7 @@
 		3573798021C7B7F2007DDF42 /* Playbook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3573797F21C7B7F2007DDF42 /* Playbook.storyboard */; };
 		3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */; };
 		3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */; };
+		3580B25221EF77AF00D225F0 /* PlannerCalender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3580B25121EF77AF00D225F0 /* PlannerCalender.swift */; };
 		3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */; };
 		35A5259821CB599700C43A16 /* MBProgressHudUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */; };
 		35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259921CB664600C43A16 /* SubmissionViewController.swift */; };
@@ -113,6 +114,7 @@
 		3573797F21C7B7F2007DDF42 /* Playbook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Playbook.storyboard; sourceTree = "<group>"; };
 		3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
 		3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		3580B25121EF77AF00D225F0 /* PlannerCalender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannerCalender.swift; sourceTree = "<group>"; };
 		3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBProgressHudUtility.swift; sourceTree = "<group>"; };
 		35A5259921CB664600C43A16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 		00D6AA9C21ADBC950059F6F1 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				3580B25121EF77AF00D225F0 /* PlannerCalender.swift */,
 				00D6AA9E21ADBD080059F6F1 /* DateElement.swift */,
 				00D6AA9F21ADBD080059F6F1 /* DateElement.xib */,
 				00D6AA9D21ADBD080059F6F1 /* TTICalendar.h */,
@@ -723,6 +726,7 @@
 				CF4832BD217CF3C1000660C6 /* LoginViewController.swift in Sources */,
 				35B6749921C4D043000238DD /* NewsViewController.swift in Sources */,
 				CFAB0FA2218F4CC4000765F8 /* String+Validations.swift in Sources */,
+				3580B25221EF77AF00D225F0 /* PlannerCalender.swift in Sources */,
 				35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */,
 				CFAB0F9F218F332B000765F8 /* RootViewController.swift in Sources */,
 				35B674A221C58278000238DD /* NewsDetailViewController.swift in Sources */,

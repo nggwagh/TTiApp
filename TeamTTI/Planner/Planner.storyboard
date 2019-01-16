@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O85-u4-pci">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O85-u4-pci">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="95" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6gq-uP-gMN">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="99" width="375" height="524"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="acG-R6-qdX">
@@ -111,12 +111,97 @@
                                     <outlet property="delegate" destination="nnC-W3-4Od" id="W9F-Xw-yH2"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qzc-49-0gY">
+                                <rect key="frame" x="0.0" y="64" width="375" height="35"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhq-Pd-H8n">
+                                        <rect key="frame" x="25" y="7.5" width="62" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down_arrow_blue" translatesAutoresizingMaskIntoConstraints="NO" id="3CA-Dm-r57">
+                                        <rect key="frame" x="95" y="13" width="13" height="9"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="13" id="YiL-4P-PPT"/>
+                                            <constraint firstAttribute="height" constant="9" id="dGK-i6-6j4"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNf-cU-DFk">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
+                                        <connections>
+                                            <action selector="calenderButtonTappedWithSender:" destination="nnC-W3-4Od" eventType="touchUpInside" id="bbS-vA-LcW"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="PNf-cU-DFk" firstAttribute="leading" secondItem="qzc-49-0gY" secondAttribute="leading" id="1hq-Ic-XLE"/>
+                                    <constraint firstAttribute="bottom" secondItem="PNf-cU-DFk" secondAttribute="bottom" id="MDb-QY-tkr"/>
+                                    <constraint firstAttribute="trailing" secondItem="PNf-cU-DFk" secondAttribute="trailing" id="MkC-Qr-zbS"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3CA-Dm-r57" secondAttribute="trailing" constant="25" id="Mwe-ve-auD"/>
+                                    <constraint firstItem="PNf-cU-DFk" firstAttribute="top" secondItem="qzc-49-0gY" secondAttribute="top" id="NbX-F7-Pb4"/>
+                                    <constraint firstAttribute="height" constant="35" id="VNG-qq-gSL"/>
+                                    <constraint firstItem="rhq-Pd-H8n" firstAttribute="centerY" secondItem="qzc-49-0gY" secondAttribute="centerY" id="eeZ-cc-Kew"/>
+                                    <constraint firstItem="rhq-Pd-H8n" firstAttribute="leading" secondItem="qzc-49-0gY" secondAttribute="leading" constant="25" id="jCR-3d-xds"/>
+                                    <constraint firstItem="3CA-Dm-r57" firstAttribute="centerY" secondItem="rhq-Pd-H8n" secondAttribute="centerY" id="pBx-cC-K48"/>
+                                    <constraint firstItem="3CA-Dm-r57" firstAttribute="leading" secondItem="rhq-Pd-H8n" secondAttribute="trailing" constant="8" id="pUA-O8-ZZq"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Byu-kR-PAv">
+                                <rect key="frame" x="0.0" y="99" width="375" height="524"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="0.83708797089041098" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="GHH-UA-Gaw" appends="YES" id="Npj-3Y-m9t"/>
+                                </connections>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yfi-b4-DIy" customClass="PlannerCalender" customModule="TeamTTI" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="99" width="375" height="220"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="220" id="dt5-HN-v0U"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="9tp-4q-c8j"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" name="tti_blue"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="subtitleDefaultColor">
+                                        <color key="value" name="tti_blue"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                        <color key="value" red="0.4015774131" green="0.71156400440000001" blue="0.681482017" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" name="tti_blue"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="pagingEnabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="scrollEnabled" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="headerHeight">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Yfi-b4-DIy" firstAttribute="leading" secondItem="R2A-vs-XiB" secondAttribute="leading" id="3QE-Zz-Nwa"/>
+                            <constraint firstItem="qzc-49-0gY" firstAttribute="top" secondItem="R2A-vs-XiB" secondAttribute="top" id="4Zp-ic-5SN"/>
+                            <constraint firstItem="qzc-49-0gY" firstAttribute="leading" secondItem="R2A-vs-XiB" secondAttribute="leading" id="5uM-4K-Ght"/>
+                            <constraint firstItem="Byu-kR-PAv" firstAttribute="leading" secondItem="R2A-vs-XiB" secondAttribute="leading" id="BbI-35-dQo"/>
+                            <constraint firstItem="R2A-vs-XiB" firstAttribute="trailing" secondItem="Byu-kR-PAv" secondAttribute="trailing" id="GQo-LY-wEf"/>
                             <constraint firstItem="6gq-uP-gMN" firstAttribute="leading" secondItem="R2A-vs-XiB" secondAttribute="leading" id="UXg-ps-5C3"/>
+                            <constraint firstItem="Byu-kR-PAv" firstAttribute="top" secondItem="qzc-49-0gY" secondAttribute="bottom" id="Uo2-mc-BrJ"/>
+                            <constraint firstItem="R2A-vs-XiB" firstAttribute="bottom" secondItem="Byu-kR-PAv" secondAttribute="bottom" id="WGF-N5-dQx"/>
                             <constraint firstItem="R2A-vs-XiB" firstAttribute="trailing" secondItem="6gq-uP-gMN" secondAttribute="trailing" id="asN-B8-Uku"/>
-                            <constraint firstItem="6gq-uP-gMN" firstAttribute="top" secondItem="R2A-vs-XiB" secondAttribute="top" id="rth-Ye-QtC"/>
+                            <constraint firstItem="R2A-vs-XiB" firstAttribute="trailing" secondItem="qzc-49-0gY" secondAttribute="trailing" id="j1v-bQ-lSr"/>
+                            <constraint firstItem="R2A-vs-XiB" firstAttribute="trailing" secondItem="Yfi-b4-DIy" secondAttribute="trailing" id="jSl-df-yTv"/>
+                            <constraint firstItem="6gq-uP-gMN" firstAttribute="top" secondItem="R2A-vs-XiB" secondAttribute="top" constant="35" id="rth-Ye-QtC"/>
+                            <constraint firstItem="Yfi-b4-DIy" firstAttribute="top" secondItem="qzc-49-0gY" secondAttribute="bottom" id="rtl-ks-yd5"/>
                             <constraint firstItem="R2A-vs-XiB" firstAttribute="bottom" secondItem="6gq-uP-gMN" secondAttribute="bottom" id="sFH-di-P52"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R2A-vs-XiB"/>
@@ -131,10 +216,23 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="arrowImageView" destination="3CA-Dm-r57" id="PJe-Oo-fKz"/>
+                        <outlet property="calenderButton" destination="PNf-cU-DFk" id="21l-xZ-I5m"/>
+                        <outlet property="dateLabel" destination="rhq-Pd-H8n" id="UwX-VW-B7o"/>
+                        <outlet property="plannerCalender" destination="Yfi-b4-DIy" id="SNc-8F-7A1"/>
+                        <outlet property="plannerCalenderBackgroundView" destination="Byu-kR-PAv" id="izE-k0-ooT"/>
+                        <outlet property="tableView" destination="6gq-uP-gMN" id="kl2-ak-CLc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wDm-d5-f5F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GHH-UA-Gaw">
+                    <connections>
+                        <action selector="plannerCalenderBackgroundViewTappedWithGesture:" destination="nnC-W3-4Od" id="mQS-m4-zwW"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2958" y="-553"/>
+            <point key="canvasLocation" x="2957.5999999999999" y="-553.67316341829087"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nH6-y5-YWh">
@@ -162,7 +260,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="left_menu" width="23" height="16"/>
+        <image name="down_arrow_blue" width="17" height="11"/>
+        <image name="left_menu" width="23" height="16.5"/>
         <namedColor name="tti_blue">
             <color red="0.0" green="0.61176470588235299" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

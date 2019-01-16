@@ -90,10 +90,10 @@ class TaskViewController: UIViewController, DateElementDelegate {
     func setUIValues(){
         taskPriorityLabel.text = self.tastDetails.objective?.priority.displayValue
         taskDetailLabel.text = self.tastDetails.objective?.description
-        dueDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.objective?.dueDate)!)
-        
+        dueDateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.objective?.dueDate)!))
+
         if self.tastDetails.estimatedCompletionDate != nil {
-            scheduledDateLabel.text =  DateFormatter.convertDateToMMMMddyyyy((self.tastDetails.estimatedCompletionDate)!)
+            scheduledDateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.estimatedCompletionDate)!))
         }
         else
         {

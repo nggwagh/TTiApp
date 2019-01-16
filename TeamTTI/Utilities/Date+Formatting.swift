@@ -8,20 +8,26 @@
 
 import Foundation
 
-enum DateFormat: String {
-    case yyyyMMdd_hhmmss = "yyyy-MM-dd hh:mm:ss"
-    case yyyyMMdd = "yyyy-MM-dd"
-    case MMMddyyyy = "MMM dd, yyyy"
-    case MMMMddyyyy = "MMMM dd, yyyy"
-
+struct DateFormats {
+    static let yyyyMMdd_hhmmss = "yyyy-MM-dd hh:mm:ss"
+    static let yyyyMMdd_HHmmss = "yyyy-MM-dd HH:mm:ss"
+    static let yyyyMMdd = "yyyy-MM-dd"
+    static let MMMddyyyy = "MMM dd, yyyy"
+    static let MMMMddyyyy = "MMMM dd, yyyy"
+    static let MMMM = "MMMM"
 }
 
 extension DateFormatter {
-    static let formatter_yyyyMMdd: DateFormatter = .create(with: .yyyyMMdd)
-    static let formatter_yyyyMMdd_hhmmss: DateFormatter = .create(with: .yyyyMMdd_hhmmss)
-    static let formatter_MMMddyyyy: DateFormatter = .create(with: .MMMddyyyy)
-    static let formatter_MMMMddyyyy: DateFormatter = .create(with: .MMMMddyyyy)
+    static let formatter_yyyyMMdd: DateFormatter = .create(with: DateFormats.yyyyMMdd)
+    static let formatter_yyyyMMdd_hhmmss: DateFormatter = .create(with: DateFormats.yyyyMMdd_hhmmss)
+    static let formatter_MMMddyyyy: DateFormatter = .create(with: DateFormats.MMMddyyyy)
+    static let formatter_MMMMddyyyy: DateFormatter = .create(with: DateFormats.MMMMddyyyy)
 
+    static func create(with format: String) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter
+    }
 }
 
 extension DateFormatter {
@@ -31,30 +37,32 @@ extension DateFormatter {
     }
 }
 
-private extension DateFormatter {
-    static func create(with format: DateFormat) -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format.rawValue
-        return formatter
-    } 
-}
 
-extension DateFormatter {
-    static func convertDateStringToMMMddyyyy(_ date: String) -> String
+extension Date{
+    static func convertDateString(inputDateFormat: String, outputDateFormat: String,  _ date: String) -> String
     {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = dateFormatter.date(from: date)
-        dateFormatter.dateFormat = "MMM dd, yyyy"
-        return  dateFormatter.string(from: date!)
+        dateFormatter.dateFormat = inputDateFormat
+        let dateString = dateFormatter.date(from: date)
+        dateFormatter.dateFormat = outputDateFormat
+        return  dateFormatter.string(from: dateString!)
     }
     
-    static func convertDateToMMMMddyyyy(_ date: Date) -> String
+    static func convertToDateFromString(inputDateFormat: String, outputDateFormat: String,  _ date: String) -> Date
     {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        dateFormatter.dateFormat = inputDateFormat
+        let date1 = dateFormatter.date(from: date)
+        let dateString = dateFormatter.string(from: date1!)
+        dateFormatter.dateFormat = outputDateFormat
+        return  dateFormatter.date(from: dateString)!
+    }
+    
+    static func convertDate(from inputDateFormat: String, to outputDateFormat: String,  _ date: Date) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = inputDateFormat
+        dateFormatter.dateFormat = outputDateFormat
         return  dateFormatter.string(from: date)
     }
-    
 }
-
