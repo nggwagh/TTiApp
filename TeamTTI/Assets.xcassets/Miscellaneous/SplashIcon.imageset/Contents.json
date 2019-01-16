@@ -2,17 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ttilogoAppIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ttilogoAppIcon1.png",
+      "filename" : "TTI_Logo.svg.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ttilogoAppIcon1-1.png",
+      "filename" : "TTI_Logo.svg-1.png",
       "scale" : "3x"
     }
   ],
