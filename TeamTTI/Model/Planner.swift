@@ -45,9 +45,9 @@ extension Planner {
                            comments: plannerJsonObject["comments"] as? String,
                            createdBy: plannerJsonObject["createdBy"] as? Int,
                            updatedBy: plannerJsonObject["updatedBy"] as? Int,
-                           deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: plannerJsonObject["deleted_at"]),
-                           createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: plannerJsonObject["created_at"]),
-                           updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: plannerJsonObject["updated_at"]),
+                           deletedAt: DateFormatter.formatter_yyyyMMdd_HHmmss.parse(value: plannerJsonObject["deleted_at"]),
+                           createdAt: DateFormatter.formatter_yyyyMMdd_HHmmss.parse(value: plannerJsonObject["created_at"]),
+                           updatedAt: DateFormatter.formatter_yyyyMMdd_HHmmss.parse(value: plannerJsonObject["updated_at"]),
                            objectiveName: objective?["title"] as? String,
                            storeName: store?["name"] as? String,
                            incompleteReasonID: plannerJsonObject["incompleteReasonID"] as? Int)

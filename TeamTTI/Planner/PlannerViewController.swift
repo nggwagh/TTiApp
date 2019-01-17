@@ -23,6 +23,8 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var arrowImageView: UIImageView!
+    
+    var plannerDetails = [String:[Planner]]() // Your required result
 
     //MARK:- Instance Variable
     
@@ -110,8 +112,19 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
+                        
                         //Use this to show objectives
                         let completedObjectives = (Planner.build(from: jsonDict))
+                        
+                        let datesArray = completedObjectives.compactMap { $0.updatedAt } // return array of date
+                        datesArray.forEach {
+                            let dateKey = Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0)
+                            let filterArray = completedObjectives.filter { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.updatedAt!) == dateKey }
+                            self.plannerDetails[dateKey] = filterArray
+                        }
+                        print(self.plannerDetails)
+                        
+                        self.tableView.reloadData()
                         
                         print("schedule: \(completedObjectives)")
                         
@@ -146,7 +159,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return self.plannerDetails.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -161,6 +174,9 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         // Configure the cell...
         if indexPath.row == 0{
             cell.dateBackgroundView.isHidden = false
+        }
+        else{
+            cell.dateBackgroundView.isHidden = true
         }
         
         return cell

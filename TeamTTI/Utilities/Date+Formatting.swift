@@ -22,6 +22,7 @@ extension DateFormatter {
     static let formatter_yyyyMMdd_hhmmss: DateFormatter = .create(with: DateFormats.yyyyMMdd_hhmmss)
     static let formatter_MMMddyyyy: DateFormatter = .create(with: DateFormats.MMMddyyyy)
     static let formatter_MMMMddyyyy: DateFormatter = .create(with: DateFormats.MMMMddyyyy)
+    static let formatter_yyyyMMdd_HHmmss: DateFormatter = .create(with: DateFormats.yyyyMMdd_HHmmss)
 
     static func create(with format: String) -> DateFormatter {
         let formatter = DateFormatter()
@@ -43,9 +44,9 @@ extension Date{
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = inputDateFormat
-        let dateString = dateFormatter.date(from: date)
+        let date = dateFormatter.date(from: date)
         dateFormatter.dateFormat = outputDateFormat
-        return  dateFormatter.string(from: dateString!)
+        return  dateFormatter.string(from: date!)
     }
     
     static func convertToDateFromString(inputDateFormat: String, outputDateFormat: String,  _ date: String) -> Date
