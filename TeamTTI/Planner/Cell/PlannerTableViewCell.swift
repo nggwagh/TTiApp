@@ -11,7 +11,11 @@ import UIKit
 class PlannerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var dateBackgroundView: UIView!
-    
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var weekdayLabel: UILabel!
+    @IBOutlet weak var detail1Label: UILabel!
+    @IBOutlet weak var detail2Label: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

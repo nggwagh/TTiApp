@@ -24,7 +24,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var arrowImageView: UIImageView!
     
-    var plannerDetails = [String:[Planner]]() // Your required result
+    var plannerDetails = [[String:AnyObject]]() // Your required result
 
     //MARK:- Instance Variable
     
@@ -116,11 +116,16 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         //Use this to show objectives
                         let completedObjectives = (Planner.build(from: jsonDict))
                         
-                        let datesArray = completedObjectives.compactMap { $0.updatedAt } // return array of date
-                        datesArray.forEach {
-                            let dateKey = Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0)
+                        let datesArray = completedObjectives.compactMap { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.updatedAt!) } // return array of date
+                        let uniqueDates = Array(Set(datesArray))
+                        
+                        uniqueDates.forEach {
+                            let dateKey = $0
                             let filterArray = completedObjectives.filter { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.updatedAt!) == dateKey }
-                            self.plannerDetails[dateKey] = filterArray
+                            var dict = [String : AnyObject]()
+                            dict["date"] = dateKey as AnyObject
+                            dict["events"] = filterArray as AnyObject
+                            self.plannerDetails.append(dict)
                         }
                         print(self.plannerDetails)
                         
@@ -164,12 +169,15 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return (self.plannerDetails[section]["events"]?.count)!
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlannerCell", for: indexPath) as! PlannerTableViewCell
+        
+        let events = self.plannerDetails[indexPath.section]["events"] as! [Planner]
+        let eventDetails = events[indexPath.row]
         
         // Configure the cell...
         if indexPath.row == 0{
@@ -179,6 +187,8 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.dateBackgroundView.isHidden = true
         }
         
+        cell.detail1Label.text = (eventDetails.storeName)! + ": " + (eventDetails.objectiveName)!
+//        cell.detail2Label.text = 
         return cell
     }
     
