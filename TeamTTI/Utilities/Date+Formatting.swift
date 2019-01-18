@@ -15,6 +15,7 @@ struct DateFormats {
     static let MMMddyyyy = "MMM dd, yyyy"
     static let MMMMddyyyy = "MMMM dd, yyyy"
     static let MMMM = "MMMM"
+    static let EEE = "EEE"
 }
 
 extension DateFormatter {
@@ -23,6 +24,7 @@ extension DateFormatter {
     static let formatter_MMMddyyyy: DateFormatter = .create(with: DateFormats.MMMddyyyy)
     static let formatter_MMMMddyyyy: DateFormatter = .create(with: DateFormats.MMMMddyyyy)
     static let formatter_yyyyMMdd_HHmmss: DateFormatter = .create(with: DateFormats.yyyyMMdd_HHmmss)
+    static let formatter_EEEE: DateFormatter = .create(with: DateFormats.EEE)
 
     static func create(with format: String) -> DateFormatter {
         let formatter = DateFormatter()
@@ -65,5 +67,9 @@ extension Date{
         dateFormatter.dateFormat = inputDateFormat
         dateFormatter.dateFormat = outputDateFormat
         return  dateFormatter.string(from: date)
+    }
+    
+    static func isInSameMonth(date: Date) -> Bool {
+        return Calendar.current.isDate(Date(), equalTo: date, toGranularity: .month)
     }
 }

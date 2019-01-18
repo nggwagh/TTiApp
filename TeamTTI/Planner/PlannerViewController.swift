@@ -11,11 +11,11 @@ import MMDrawerController
 import Moya
 
 class PlannerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     //MARK:- IBOutlets
     @IBOutlet weak var plannerCalender: PlannerCalender!
     @IBOutlet weak var plannerCalenderBackgroundView: UIView!
-
+    
     @IBOutlet weak var calenderButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
@@ -25,26 +25,25 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var arrowImageView: UIImageView!
     
     var plannerDetails = [[String:AnyObject]]() // Your required result
-
+    
     //MARK:- Instance Variable
     
     var scheduleTask: Cancellable?
     
     
     //MARK:- View Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         self.getListOfSchedule()
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        plannerCalender.initializeCalender(forViewController: self)
         dateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMM, Date())
     }
     
@@ -63,7 +62,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func calenderButtonTapped(sender: UIButton) {
-       self.showCalnder(shouldShow: !sender.isSelected)
+        self.showCalnder(shouldShow: !sender.isSelected)
     }
     
     @IBAction func plannerCalenderBackgroundViewTapped(gesture: UIGestureRecognizer) {
@@ -88,7 +87,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         })
     }
-
+    
     func getListOfSchedule() {
         
         //Show progress hud
@@ -116,12 +115,15 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         //Use this to show objectives
                         let completedObjectives = (Planner.build(from: jsonDict))
                         
-                        let datesArray = completedObjectives.compactMap { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.updatedAt!) } // return array of date
-                        let uniqueDates = Array(Set(datesArray))
+                        let datesFromCurrentMonth = completedObjectives.filter { Date.isInSameMonth(date: $0.estimatedCompletionDate!)}
+
+                        let datesStringArray = datesFromCurrentMonth.compactMap { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.estimatedCompletionDate!) } // return array of date
+                        
+                        let uniqueDates = Array(Set(datesStringArray)).sorted(by: { $0 < $1 })
                         
                         uniqueDates.forEach {
                             let dateKey = $0
-                            let filterArray = completedObjectives.filter { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.updatedAt!) == dateKey }
+                            let filterArray = completedObjectives.filter { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.estimatedCompletionDate!) == dateKey }
                             var dict = [String : AnyObject]()
                             dict["date"] = dateKey as AnyObject
                             dict["events"] = filterArray as AnyObject
@@ -130,6 +132,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         print(self.plannerDetails)
                         
                         self.tableView.reloadData()
+                        self.plannerCalender.initializeCalender(forViewController: self, events: self.plannerDetails)
                         
                         print("schedule: \(completedObjectives)")
                         
@@ -151,13 +154,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                 print(error.localizedDescription)
                 break
             }
-            
-            
-            
         }
-        
-        
-        
     }
     
     // MARK: - Table view data source
@@ -178,7 +175,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let events = self.plannerDetails[indexPath.section]["events"] as! [Planner]
         let eventDetails = events[indexPath.row]
-        
+        let dateString = (self.plannerDetails[indexPath.section]["date"])
         // Configure the cell...
         if indexPath.row == 0{
             cell.dateBackgroundView.isHidden = false
@@ -187,8 +184,10 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.dateBackgroundView.isHidden = true
         }
         
+        cell.dateLabel.text = dateString?.components(separatedBy: "-")[2]
+        cell.weekdayLabel.text = Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd, outputDateFormat: DateFormats.EEE, dateString as! String)
         cell.detail1Label.text = (eventDetails.storeName)! + ": " + (eventDetails.objectiveName)!
-//        cell.detail2Label.text = 
+        cell.detail2Label.text = dateString as? String
         return cell
     }
     
@@ -202,7 +201,12 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
 extension PlannerViewController: PlannerCalenderDelegate {
     func selectedDate(selectedDate: Date) {
         self.showCalnder(shouldShow: false)
+        let selectedDateString = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.yyyyMMdd, selectedDate)
+        let eventDates = self.plannerDetails.compactMap { $0["date"] }
+        let hasEvent = eventDates.contains(where: {$0 as! String == selectedDateString})
+        if (hasEvent) {
+            let index = eventDates.firstIndex(where: {$0 as! String == selectedDateString})
+            self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: index!), at: UITableViewScrollPosition.top, animated: true)
+        }
     }
-    
-    
 }

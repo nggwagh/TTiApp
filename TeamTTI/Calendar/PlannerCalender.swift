@@ -19,9 +19,12 @@ class PlannerCalender: FSCalendar {
 
     weak var plannerDelegate : PlannerCalenderDelegate?
     
-    func initializeCalender(forViewController: UIViewController) {
+    var events : [[String : AnyObject]] = []
+    
+    func initializeCalender(forViewController: UIViewController, events: [[String : AnyObject]]) {
         
         self.plannerDelegate = (forViewController as! PlannerCalenderDelegate)
+        self.events = events
         
         self.delegate = self
         self.dataSource = self
@@ -31,15 +34,8 @@ class PlannerCalender: FSCalendar {
         self.appearance.caseOptions = .headerUsesUpperCase;
         self.appearance.headerTitleFont = UIFont.systemFont(ofSize: 14)
         self.appearance.weekdayFont = UIFont.systemFont(ofSize: 13)
-
-        //Change week day title color
-//        for (index, label) in self.calendarWeekdayView.weekdayLabels.enumerated() {
-//            if index == 0 || index == 6 {
-//                label.textColor = UIColor.red
-//            } else {
-//                label.textColor = UIColor.init(named: "tti_blue")
-//            }
-//        }
+        
+        self.reloadData()
     }
 }
 
@@ -59,7 +55,20 @@ extension PlannerCalender: FSCalendarDelegate {
 // MARK:- FSCalendarDatasource
 
 extension PlannerCalender: FSCalendarDataSource {
-    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+
+        let calenderDateString = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.yyyyMMdd, date)
+        let eventDates = self.events.compactMap { $0["date"] }
+        let hasEvent = eventDates.contains(where: {$0 as! String == calenderDateString})
+
+        if (hasEvent) {
+            let datePredicate = NSPredicate(format: "date like %@", "\(calenderDateString)")
+            let currentEvents = self.events.filter { datePredicate.evaluate(with: $0) }
+            return currentEvents[0]["events"]!.count
+        }
+
+        return 0
+    }
 }
 
 extension PlannerCalender: FSCalendarDelegateAppearance{
