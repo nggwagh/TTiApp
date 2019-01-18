@@ -133,6 +133,7 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNf-cU-DFk">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <connections>
                                             <action selector="calenderButtonTappedWithSender:" destination="nnC-W3-4Od" eventType="touchUpInside" id="bbS-vA-LcW"/>
                                         </connections>
