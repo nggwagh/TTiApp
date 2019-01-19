@@ -46,8 +46,6 @@ class HomeViewController: UIViewController {
         // Refresh control add in tableview.
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refreshStore), for: .valueChanged)
-//        let refreshControlImageView : UIImageView = UIImageView(image: UIImage(named: "objective_incomplete"))
-//        self.refreshControl.insertSubview(refreshControlImageView, at: 0)
         self.tableView.addSubview(refreshControl)
         scheduleButton.layer.borderColor = UIColor.white.cgColor
     }
@@ -190,6 +188,7 @@ class HomeViewController: UIViewController {
     
     func setStoreDetails(){
         self.navigationBar.setTitle((selectedStore?.name)!)
+        self.navigationBar.downArrowImageView.isHidden = false;
     }
     
     //MARK: - IBAction methods

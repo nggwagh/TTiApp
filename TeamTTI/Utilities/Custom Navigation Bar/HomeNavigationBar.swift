@@ -27,7 +27,7 @@ class HomeNavigationBar: UIView {
     @IBOutlet public weak var calendarButton: UIButton!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var titleContainerView: UIView!
-    @IBOutlet private weak var downArrowImageView: UIImageView!
+    @IBOutlet public weak var downArrowImageView: UIImageView!
     @IBOutlet private weak var titleButton: UIButton!
 
     //MARK:- delegate
