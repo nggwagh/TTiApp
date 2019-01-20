@@ -62,14 +62,17 @@ class PhotoPickerController: NSObject
     
     private func selectPicture(pickerType: UIImagePickerControllerSourceType) {
         if UIImagePickerController.isSourceTypeAvailable(pickerType){
-            pickerController.delegate = self
-            pickerController.sourceType = pickerType;
-            pickerController.mediaTypes = [kUTTypeImage as String]
-            pickerController.allowsEditing = false
-            pickerController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-            pickerController.navigationBar.tintColor = UIColor.white
-            pickerController.navigationBar.barTintColor = self.viewController?.navigationController?.navigationBar.barTintColor
-            self.viewController?.present(pickerController, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.pickerController.delegate = self
+                self.pickerController.sourceType = pickerType;
+                self.pickerController.mediaTypes = [kUTTypeImage as String]
+                self.pickerController.allowsEditing = false
+                self.pickerController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+                self.pickerController.navigationBar.tintColor = UIColor.white
+                self.pickerController.navigationBar.barTintColor = self.viewController?.navigationController?.navigationBar.barTintColor
+                self.pickerController.modalPresentationStyle = UIModalPresentationStyle.currentContext
+                self.viewController?.present(self.pickerController, animated: true, completion: nil)
+            }
         }
     }
 }
