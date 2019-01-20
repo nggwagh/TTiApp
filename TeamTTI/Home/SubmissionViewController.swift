@@ -166,6 +166,10 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                         
                         let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                             
+                            //Store the flag to indate the task value is updated
+                            UserDefaults.standard.set(true, forKey: "TaskValueUpdated")
+                            UserDefaults.standard.synchronize()
+                            
                             self.navigationController?.popToRootViewController(animated: true)
                         }
                         

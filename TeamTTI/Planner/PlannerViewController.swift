@@ -38,13 +38,19 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Do any additional setup after loading the view.
         self.getListOfSchedule()
-        
+        dateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMM, Date())
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        dateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMM, Date())
+        if let isTaskValueUpdated = UserDefaults.standard.value(forKey: "TaskValueUpdated") as? Bool {
+            if (isTaskValueUpdated == true){
+                self.getListOfSchedule()
+                UserDefaults.standard.removeObject(forKey: "TaskValueUpdated")
+                UserDefaults.standard.synchronize()
+            }
+        }
     }
     
     //MARK: - IBAction methods

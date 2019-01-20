@@ -215,6 +215,10 @@ class TaskViewController: UIViewController, DateElementDelegate {
                         let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                             print("You have pressed OK")
 
+                            //Store the flag to indate the task value is updated
+                            UserDefaults.standard.set(true, forKey: "TaskValueUpdated")
+                            UserDefaults.standard.synchronize()
+                            
                             self.navigationController?.popToRootViewController(animated: true)
 
                         }
