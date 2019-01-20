@@ -122,7 +122,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         
                         uniqueDates.forEach {
                             let dateKey = $0
-                            let filterArray = completedObjectives.filter { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.estimatedCompletionDate!) == dateKey }
+                            let filterArray = completedObjectives.filter { ((Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.estimatedCompletionDate!) == dateKey) && ($0.status == .schedule) ) }
                             var dict = [String : AnyObject]()
                             dict["date"] = dateKey as AnyObject
                             dict["events"] = filterArray as AnyObject
