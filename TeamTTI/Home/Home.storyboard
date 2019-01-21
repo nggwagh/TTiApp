@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,7 +57,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="1le-NG-A03">
+                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="1le-NG-A03">
                                                 <rect key="frame" x="154" y="19" width="10" height="6"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="10" id="l4Q-E8-y6C"/>
@@ -519,40 +519,67 @@
             <point key="canvasLocation" x="1039.1304347826087" y="99.456521739130437"/>
         </scene>
         <!--Left Side Menu Controller-->
-        <scene sceneID="3EH-Jy-ES6">
+        <scene sceneID="TcN-rq-FhQ">
             <objects>
-                <tableViewController restorationIdentifier="LeftSideMenuController" storyboardIdentifier="LeftSideMenuController" id="QXR-OL-YNJ" customClass="LeftSideMenuController" customModule="TeamTTI" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KPe-aI-aoG">
+                <viewController id="S88-nX-LpX" customClass="LeftSideMenuController" customModule="TeamTTI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3S1-mo-cRY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="tti_blue"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="tSL-TO-daA">
-                            <rect key="frame" x="0.0" y="72" width="414" height="1"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuCell" id="D62-Is-K7A">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D62-Is-K7A" id="s04-Le-zdP">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tCW-Nk-kxw">
+                                <rect key="frame" x="0.0" y="64" width="414" height="602"/>
                                 <color key="backgroundColor" name="tti_blue"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="QXR-OL-YNJ" id="OTp-V8-oeW"/>
-                            <outlet property="delegate" destination="QXR-OL-YNJ" id="gyu-J4-4P0"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="hvm-Mv-WYC"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CO4-L5-8hs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="CC1-KJ-B1Q">
+                                    <rect key="frame" x="0.0" y="72" width="414" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MenuCell" id="iuM-Oe-Qcr">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iuM-Oe-Qcr" id="h2N-uo-lvp">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" name="tti_blue"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="tti_blue"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="S88-nX-LpX" id="nrz-zZ-n3v"/>
+                                    <outlet property="delegate" destination="S88-nX-LpX" id="tkk-k1-Z5z"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZLt-YA-008">
+                                <rect key="frame" x="20" y="686" width="374" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="tti_blue"/>
+                        <constraints>
+                            <constraint firstItem="tnT-Jz-wGr" firstAttribute="bottom" secondItem="ZLt-YA-008" secondAttribute="bottom" constant="20" id="A07-Eb-FrG"/>
+                            <constraint firstItem="tCW-Nk-kxw" firstAttribute="trailing" secondItem="tnT-Jz-wGr" secondAttribute="trailing" id="HnM-zA-Bju"/>
+                            <constraint firstItem="ZLt-YA-008" firstAttribute="top" secondItem="tCW-Nk-kxw" secondAttribute="bottom" constant="20" id="WXB-ts-tQa"/>
+                            <constraint firstItem="tnT-Jz-wGr" firstAttribute="trailing" secondItem="ZLt-YA-008" secondAttribute="trailing" constant="20" id="aLj-cS-7FG"/>
+                            <constraint firstItem="tCW-Nk-kxw" firstAttribute="leading" secondItem="tnT-Jz-wGr" secondAttribute="leading" id="nfC-DV-8Ew"/>
+                            <constraint firstItem="ZLt-YA-008" firstAttribute="leading" secondItem="tnT-Jz-wGr" secondAttribute="leading" constant="20" id="okb-kW-hnO"/>
+                            <constraint firstItem="tCW-Nk-kxw" firstAttribute="top" secondItem="tnT-Jz-wGr" secondAttribute="top" id="psS-90-UQL"/>
+                            <constraint firstItem="tnT-Jz-wGr" firstAttribute="bottom" secondItem="tCW-Nk-kxw" secondAttribute="bottom" constant="70" id="yOx-BQ-ceB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tnT-Jz-wGr"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="974-0F-R0k"/>
+                    <connections>
+                        <outlet property="menuTableView" destination="tCW-Nk-kxw" id="VmW-o3-bBr"/>
+                        <outlet property="versionLabel" destination="ZLt-YA-008" id="zwb-xf-pdZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EAv-P2-h8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2333" y="100"/>
+            <point key="canvasLocation" x="2336" y="104"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nx6-j1-VJG">
@@ -576,26 +603,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LTd-FS-aqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-393" y="101"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="nj1-gd-PTk">
-            <objects>
-                <navigationController restorationIdentifier="LeftSideMenuNavigationController" storyboardIdentifier="LeftSideMenuNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="ElM-ES-6Ys" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zER-JV-ehR">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="tti_blue"/>
-                        <color key="barTintColor" name="tti_blue"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="QXR-OL-YNJ" kind="relationship" relationship="rootViewController" id="vNd-sH-Qn1"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UCa-Bh-axB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1669.5652173913045" y="98.641304347826093"/>
         </scene>
         <!--Second Objective-->
         <scene sceneID="NMy-eu-S6a">
@@ -1357,6 +1364,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7Z-2Q-eLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="324.63768115942031" y="1499.1847826086957"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="er9-Tb-t5s">
+            <objects>
+                <navigationController restorationIdentifier="LeftSideMenuNavigationController" storyboardIdentifier="LeftSideMenuNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Qsf-jq-ndb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rBQ-q8-XJY">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="tti_blue"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="S88-nX-LpX" kind="relationship" relationship="rootViewController" id="fqr-XP-P1t"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="up1-3G-MCu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1699" y="104"/>
         </scene>
     </scenes>
     <resources>

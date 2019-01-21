@@ -76,13 +76,17 @@ struct StoreObjective {
  */
     
     let objective: Objective?
+    let storeName: String?
+
 }
 
 extension StoreObjective {
     static func build(from storeObjectiveJsonObjects: [[String: Any]]) -> [StoreObjective] {
         return storeObjectiveJsonObjects.compactMap{ storeObjectiveJsonObject in
             
-            StoreObjective(id: storeObjectiveJsonObject["id"] as! Int,
+            let storeDictionary = storeObjectiveJsonObject["store"] as? [String: Any]
+
+          return  StoreObjective(id: storeObjectiveJsonObject["id"] as! Int,
                            storeId: storeObjectiveJsonObject["storeID"] as! Int,
                            objectiveID: storeObjectiveJsonObject["objectiveID"] as! Int,
                            status: .status(for: storeObjectiveJsonObject["status"]!),
@@ -94,20 +98,21 @@ extension StoreObjective {
                            deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["deleted_at"]),
                            createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["created_at"]),
                            updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["updated_at"]),
-                           images: ((storeObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
+                           images: (storeObjectiveJsonObject["images"] != nil) ? ((storeObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
                             {
                                 return URL(string: $0["fileURL"] as! String)
-                           }),
-                           imageIds: ((storeObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
+                }) : [],
+                           imageIds: (storeObjectiveJsonObject["images"] != nil) ? ((storeObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
                             {
                                 return ($0["id"] as! Int)
-                           }),
+                }) : [],
                            descImages: (((storeObjectiveJsonObject["objective"] as! [String : Any])["images"] as! [[String : AnyObject]]).compactMap
                             {
                                 return URL(string: $0["fileURL"] as! String)
                            }),
                            incompleteReasonID: storeObjectiveJsonObject["incompleteReasonID"] as? Int,
-                           objective: Objective.build(from: storeObjectiveJsonObject["objective"] as! [String : Any]))
+                           objective: Objective.build(from: storeObjectiveJsonObject["objective"] as! [String : Any]),
+                           storeName: storeDictionary!["name"] as? String)
         }
     }
 }

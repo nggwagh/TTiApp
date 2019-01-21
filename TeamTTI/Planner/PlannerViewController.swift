@@ -29,7 +29,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     //MARK:- Instance Variable
     
     var scheduleTask: Cancellable?
-    
+
     
     //MARK:- View Lifecycle
     
@@ -38,13 +38,19 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Do any additional setup after loading the view.
         self.getListOfSchedule()
-        
+        dateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMM, Date())
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        dateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMM, Date())
+        if let isTaskValueUpdated = UserDefaults.standard.value(forKey: "TaskValueUpdated") as? Bool {
+            if (isTaskValueUpdated == true){
+                self.getListOfSchedule()
+                UserDefaults.standard.removeObject(forKey: "TaskValueUpdated")
+                UserDefaults.standard.synchronize()
+            }
+        }
     }
     
     //MARK: - IBAction methods
@@ -111,9 +117,8 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
-                        
-                        //Use this to show objectives
-                        let completedObjectives = (Planner.build(from: jsonDict))
+                        // Mapping the Json to StoreObjective Class as contains same object
+                        let completedObjectives = (StoreObjective.build(from: jsonDict))
                         
                         let datesFromCurrentMonth = completedObjectives.filter { Date.isInSameMonth(date: $0.estimatedCompletionDate!)}
 
@@ -123,7 +128,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         
                         uniqueDates.forEach {
                             let dateKey = $0
-                            let filterArray = completedObjectives.filter { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.estimatedCompletionDate!) == dateKey }
+                            let filterArray = completedObjectives.filter { ((Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyyMMdd, $0.estimatedCompletionDate!) == dateKey) && ($0.status == .schedule) ) }
                             var dict = [String : AnyObject]()
                             dict["date"] = dateKey as AnyObject
                             dict["events"] = filterArray as AnyObject
@@ -173,7 +178,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlannerCell", for: indexPath) as! PlannerTableViewCell
         
-        let events = self.plannerDetails[indexPath.section]["events"] as! [Planner]
+        let events = self.plannerDetails[indexPath.section]["events"] as! [StoreObjective]
         let eventDetails = events[indexPath.row]
         let dateString = (self.plannerDetails[indexPath.section]["date"])
         // Configure the cell...
@@ -186,14 +191,27 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         cell.dateLabel.text = dateString?.components(separatedBy: "-")[2]
         cell.weekdayLabel.text = Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd, outputDateFormat: DateFormats.EEE, dateString as! String)
-        cell.detail1Label.text = (eventDetails.storeName)! + ": " + (eventDetails.objectiveName)!
-        cell.detail2Label.text = dateString as? String
+        cell.detail1Label.text = (eventDetails.storeName)! + ": " + (eventDetails.objective?.title)!
+        
+        cell.detail2Label.text = Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd, outputDateFormat: DateFormats.MMMddyyyy, dateString as! String)
+   //   cell.detail2Label.text = dateString as? String
+
+        
         return cell
     }
     
     // MARK: - Table view delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let events = self.plannerDetails[indexPath.section]["events"] as! [StoreObjective]
+        let eventDetails = events[indexPath.row]
+        
+        let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+        let taskDetailsVC = storyboard.instantiateViewController(withIdentifier: "TaskDetailViewController") as! TaskDetailViewController
+        taskDetailsVC.tastDetails = eventDetails
+        self.navigationController?.pushViewController(taskDetailsVC, animated: true)
+        
     }
     
 }

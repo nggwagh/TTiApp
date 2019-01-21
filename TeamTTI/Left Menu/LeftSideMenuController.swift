@@ -10,10 +10,13 @@ import UIKit
 import MMDrawerController
 import KeychainSwift
 
-class LeftSideMenuController: UITableViewController {
+class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private var menuItems : [String]!
     
+    @IBOutlet weak var menuTableView: UITableView!
+    
+    @IBOutlet weak var versionLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,12 +26,16 @@ class LeftSideMenuController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         menuItems = [""]
+        
+        
+        self.versionLabel.text = String(format: "App version: %@ (%@)", Bundle.main.releaseVersionNumber!,Bundle.main.buildVersionNumber!)
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         menuItems = ["Home", "Planner", "News", "Playbooks", "Logout"]
-        self.tableView.reloadData()
+        self.menuTableView.reloadData()
     }
     
     // MARK: - Private Methods
@@ -46,29 +53,32 @@ class LeftSideMenuController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return menuItems.count
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
 
         // Configure the cell...
         cell.textLabel?.text = menuItems[indexPath.row] as String
         cell.textLabel?.textColor = UIColor.white
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        
         return cell
     }
     
     // MARK: - Table view delegate
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch(indexPath.row)
         {
         case 0:
@@ -104,4 +114,16 @@ class LeftSideMenuController: UITableViewController {
             break
         }
     }
+}
+
+extension Bundle {
+    
+    var releaseVersionNumber: String? {
+        return self.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    
+    var buildVersionNumber: String? {
+        return self.infoDictionary?["CFBundleVersion"] as? String
+    }
+    
 }

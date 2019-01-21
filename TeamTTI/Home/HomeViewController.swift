@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var scheduleView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var scheduleButton: UIButton!
-
+    
     //MARK: Instance variables
     private var storeNetworkTask: Cancellable?
     private var storeObjectiveNetworkTask: Cancellable?
@@ -46,8 +46,6 @@ class HomeViewController: UIViewController {
         // Refresh control add in tableview.
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refreshStore), for: .valueChanged)
-//        let refreshControlImageView : UIImageView = UIImageView(image: UIImage(named: "objective_incomplete"))
-//        self.refreshControl.insertSubview(refreshControlImageView, at: 0)
         self.tableView.addSubview(refreshControl)
         scheduleButton.layer.borderColor = UIColor.white.cgColor
     }
@@ -55,7 +53,14 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.refreshStore()
+        
+        if let isTaskValueUpdated = UserDefaults.standard.value(forKey: "TaskValueUpdated") as? Bool {
+            if (isTaskValueUpdated == true){
+                self.refreshStore()
+                UserDefaults.standard.removeObject(forKey: "TaskValueUpdated")
+                UserDefaults.standard.synchronize()
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -95,18 +100,18 @@ class HomeViewController: UIViewController {
                         let highPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .high && $0.status != .complete) })
                         
                         let mediumPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
-
+                        
                         let lowPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .low && $0.status != .complete) })
-
+                        
                         let completedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.status == .complete) })
-
+                        
                         //Build a list in order of priority  values high -> low -> Medium -> Completed
                         self.storeObjectives?.removeAll()
                         self.storeObjectives?.append(contentsOf: highPriorityNonCompletedObjectives)
                         self.storeObjectives?.append(contentsOf: mediumPriorityNonCompletedObjectives)
                         self.storeObjectives?.append(contentsOf: lowPriorityNonCompletedObjectives)
                         self.storeObjectives?.append(contentsOf: completedObjectives)
-
+                        
                         let countDictionary = jsonDict["counts"] as? [String: Any]
                         self.totalTasks = (countDictionary?["totalObjectives"] as? Int)!
                         self.completedTasks = (countDictionary?["completed"] as? Int)!
@@ -181,7 +186,7 @@ class HomeViewController: UIViewController {
         
         self.setStoreDetails()
         
-       self.refreshStore()
+        self.refreshStore()
     }
     
     func reloadTableView() {
@@ -190,6 +195,7 @@ class HomeViewController: UIViewController {
     
     func setStoreDetails(){
         self.navigationBar.setTitle((selectedStore?.name)!)
+        self.navigationBar.downArrowImageView.isHidden = false;
     }
     
     //MARK: - IBAction methods
@@ -203,7 +209,7 @@ class HomeViewController: UIViewController {
         }
         else{
             self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
-
+            
         }
     }
     
@@ -389,7 +395,7 @@ extension HomeViewController: DateElementDelegate {
         self.showHUD(progressLabel: "")
         
         var postArray = [[String : Any]]()
-
+        
         for storeObj in self.selectedStoreObjectives{
             var postParaDict = [String: Any]()
             
