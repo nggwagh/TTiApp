@@ -12,6 +12,7 @@ import Moya
 enum StoreApi {
     case stores()
     case storeObjectivesFor(storeId: Int)
+    case setStoreSpentTime(storeId: Int, op: String, timeStamp: Int, latitude: Double, longitude: Double, distance: Int)
 }
 
 extension StoreApi: TargetType {
@@ -20,6 +21,8 @@ extension StoreApi: TargetType {
         switch self {
         case .stores():
             return URL(string: "\(Constant.API.baseURL)/?showCounts=1")!
+        case .setStoreSpentTime(_, _, _, _, _, _):
+            return Constant.API.baseURL
         default:
             return Constant.API.baseURL
         }
@@ -31,6 +34,8 @@ extension StoreApi: TargetType {
             return Constant.API.Store.path 
         case let .storeObjectivesFor(storeId):
             return Constant.API.Store.path + "/\(storeId)/objective"
+        case let .setStoreSpentTime(storeId, _, _, _, _, _):
+            return Constant.API.Store.geoItemPath + "/\(storeId)"
         }
     }
 
@@ -40,6 +45,8 @@ extension StoreApi: TargetType {
             return .get
         case .storeObjectivesFor:
             return .get
+        case .setStoreSpentTime:
+            return .post
         }
 
     }
@@ -54,6 +61,14 @@ extension StoreApi: TargetType {
                return .requestPlain
         case .storeObjectivesFor:
             return .requestPlain
+        case let .setStoreSpentTime(storeId, op, timeStamp, latitude, longitude, distance):
+            return .requestParameters(parameters:
+                ["StoreID": storeId,
+                 "op": op,
+                 "timestamp": timeStamp,
+                 "latitude": latitude,
+                 "longitude": longitude,
+                 "distance": distance],encoding: JSONEncoding.default)
         }
     }
 

@@ -27,6 +27,7 @@ struct Constant {
 
         struct Store {
             static let path = "api/v1/store"
+            static let geoItemPath = "api/me/geoitem"
         }
 
         struct Objective {

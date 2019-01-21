@@ -8,12 +8,14 @@
 
 import UIKit
 import MapKit
+import Moya
 
 class TTILocationManager: NSObject {
 
     let locationManager = CLLocationManager()
     static let sharedLocationManager = TTILocationManager()
     private var locationsToMonitor = [Store]()
+    private var storeNetworkTask: Cancellable?
 
     override init(){}
     
@@ -66,10 +68,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
                     var storeObj = storeArray[i] as! [String: Any]
                     
                     if (storeObj["id"] as! String) == identifier.last {
-                        
-                        storeObj["outtime"] = Date()
-                        
-                        self.uploadRepTimeToServer(storeDictionary: storeObj)
+                                                
+                        self.handleLocationExit(storeDictionary: storeObj)
                         
                         //Remove after uploading In and Out time
                         storeArray.remove(at: i)
@@ -97,8 +97,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 var storeDict = [String: Any]()
                 
                 storeDict["id"] = identifier.last
-                storeDict["intime"] = Date()
-                storeDict["outtime"] = ""
+                
+                self.handleLocationEntered(storeDictionary: storeDict)
 
                 //Store InTime for Region Indentifier
                 storeArray.append(storeDict as AnyObject)
@@ -110,8 +110,54 @@ extension TTILocationManager: CLLocationManagerDelegate {
     }
     
     // API call to upload Rep InTime and outTime
-    func uploadRepTimeToServer(storeDictionary: [String: Any]) {
+    func handleLocationExit(storeDictionary: [String: Any]) {
         
+        let storeID = storeDictionary["id"]
+        let op = "exit"
+        let timestamp = Date().timeIntervalSince1970
+        let latitude = 47.1334
+        let longitude = 32.4565
+        let distance = 15
+            
+        self.setSpentTimeForStore(storeId: storeID as! Int, op: op, timeStamp: Int(timestamp), latitude: latitude, longitude: longitude, distance: distance)
+    }
+    
+    func handleLocationEntered(storeDictionary: [String: Any]) {
         
+        let storeID = storeDictionary["id"]
+        let op = "entry"
+        let timestamp = Date().timeIntervalSince1970
+        let latitude = 47.1334
+        let longitude = 32.4565
+        let distance = 15
+        
+        self.setSpentTimeForStore(storeId: storeID as! Int, op: op, timeStamp: Int(timestamp), latitude: latitude, longitude: longitude, distance: distance)
+    }
+    
+    func setSpentTimeForStore(storeId: Int, op: String, timeStamp: Int, latitude: Double, longitude: Double, distance: Int) {
+        
+        storeNetworkTask?.cancel()
+
+        storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.setStoreSpentTime(storeId: storeId, op: op, timeStamp: timeStamp, latitude: latitude, longitude: longitude, distance: distance)) { result in
+            
+            switch result {
+            case let .success(response):
+                if case 200..<400 = response.statusCode {
+                    do {
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    //TODO:- handle an invaild status code
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+            }
+        }
     }
 }
