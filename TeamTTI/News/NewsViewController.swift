@@ -22,6 +22,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK: IBOutlets
     @IBOutlet private weak var searchedNewsTableView: UITableView!
     @IBOutlet private weak var searchBar: UISearchBar!
+    var refreshControl   = UIRefreshControl()
 
     //MARK: Instance variables
     private var newsNetworkTask: Cancellable?
@@ -45,6 +46,11 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = UIColor.init(named: "tti_blue")
         }
+        
+        // Refresh control add in tableview.
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(getNewsList), for: .valueChanged)
+        self.searchedNewsTableView.addSubview(refreshControl)
     }
     
     
@@ -69,7 +75,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     //MARK: Api call
-    func getNewsList() {
+    @objc func getNewsList() {
         
     //Show progress hud
     self.showHUD(progressLabel: "")
@@ -81,6 +87,8 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
             // hiding progress hud
             self.dismissHUD(isAnimated: true)
             
+            self.refreshControl.endRefreshing()
+
             switch result {
                 
             case let .success(response):
