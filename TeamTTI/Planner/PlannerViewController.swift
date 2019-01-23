@@ -157,6 +157,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                 break
             case let .failure(error):
                 print(error.localizedDescription)
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
                 break
             }
         }

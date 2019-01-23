@@ -39,6 +39,7 @@
 		35C75A5821D921A20040BB2F /* PlannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C75A5721D921A20040BB2F /* PlannerViewController.swift */; };
 		35C75A5A21D929EA0040BB2F /* Planner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35C75A5921D929EA0040BB2F /* Planner.storyboard */; };
 		35C75A5D21D92DE10040BB2F /* PlannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C75A5C21D92DE10040BB2F /* PlannerTableViewCell.swift */; };
+		35CB4E0D21F8623A003B3671 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CB4E0C21F8623A003B3671 /* Extensions.swift */; };
 		35D8109B21E62065001242B9 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D8109A21E62065001242B9 /* ResetPasswordViewController.swift */; };
 		35FDFEFD21CCC40C00389C49 /* PickerViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */; };
 		35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */; };
@@ -128,6 +129,7 @@
 		35C75A5721D921A20040BB2F /* PlannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewController.swift; sourceTree = "<group>"; };
 		35C75A5921D929EA0040BB2F /* Planner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Planner.storyboard; path = TeamTTI/Planner/Planner.storyboard; sourceTree = SOURCE_ROOT; };
 		35C75A5C21D92DE10040BB2F /* PlannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTableViewCell.swift; sourceTree = "<group>"; };
+		35CB4E0C21F8623A003B3671 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		35D8109A21E62065001242B9 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewUtility.swift; sourceTree = "<group>"; };
 		35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerController.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */,
 				35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */,
 				356107E521D3B11F00464B00 /* AlamofireImageDownloader.swift */,
+				35CB4E0C21F8623A003B3671 /* Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				005D9D7D2194AD9B003F8CA2 /* Alert.swift in Sources */,
 				CFF45BF921A18D930045B56D /* Date+Formatting.swift in Sources */,
 				35C75A5D21D92DE10040BB2F /* PlannerTableViewCell.swift in Sources */,
+				35CB4E0D21F8623A003B3671 /* Extensions.swift in Sources */,
 				35B674A021C4DFD1000238DD /* NewsTableViewCell.swift in Sources */,
 				35C75A5821D921A20040BB2F /* PlannerViewController.swift in Sources */,
 				CFC7295E21989FCD0065BCAC /* StoreApi.swift in Sources */,

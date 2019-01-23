@@ -185,6 +185,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 break
             case let .failure(error):
                 print(error.localizedDescription)
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
                 break
             }
             
@@ -222,6 +223,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 break
             case let .failure(error):
                 print(error.localizedDescription)
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
                 break
             }
             
@@ -268,6 +270,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                         break
                     case let .failure(error):
                         print(error.localizedDescription)
+                        Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
                         break
                     }
                 }

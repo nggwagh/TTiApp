@@ -131,6 +131,7 @@ class HomeViewController: UIViewController {
                 
             case let .failure(error):
                 print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
             }
         }
         
@@ -176,6 +177,7 @@ class HomeViewController: UIViewController {
                 
             case let .failure(error):
                 print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
             }
         }
     }
@@ -447,6 +449,7 @@ extension HomeViewController: DateElementDelegate {
                 break
             case let .failure(error):
                 print(error.localizedDescription)
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
                 break
             }
         }

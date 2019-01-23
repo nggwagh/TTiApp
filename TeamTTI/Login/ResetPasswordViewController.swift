@@ -78,6 +78,7 @@ extension ResetPasswordViewController {
                 
             case let .failure(error):
                 print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
             }
         }
     }
