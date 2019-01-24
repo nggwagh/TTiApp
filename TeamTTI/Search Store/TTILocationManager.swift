@@ -11,12 +11,13 @@ import MapKit
 import Moya
 
 class TTILocationManager: NSObject {
-
+    
     let locationManager = CLLocationManager()
     static let sharedLocationManager = TTILocationManager()
     private var locationsToMonitor = [Store]()
     private var storeNetworkTask: Cancellable?
-
+    
+    
     override init(){}
     
     func monitorRegions(regionsToMonitor : [Store])  {
@@ -24,7 +25,6 @@ class TTILocationManager: NSObject {
         self.locationsToMonitor = regionsToMonitor
         
         for location in self.locationsToMonitor {
-            
             let geofenceRegionCenter = CLLocationCoordinate2DMake(CLLocationDegrees((location.latitude?.doubleValue)!), CLLocationDegrees((location.longitude?.doubleValue)!))
             
             let identifier = String(location.name + " " + "\(location.id)")
@@ -33,9 +33,14 @@ class TTILocationManager: NSObject {
                                                   identifier: identifier)
             
             //SAVE CLOSEST STORE ARRAY
-            var closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
-            closestStoreIdArray.append(location.id)
-            UserDefaults.standard.set(closestStoreIdArray, forKey: "closestStoreIdArray")
+            var closestStoresArray = [Int]()
+            if let storeIdArray : [Int] =  UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [Int] {
+                closestStoresArray.append(contentsOf: storeIdArray)
+            }
+            if (!closestStoresArray.contains(location.id)){
+                closestStoresArray.append(location.id)
+            }
+            UserDefaults.standard.set(closestStoresArray, forKey: "closestStoreIdArray")
             UserDefaults.standard.synchronize()
             
             geofenceRegion.notifyOnEntry = true
@@ -43,7 +48,7 @@ class TTILocationManager: NSObject {
             
             self.locationManager.startMonitoring(for: geofenceRegion)
         }
-       
+        
         self.locationManager.delegate = self
     }
 }
@@ -61,20 +66,19 @@ extension TTILocationManager: CLLocationManagerDelegate {
             
             if closestStoreIdArray.contains(Int(identifier.last!)!) {
                 
-                var storeArray: [AnyObject] = UserDefaults.standard.value(forKey: "storeArray") as! [AnyObject]
-                
-                for i in (0..<storeArray.count) {
+                if var storeArray: [Int] = UserDefaults.standard.value(forKey: "storeArray") as? [Int] {
                     
-                    var storeObj = storeArray[i] as! [String: Any]
-                    
-                    if (storeObj["id"] as! String) == identifier.last {
-                                                
-                        self.handleLocationExit(storeDictionary: storeObj)
+                    for i in (0..<storeArray.count) {
                         
-                        //Remove after uploading In and Out time
-                        storeArray.remove(at: i)
-                        UserDefaults.standard.set(storeArray, forKey: "storeArray")
-                        UserDefaults.standard.synchronize()
+                        if storeArray.contains(Int(identifier.last!)!) {
+                            
+                            self.handleLocationExit(storeId: Int(identifier.last!)!)
+                            
+                            //Remove after uploading In and Out time
+                            storeArray.remove(at: i)
+                            UserDefaults.standard.set(storeArray, forKey: "storeArray")
+                            UserDefaults.standard.synchronize()
+                        }
                     }
                 }
             }
@@ -92,52 +96,52 @@ extension TTILocationManager: CLLocationManagerDelegate {
             
             if closestStoreIdArray.contains(Int(identifier.last!)!) {
                 
-                var storeArray: [AnyObject] = UserDefaults.standard.value(forKey: "storeArray") as! [AnyObject]
+                var monitoringStoreArray = [Int]()
                 
-                var storeDict = [String: Any]()
+                if let stores : [Int] =  UserDefaults.standard.value(forKey: "storeArray") as? [Int] {
+                    monitoringStoreArray.append(contentsOf: stores)
+                }
                 
-                storeDict["id"] = identifier.last
-                
-                self.handleLocationEntered(storeDictionary: storeDict)
-
                 //Store InTime for Region Indentifier
-                storeArray.append(storeDict as AnyObject)
+                monitoringStoreArray.append(Int(identifier.last!)!)
                 
-                UserDefaults.standard.set(storeArray, forKey: "storeArray")
+                self.handleLocationEntered(storeId: Int(identifier.last!)!)
+                
+                UserDefaults.standard.set(monitoringStoreArray, forKey: "storeArray")
                 UserDefaults.standard.synchronize()
             }
         }
     }
     
     // API call to upload Rep InTime and outTime
-    func handleLocationExit(storeDictionary: [String: Any]) {
+    func handleLocationExit(storeId : Int) {
         
-        let storeID = storeDictionary["id"]
+        let storeID = storeId
         let op = "exit"
         let timestamp = Date().timeIntervalSince1970
-        let latitude = 47.1334
-        let longitude = 32.4565
+        let latitude = UserDefaults.standard.double(forKey: "CurrentLatitude")
+        let longitude = UserDefaults.standard.double(forKey: "CurrentLongitude")
         let distance = 15
-            
-        self.setSpentTimeForStore(storeId: storeID as! Int, op: op, timeStamp: Int(timestamp), latitude: latitude, longitude: longitude, distance: distance)
+        
+        self.setSpentTimeForStore(storeId: storeID, op: op, timeStamp: Int(timestamp), latitude: latitude.description, longitude: longitude.description, distance: distance)
     }
     
-    func handleLocationEntered(storeDictionary: [String: Any]) {
+    func handleLocationEntered(storeId : Int) {
         
-        let storeID = storeDictionary["id"]
-        let op = "entry"
+        let storeID = storeId
+        let op = "enter"
         let timestamp = Date().timeIntervalSince1970
-        let latitude = 47.1334
-        let longitude = 32.4565
+        let latitude = UserDefaults.standard.double(forKey: "CurrentLatitude")
+        let longitude = UserDefaults.standard.double(forKey: "CurrentLongitude")
         let distance = 15
         
-        self.setSpentTimeForStore(storeId: storeID as! Int, op: op, timeStamp: Int(timestamp), latitude: latitude, longitude: longitude, distance: distance)
+        self.setSpentTimeForStore(storeId: storeID, op: op, timeStamp: Int(timestamp), latitude: latitude.description, longitude: longitude.description, distance: distance)
     }
     
-    func setSpentTimeForStore(storeId: Int, op: String, timeStamp: Int, latitude: Double, longitude: Double, distance: Int) {
+    func setSpentTimeForStore(storeId: Int, op: String, timeStamp: Int, latitude: String, longitude: String, distance: Int) {
         
         storeNetworkTask?.cancel()
-
+        
         storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.setStoreSpentTime(storeId: storeId, op: op, timeStamp: timeStamp, latitude: latitude, longitude: longitude, distance: distance)) { result in
             
             switch result {
@@ -151,8 +155,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
                         print(error.localizedDescription)
                     }
                 } else {
-                    print("unhandled status code\(response.statusCode)")
-                    //TODO:- handle an invaild status code
+                    let responseString = String(data: response.data, encoding: String.Encoding.utf8)
+                    print(responseString!)
                 }
                 
             case let .failure(error):

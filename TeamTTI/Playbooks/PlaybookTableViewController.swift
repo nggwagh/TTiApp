@@ -11,10 +11,23 @@ import MMDrawerController
 
 class PlaybookTableViewController: UITableViewController {
 
+    var pullToRefreshControl   = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Refresh control add in tableview.
+        pullToRefreshControl.attributedTitle = NSAttributedString(string: "")
+        pullToRefreshControl.addTarget(self, action: #selector(getPlaybooks), for: .valueChanged)
+        self.tableView.addSubview(pullToRefreshControl)
     }
 
+    // MARK: - Private methods
+    
+    @objc func getPlaybooks() {
+        pullToRefreshControl.endRefreshing()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

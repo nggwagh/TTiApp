@@ -70,12 +70,6 @@ class StoreSearchViewController: UIViewController {
         searchedStoreTableView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        searchController.searchBar.becomeFirstResponder()
-
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchController.searchBar.becomeFirstResponder()
@@ -120,7 +114,7 @@ class StoreSearchViewController: UIViewController {
                 closestStores.append(storesArray[i])
                 }
                 else{
-                   allStores.append(storesArray[i])
+//                   allStores.append(storesArray[i])
                 }
             }
         }
@@ -154,7 +148,7 @@ class StoreSearchViewController: UIViewController {
                 
             case .AllStores:
                 if (allStores.count > 0){
-                    headerTitle = "All Stores"
+//                    headerTitle = "All Stores"
                 }
             }
         }

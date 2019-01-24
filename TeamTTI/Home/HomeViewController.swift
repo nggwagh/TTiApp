@@ -362,8 +362,10 @@ extension HomeViewController: HomeNavigationBarDelegate {
             storeSearchViewController = StoreSearchViewController.loadFromStoryboard()
             storeSearchViewController.delegate = self
             storeSearchViewController.stores = self.stores ?? [Store]()
+            let rect = CGRect(x: self.view.bounds.origin.x, y: self.tableView.frame.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+            storeSearchViewController.view.frame = rect
             self.addChildViewController(storeSearchViewController)
-            self.tableView.addSubview(storeSearchViewController.view)
+            self.view.addSubview(storeSearchViewController.view)
             storeSearchViewController.didMove(toParentViewController: self)
             isAlreadyShownSearchView.toggle()
             navigationBar.setArrowImage("UpArrow")

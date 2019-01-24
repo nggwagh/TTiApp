@@ -80,8 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         
-        UserDefaults.standard.set(locValue.latitude, forKey: "Lat")
-        UserDefaults.standard.set(locValue.longitude, forKey: "Long")
+        UserDefaults.standard.set(locValue.latitude, forKey: "CurrentLatitude")
+        UserDefaults.standard.set(locValue.longitude, forKey: "CurrentLongitude")
         UserDefaults.standard.synchronize()
 
         

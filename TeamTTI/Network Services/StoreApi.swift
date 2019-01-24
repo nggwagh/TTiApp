@@ -12,7 +12,7 @@ import Moya
 enum StoreApi {
     case stores()
     case storeObjectivesFor(storeId: Int)
-    case setStoreSpentTime(storeId: Int, op: String, timeStamp: Int, latitude: Double, longitude: Double, distance: Int)
+    case setStoreSpentTime(storeId: Int, op: String, timeStamp: Int, latitude: String, longitude: String, distance: Int)
 }
 
 extension StoreApi: TargetType {
@@ -34,8 +34,8 @@ extension StoreApi: TargetType {
             return Constant.API.Store.path 
         case let .storeObjectivesFor(storeId):
             return Constant.API.Store.path + "/\(storeId)/objective"
-        case let .setStoreSpentTime(storeId, _, _, _, _, _):
-            return Constant.API.Store.geoItemPath + "/\(storeId)"
+        case .setStoreSpentTime(_, _, _, _, _, _):
+            return Constant.API.Store.geoItemPath
         }
     }
 
@@ -62,18 +62,19 @@ extension StoreApi: TargetType {
         case .storeObjectivesFor:
             return .requestPlain
         case let .setStoreSpentTime(storeId, op, timeStamp, latitude, longitude, distance):
-            return .requestParameters(parameters:
-                ["StoreID": storeId,
-                 "op": op,
-                 "timestamp": timeStamp,
-                 "latitude": latitude,
-                 "longitude": longitude,
-                 "distance": distance],encoding: JSONEncoding.default)
+            let params = ["StoreID": storeId,
+                          "op": op,
+                          "timestamp": timeStamp,
+                          "latitude": latitude,
+                          "longitude": longitude,
+                          "distance": distance] as [String : Any]
+            return .requestParameters(parameters:params,
+                                      encoding: JSONEncoding.default)
         }
     }
 
     var headers: [String : String]? {
-        return nil
+        return ["Content-type": "application/json"]
     }
 
 }

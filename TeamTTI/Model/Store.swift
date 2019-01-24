@@ -78,8 +78,8 @@ extension Store {
                          updated_at: storeJsonObject["updated_at"] as? Int,
                          created_at: storeJsonObject["created_at"] as? Int,
                          isHDC: storeJsonObject["isHDC"] as! Bool,
-                         latitude: storeJsonObject["latitude"] as AnyObject,
-                         longitude: storeJsonObject["longitude"] as AnyObject,
+                         latitude: "37.785834" as AnyObject,//storeJsonObject["latitude"] as AnyObject,
+                         longitude: "-122.406417" as AnyObject,//storeJsonObject["longitude"] as AnyObject,
                          totalObjectives:countDictionary?["totalObjectives"] as? Int,
                          completed:countDictionary?["completed"] as? Int,
                          distanceFromCurrentLocation: distanceFromCurrentLocationInMiles(latitude: storeJsonObject["latitude"] as? Double ?? 0, longitude: storeJsonObject["longitude"] as? Double ?? 0))
@@ -88,7 +88,7 @@ extension Store {
     
     static func distanceFromCurrentLocationInMiles(latitude: Double, longitude: Double) -> Double{
 
-        let currentCoordinate = CLLocation(latitude: UserDefaults.standard.double(forKey: "Lat"), longitude: UserDefaults.standard.double(forKey: "Long"))
+        let currentCoordinate = CLLocation(latitude: UserDefaults.standard.double(forKey: "CurrentLatitude"), longitude: UserDefaults.standard.double(forKey: "CurrentLongitude"))
         let storeCoordinate = CLLocation(latitude: latitude, longitude: longitude)
         
         var distanceInMeters = currentCoordinate.distance(from: storeCoordinate) // result is in meters

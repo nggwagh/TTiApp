@@ -30,6 +30,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var scheduleTask: Cancellable?
 
+    var refreshControl   = UIRefreshControl()
     
     //MARK:- View Lifecycle
     
@@ -39,6 +40,11 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         // Do any additional setup after loading the view.
         self.getListOfSchedule()
         dateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMM, Date())
+        
+        // Refresh control add in tableview.
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(getListOfSchedule), for: .valueChanged)
+        self.tableView.addSubview(refreshControl)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,7 +100,7 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         })
     }
     
-    func getListOfSchedule() {
+    @objc func getListOfSchedule() {
         
         //Show progress hud
         self.showHUD(progressLabel: "")
@@ -105,6 +111,8 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
             
             // hiding progress hud
             self.dismissHUD(isAnimated: true)
+            
+            self.refreshControl.endRefreshing()
             
             switch result {
                 
