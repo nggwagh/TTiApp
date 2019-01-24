@@ -444,6 +444,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         dueDateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.objective?.dueDate)!))
         
         if self.tastDetails.estimatedCompletionDate != nil {
+            
             scheduledDateLabel.text =  Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.estimatedCompletionDate)!))
         }
         else
