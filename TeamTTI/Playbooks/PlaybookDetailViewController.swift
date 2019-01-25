@@ -13,6 +13,8 @@ class PlaybookDetailViewController: UIViewController, WKNavigationDelegate {
 
     @IBOutlet private weak var wkWebView: WKWebView!
     
+    public var playbookURL : URL?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,9 +22,10 @@ class PlaybookDetailViewController: UIViewController, WKNavigationDelegate {
        
         //show progress hud
         self.showHUD(progressLabel: "")
-        let tncURL =  "http://www.pdf995.com/samples/pdf.pdf"
         wkWebView.navigationDelegate = self
-        wkWebView.load(URLRequest(url: URL(string: tncURL)!))
+        if playbookURL != nil {
+            wkWebView.load(URLRequest(url: playbookURL!))
+        }
     }
     
     // MARK: - WKWebView delegate

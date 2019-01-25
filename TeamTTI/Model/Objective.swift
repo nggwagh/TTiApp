@@ -78,6 +78,7 @@ struct Objective {
     let deletedAt: Date?
     let createdAt: Date?
     let updatedAt: Date?
+    var playbookUrl: [URL]?
 }
 
 extension Objective {
@@ -97,7 +98,11 @@ extension Objective {
                       updatedBy: objectiveJsonObject["updatedBy"] as? Int,
                       deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["deleted_at"]),
                       createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["created_at"]),
-                      updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["updated_at"]))
+                      updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["updated_at"]),
+                      playbookUrl: ((objectiveJsonObject["playbook"] != nil) ? ((objectiveJsonObject["playbook"] as! [[String : AnyObject]]).compactMap
+                        {
+                            return URL(string: $0["fileURL"] as! String)
+                      }) : []))
         }
     }
     
@@ -116,7 +121,11 @@ extension Objective {
                       updatedBy: objectiveJsonObject["updatedBy"] as? Int,
                       deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["deleted_at"]),
                       createdAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["created_at"]),
-                      updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["updated_at"]))
+                      updatedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: objectiveJsonObject["updated_at"]),
+                      playbookUrl: ((objectiveJsonObject["playbook"] != nil) ? ((objectiveJsonObject["playbook"] as! [[String : AnyObject]]).compactMap
+                        {
+                            return URL(string: $0["fileURL"] as! String)
+                      }) : []))
         }
     }
 

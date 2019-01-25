@@ -14,7 +14,7 @@ import Optik
 class TaskViewController: UIViewController, DateElementDelegate {
     
     //MARK:- IBOutlets
-
+    
     @IBOutlet weak var scheduledDateBackgroundView: UIView!
     @IBOutlet weak var taskDetailPosterImageView: UIImageView!
     @IBOutlet weak var taskPriorityLabel: UILabel!
@@ -27,12 +27,12 @@ class TaskViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var taskImageView3: UIImageView!
     @IBOutlet weak var calenderImageView: UIImageView!
     @IBOutlet weak var scheduleDateButton: UIButton!
-
+    
     //MARK:- Instance Variable
-
+    
     public var tastDetails : StoreObjective!
     var imageArray = [URL]()
-
+    
     //MARK:- View Lifecycle
     
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
         setUIValues()
         setObjectiveImages()
         
-       
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -96,7 +96,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
         taskPriorityLabel.text = self.tastDetails.objective?.priority.displayValue
         taskDetailLabel.text = self.tastDetails.objective?.description
         dueDateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.objective?.dueDate)!))
-
+        
         if self.tastDetails.estimatedCompletionDate != nil {
             
             scheduledDateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.estimatedCompletionDate)!))
@@ -116,6 +116,10 @@ class TaskViewController: UIViewController, DateElementDelegate {
             calenderImageView.image = UIImage.init(named: "CalenderIcon")
         }
         
+        //set playbook name
+        if let playbookUrl = self.tastDetails.objective?.playbookUrl {
+            self.playBookNameLabel.text = playbookUrl[0].lastPathComponent
+        }
     }
     
     func loadFullScreenImage(at index : Int) {
@@ -130,7 +134,12 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     @IBAction func viewPlaybookButtonTapped(_ sender: UIButton) {
         let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
-        let viewPlaybookViewController = playbookStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Playbook.playbookDetailViewController)
+        let viewPlaybookViewController = playbookStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Playbook.playbookDetailViewController) as! PlaybookDetailViewController
+        
+        if let playbookUrl = self.tastDetails.objective?.playbookUrl {
+            viewPlaybookViewController.playbookURL = playbookUrl[0]
+        }
+        
         self.navigationController?.pushViewController(viewPlaybookViewController, animated: true)
     }
     
@@ -140,7 +149,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
         {
             loadFullScreenImage(at: 0)
         }
-
+        
     }
     
     @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
@@ -150,18 +159,18 @@ class TaskViewController: UIViewController, DateElementDelegate {
         
         //Overdue: Status = 4
         if (self.tastDetails.status == StoreObjectiveStatus.overdue){
-
+            
             calender.isDueDatePassed = true
-
+            
             calender.configure(withThemeColor: UIColor.orange, headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         }
         else{
             
             calender.isDueDatePassed = false
-
+            
             calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         }
-
+        
         calender.center = self.view.center
         self.view.addSubview(calender)
     }
@@ -170,8 +179,8 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     @IBAction func taskDetailPosterImageViewTap(_ sender: UITapGestureRecognizer) {
         
-      //  loadFullScreenImage(at: 0)
-
+        //  loadFullScreenImage(at: 0)
+        
     }
     
     @IBAction func taskDetailImageView1Tap(_ sender: UITapGestureRecognizer) {
@@ -221,13 +230,13 @@ class TaskViewController: UIViewController, DateElementDelegate {
                         
                         let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                             print("You have pressed OK")
-
+                            
                             //Store the flag to indate the task value is updated
                             UserDefaults.standard.set(true, forKey: "TaskValueUpdated")
                             UserDefaults.standard.synchronize()
                             
                             self.navigationController?.popToRootViewController(animated: true)
-
+                            
                         }
                         
                         alertContoller.addAction(action)
@@ -248,11 +257,6 @@ class TaskViewController: UIViewController, DateElementDelegate {
                 Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
                 break
             }
-            
-            
-            
         }
-        
-        
     }
 }
