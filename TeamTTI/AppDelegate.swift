@@ -9,24 +9,19 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
-import CoreLocation
 import KeychainSwift
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    let locationManager = CLLocationManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
-        
-        // Ask for Authorisation from the User.
-        locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
-        
+        IQKeyboardManager.shared.enable = true
+        TTILocationManager.sharedLocationManager.startUpdatingCurrentLocation()
         return true
     }
     
@@ -52,47 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
-    }
-    
-    //MARK:- Private methods
-    
-    func moveToNextViewController() {
-        if CLLocationManager.locationServicesEnabled() {
-            IQKeyboardManager.shared.enable = true
-            RootViewControllerManager.refreshRootViewController()
-            
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.distanceFilter = 100
-            locationManager.startUpdatingLocation()
-        }
-        else {
-            print("Location services are not enabled")
-        }
-    }
-    
-    //MARK:- CLLocationManagerDelegate
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-        
-        UserDefaults.standard.set(locValue.latitude, forKey: "CurrentLatitude")
-        UserDefaults.standard.set(locValue.longitude, forKey: "CurrentLongitude")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            print("NotDetermined")
-        case .restricted, .denied, .authorizedWhenInUse:
-            let alertController = UIAlertController().createSettingsAlertController(title: Bundle.main.displayName!, message: "Please enable location service to 'Always Allow' to use this app.")
-            self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
-        case .authorizedAlways:
-            print("Access")
-            self.moveToNextViewController()
-        }
     }
     
     // MARK: - Core Data stack

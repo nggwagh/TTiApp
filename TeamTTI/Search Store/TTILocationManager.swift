@@ -18,7 +18,13 @@ class TTILocationManager: NSObject {
     private var storeNetworkTask: Cancellable?
     
     
-    override init(){}
+    override init() {}
+    
+    func startUpdatingCurrentLocation() {
+        // Ask for Authorisation from the User.
+        locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
+    }
     
     func monitorRegions(regionsToMonitor : [Store])  {
         
@@ -48,12 +54,48 @@ class TTILocationManager: NSObject {
             
             self.locationManager.startMonitoring(for: geofenceRegion)
         }
-        
-        self.locationManager.delegate = self
+    }
+    
+    //MARK:- Private methods
+    
+    func moveToNextViewController() {
+        if CLLocationManager.locationServicesEnabled() {
+            RootViewControllerManager.refreshRootViewController()
+            
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.distanceFilter = 100
+            locationManager.startUpdatingLocation()
+        }
+        else {
+            print("Location services are not enabled")
+        }
     }
 }
 
 extension TTILocationManager: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        
+        UserDefaults.standard.set(locValue.latitude, forKey: "CurrentLatitude")
+        UserDefaults.standard.set(locValue.longitude, forKey: "CurrentLongitude")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            print("NotDetermined")
+        case .restricted, .denied, .authorizedWhenInUse:
+            let alertController = UIAlertController().createSettingsAlertController(title: Bundle.main.displayName!, message: "Please enable location service to 'Always Allow' to use this app.")
+            UIApplication.shared.windows[0].rootViewController?.present(alertController, animated: true, completion: nil)
+        case .authorizedAlways:
+            print("Access")
+            self.moveToNextViewController()
+        }
+    }
     
     // called when user Exits a monitored region
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {

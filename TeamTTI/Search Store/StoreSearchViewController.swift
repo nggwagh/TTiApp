@@ -33,46 +33,31 @@ class StoreSearchViewController: UIViewController {
     private var closestStores: [Store]! = []
     private var allStores: [Store]! = []
     
-    private lazy var searchController: UISearchController = { [unowned self] in
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.searchBar.tintColor = UIColor.init(named: "tti_blue")
-        searchController.searchBar.backgroundImage = UIImage.init()
-        searchController.searchBar.searchTextPositionAdjustment = UIOffsetMake(10, 0)
-        searchController.searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchBar"), for: UIControlState.normal)
-
-        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField,
-            let iconView = textField.leftView as? UIImageView {
-            
-            iconView.image = iconView.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-            iconView.tintColor = UIColor.init(named: "tti_blue")
-        }
-        
-        return searchController
-    }()
-    
     weak var delegate: StoreSearchViewControllerDelegate?
     
     @IBOutlet private weak var searchedStoreTableView: UITableView!
-    @IBOutlet private weak var searchBarContainer: UIView!
-    
+    @IBOutlet private weak var searchBar: UISearchBar!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        searchController.searchBar.frame = searchBarContainer.bounds
-        searchBarContainer.addSubview(searchController.searchBar)
         buildStoreSectionsArray();
         searchedStoreTableView.reloadData()
+        
+        // Glass Icon Customization
+        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
+            let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
+            
+            //Magnifying glass
+            glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
+            glassIconView.tintColor = UIColor.init(named: "tti_blue")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        searchController.searchBar.becomeFirstResponder()
+        self.searchBar.becomeFirstResponder()
 
     }
     
@@ -91,10 +76,7 @@ class StoreSearchViewController: UIViewController {
     func cancelSearch() {
         self.view.removeFromSuperview()
         self.removeFromParentViewController()
-        searchController.isActive = false
-        searchController.searchBar.removeFromSuperview()
         delegate?.cancel()
-        
     }
     
     private func buildStoreSectionsArray(){
@@ -127,7 +109,7 @@ class StoreSearchViewController: UIViewController {
         
         var headerTitle : String? = ""
         
-        if !(searchController.searchBar.text?.isEmpty)! {
+        if !(self.searchBar.text?.isEmpty)! {
             if (filteredStores.count > 0){
                 headerTitle = "Suggestions"
             }
@@ -162,7 +144,7 @@ extension StoreSearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if !(searchController.searchBar.text?.isEmpty)! {
+        if !(self.searchBar.text?.isEmpty)! {
             delegate?.selected(store: filteredStores[indexPath.row])
         }
         else{
@@ -221,7 +203,7 @@ extension StoreSearchViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        if !(searchController.searchBar.text?.isEmpty)! {
+        if !(self.searchBar.text?.isEmpty)! {
             return 1
         }
         else{
@@ -231,7 +213,7 @@ extension StoreSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if !(searchController.searchBar.text?.isEmpty)! {
+        if !(self.searchBar.text?.isEmpty)! {
             return filteredStores.count
         }
         else{
@@ -253,7 +235,7 @@ extension StoreSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "StoreSearchTableViewCell", for: indexPath) as! StoreSearchTableViewCell
         
-        if !(searchController.searchBar.text?.isEmpty)! {
+        if !(self.searchBar.text?.isEmpty)! {
             tableViewCell.storeNameLabel.text = filteredStores[indexPath.row].name
         }
         else{
@@ -279,32 +261,22 @@ extension StoreSearchViewController: UITableViewDataSource {
     }
 }
 
-extension StoreSearchViewController: UISearchControllerDelegate {
+extension StoreSearchViewController: UISearchBarDelegate {
     
-    func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.frame = searchBarContainer.bounds
-        searchController.searchBar.showsCancelButton = false
-    }
-}
-
-extension StoreSearchViewController: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-           filteredStores =  stores.filter { (store) -> Bool in
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            filteredStores =  stores.filter { (store) -> Bool in
                 return (store.name.lowercased().contains(searchText.lowercased()) || String(describing: store.storeNumber).lowercased().contains(searchText.lowercased()))
             }
         } else {
             filteredStores = stores
         }
-       searchedStoreTableView.reloadData()
+        searchedStoreTableView.reloadData()
     }
-}
-
-extension StoreSearchViewController: UISearchBarDelegate {
     
-    
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 
 
