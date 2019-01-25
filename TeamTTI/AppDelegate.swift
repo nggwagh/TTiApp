@@ -27,17 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
         
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined, .restricted, .denied, .authorizedWhenInUse:
-            print("No access")
-        case .authorizedAlways:
-            print("Access")
-            self.moveToNextViewController()
-        }
-        
         return true
     }
     
@@ -95,9 +84,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         switch CLLocationManager.authorizationStatus() {
-        case .notDetermined, .restricted, .denied, .authorizedWhenInUse:
-            print("No access")
+        case .notDetermined:
+            print("NotDetermined")
+        case .restricted, .denied, .authorizedWhenInUse:
+            let alertController = UIAlertController().createSettingsAlertController(title: Bundle.main.displayName!, message: "Please enable location service to 'Always Allow' to use this app.")
+            self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
         case .authorizedAlways:
+            print("Access")
             self.moveToNextViewController()
         }
     }
