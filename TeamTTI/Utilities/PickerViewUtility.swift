@@ -15,7 +15,7 @@ class PickerViewUtility: UIPickerView, UIPickerViewDataSource, UIPickerViewDeleg
     var selectionHandler : Selector!
     var pickerDelegate : UIViewController!
     
-    init(pickerData: [String], dropdownField: UITextField) {
+    init(pickerData: [String], dropdownField: UITextField, initialText : String) {
         super.init(frame: CGRect.zero)
         
         self.pickerData = pickerData
@@ -25,18 +25,13 @@ class PickerViewUtility: UIPickerView, UIPickerViewDataSource, UIPickerViewDeleg
         self.dataSource = self
         
         DispatchQueue.main.async{
-            if pickerData.count > 0 {
-                self.pickerTextField.text = self.pickerData[0]
-                self.pickerTextField.isUserInteractionEnabled = true
-            } else {
-                self.pickerTextField.text = nil
-                self.pickerTextField.isUserInteractionEnabled = false
-            }
+            self.pickerTextField.text = initialText
+            self.pickerTextField.isUserInteractionEnabled = true
         }
     }
     
-    convenience init(pickerData: [String], dropdownField: UITextField, onSelect selectionHandler : Selector, forDelegate delegate : UIViewController) {
-        self.init(pickerData: pickerData, dropdownField: dropdownField)
+    convenience init(pickerData: [String], dropdownField: UITextField, onSelect selectionHandler : Selector, forDelegate delegate : UIViewController, initialText : String) {
+        self.init(pickerData: pickerData, dropdownField: dropdownField, initialText: initialText)
         self.selectionHandler = selectionHandler
         self.pickerDelegate = delegate
     }

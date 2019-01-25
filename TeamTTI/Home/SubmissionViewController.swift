@@ -392,8 +392,19 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             commentTextView.placeholder = "Type your comment here"
             commentTextView.placeholderColor = UIColor.lightGray
             completionTypeTextField.isUserInteractionEnabled = true
-            completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self)
-            reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self)
+            
+            var status = ""
+            if self.tastDetails.status == StoreObjectiveStatus.complete {
+                status = "Complete"
+            }
+            else if self.tastDetails.status == StoreObjectiveStatus.incomplete{
+                status = "Incomplete"
+            }
+            
+            completionTypeTextField.loadDropdownData(data: completionTypes, selectionHandler: #selector(SubmissionViewController.completionTypeSelected(selectedText:)), pickerDelegate: self, initialText: status)
+            self.completionTypeSelected(selectedText: status)
+            
+            reasonTextField.loadDropdownData(data: reasons, selectionHandler: #selector(SubmissionViewController.reasonSelected(selectedText:)), pickerDelegate: self, initialText: "")
             scheduleDateButton.isUserInteractionEnabled = true
             uploadPhoto.isUserInteractionEnabled = true
         }
@@ -421,7 +432,6 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 self.statusLabel?.text = "Overdue"
             case .incomplete:
                 self.statusLabel?.text = "Incomplete"
-                
             }
             
             
@@ -433,10 +443,9 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
                 
                 completionTypeTextField.text = "Incomplete"
             }
-            
+            self.reasonViewHeightConstraint.constant = 0;
         }
         
-        self.reasonViewHeightConstraint.constant = 0;
     }
     
     func setUIValues(){
@@ -470,11 +479,8 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
 }
 
 extension UITextField {
-    func loadDropdownData(data: [String]) {
-        self.inputView = PickerViewUtility(pickerData: data, dropdownField: self)
-    }
-    
-    func loadDropdownData(data: [String], selectionHandler : Selector, pickerDelegate:UIViewController) {
-        self.inputView = PickerViewUtility(pickerData: data, dropdownField: self, onSelect: selectionHandler, forDelegate: pickerDelegate)
+
+    func loadDropdownData(data: [String], selectionHandler : Selector, pickerDelegate:UIViewController, initialText: String) {
+        self.inputView = PickerViewUtility(pickerData: data, dropdownField: self, onSelect: selectionHandler, forDelegate: pickerDelegate, initialText: initialText)
     }
 }
