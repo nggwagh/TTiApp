@@ -9,6 +9,7 @@
 import UIKit
 import Moya
 import MMDrawerController
+import KeychainSwift
 
 class HomeViewController: UIViewController {
     
@@ -105,6 +106,7 @@ class HomeViewController: UIViewController {
                         
                         let completedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.status == .complete) })
                         
+                        
                         //Build a list in order of priority  values high -> low -> Medium -> Completed
                         self.storeObjectives?.removeAll()
                         self.storeObjectives?.append(contentsOf: highPriorityNonCompletedObjectives)
@@ -156,13 +158,21 @@ class HomeViewController: UIViewController {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
+                        //DEFAULT STORE WILL BE THE 1ST STORE FROM CLOSEST STORE
+                        let keychain = KeychainSwift()
+                        let userStores = (Store.build(from: jsonDict)).filter({ ($0.userID == Int(keychain.get(Constant.API.User.userID)!)) })
+                        
                         self.stores = Store.build(from: jsonDict).sorted(by: { (store1 : Store, store2 : Store) -> Bool in
                             return Int(store1.distanceFromCurrentLocation!) < Int(store2.distanceFromCurrentLocation!)
                         })
                         
+                        self.selectStore(userStores[0])
+
+                        /*
                         if self.selectedStore == nil, let closestStore = self.stores?.closest {
                             self.selectStore(closestStore)
                         }
+                      */
                     }
                     catch let error {
                         print(error.localizedDescription)

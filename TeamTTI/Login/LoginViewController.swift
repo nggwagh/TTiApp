@@ -26,6 +26,10 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         txtEmail.text = "juan@pulpandfiber.com"
         txtPassword.text = "tester"
+        
+//        txtEmail.text = "Harrison.diamond@ttigroupna.com"
+//        txtPassword.text = "tticanada"
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
