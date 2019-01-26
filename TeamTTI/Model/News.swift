@@ -24,9 +24,7 @@ extension News {
                         detail: newsJsonObject["content"] as! String,
                          id: newsJsonObject["id"] as! Int,
                          date: Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd_HHmmss, outputDateFormat: DateFormats.MMMddyyyy, (newsJsonObject["date"] as! String)),
-                         imageURL: ["https://pngimage.net/wp-content/uploads/2018/06/todays-news-png-2.png"])
-                         //newsJsonObject["images"] as? Array
-            
+                         imageURL:newsJsonObject["images"] as? Array)            
         })
     }
     

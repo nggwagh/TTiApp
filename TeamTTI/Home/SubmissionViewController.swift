@@ -125,6 +125,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         submitObject["comments"] = self.commentTextView.text
         submitObject["completionTypeID"] = 0 //FOR NOW COMPLETIONTYPE WILL BE 0 UNTILL API GUY COMMUNICATE
         
+        /*
         //IF ESTIMATED DATE IS EMPTY SEND AS TODAYS DATE ELSE SEND SET DATE
         if scheduledDateLabel.text?.count == 0 {
             
@@ -146,7 +147,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             let finalDate = formatter.string(from: estimateDate!)
             submitObject["estimatedCompletionDate"] = finalDate
         }
-        
+        */
         
         submitObjectiveTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.submitObjective(storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID, submitJson: submitObject)){ result in
             
@@ -452,6 +453,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         
         dueDateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.objective?.dueDate)!))
         
+        /*
         if self.tastDetails.estimatedCompletionDate != nil {
             
             scheduledDateLabel.text =  Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.estimatedCompletionDate)!))
@@ -460,6 +462,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         {
             scheduledDateLabel.text = ""
         }
+       */
     }
     
     // MARK: - DateElementDelegate methods
