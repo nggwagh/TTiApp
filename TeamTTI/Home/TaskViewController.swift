@@ -91,6 +91,8 @@ class TaskViewController: UIViewController, DateElementDelegate {
         }
     }
     
+    
+    
     func setUIValues(){
         taskPriorityLabel.text = self.tastDetails.objective?.priority.displayValue
         taskDetailLabel.text = self.tastDetails.objective?.description
@@ -99,21 +101,24 @@ class TaskViewController: UIViewController, DateElementDelegate {
         if self.tastDetails.estimatedCompletionDate != nil {
             
             scheduledDateLabel.text = Date.convertDate(from: DateFormats.yyyyMMdd_hhmmss, to: DateFormats.MMMMddyyyy, ((self.tastDetails.estimatedCompletionDate)!))
+            
+            ((self.tastDetails.objective?.dueDate)!.compare(((self.tastDetails.estimatedCompletionDate)!)) == .orderedDescending) ? self.handlePassOverdue(isPass: false) : self.handlePassOverdue(isPass: true)
         }
         else
         {
             scheduledDateLabel.text = ""
+            
+             ((self.tastDetails.objective?.dueDate)!.compare(Date()) == .orderedDescending) ? self.handlePassOverdue(isPass: false) : self.handlePassOverdue(isPass: true)
         }
         
-        //Overdue: Status = 4
-        if (self.tastDetails.status == StoreObjectiveStatus.overdue){
-            self.scheduledDateLabel.textColor = UIColor.orange
-            calenderImageView.image = UIImage.init(named: "OrangeCalenderIcon")
+        // Grey out the schedule date
+        if (self.tastDetails.status == StoreObjectiveStatus.complete) {
+            
+            self.scheduleDateButton.isUserInteractionEnabled = false
+            self.scheduledDateLabel.textColor = UIColor.gray
+            
         }
-        else{
-            self.scheduledDateLabel.textColor = UIColor.black
-            calenderImageView.image = UIImage.init(named: "CalenderIcon")
-        }
+        
         
         //set playbook name
         if let playbookUrl = self.tastDetails.objective?.playbookUrl {
@@ -132,7 +137,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
     func saveScheduledDate(selectedDate: Date, comment: String){
         
         scheduledDateLabel.text = DateFormatter.formatter_MMMMddyyyy.string(from: selectedDate)
-        
+
         //Show progress hud
         self.showHUD(progressLabel: "")
         
@@ -193,6 +198,20 @@ class TaskViewController: UIViewController, DateElementDelegate {
         }
     }
 
+    func handlePassOverdue(isPass: Bool) {
+        
+        if isPass {
+            
+            self.scheduledDateLabel.textColor = UIColor.orange
+            calenderImageView.image = UIImage.init(named: "OrangeCalenderIcon")
+            
+        } else {
+            
+            self.scheduledDateLabel.textColor = UIColor.black
+            calenderImageView.image = UIImage.init(named: "CalenderIcon")
+            
+        }
+    }
     
     // MARK: - IBAction Methods
     
@@ -269,10 +288,14 @@ class TaskViewController: UIViewController, DateElementDelegate {
         
         if ((self.tastDetails.objective?.dueDate)!.compare(date) == .orderedDescending) {
             
+            self.handlePassOverdue(isPass: false)
+
             self.saveScheduledDate(selectedDate: date, comment: "")
 
         } else {
             
+            self.handlePassOverdue(isPass: true)
+
             let alertController = UIAlertController(title: "Comment", message: "Please enter the comment:", preferredStyle: .alert)
             
             alertController.addTextField { (textField : UITextField!) -> Void in
