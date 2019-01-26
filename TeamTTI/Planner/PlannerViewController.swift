@@ -52,7 +52,11 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let isTaskValueUpdated = UserDefaults.standard.value(forKey: "TaskValueUpdated") as? Bool {
             if (isTaskValueUpdated == true){
+                
+                self.plannerDetails.removeAll()
+                
                 self.getListOfSchedule()
+                
                 UserDefaults.standard.removeObject(forKey: "TaskValueUpdated")
                 UserDefaults.standard.synchronize()
             }
@@ -144,8 +148,9 @@ class PlannerViewController: UIViewController, UITableViewDataSource, UITableVie
                         }
                         print(self.plannerDetails)
                         
-                        self.tableView.reloadData()
                         self.plannerCalender.initializeCalender(forViewController: self, events: self.plannerDetails)
+                        
+                        self.tableView.reloadData()
                         
                         print("schedule: \(completedObjectives)")
                         
