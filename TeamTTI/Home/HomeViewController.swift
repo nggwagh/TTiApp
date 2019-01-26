@@ -11,7 +11,7 @@ import Moya
 import MMDrawerController
 import KeychainSwift
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, DateElementDelegate {
     
     //MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
@@ -38,6 +38,7 @@ class HomeViewController: UIViewController {
     
     var refreshControl   = UIRefreshControl()
     
+    //MARK:- View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -69,6 +70,27 @@ class HomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == Constant.Storyboard.Home.TaskDetailSegueIdentifier {
+            
+            let row: Int = sender as! Int
+            
+            let selectedTask = self.storeObjectives?[row]
+            
+            let destinationVC = segue.destination as! TaskDetailViewController
+            
+            destinationVC.tastDetails = selectedTask
+        }
+    }
+    
+    //MARK:- Private Method
+
     @objc func refreshStore() {
         
         if self.selectedStore == nil {
@@ -97,7 +119,6 @@ class HomeViewController: UIViewController {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
                         
-                        //TODO: Parse StoreObjectives
                         let highPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .high && $0.status != .complete) })
                         
                         let mediumPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
@@ -126,7 +147,6 @@ class HomeViewController: UIViewController {
                     }
                 } else {
                     print("unhandled status code\(response.statusCode)")
-                    //TODO:- handle an invaild status code
                     Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
                     
                 }
@@ -180,7 +200,6 @@ class HomeViewController: UIViewController {
                     }
                 } else {
                     print("unhandled status code\(response.statusCode)")
-                    //TODO:- handle an invaild status code
                     Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
                     
                 }
@@ -210,8 +229,116 @@ class HomeViewController: UIViewController {
         self.navigationBar.downArrowImageView.isHidden = false;
     }
     
+    func saveScheduledDate(selectedDate: Date, comment: String){
+        
+        //Show progress hud
+        self.showHUD(progressLabel: "")
+        
+        var postArray = [[String : Any]]()
+        
+        for storeObj in self.selectedStoreObjectives{
+            var postParaDict = [String: Any]()
+            
+            postParaDict["objectiveID"] = storeObj.objectiveID
+            postParaDict["storeID"] = storeObj.storeId
+            postParaDict["estimatedCompletionDate"] = DateFormatter.formatter_yyyyMMdd_hhmmss.string(from: selectedDate).components(separatedBy: " ")[0]
+            postParaDict["comments"] = comment
+            
+            postArray.append(postParaDict)
+        }
+        
+        MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request( .schedule(objectiveArray: postArray as [AnyObject])){ result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                    
+                    if (response.statusCode == 200)
+                    {
+                        let alertContoller =  UIAlertController.init(title: "Success", message: "Objectives scheduled successfully.", preferredStyle: .alert)
+                        
+                        let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                            self.navigationBar.calendarButton.isSelected = false
+                            
+                            self.reloadTableView()
+                            
+                            UIView.transition(with: self.view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                                self.scheduleView.isHidden = true
+                            })
+                            
+                            self.refreshStore()
+                        }
+                        
+                        alertContoller.addAction(action)
+                        self.present(alertContoller, animated: true, completion: nil)
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    
+    func selectedDate(_ date: Date) {
+        
+        //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
+        let dueDateArray = self.selectedStoreObjectives.compactMap {
+            return $0.objective?.dueDate
+        }
+        
+            // CHECK IF SELECT DATE > DUE DATE THEN SHOW COMMENT OPTION
+
+            if ((dueDateArray[0].compare(date)) == .orderedDescending) {
+             
+             self.saveScheduledDate(selectedDate: date, comment: "")
+             
+             } else {
+             
+             let alertController = UIAlertController(title: "Comment", message: "Please enter the comment:", preferredStyle: .alert)
+             
+             alertController.addTextField { (textField : UITextField!) -> Void in
+             textField.placeholder = "Comment..."
+             }
+             
+             let saveAction = UIAlertAction(title: "Submit", style: .default, handler: { alert -> Void in
+             
+             let commentTextField = alertController.textFields![0] as UITextField
+             
+             if (commentTextField.text?.isEmpty)! {
+             self.present(alertController, animated: true, completion: nil)
+             } else {
+             self.saveScheduledDate(selectedDate: date, comment: commentTextField.text!)
+             }
+             })
+             
+             let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler:nil)
+             
+             alertController.addAction(cancelAction)
+             alertController.addAction(saveAction)
+             
+             self.present(alertController, animated: true, completion: nil)
+             }
+    }
+    
     //MARK: - IBAction methods
+    
     @objc func handleCheckUncheckButtonTap(sender : UIButton) {
+        
         sender.isSelected = !sender.isSelected;
         
         let storeObjectiveObj = (self.storeObjectives?[sender.tag])!
@@ -221,7 +348,25 @@ class HomeViewController: UIViewController {
         }
         else{
             self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
+        }
+        
+        //VALIDATING AND CHECKING IF SELECTED OBJECTIVE HAS SAME DUE DATE OR NOT
+        
+        //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
+        let dueDateArray = self.selectedStoreObjectives.compactMap {
+            return $0.objective?.dueDate
+        }
+        
+        //CHECK IF ALL HAVE SAME DUE DATE
+        let allItemsWithEqualDueDate = dueDateArray.dropLast().allSatisfy { $0 == dueDateArray.last }
+        
+        if !allItemsWithEqualDueDate {
+        
+            sender.isSelected = !sender.isSelected;
+
+            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
             
+             Alert.showMessage(onViewContoller: self, title: "Error", message: "Selected Objective due date are different than previously selected Objectives. Please select Objectives with same due date.")
         }
     }
     
@@ -241,30 +386,29 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func handleScheduleButtonTap(sender : UIButton) {
-        let calender = DateElement.instanceFromNib() as! DateElement
-        calender.dateDelegate = self
-        calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())
-            
-        )
-        self.view.addSubview(calender)
-    }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         
-        if segue.identifier == Constant.Storyboard.Home.TaskDetailSegueIdentifier {
+        //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
+        let dueDateArray = self.selectedStoreObjectives.compactMap {
+            return $0.objective?.dueDate
+        }
+        
+        if dueDateArray.count > 0 {
+        
+            let calender = DateElement.instanceFromNib() as! DateElement
+            calender.dateDelegate = self
             
-            let row: Int = sender as! Int
+            // CHECK IF SELECT DATE > DUE DATE THEN SHOW COMMENT OPTION
+            if ((dueDateArray[0].compare(Date())) == .orderedAscending) {
+                calender.isDueDatePassed = true
+            }
             
-            let selectedTask = self.storeObjectives?[row]
+            calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate:dueDateArray[0])
+        
+            self.view.addSubview(calender)
             
-            let destinationVC = segue.destination as! TaskDetailViewController
-            
-            destinationVC.tastDetails = selectedTask
+        } else {
+        
+             Alert.showMessage(onViewContoller: self, title: "Error", message: "Please select the Objectives.")
         }
     }
 }
@@ -400,8 +544,9 @@ extension HomeViewController: StoreSearchViewControllerDelegate {
     }
 }
 
-
+/*
 extension HomeViewController: DateElementDelegate {
+    
     func selectedDate(_ date: Date) {
         print(date)
         
@@ -467,5 +612,5 @@ extension HomeViewController: DateElementDelegate {
         }
     }
 }
-
+*/
 

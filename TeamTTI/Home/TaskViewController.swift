@@ -42,7 +42,6 @@ class TaskViewController: UIViewController, DateElementDelegate {
         setUIValues()
         setObjectiveImages()
         
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -130,75 +129,9 @@ class TaskViewController: UIViewController, DateElementDelegate {
         self.present(imageViewer, animated: true, completion: nil)
     }
     
-    // MARK: - IBAction Methods
-    
-    @IBAction func viewPlaybookButtonTapped(_ sender: UIButton) {
-        let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
-        let viewPlaybookViewController = playbookStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Playbook.playbookDetailViewController) as! PlaybookDetailViewController
+    func saveScheduledDate(selectedDate: Date, comment: String){
         
-        if let playbookUrl = self.tastDetails.objective?.playbookUrl {
-            viewPlaybookViewController.playbookURL = playbookUrl[0]
-        }
-        
-        self.navigationController?.pushViewController(viewPlaybookViewController, animated: true)
-    }
-    
-    @IBAction func viewAllPhotosButtonTapped(_ sender: UIButton) {
-        
-        if self.tastDetails.images.count > 0
-        {
-            loadFullScreenImage(at: 0)
-        }
-        
-    }
-    
-    @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
-        let calender = DateElement.instanceFromNib() as! DateElement
-        calender.dateDelegate = self
-        
-        
-        //Overdue: Status = 4
-        if (self.tastDetails.status == StoreObjectiveStatus.overdue){
-            
-            calender.isDueDatePassed = true
-            
-            calender.configure(withThemeColor: UIColor.orange, headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
-        }
-        else{
-            
-            calender.isDueDatePassed = false
-            
-            calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
-        }
-        
-        calender.center = self.view.center
-        self.view.addSubview(calender)
-    }
-    
-    // MARK: - Gesture recognizers
-    
-    @IBAction func taskDetailPosterImageViewTap(_ sender: UITapGestureRecognizer) {
-        
-        //  loadFullScreenImage(at: 0)
-        
-    }
-    
-    @IBAction func taskDetailImageView1Tap(_ sender: UITapGestureRecognizer) {
-        loadFullScreenImage(at: 0)
-    }
-    
-    @IBAction func taskDetailImageView2Tap(_ sender: UITapGestureRecognizer) {
-        loadFullScreenImage(at: 1)
-    }
-    
-    @IBAction func taskDetailImageView3Tap(_ sender: UITapGestureRecognizer) {
-        loadFullScreenImage(at: 2)
-    }
-    
-    // MARK: - DateElementDelegate methods
-    
-    func selectedDate(_ date: Date){
-        scheduledDateLabel.text = DateFormatter.formatter_MMMMddyyyy.string(from: date)
+        scheduledDateLabel.text = DateFormatter.formatter_MMMMddyyyy.string(from: selectedDate)
         
         //Show progress hud
         self.showHUD(progressLabel: "")
@@ -207,8 +140,8 @@ class TaskViewController: UIViewController, DateElementDelegate {
         
         postParaDict["objectiveID"] = self.tastDetails.objectiveID
         postParaDict["storeID"] = self.tastDetails.storeId
-        postParaDict["estimatedCompletionDate"] = DateFormatter.formatter_yyyyMMdd_hhmmss.string(from: date).components(separatedBy: " ")[0]
-        postParaDict["comments"] = ""
+        postParaDict["estimatedCompletionDate"] = DateFormatter.formatter_yyyyMMdd_hhmmss.string(from: selectedDate).components(separatedBy: " ")[0]
+        postParaDict["comments"] = comment
         
         let postArray = [postParaDict]
         
@@ -258,5 +191,113 @@ class TaskViewController: UIViewController, DateElementDelegate {
                 break
             }
         }
+    }
+
+    
+    // MARK: - IBAction Methods
+    
+    @IBAction func viewPlaybookButtonTapped(_ sender: UIButton) {
+        let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
+        let viewPlaybookViewController = playbookStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Playbook.playbookDetailViewController) as! PlaybookDetailViewController
+        
+        if let playbookUrl = self.tastDetails.objective?.playbookUrl {
+            viewPlaybookViewController.playbookURL = playbookUrl[0]
+        }
+        
+        self.navigationController?.pushViewController(viewPlaybookViewController, animated: true)
+    }
+    
+    @IBAction func viewAllPhotosButtonTapped(_ sender: UIButton) {
+        
+        if self.tastDetails.images.count > 0
+        {
+            loadFullScreenImage(at: 0)
+        }
+        
+    }
+    
+    @IBAction func handleScheduleDateButtonTap(_ sender: UIButton) {
+        let calender = DateElement.instanceFromNib() as! DateElement
+        calender.dateDelegate = self
+        
+        // CHECK IF SELECT DATE > DUE DATE THEN SHOW COMMENT OPTION
+        if (((self.tastDetails.objective?.dueDate)!.compare(Date())) == .orderedAscending) {
+            calender.isDueDatePassed = true
+        }
+        
+        //Overdue: Status = 4
+        if (self.tastDetails.status == StoreObjectiveStatus.overdue){
+
+            calender.configure(withThemeColor: UIColor.orange, headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
+            
+        } else {
+            
+            calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
+        }
+        
+        calender.center = self.view.center
+        self.view.addSubview(calender)
+    }
+    
+    // MARK: - Gesture recognizers
+    
+    @IBAction func taskDetailPosterImageViewTap(_ sender: UITapGestureRecognizer) {
+        
+        //  loadFullScreenImage(at: 0)
+        
+    }
+    
+    @IBAction func taskDetailImageView1Tap(_ sender: UITapGestureRecognizer) {
+        loadFullScreenImage(at: 0)
+    }
+    
+    @IBAction func taskDetailImageView2Tap(_ sender: UITapGestureRecognizer) {
+        loadFullScreenImage(at: 1)
+    }
+    
+    @IBAction func taskDetailImageView3Tap(_ sender: UITapGestureRecognizer) {
+        loadFullScreenImage(at: 2)
+    }
+    
+    
+    
+    // MARK: - DateElementDelegate methods
+    
+    func selectedDate(_ date: Date){
+        
+        // CHECK IF SELECT DATE > DUE DATE THEN SHOW COMMENT OPTION
+        
+        if ((self.tastDetails.objective?.dueDate)!.compare(date) == .orderedDescending) {
+            
+            self.saveScheduledDate(selectedDate: date, comment: "")
+
+        } else {
+            
+            let alertController = UIAlertController(title: "Comment", message: "Please enter the comment:", preferredStyle: .alert)
+            
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Comment..."
+            }
+            
+            let saveAction = UIAlertAction(title: "Submit", style: .default, handler: { alert -> Void in
+                
+                let commentTextField = alertController.textFields![0] as UITextField
+                
+                if (commentTextField.text?.isEmpty)! {
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    self.saveScheduledDate(selectedDate: date, comment: commentTextField.text!)
+                }
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler:nil)
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(saveAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        
     }
 }
