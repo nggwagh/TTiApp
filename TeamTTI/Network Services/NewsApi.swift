@@ -11,6 +11,8 @@ import Moya
 
 enum NewsApi {
     case news()
+    case playbooks()
+
 }
 
 extension NewsApi: TargetType {
@@ -22,6 +24,10 @@ extension NewsApi: TargetType {
         switch self {
         case .news():
             return Constant.API.News.path
+            
+        case .playbooks():
+            return Constant.API.News.playbookPath
+            
         }
     }
     

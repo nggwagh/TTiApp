@@ -36,6 +36,8 @@ struct Constant {
         
         struct News {
             static let path = "api/v1/news"
+            static let playbookPath = "api/v1/quicklink"
+
         }
         
         struct Planner {
