@@ -13,14 +13,14 @@ import KeychainSwift
 
 class HomeViewController: UIViewController, DateElementDelegate {
     
-    //MARK: IBOutlets
+    //MARK:- IBOutlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scheduleView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleButtonView: UIView!
 
-    //MARK: Instance variables
+    //MARK:- Instance variables
     private var storeNetworkTask: Cancellable?
     private var storeObjectiveNetworkTask: Cancellable?
     private var stores: [Store]?
@@ -195,11 +195,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
                                                 
                         self.selectStore(userStores[0])
 
-                        /*
-                        if self.selectedStore == nil, let closestStore = self.stores?.closest {
-                            self.selectStore(closestStore)
-                        }
-                      */
+
                     }
                     catch let error {
                         print(error.localizedDescription)

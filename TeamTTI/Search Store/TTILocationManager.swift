@@ -12,12 +12,15 @@ import Moya
 
 class TTILocationManager: NSObject {
     
+    //MARK:- Instance Variables
     let locationManager = CLLocationManager()
     static let sharedLocationManager = TTILocationManager()
     private var locationsToMonitor = [Store]()
     private var storeNetworkTask: Cancellable?
+
     
-    
+    //MARK:- Instance Methods
+
     override init() {}
     
     func startUpdatingCurrentLocation() {
@@ -31,11 +34,12 @@ class TTILocationManager: NSObject {
         self.locationsToMonitor = regionsToMonitor
         
         for location in self.locationsToMonitor {
+            
             let geofenceRegionCenter = CLLocationCoordinate2DMake(CLLocationDegrees((location.latitude)!), CLLocationDegrees((location.longitude)!))
             
             let identifier = String(location.name + " " + "\(location.id)")
             let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter,
-                                                  radius: 100,
+                                                  radius: 150,
                                                   identifier: identifier)
             
             //SAVE CLOSEST STORE ARRAY
@@ -43,16 +47,20 @@ class TTILocationManager: NSObject {
             if let storeIdArray : [Int] =  UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [Int] {
                 closestStoresArray.append(contentsOf: storeIdArray)
             }
-            if (!closestStoresArray.contains(location.id)){
+            
+            if (!closestStoresArray.contains(location.id)) {
+                
                 closestStoresArray.append(location.id)
+                
+                UserDefaults.standard.set(closestStoresArray, forKey: "closestStoreIdArray")
+                UserDefaults.standard.synchronize()
+                
+                geofenceRegion.notifyOnEntry = true
+                geofenceRegion.notifyOnExit = true
+                
+                self.locationManager.startMonitoring(for: geofenceRegion)
             }
-            UserDefaults.standard.set(closestStoresArray, forKey: "closestStoreIdArray")
-            UserDefaults.standard.synchronize()
             
-            geofenceRegion.notifyOnEntry = true
-            geofenceRegion.notifyOnExit = true
-            
-            self.locationManager.startMonitoring(for: geofenceRegion)
         }
     }
     
@@ -63,128 +71,19 @@ class TTILocationManager: NSObject {
             RootViewControllerManager.refreshRootViewController()
             
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.distanceFilter = 100
+            locationManager.distanceFilter = 10
             locationManager.startUpdatingLocation()
         }
         else {
             print("Location services are not enabled")
         }
     }
-}
-
-extension TTILocationManager: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-        
-        UserDefaults.standard.set(locValue.latitude, forKey: "CurrentLatitude")
-        UserDefaults.standard.set(locValue.longitude, forKey: "CurrentLongitude")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            print("NotDetermined")
-        case .restricted, .denied, .authorizedWhenInUse:
-            let alertController = UIAlertController().createSettingsAlertController(title: Bundle.main.displayName!, message: "Please enable location service to 'Always Allow' to use this app.")
-            UIApplication.shared.windows[0].rootViewController?.present(alertController, animated: true, completion: nil)
-        case .authorizedAlways:
-            print("Access")
-            self.moveToNextViewController()
-        }
-    }
-    
-    // called when user Exits a monitored region
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        
-        if region is CLCircularRegion {
-            
-            // Do what you want if this information
-            let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
-            let identifier = region.identifier.components(separatedBy: " ")
-            
-            if closestStoreIdArray.contains(Int(identifier.last!)!) {
-                
-                if var storeArray: [Int] = UserDefaults.standard.value(forKey: "storeArray") as? [Int] {
-                    
-                    for i in (0..<storeArray.count) {
-                        
-                        if storeArray.contains(Int(identifier.last!)!) {
-                            
-                            self.handleLocationExit(storeId: Int(identifier.last!)!)
-                            
-                            //Remove after uploading In and Out time
-                            storeArray.remove(at: i)
-                            UserDefaults.standard.set(storeArray, forKey: "storeArray")
-                            UserDefaults.standard.synchronize()
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    // called when user Enters a monitored region
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if region is CLCircularRegion {
-            // Do what you want if this information
-            
-            let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
-            let identifier = region.identifier.components(separatedBy: " ")
-            
-            if closestStoreIdArray.contains(Int(identifier.last!)!) {
-                
-                var monitoringStoreArray = [Int]()
-                
-                if let stores : [Int] =  UserDefaults.standard.value(forKey: "storeArray") as? [Int] {
-                    monitoringStoreArray.append(contentsOf: stores)
-                }
-                
-                //Store InTime for Region Indentifier
-                monitoringStoreArray.append(Int(identifier.last!)!)
-                
-                self.handleLocationEntered(storeId: Int(identifier.last!)!)
-                
-                UserDefaults.standard.set(monitoringStoreArray, forKey: "storeArray")
-                UserDefaults.standard.synchronize()
-            }
-        }
-    }
-    
-    // API call to upload Rep InTime and outTime
-    func handleLocationExit(storeId : Int) {
-        
-        let storeID = storeId
-        let op = "exit"
-        let timestamp = Date().timeIntervalSince1970
-        let latitude = UserDefaults.standard.double(forKey: "CurrentLatitude")
-        let longitude = UserDefaults.standard.double(forKey: "CurrentLongitude")
-        let distance = 15
-        
-        self.setSpentTimeForStore(storeId: storeID, op: op, timeStamp: Int(timestamp), latitude: latitude.description, longitude: longitude.description, distance: distance)
-    }
-    
-    func handleLocationEntered(storeId : Int) {
-        
-        let storeID = storeId
-        let op = "enter"
-        let timestamp = Date().timeIntervalSince1970
-        let latitude = UserDefaults.standard.double(forKey: "CurrentLatitude")
-        let longitude = UserDefaults.standard.double(forKey: "CurrentLongitude")
-        let distance = 15
-        
-        self.setSpentTimeForStore(storeId: storeID, op: op, timeStamp: Int(timestamp), latitude: latitude.description, longitude: longitude.description, distance: distance)
-    }
-    
-    func setSpentTimeForStore(storeId: Int, op: String, timeStamp: Int, latitude: String, longitude: String, distance: Int) {
+    func setSpentTimeForStore(region: [String: Any]) {
         
         storeNetworkTask?.cancel()
         
-        storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.setStoreSpentTime(storeId: storeId, op: op, timeStamp: timeStamp, latitude: latitude, longitude: longitude, distance: distance)) { result in
+        storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.setStoreSpentTime(regionObject: region)) { result in
             
             switch result {
             case let .success(response):
@@ -206,4 +105,107 @@ extension TTILocationManager: CLLocationManagerDelegate {
             }
         }
     }
+
+}
+
+extension TTILocationManager: CLLocationManagerDelegate {
+    
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            print("NotDetermined")
+        case .restricted, .denied, .authorizedWhenInUse:
+            let alertController = UIAlertController().createSettingsAlertController(title: Bundle.main.displayName!, message: "Please enable location service to 'Always Allow' to use this app.")
+            UIApplication.shared.windows[0].rootViewController?.present(alertController, animated: true, completion: nil)
+        case .authorizedAlways:
+            print("Access")
+            self.moveToNextViewController()
+        }
+    }
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        
+        UserDefaults.standard.set(locValue.latitude, forKey: "CurrentLatitude")
+        UserDefaults.standard.set(locValue.longitude, forKey: "CurrentLongitude")
+        UserDefaults.standard.synchronize()
+    }
+   
+    
+    // CALLED WHEN USER ENTERED THE REGION
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            // Do what you want if this information
+            
+            let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
+            let identifier = region.identifier.components(separatedBy: " ")
+            
+            if closestStoreIdArray.contains(Int(identifier.last!)!) {
+                
+                var inTimeDict = [String: Any]()
+                
+                inTimeDict["storeID"] = (identifier.last!)
+                inTimeDict["op"] = "enter"
+                inTimeDict["timestamp"] = Date().timeIntervalSince1970
+                inTimeDict["latitude"] = manager.location?.coordinate.latitude
+                inTimeDict["longitude"] = (manager.location?.coordinate.longitude)
+                
+                let currentCoordinate = CLLocation(latitude: (manager.location?.coordinate.latitude)!, longitude: (manager.location?.coordinate.longitude)!)
+                
+                let storeRegion = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
+                
+                let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
+                
+                inTimeDict["distance"] = currentCoordinate.distance(from: storeCoordinate) // result is in meters
+                
+                //CALL API TO UPDATE INTIME
+                self.setSpentTimeForStore(region: inTimeDict)
+                
+            }
+        }
+    }
+    
+    
+        // CALLED WHEN USER EXIT THE REGION
+     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        
+        if region is CLCircularRegion {
+            
+            // Do what you want if this information
+            let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
+            let identifier = region.identifier.components(separatedBy: " ")
+            
+            if closestStoreIdArray.contains(Int(identifier.last!)!) {
+                
+                var outTimeDict = [String: Any]()
+                
+                outTimeDict["storeID"] = (identifier.last!)
+                outTimeDict["op"] = "exit"
+                outTimeDict["timestamp"] = Date().timeIntervalSince1970
+                outTimeDict["latitude"] = manager.location?.coordinate.latitude
+                outTimeDict["longitude"] = manager.location?.coordinate.longitude
+                
+                let currentCoordinate = CLLocation(latitude: (manager.location?.coordinate.latitude)!, longitude: (manager.location?.coordinate.longitude)!)
+                
+                let storeRegion = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
+                
+                let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
+                
+                outTimeDict["distance"] = currentCoordinate.distance(from: storeCoordinate) // result is in meters
+
+                //CALL API TO UPDATE OUTTIME
+                self.setSpentTimeForStore(region: outTimeDict)
+                
+                //REMOVE AFTER GETTING OUTTIME FROM MONITORING ARRAY
+                self.locationManager.stopMonitoring(for: region)
+                
+            }
+        }
+    }
+ 
 }
