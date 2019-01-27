@@ -38,8 +38,8 @@ struct Store {
 
     let isHDC: Bool
 
-    let latitude: AnyObject?
-    let longitude: AnyObject?
+    let latitude: Double?
+    let longitude: Double?
     
     let totalObjectives: Int?
     let completed: Int?
@@ -54,6 +54,9 @@ extension Store {
             
             let countDictionary = storeJsonObject["counts"] as? [String: Any]
             
+            let storeLatitude = Double((storeJsonObject["latitude"] as? String)!)
+            let storeLongitude = Double((storeJsonObject["longitude"] as? String)!)
+
             return Store(name: storeJsonObject["name"] as! String,
                          id: storeJsonObject["id"] as! Int,
                          regionID: storeJsonObject["regionID"] as! Int,
@@ -78,11 +81,11 @@ extension Store {
                          updated_at: storeJsonObject["updated_at"] as? Int,
                          created_at: storeJsonObject["created_at"] as? Int,
                          isHDC: storeJsonObject["isHDC"] as! Bool,
-                         latitude: "37.785834" as AnyObject,//storeJsonObject["latitude"] as AnyObject,
-                         longitude: "-122.406417" as AnyObject,//storeJsonObject["longitude"] as AnyObject,
+                         latitude: storeLatitude, //"37.785834" as AnyObject,
+                longitude: storeLongitude, //"-122.406417" as AnyObject
                          totalObjectives:countDictionary?["totalObjectives"] as? Int,
                          completed:countDictionary?["completed"] as? Int,
-                         distanceFromCurrentLocation: distanceFromCurrentLocationInMiles(latitude: storeJsonObject["latitude"] as? Double ?? 0, longitude: storeJsonObject["longitude"] as? Double ?? 0))
+                         distanceFromCurrentLocation: distanceFromCurrentLocationInMiles(latitude: storeLatitude!, longitude: storeLongitude!))
         })
     }
     

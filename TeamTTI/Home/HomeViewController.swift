@@ -185,14 +185,14 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
-                        //DEFAULT STORE WILL BE THE 1ST STORE FROM CLOSEST STORE
-                        let keychain = KeychainSwift()
-                        let userStores = (Store.build(from: jsonDict)).filter({ ($0.userID == Int(keychain.get(Constant.API.User.userID)!)) })
-                        
                         self.stores = Store.build(from: jsonDict).sorted(by: { (store1 : Store, store2 : Store) -> Bool in
                             return Int(store1.distanceFromCurrentLocation!) < Int(store2.distanceFromCurrentLocation!)
                         })
                         
+                        //DEFAULT STORE WILL BE THE 1ST STORE FROM CLOSEST STORE
+                        let keychain = KeychainSwift()
+                        let userStores = self.stores!.filter({ ($0.userID == Int(keychain.get(Constant.API.User.userID)!)) })
+                                                
                         self.selectStore(userStores[0])
 
                         /*
