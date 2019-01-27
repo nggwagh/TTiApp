@@ -241,39 +241,60 @@
                                             <action selector="handleCancelButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="CTK-BF-lTJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1c-gg-hKK">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fH-kZ-mTp">
                                         <rect key="frame" x="10" y="10" width="110" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1c-gg-hKK">
+                                                <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="20" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="handleScheduleButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="hXY-3T-YlV"/>
+                                                </connections>
+                                            </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ScheduleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="OZL-SK-cDp">
+                                                <rect key="frame" x="5" y="5" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="mZV-kl-16V"/>
+                                                    <constraint firstAttribute="width" constant="20" id="s90-n2-uNj"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYa-iP-qfx">
+                                                <rect key="frame" x="30" y="0.0" width="80" height="30"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="NXb-7f-vpq"/>
-                                            <constraint firstAttribute="width" constant="110" id="cRP-3D-2JJ"/>
+                                            <constraint firstItem="MYa-iP-qfx" firstAttribute="top" secondItem="4fH-kZ-mTp" secondAttribute="top" id="0z9-ot-KWt"/>
+                                            <constraint firstAttribute="bottom" secondItem="MYa-iP-qfx" secondAttribute="bottom" id="4Xx-lx-RQP"/>
+                                            <constraint firstAttribute="width" constant="110" id="7bh-Lv-D7t"/>
+                                            <constraint firstAttribute="trailing" secondItem="MYa-iP-qfx" secondAttribute="trailing" id="Avv-bH-ESh"/>
+                                            <constraint firstItem="OZL-SK-cDp" firstAttribute="centerY" secondItem="4fH-kZ-mTp" secondAttribute="centerY" id="Qad-W8-ueT"/>
+                                            <constraint firstItem="OZL-SK-cDp" firstAttribute="leading" secondItem="4fH-kZ-mTp" secondAttribute="leading" constant="5" id="dfz-8m-FHM"/>
+                                            <constraint firstItem="M1c-gg-hKK" firstAttribute="leading" secondItem="4fH-kZ-mTp" secondAttribute="leading" id="hEU-Du-HhK"/>
+                                            <constraint firstItem="MYa-iP-qfx" firstAttribute="leading" secondItem="OZL-SK-cDp" secondAttribute="trailing" constant="5" id="hPh-EY-4iq"/>
+                                            <constraint firstAttribute="height" constant="30" id="jZg-7R-dAf"/>
+                                            <constraint firstAttribute="bottom" secondItem="M1c-gg-hKK" secondAttribute="bottom" id="mzq-ZZ-cvf"/>
+                                            <constraint firstItem="M1c-gg-hKK" firstAttribute="top" secondItem="4fH-kZ-mTp" secondAttribute="top" id="nrR-U3-F25"/>
+                                            <constraint firstAttribute="trailing" secondItem="M1c-gg-hKK" secondAttribute="trailing" id="vP2-jR-ZNB"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="20" maxY="0.0"/>
-                                        <state key="normal" title="Schedule" image="ScheduleIcon">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <real key="value" value="0.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="handleScheduleButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="hXY-3T-YlV"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" name="tti_blue"/>
                                 <constraints>
+                                    <constraint firstItem="4fH-kZ-mTp" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="4dP-ep-Wa2"/>
                                     <constraint firstItem="uAv-Mv-M20" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="7Nt-tI-CQA"/>
                                     <constraint firstAttribute="trailing" secondItem="uAv-Mv-M20" secondAttribute="trailing" constant="20" id="HfQ-tI-LrU"/>
-                                    <constraint firstItem="M1c-gg-hKK" firstAttribute="leading" secondItem="htV-N0-BVL" secondAttribute="leading" constant="10" id="OJT-Cr-Wab"/>
-                                    <constraint firstItem="M1c-gg-hKK" firstAttribute="centerY" secondItem="htV-N0-BVL" secondAttribute="centerY" id="cHc-3p-vUo"/>
                                     <constraint firstAttribute="height" constant="50" id="veS-tr-Lg8"/>
+                                    <constraint firstItem="4fH-kZ-mTp" firstAttribute="leading" secondItem="htV-N0-BVL" secondAttribute="leading" constant="10" id="yXB-7X-9hr"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -303,6 +324,7 @@
                         <outlet property="cancelButton" destination="uAv-Mv-M20" id="ND7-bR-Z26"/>
                         <outlet property="navigationBar" destination="fCG-cV-VLH" id="PwC-oO-MWQ"/>
                         <outlet property="scheduleButton" destination="M1c-gg-hKK" id="edp-6C-OMp"/>
+                        <outlet property="scheduleButtonView" destination="4fH-kZ-mTp" id="nZr-NL-2Yz"/>
                         <outlet property="scheduleView" destination="htV-N0-BVL" id="lW9-0y-EbM"/>
                         <outlet property="tableView" destination="pZJ-yi-wYM" id="45K-CN-Ta7"/>
                         <segue destination="3Mk-UB-NSg" kind="show" identifier="TaskDetailSegueIdentifier" id="dbJ-hu-xCu"/>

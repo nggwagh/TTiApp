@@ -18,7 +18,8 @@ class HomeViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var scheduleView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var scheduleButton: UIButton!
-    
+    @IBOutlet weak var scheduleButtonView: UIView!
+
     //MARK: Instance variables
     private var storeNetworkTask: Cancellable?
     private var storeObjectiveNetworkTask: Cancellable?
@@ -49,7 +50,13 @@ class HomeViewController: UIViewController, DateElementDelegate {
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refreshStore), for: .valueChanged)
         self.tableView.addSubview(refreshControl)
-        scheduleButton.layer.borderColor = UIColor.white.cgColor
+       // scheduleButton.layer.borderColor = UIColor.white.cgColor
+        
+        scheduleButtonView.layer.cornerRadius = 5.0
+        scheduleButtonView.layer.borderWidth = 0.5
+        scheduleButtonView.layer.borderColor = UIColor.white.cgColor
+
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
