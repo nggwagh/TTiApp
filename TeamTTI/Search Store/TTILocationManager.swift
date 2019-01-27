@@ -47,6 +47,7 @@ class TTILocationManager: NSObject {
             if let storeIdArray : [Int] =  UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [Int] {
                 closestStoresArray.append(contentsOf: storeIdArray)
             }
+
             
             if (!closestStoresArray.contains(location.id)) {
                 
@@ -61,10 +62,62 @@ class TTILocationManager: NSObject {
                 self.locationManager.startMonitoring(for: geofenceRegion)
             }
             
+            //CODE TO CHECK AND REMOVE REGION MONITORING IF ITS NOT BELONGS TO CLOSED STORES THEN REMOVE REGION MONITORING
+            self.checkIfClosestStoreNotAvailableThenStopMonitoring()
+            
+            //test code for api testing
+            // self.dummyTestApi()
         }
     }
     
     //MARK:- Private methods
+    
+    /*
+    //test code for api testing
+    func dummyTestApi(){
+        
+        let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
+        
+        if closestStoreIdArray.contains(1) {
+            
+            var inTimeDict = [String: Any]()
+            
+            inTimeDict["storeID"] = 1
+            inTimeDict["op"] = "exit"
+            inTimeDict["timestamp"] = 1324325464//Date().timeIntervalSince1970
+            inTimeDict["latitude"] = String(format: "%f", (self.locationManager.location?.coordinate.latitude)!)
+            inTimeDict["longitude"] = String(format: "%f", (self.locationManager.location?.coordinate.longitude)!)
+            
+            let currentCoordinate = CLLocation(latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!)
+            
+            let storeRegion = self.locationsToMonitor.filter{ $0.id == 1 }
+            
+            let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
+            
+            inTimeDict["distance"] = currentCoordinate.distance(from: storeCoordinate) // result is in meters
+            
+            //CALL API TO UPDATE INTIME
+            self.setSpentTimeForStore(region: inTimeDict)
+        }
+    }
+    */
+    
+    func checkIfClosestStoreNotAvailableThenStopMonitoring() {
+        
+        let storeIdArray : [Int] =  UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
+        
+        for region in self.locationManager.monitoredRegions {
+            print(region)
+            
+            let regionIdentifierId = region.identifier.components(separatedBy: " ").last
+            
+            if (!storeIdArray.contains(Int(regionIdentifierId!)!)) {
+                
+                //REMOVE AFTER GETTING OUTTIME FROM MONITORING ARRAY
+                self.locationManager.stopMonitoring(for: region)
+            }
+        }
+    }
     
     func moveToNextViewController() {
         if CLLocationManager.locationServicesEnabled() {
@@ -137,6 +190,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
     }
    
     
+    
     // CALLED WHEN USER ENTERED THE REGION
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
@@ -151,7 +205,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 
                 inTimeDict["storeID"] = (identifier.last!)
                 inTimeDict["op"] = "enter"
-                inTimeDict["timestamp"] = Date().timeIntervalSince1970
+                inTimeDict["timestamp"] = Date().currentTimeMillis()
                 inTimeDict["latitude"] = manager.location?.coordinate.latitude
                 inTimeDict["longitude"] = (manager.location?.coordinate.longitude)
                 
@@ -161,7 +215,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 
                 let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
                 
-                inTimeDict["distance"] = currentCoordinate.distance(from: storeCoordinate) // result is in meters
+                inTimeDict["distance"] = Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
                 
                 //CALL API TO UPDATE INTIME
                 self.setSpentTimeForStore(region: inTimeDict)
@@ -186,7 +240,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 
                 outTimeDict["storeID"] = (identifier.last!)
                 outTimeDict["op"] = "exit"
-                outTimeDict["timestamp"] = Date().timeIntervalSince1970
+                outTimeDict["timestamp"] = Date().currentTimeMillis()
                 outTimeDict["latitude"] = manager.location?.coordinate.latitude
                 outTimeDict["longitude"] = manager.location?.coordinate.longitude
                 
@@ -196,16 +250,23 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 
                 let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
                 
-                outTimeDict["distance"] = currentCoordinate.distance(from: storeCoordinate) // result is in meters
+                outTimeDict["distance"] = Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
 
                 //CALL API TO UPDATE OUTTIME
                 self.setSpentTimeForStore(region: outTimeDict)
                 
                 //REMOVE AFTER GETTING OUTTIME FROM MONITORING ARRAY
-                self.locationManager.stopMonitoring(for: region)
+              //  self.locationManager.stopMonitoring(for: region)
                 
             }
         }
     }
  
+}
+
+
+extension Date {
+    func currentTimeMillis() -> Int64! {
+        return Int64(self.timeIntervalSince1970 * 1000)
+    }
 }

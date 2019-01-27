@@ -35,25 +35,31 @@ class NewsDetailViewController: UIViewController {
         self.newTitle?.text = self.new?.title
         self.postBy?.text = "By Admin"
         self.newDetails?.text = self.new?.detail
-        self.newImageView.af_setImage(withURL: URL(string: (self.new?.imageURL?[0])!)!, placeholderImage: UIImage(named: "NewsPlaceholder")!)
+        
+        if ((self.new?.imageURL?.count)! > 0) {
+            
+            self.newImageView.af_setImage(withURL: URL(string: (self.new?.imageURL?[0])!)!, placeholderImage: UIImage(named: "NewsPlaceholder")!)
+        }
+        
+        
+        
     }
    
     //MARK: - IBAction methods
     @IBAction func handleViewImageButtonTap(sender : UIButton) {
 
-        let imageDownloader = AlamofireImageDownloader()
-
-        guard
-            let url1 = URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Caesio_teres_in_Fiji_by_Nick_Hobgood.jpg"),
-            let url2 = URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Croissant%2C_cross_section.jpg"),
-            let url3 = URL(string: "https://upload.wikimedia.org/wikipedia/en/9/9d/Link_%28Hyrule_Historia%29.png"),
-            let url4 = URL(string: "https://upload.wikimedia.org/wikipedia/en/3/34/RickAstleyNeverGonnaGiveYouUp7InchSingleCover.jpg") else {
-                return
+         if ((self.new?.imageURL?.count)! > 0) {
+         
+            let imageDownloader = AlamofireImageDownloader()
+            
+            guard
+                let url1 = URL(string: (self.new?.imageURL?[0])!) else {
+                    return
+            }
+            
+            let imageViewer = Optik.imageViewer(withURLs: [url1], initialImageDisplayIndex: 0, imageDownloader: imageDownloader, activityIndicatorColor: UIColor.white, dismissButtonImage: nil, dismissButtonPosition: DismissButtonPosition.topLeading)
+            
+            self.present(imageViewer, animated: true, completion: nil)
         }
-        
-        let imageViewer = Optik.imageViewer(withURLs: [url1,url2,url3,url4], initialImageDisplayIndex: 0, imageDownloader: imageDownloader, activityIndicatorColor: UIColor.white, dismissButtonImage: nil, dismissButtonPosition: DismissButtonPosition.topLeading)
-
-        self.present(imageViewer, animated: true, completion: nil)
     }
-
 }

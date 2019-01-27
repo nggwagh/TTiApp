@@ -95,14 +95,11 @@ class StoreSearchViewController: UIViewController {
                 if (i < 3){
                 closestStores.append(storesArray[i])
                 }
-                else{
-//                   allStores.append(storesArray[i])
-                }
             }
         }
         
         //start monitoring for my stores
-        TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
+     //   TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
     }
 
     private func getHeaderTitle(ForSection section : Int) -> String {

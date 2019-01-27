@@ -35,6 +35,10 @@
 	<string>TTi App needs to use GPS for your location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>TTi App needs to use Camera to capture/upload photos.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

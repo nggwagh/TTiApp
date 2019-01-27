@@ -24,7 +24,7 @@ extension News {
                         detail: newsJsonObject["content"] as! String,
                          id: newsJsonObject["id"] as! Int,
                          date: Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd_HHmmss, outputDateFormat: DateFormats.MMMddyyyy, (newsJsonObject["date"] as! String)),
-                         imageURL:newsJsonObject["images"] as? Array)            
+                         imageURL: (newsJsonObject["images"] != nil) ? (newsJsonObject["images"] as? Array) : [])
         })
     }
     

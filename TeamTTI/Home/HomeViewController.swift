@@ -27,7 +27,8 @@ class HomeViewController: UIViewController, DateElementDelegate {
     private var selectedStore: Store?
     private var storeObjectives: [StoreObjective]? = []
     private var isAlreadyShownSearchView = false
-    
+    private var closestStores: [Store]! = []
+
     private var totalTasks : Int = 10
     private var completedTasks : Int = 0
     
@@ -192,9 +193,12 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         //DEFAULT STORE WILL BE THE 1ST STORE FROM CLOSEST STORE
                         let keychain = KeychainSwift()
                         let userStores = self.stores!.filter({ ($0.userID == Int(keychain.get(Constant.API.User.userID)!)) })
-                                                
+                        
+                        //MAKE FRIST MY STORE AS DEFAULT STORE
                         self.selectStore(userStores[0])
 
+                        //START MONITORING FOR CLOSEST STORES
+                        self.startMonitoringClosestStores(allStore: self.stores!)
 
                     }
                     catch let error {
@@ -213,6 +217,30 @@ class HomeViewController: UIViewController, DateElementDelegate {
             }
         }
     }
+    
+    //FUNCTION TO START MONITORING FOR CLOSEST STORE
+    func startMonitoringClosestStores(allStore: [Store]) {
+        
+        let keychain = KeychainSwift()
+        
+        var storesArray : [Store] = allStore
+        
+        storesArray.removeAll { (store : Store) -> Bool in
+            store.userID == Int(keychain.get(Constant.API.User.userID)!)
+        }
+        
+        if storesArray.count >= 3 {
+            for i in 0...(storesArray.count - 1) {
+                if (i < 3){
+                    self.closestStores.append(storesArray[i])
+                }
+            }
+        }
+        
+        //start monitoring for my stores
+        TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: self.closestStores)
+    }
+    
     
     func selectStore(_ store: Store) {
         

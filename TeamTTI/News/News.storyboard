@@ -179,7 +179,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGr-se-VEE">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="975"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newsImages" translatesAutoresizingMaskIntoConstraints="NO" id="iHr-Tt-JLj">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewsPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="iHr-Tt-JLj">
                                                 <rect key="frame" x="20" y="20" width="335" height="200"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="qOU-Zd-ZwG"/>
@@ -306,9 +306,8 @@ It is a long established fact that a reader will be distracted by the readable c
         </scene>
     </scenes>
     <resources>
-        <image name="NewsPlaceholder" width="47" height="47"/>
-        <image name="left_menu" width="23" height="16.5"/>
-        <image name="newsImages" width="233" height="216"/>
+        <image name="NewsPlaceholder" width="23" height="23"/>
+        <image name="left_menu" width="23" height="16"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
