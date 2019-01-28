@@ -429,35 +429,39 @@ class HomeViewController: UIViewController, DateElementDelegate {
     
     @objc func handleCheckUncheckButtonTap(sender : UIButton) {
         
-//        sender.isSelected = !sender.isSelected;
-//
-//        let storeObjectiveObj = (self.storeObjectives?[sender.tag])!
-//
-//        if sender.isSelected {
-//            self.selectedStoreObjectives.append(storeObjectiveObj)
-//        }
-//        else{
-//            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
-//        }
-//
-//        //VALIDATING AND CHECKING IF SELECTED OBJECTIVE HAS SAME DUE DATE OR NOT
-//
-//        //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
-//        let dueDateArray = self.selectedStoreObjectives.compactMap {
-//            return $0.objective?.dueDate
-//        }
-//
-//        //CHECK IF ALL HAVE SAME DUE DATE
-//        let allItemsWithEqualDueDate = dueDateArray.dropLast().allSatisfy { $0 == dueDateArray.last }
-//
-//        if !allItemsWithEqualDueDate {
-//
-//            sender.isSelected = !sender.isSelected;
-//
-//            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
-//
-//            Alert.showMessage(onViewContoller: self, title: "Error", message: "Selected Objective due date are different than previously selected Objectives. Please select Objectives with same due date.")
-//        }
+        sender.isSelected = !sender.isSelected;
+
+        let cell = sender.superview?.superview as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        
+        let storeObjectives = self.allStoreObjectives[(indexPath?.section)! - 1]["storeObjectives"] as! [StoreObjective]
+        let storeObjectiveObj = storeObjectives[(indexPath?.row)!]
+        
+        if sender.isSelected {
+            self.selectedStoreObjectives.append(storeObjectiveObj)
+        }
+        else{
+            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
+        }
+
+        //VALIDATING AND CHECKING IF SELECTED OBJECTIVE HAS SAME DUE DATE OR NOT
+
+        //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
+        let dueDateArray = self.selectedStoreObjectives.compactMap {
+            return $0.objective?.dueDate
+        }
+
+        //CHECK IF ALL HAVE SAME DUE DATE
+        let allItemsWithEqualDueDate = dueDateArray.dropLast().allSatisfy { $0 == dueDateArray.last }
+
+        if !allItemsWithEqualDueDate {
+
+            sender.isSelected = !sender.isSelected;
+
+            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
+
+            Alert.showMessage(onViewContoller: self, title: "Error", message: "Selected Objective due date are different than previously selected Objectives. Please select Objectives with same due date.")
+        }
     }
     
     @IBAction func handleCancelButtonTap(sender : UIButton) {
