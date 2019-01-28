@@ -64,20 +64,15 @@ struct StoreObjective {
     var images: [URL]
     var imageIds: [Int]
     var descImages: [URL]
-
     let incompleteReasonID: Int?
-
-    //Nikhil to check
-   /* var objective: Objective? {
-        get {
-            return ObjectiveDataProvider.shared.objectiveList?.filter{ $0.id == self.objectiveID }.first
-        }
-    }
- */
-    
     let objective: Objective?
     let storeName: String?
+}
 
+struct StoreObjectiveSection {
+    var storeObjectives = [StoreObjective]()
+    var headerValue = ""
+    
 }
 
 extension StoreObjective {

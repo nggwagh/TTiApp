@@ -19,22 +19,26 @@ class HomeViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleButtonView: UIView!
-
+    
     //MARK:- Instance variables
     private var storeNetworkTask: Cancellable?
     private var storeObjectiveNetworkTask: Cancellable?
     private var stores: [Store]?
     private var selectedStore: Store?
-    private var storeObjectives: [StoreObjective]? = []
+//    private var storeObjectives: [StoreObjective]? = []
     private var isAlreadyShownSearchView = false
     private var closestStores: [Store]! = []
-
+    
     private var totalTasks : Int = 10
     private var completedTasks : Int = 0
     
     private var storeSearchViewController = StoreSearchViewController()
     
     private var selectedStoreObjectives = [StoreObjective]()
+    
+    private var storeObjectivesResponse = [StoreObjective]()
+    
+    var allStoreObjectives = [[String:AnyObject]]()
     
     @IBOutlet weak var navigationBar: HomeNavigationBar!
     
@@ -51,13 +55,13 @@ class HomeViewController: UIViewController, DateElementDelegate {
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refreshStore), for: .valueChanged)
         self.tableView.addSubview(refreshControl)
-       // scheduleButton.layer.borderColor = UIColor.white.cgColor
+        // scheduleButton.layer.borderColor = UIColor.white.cgColor
         
         scheduleButtonView.layer.cornerRadius = 5.0
         scheduleButtonView.layer.borderWidth = 0.5
         scheduleButtonView.layer.borderColor = UIColor.white.cgColor
-
-
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,18 +91,16 @@ class HomeViewController: UIViewController, DateElementDelegate {
         
         if segue.identifier == Constant.Storyboard.Home.TaskDetailSegueIdentifier {
             
-            let row: Int = sender as! Int
-            
-            let selectedTask = self.storeObjectives?[row]
-            
+            let indexPath: IndexPath = sender as! IndexPath
+            let storeObjectives = self.allStoreObjectives[indexPath.section - 1]["storeObjectives"] as! [StoreObjective]
+            let selectedTask = storeObjectives[indexPath.row]
             let destinationVC = segue.destination as! TaskDetailViewController
-            
             destinationVC.tastDetails = selectedTask
         }
     }
     
     //MARK:- Private Method
-
+    
     @objc func refreshStore() {
         
         if self.selectedStore == nil {
@@ -127,21 +129,9 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
                         
-                        let highPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .high && $0.status != .complete) })
+                        self.storeObjectivesResponse = StoreObjective.build(from: jsonDict["objectives"] as! Array)
                         
-                        let mediumPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
-                        
-                        let lowPriorityNonCompletedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.objective?.priority == .low && $0.status != .complete) })
-                        
-                        let completedObjectives = (StoreObjective.build(from: jsonDict["objectives"] as! Array)).filter({ ($0.status == .complete) })
-                        
-                        
-                        //Build a list in order of priority  values high -> low -> Medium -> Completed
-                        self.storeObjectives?.removeAll()
-                        self.storeObjectives?.append(contentsOf: highPriorityNonCompletedObjectives)
-                        self.storeObjectives?.append(contentsOf: mediumPriorityNonCompletedObjectives)
-                        self.storeObjectives?.append(contentsOf: lowPriorityNonCompletedObjectives)
-                        self.storeObjectives?.append(contentsOf: completedObjectives)
+                        self.buildSectionArray()
                         
                         let countDictionary = jsonDict["counts"] as? [String: Any]
                         self.totalTasks = (countDictionary?["totalObjectives"] as? Int)!
@@ -165,6 +155,75 @@ class HomeViewController: UIViewController, DateElementDelegate {
             }
         }
         
+    }
+    
+    func buildSectionArray() {
+       
+        self.allStoreObjectives.removeAll()
+        
+        let highPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
+        
+        for obj in highPriorityNonCompletedObjectives {
+            var dict = [String : AnyObject]()
+            dict["headerTitle"] = "" as AnyObject
+            dict["storeObjectives"] = [obj] as AnyObject
+            self.allStoreObjectives.append(dict)
+        }
+    
+        let mediumPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
+        var mediumPriorityObjectivesDict = [String : AnyObject]()
+        mediumPriorityObjectivesDict["headerTitle"] = "" as AnyObject
+        mediumPriorityObjectivesDict["storeObjectives"] = mediumPriorityNonCompletedObjectives as AnyObject
+        self.allStoreObjectives.append(mediumPriorityObjectivesDict)
+        
+        let lowPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .low && $0.status != .complete) })
+        var lowPriorityObjectivesDict = [String : AnyObject]()
+        lowPriorityObjectivesDict["headerTitle"] = "" as AnyObject
+        lowPriorityObjectivesDict["storeObjectives"] = lowPriorityNonCompletedObjectives as AnyObject
+        self.allStoreObjectives.append(lowPriorityObjectivesDict)
+        
+        
+        let completedObjectives = storeObjectivesResponse.filter({ ($0.status == .complete) })
+        var completedObjectivesDict = [String : AnyObject]()
+        completedObjectivesDict["headerTitle"] = "" as AnyObject
+        completedObjectivesDict["storeObjectives"] = completedObjectives as AnyObject
+        self.allStoreObjectives.append(completedObjectivesDict)
+    }
+    
+    func buildSectionArrayToSchedule() {
+
+        self.allStoreObjectives.removeAll()
+
+        let highPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
+
+        let dueDatesStringArray = highPriorityNonCompletedObjectives.compactMap { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.MMMMddyyyy, ($0.objective?.dueDate!)!) } // return array of date
+
+        let uniqueDates = Array(Set(dueDatesStringArray)).sorted(by: { $0 < $1 })
+
+        uniqueDates.forEach {
+            let dateKey = $0
+            let filterArray = highPriorityNonCompletedObjectives.filter { ((Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.MMMMddyyyy, ($0.objective?.dueDate!)!) == dateKey)) }
+            var dict = [String : AnyObject]()
+            dict["headerTitle"] = dateKey as AnyObject
+            dict["storeObjectives"] = filterArray as AnyObject
+            self.allStoreObjectives.append(dict)
+        }
+
+        let mediumPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
+    
+        let lowPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .low && $0.status != .complete) })
+        
+        let completedObjectives = storeObjectivesResponse.filter({ ($0.status == .complete) })
+       
+        var array = [StoreObjective]()
+        array.append(contentsOf: mediumPriorityNonCompletedObjectives)
+        array.append(contentsOf: lowPriorityNonCompletedObjectives)
+        array.append(contentsOf: completedObjectives)
+        
+        var objectivesDict = [String : AnyObject]()
+        objectivesDict["headerTitle"] = "Other" as AnyObject
+        objectivesDict["storeObjectives"] = array as AnyObject
+        self.allStoreObjectives.append(objectivesDict)
     }
     
     func loadStores() {
@@ -196,10 +255,10 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         
                         //MAKE FRIST MY STORE AS DEFAULT STORE
                         self.selectStore(userStores[0])
-
+                        
                         //START MONITORING FOR CLOSEST STORES
                         self.startMonitoringClosestStores(allStore: self.stores!)
-
+                        
                     }
                     catch let error {
                         print(error.localizedDescription)
@@ -332,73 +391,73 @@ class HomeViewController: UIViewController, DateElementDelegate {
             return $0.objective?.dueDate
         }
         
-            // CHECK IF SELECT DATE > DUE DATE THEN SHOW COMMENT OPTION
-
-            if ((dueDateArray[0].compare(date)) == .orderedDescending) {
-             
-             self.saveScheduledDate(selectedDate: date, comment: "")
-             
-             } else {
-             
-             let alertController = UIAlertController(title: "Comment", message: "Please enter the comment:", preferredStyle: .alert)
-             
-             alertController.addTextField { (textField : UITextField!) -> Void in
-             textField.placeholder = "Comment..."
-             }
-             
-             let saveAction = UIAlertAction(title: "Submit", style: .default, handler: { alert -> Void in
-             
-             let commentTextField = alertController.textFields![0] as UITextField
-             
-             if (commentTextField.text?.isEmpty)! {
-             self.present(alertController, animated: true, completion: nil)
-             } else {
-             self.saveScheduledDate(selectedDate: date, comment: commentTextField.text!)
-             }
-             })
-             
-             let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler:nil)
-             
-             alertController.addAction(cancelAction)
-             alertController.addAction(saveAction)
-             
-             self.present(alertController, animated: true, completion: nil)
-             }
+        // CHECK IF SELECT DATE > DUE DATE THEN SHOW COMMENT OPTION
+        
+        if ((dueDateArray[0].compare(date)) == .orderedDescending) {
+            
+            self.saveScheduledDate(selectedDate: date, comment: "")
+            
+        } else {
+            
+            let alertController = UIAlertController(title: "Comment", message: "Please enter the comment:", preferredStyle: .alert)
+            
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Comment..."
+            }
+            
+            let saveAction = UIAlertAction(title: "Submit", style: .default, handler: { alert -> Void in
+                
+                let commentTextField = alertController.textFields![0] as UITextField
+                
+                if (commentTextField.text?.isEmpty)! {
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    self.saveScheduledDate(selectedDate: date, comment: commentTextField.text!)
+                }
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler:nil)
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(saveAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     //MARK: - IBAction methods
     
     @objc func handleCheckUncheckButtonTap(sender : UIButton) {
         
-        sender.isSelected = !sender.isSelected;
-        
-        let storeObjectiveObj = (self.storeObjectives?[sender.tag])!
-        
-        if sender.isSelected {
-            self.selectedStoreObjectives.append(storeObjectiveObj)
-        }
-        else{
-            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
-        }
-        
-        //VALIDATING AND CHECKING IF SELECTED OBJECTIVE HAS SAME DUE DATE OR NOT
-        
-        //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
-        let dueDateArray = self.selectedStoreObjectives.compactMap {
-            return $0.objective?.dueDate
-        }
-        
-        //CHECK IF ALL HAVE SAME DUE DATE
-        let allItemsWithEqualDueDate = dueDateArray.dropLast().allSatisfy { $0 == dueDateArray.last }
-        
-        if !allItemsWithEqualDueDate {
-        
-            sender.isSelected = !sender.isSelected;
-
-            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
-            
-             Alert.showMessage(onViewContoller: self, title: "Error", message: "Selected Objective due date are different than previously selected Objectives. Please select Objectives with same due date.")
-        }
+//        sender.isSelected = !sender.isSelected;
+//
+//        let storeObjectiveObj = (self.storeObjectives?[sender.tag])!
+//
+//        if sender.isSelected {
+//            self.selectedStoreObjectives.append(storeObjectiveObj)
+//        }
+//        else{
+//            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
+//        }
+//
+//        //VALIDATING AND CHECKING IF SELECTED OBJECTIVE HAS SAME DUE DATE OR NOT
+//
+//        //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
+//        let dueDateArray = self.selectedStoreObjectives.compactMap {
+//            return $0.objective?.dueDate
+//        }
+//
+//        //CHECK IF ALL HAVE SAME DUE DATE
+//        let allItemsWithEqualDueDate = dueDateArray.dropLast().allSatisfy { $0 == dueDateArray.last }
+//
+//        if !allItemsWithEqualDueDate {
+//
+//            sender.isSelected = !sender.isSelected;
+//
+//            self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
+//
+//            Alert.showMessage(onViewContoller: self, title: "Error", message: "Selected Objective due date are different than previously selected Objectives. Please select Objectives with same due date.")
+//        }
     }
     
     @IBAction func handleCancelButtonTap(sender : UIButton) {
@@ -424,7 +483,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
         }
         
         if dueDateArray.count > 0 {
-        
+            
             let calender = DateElement.instanceFromNib() as! DateElement
             calender.dateDelegate = self
             
@@ -434,12 +493,12 @@ class HomeViewController: UIViewController, DateElementDelegate {
             }
             
             calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate:dueDateArray[0])
-        
+            
             self.view.addSubview(calender)
             
         } else {
-        
-             Alert.showMessage(onViewContoller: self, title: "Error", message: "Please select the Objectives.")
+            
+            Alert.showMessage(onViewContoller: self, title: "Error", message: "Please select the Objectives.")
         }
     }
 }
@@ -447,29 +506,30 @@ class HomeViewController: UIViewController, DateElementDelegate {
 extension HomeViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1 + self.allStoreObjectives.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return self.storeObjectives?.count ?? 0
-        default:
-            return 0
-        }
         
+        if (section == 0) {
+            return 1
+        }
+        else {
+            let count = (self.allStoreObjectives[section - 1]["storeObjectives"]?.count)
+            return count!
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
+        
+        if (indexPath.section == 0) {
             let  graphTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "GraphTableViewCell") as! GraphTableViewCell
             graphTableViewCell.configure(unfinished: (self.totalTasks - self.completedTasks), finished: self.completedTasks, total: self.totalTasks)
             return graphTableViewCell
-        case 1:
-            guard let storeObjective = self.storeObjectives?[indexPath.row] else { return UITableViewCell() }
+        }
+        else {
+            let storeObjectives = self.allStoreObjectives[indexPath.section - 1]["storeObjectives"] as! [StoreObjective]
+            let storeObjective = storeObjectives[indexPath.row]
             
             let storeObjectiveCell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell") as! StoreObjectiveTableViewCell
             
@@ -487,25 +547,62 @@ extension HomeViewController: UITableViewDataSource {
             storeObjectiveCell.checkMarkButton.addTarget(self, action: #selector(handleCheckUncheckButtonTap(sender:)), for: UIControlEvents.touchUpInside)
             
             return storeObjectiveCell
-        default:
-            return UITableViewCell()
         }
     }
-    
 }
 
 extension HomeViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
-    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
     
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    
+            if (section == 0) {
+                return nil
+            }
+            else {
+                let headerTitle = self.allStoreObjectives[section - 1]["headerTitle"] as! String
+                
+                if !(headerTitle.isEmpty) {
+                    let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 28))
+                    
+                    let label = UILabel()
+                    label.frame = CGRect.init(x: 20, y: 0, width: headerView.frame.width, height: headerView.frame.height)
+                    label.text = headerTitle
+                    label.font = UIFont.init(name: "Avenir", size: 12.5)
+                    label.textColor = UIColor.init(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 1.0)
+                    headerView.addSubview(label)
+                    headerView.backgroundColor = tableView.backgroundColor;
+                    return headerView
+                }
+                else{
+                    return nil
+                }
+            }
+        }
+    
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+    
+            if (section == 0) {
+                return CGFloat.leastNormalMagnitude
+            }
+            else {
+                let headerTitle = self.allStoreObjectives[section - 1]["headerTitle"] as! String
+                
+                if !(headerTitle.isEmpty) {
+                    return 28
+                }
+                else{
+                    return CGFloat.leastNormalMagnitude
+                }
+            }
+        }
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        self.performSegue(withIdentifier: Constant.Storyboard.Home.TaskDetailSegueIdentifier, sender: indexPath.row)
+        self.performSegue(withIdentifier: Constant.Storyboard.Home.TaskDetailSegueIdentifier, sender: indexPath)
     }
 }
 
@@ -536,6 +633,9 @@ extension HomeViewController: HomeNavigationBarDelegate {
             self.scheduleView.isHidden = self.navigationBar.calendarButton.isSelected
         })
         self.navigationBar.calendarButton.isSelected = !self.navigationBar.calendarButton.isSelected
+        
+        self.buildSectionArrayToSchedule()
+        
         tableView.reloadData()
     }
     
@@ -576,72 +676,72 @@ extension HomeViewController: StoreSearchViewControllerDelegate {
 }
 
 /*
-extension HomeViewController: DateElementDelegate {
-    
-    func selectedDate(_ date: Date) {
-        print(date)
-        
-        //Show progress hud
-        self.showHUD(progressLabel: "")
-        
-        var postArray = [[String : Any]]()
-        
-        for storeObj in self.selectedStoreObjectives{
-            var postParaDict = [String: Any]()
-            
-            postParaDict["objectiveID"] = storeObj.objectiveID
-            postParaDict["storeID"] = storeObj.storeId
-            postParaDict["estimatedCompletionDate"] = DateFormatter.formatter_yyyyMMdd_hhmmss.string(from: date).components(separatedBy: " ")[0]
-            postParaDict["comments"] = ""
-            
-            postArray.append(postParaDict)
-        }
-        
-        MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request( .schedule(objectiveArray: postArray as [AnyObject])){ result in
-            
-            // hiding progress hud
-            self.dismissHUD(isAnimated: true)
-            
-            switch result {
-                
-            case let .success(response):
-                print(response)
-                
-                if case 200..<400 = response.statusCode {
-                    
-                    if (response.statusCode == 200)
-                    {
-                        let alertContoller =  UIAlertController.init(title: "Success", message: "Objectives scheduled successfully.", preferredStyle: .alert)
-                        
-                        let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                            self.navigationBar.calendarButton.isSelected = false
-                            
-                            self.reloadTableView()
-                            
-                            UIView.transition(with: self.view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                                self.scheduleView.isHidden = true
-                            })
-                            
-                            self.refreshStore()
-                        }
-                        
-                        alertContoller.addAction(action)
-                        self.present(alertContoller, animated: true, completion: nil)
-                    }
-                }
-                else
-                {
-                    print("Status code:\(response.statusCode)")
-                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
-                }
-                break
-            case let .failure(error):
-                print(error.localizedDescription)
-                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
-                break
-            }
-        }
-    }
-}
-*/
+ extension HomeViewController: DateElementDelegate {
+ 
+ func selectedDate(_ date: Date) {
+ print(date)
+ 
+ //Show progress hud
+ self.showHUD(progressLabel: "")
+ 
+ var postArray = [[String : Any]]()
+ 
+ for storeObj in self.selectedStoreObjectives{
+ var postParaDict = [String: Any]()
+ 
+ postParaDict["objectiveID"] = storeObj.objectiveID
+ postParaDict["storeID"] = storeObj.storeId
+ postParaDict["estimatedCompletionDate"] = DateFormatter.formatter_yyyyMMdd_hhmmss.string(from: date).components(separatedBy: " ")[0]
+ postParaDict["comments"] = ""
+ 
+ postArray.append(postParaDict)
+ }
+ 
+ MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request( .schedule(objectiveArray: postArray as [AnyObject])){ result in
+ 
+ // hiding progress hud
+ self.dismissHUD(isAnimated: true)
+ 
+ switch result {
+ 
+ case let .success(response):
+ print(response)
+ 
+ if case 200..<400 = response.statusCode {
+ 
+ if (response.statusCode == 200)
+ {
+ let alertContoller =  UIAlertController.init(title: "Success", message: "Objectives scheduled successfully.", preferredStyle: .alert)
+ 
+ let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+ self.navigationBar.calendarButton.isSelected = false
+ 
+ self.reloadTableView()
+ 
+ UIView.transition(with: self.view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+ self.scheduleView.isHidden = true
+ })
+ 
+ self.refreshStore()
+ }
+ 
+ alertContoller.addAction(action)
+ self.present(alertContoller, animated: true, completion: nil)
+ }
+ }
+ else
+ {
+ print("Status code:\(response.statusCode)")
+ Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+ }
+ break
+ case let .failure(error):
+ print(error.localizedDescription)
+ Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+ break
+ }
+ }
+ }
+ }
+ */
 
