@@ -97,9 +97,6 @@ class StoreSearchViewController: UIViewController {
                 }
             }
         }
-        
-        //start monitoring for my stores
-     //   TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
     }
 
     private func getHeaderTitle(ForSection section : Int) -> String {

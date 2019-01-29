@@ -10,10 +10,10 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 import KeychainSwift
-
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     
@@ -22,7 +22,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
         TTILocationManager.sharedLocationManager.startUpdatingCurrentLocation()
+        
+        
+        self.registerForLocalNotifications()
+
+        // Configure User Notification Center
+        UNUserNotificationCenter.current().delegate = self
+        
         return true
+    }
+    
+    @objc func registerForLocalNotifications() {
+        let center = UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler:
+        @escaping (UNNotificationPresentationOptions) -> Void) {
+        Alert.showMessage(onViewContoller: (self.window?.rootViewController!)!, title: notification.request.content.title, message: notification.request.content.body)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -37,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

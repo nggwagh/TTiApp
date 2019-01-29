@@ -297,6 +297,8 @@ class HomeViewController: UIViewController, DateElementDelegate {
         }
         
         //start monitoring for my stores
+        //Remove existing regions
+        UserDefaults.standard.removeObject(forKey: "closestStoreIdArray")
         TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: self.closestStores)
     }
     

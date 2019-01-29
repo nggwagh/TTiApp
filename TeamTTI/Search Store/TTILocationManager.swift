@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Moya
+import UserNotifications
 
 class TTILocationManager: NSObject {
     
@@ -159,6 +160,22 @@ class TTILocationManager: NSObject {
         }
     }
 
+    //Mark: - Schedule Local notification
+    
+    @objc func scheduleLocalNotification(body: String, title: String) {
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.categoryIdentifier = "Location"
+        content.sound = UNNotificationSound.default()
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        center.add(request)
+    }
 }
 
 extension TTILocationManager: CLLocationManagerDelegate {
@@ -220,6 +237,9 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 //CALL API TO UPDATE INTIME
                 self.setSpentTimeForStore(region: inTimeDict)
                 
+                //Schedule local notification
+                self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Entered region \(identifier.last!)")
+                
             }
         }
     }
@@ -258,6 +278,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 //REMOVE AFTER GETTING OUTTIME FROM MONITORING ARRAY
               //  self.locationManager.stopMonitoring(for: region)
                 
+                //Schedule local notification
+                self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Exit region \(identifier.last!)")
             }
         }
     }
