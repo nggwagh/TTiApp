@@ -161,7 +161,7 @@ class TTILocationManager: NSObject {
     }
 
     //Mark: - Schedule Local notification
-    
+    /*
     @objc func scheduleLocalNotification(body: String, title: String) {
         let center = UNUserNotificationCenter.current()
         
@@ -176,6 +176,7 @@ class TTILocationManager: NSObject {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
     }
+    */
 }
 
 extension TTILocationManager: CLLocationManagerDelegate {
@@ -238,7 +239,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 self.setSpentTimeForStore(region: inTimeDict)
                 
                 //Schedule local notification
-                self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Entered region \(identifier.last!)")
+           //     self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Entered region \(identifier.last!)")
                 
             }
         }
@@ -279,7 +280,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
               //  self.locationManager.stopMonitoring(for: region)
                 
                 //Schedule local notification
-                self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Exit region \(identifier.last!)")
+             //   self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Exit region \(identifier.last!)")
             }
         }
     }

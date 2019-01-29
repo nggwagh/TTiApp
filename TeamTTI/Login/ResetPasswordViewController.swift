@@ -17,7 +17,7 @@ class ResetPasswordViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        txtEmail.text = "juan@pulpandfiber.com"
+      //  txtEmail.text = "juan@pulpandfiber.com"
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {

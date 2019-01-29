@@ -257,7 +257,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         self.selectStore(userStores[0])
                         
                         //START MONITORING FOR CLOSEST STORES
-                        self.startMonitoringClosestStores(allStore: self.stores!)
+                     //   self.startMonitoringClosestStores(allStore: self.stores!)
                         
                     }
                     catch let error {
@@ -473,6 +473,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
             
             self.navigationBar.calendarButton.isSelected = false
             
+            self.buildSectionArray()
             self.reloadTableView()
             
             UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
@@ -640,8 +641,14 @@ extension HomeViewController: HomeNavigationBarDelegate {
         })
         self.navigationBar.calendarButton.isSelected = !self.navigationBar.calendarButton.isSelected
         
-        self.buildSectionArrayToSchedule()
-        
+        if (self.navigationBar.calendarButton.isSelected){
+
+            self.buildSectionArrayToSchedule()
+
+        }else{
+            self.buildSectionArray()
+        }
+                
         tableView.reloadData()
     }
     
