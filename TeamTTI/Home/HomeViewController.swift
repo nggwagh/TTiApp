@@ -204,7 +204,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
             let dateKey = $0
             let filterArray = highPriorityNonCompletedObjectives.filter { ((Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.MMMMddyyyy, ($0.objective?.dueDate!)!) == dateKey)) }
             var dict = [String : AnyObject]()
-            dict["headerTitle"] = dateKey as AnyObject
+            dict["headerTitle"] =  "Due: \(dateKey)" as AnyObject
             dict["storeObjectives"] = filterArray as AnyObject
             self.allStoreObjectives.append(dict)
         }
