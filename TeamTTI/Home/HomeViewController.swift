@@ -259,7 +259,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         self.initializeStoreSearchController()
                         
                         //START MONITORING FOR CLOSEST STORES
-                     //   self.startMonitoringClosestStores(allStore: self.stores!)
+                        self.startMonitoringClosestStores(allStore: self.stores!)
                         
                     }
                     catch let error {
@@ -301,6 +301,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
         //start monitoring for my stores
         //Remove existing regions
         UserDefaults.standard.removeObject(forKey: "closestStoreIdArray")
+        UserDefaults.standard.synchronize()
         TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: self.closestStores)
     }
     
