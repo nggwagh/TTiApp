@@ -29,7 +29,7 @@ class StoreSearchViewController: UIViewController {
         }
     }
     private var filteredStores: [Store]!
-    private var myStores: [Store]!
+    private var myStores: [Store]! = []
     private var closestStores: [Store]! = []
     private var allStores: [Store]! = []
     
@@ -42,9 +42,6 @@ class StoreSearchViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        buildStoreSectionsArray();
-        searchedStoreTableView.reloadData()
-        
         // Glass Icon Customization
         if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
@@ -55,19 +52,7 @@ class StoreSearchViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.searchBar.becomeFirstResponder()
-
-    }
-    
     //MARK: - Private methods
-
-    class func loadFromStoryboard() -> StoreSearchViewController {
-        
-       let storyboard =  UIStoryboard.init(name: "Home", bundle: nil)
-       return storyboard.instantiateViewController(withIdentifier: "StoreSearchViewController") as! StoreSearchViewController
-    }
     
     @IBAction func close(_ sender: Any) {
         self.cancelSearch()
@@ -75,11 +60,10 @@ class StoreSearchViewController: UIViewController {
     
     func cancelSearch() {
         self.view.removeFromSuperview()
-        self.removeFromParentViewController()
         delegate?.cancel()
     }
     
-    private func buildStoreSectionsArray(){
+    func buildStoreSectionsArray(){
         var storesArray : [Store] = stores
         
         let keychain = KeychainSwift()

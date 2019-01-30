@@ -256,6 +256,8 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         //MAKE FRIST MY STORE AS DEFAULT STORE
                         self.selectStore(userStores[0])
                         
+                        self.initializeStoreSearchController()
+                        
                         //START MONITORING FOR CLOSEST STORES
                      //   self.startMonitoringClosestStores(allStore: self.stores!)
                         
@@ -319,6 +321,16 @@ class HomeViewController: UIViewController, DateElementDelegate {
     func setStoreDetails(){
         self.navigationBar.setTitle((selectedStore?.name)!)
         self.navigationBar.downArrowImageView.isHidden = false;
+    }
+    
+    func initializeStoreSearchController() {
+        let storyboard =  UIStoryboard.init(name: "Home", bundle: nil)
+        storeSearchViewController = storyboard.instantiateViewController(withIdentifier: "StoreSearchViewController") as! StoreSearchViewController
+        storeSearchViewController.delegate = self
+        storeSearchViewController.stores = self.stores ?? [Store]()
+        storeSearchViewController.buildStoreSectionsArray()
+        let rect = CGRect(x: self.view.bounds.origin.x, y: self.tableView.frame.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+        storeSearchViewController.view.frame = rect
     }
     
     func saveScheduledDate(selectedDate: Date, comment: String){
@@ -660,14 +672,7 @@ extension HomeViewController: HomeNavigationBarDelegate {
         //open serach controller
         if !isAlreadyShownSearchView {
             self.handleCancelButtonTap(sender: cancelButton)
-            storeSearchViewController = StoreSearchViewController.loadFromStoryboard()
-            storeSearchViewController.delegate = self
-            storeSearchViewController.stores = self.stores ?? [Store]()
-            let rect = CGRect(x: self.view.bounds.origin.x, y: self.tableView.frame.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-            storeSearchViewController.view.frame = rect
-            self.addChildViewController(storeSearchViewController)
             self.view.addSubview(storeSearchViewController.view)
-            storeSearchViewController.didMove(toParentViewController: self)
             isAlreadyShownSearchView.toggle()
             navigationBar.setArrowImage("UpArrow")
         }
