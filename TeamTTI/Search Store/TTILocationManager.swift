@@ -40,7 +40,7 @@ class TTILocationManager: NSObject {
             
             let identifier = String(location.name + " " + "\(location.id)")
             let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter,
-                                                  radius: 150,
+                                                  radius: 100,
                                                   identifier: identifier)
             
             //SAVE CLOSEST STORE ARRAY
@@ -224,8 +224,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 inTimeDict["storeID"] = (identifier.last!)
                 inTimeDict["op"] = "enter"
                 inTimeDict["timestamp"] = Date().currentTimeMillis()
-                inTimeDict["latitude"] = manager.location?.coordinate.latitude
-                inTimeDict["longitude"] = (manager.location?.coordinate.longitude)
+                inTimeDict["latitude"] = String(format: "%f", (manager.location?.coordinate.latitude)!)
+                inTimeDict["longitude"] = String(format: "%f", (manager.location?.coordinate.longitude)!)
                 
                 let currentCoordinate = CLLocation(latitude: (manager.location?.coordinate.latitude)!, longitude: (manager.location?.coordinate.longitude)!)
                 
@@ -262,8 +262,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 outTimeDict["storeID"] = (identifier.last!)
                 outTimeDict["op"] = "exit"
                 outTimeDict["timestamp"] = Date().currentTimeMillis()
-                outTimeDict["latitude"] = manager.location?.coordinate.latitude
-                outTimeDict["longitude"] = manager.location?.coordinate.longitude
+                outTimeDict["latitude"] = String(format: "%f", (manager.location?.coordinate.latitude)!)
+                outTimeDict["longitude"] = String(format: "%f", (manager.location?.coordinate.longitude)!)
                 
                 let currentCoordinate = CLLocation(latitude: (manager.location?.coordinate.latitude)!, longitude: (manager.location?.coordinate.longitude)!)
                 
