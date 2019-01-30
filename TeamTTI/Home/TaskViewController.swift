@@ -296,7 +296,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
             
             self.handlePassOverdue(isPass: true)
 
-            let alertController = UIAlertController(title: "Comment", message: "Please enter the comment:", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Comment", message: "Please explain why the objective is scheduled past the due date:", preferredStyle: .alert)
             
             alertController.addTextField { (textField : UITextField!) -> Void in
                 textField.placeholder = "Comment..."

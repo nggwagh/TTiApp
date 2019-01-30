@@ -401,7 +401,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
             
         } else {
             
-            let alertController = UIAlertController(title: "Comment", message: "Please enter the comment:", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Comment", message: "Please explain why the objective is scheduled past the due date:", preferredStyle: .alert)
             
             alertController.addTextField { (textField : UITextField!) -> Void in
                 textField.placeholder = "Comment..."
@@ -462,7 +462,10 @@ class HomeViewController: UIViewController, DateElementDelegate {
 
             self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
 
-            Alert.showMessage(onViewContoller: self, title: "Error", message: "Selected Objective due date are different than previously selected Objectives. Please select Objectives with same due date.")
+            Alert.showMessage(onViewContoller: self, title: "Error", message: "Please only select objectives in the same due date group for scheduling.")
+            
+            
+            
         }
     }
     
