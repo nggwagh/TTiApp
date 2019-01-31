@@ -62,6 +62,7 @@ extension StoreApi: TargetType {
         case .storeObjectivesFor:
             return .requestPlain
         case .setStoreSpentTime(let regionObject):
+            print("Geo Item parameters: \(regionObject)")
             return .requestParameters(parameters:regionObject,
                                       encoding: JSONEncoding.default)
         }

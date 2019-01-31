@@ -181,7 +181,6 @@ class TTILocationManager: NSObject {
 
 extension TTILocationManager: CLLocationManagerDelegate {
     
-    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         switch CLLocationManager.authorizationStatus() {
@@ -196,8 +195,6 @@ extension TTILocationManager: CLLocationManagerDelegate {
         }
     }
     
-    
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
@@ -207,8 +204,6 @@ extension TTILocationManager: CLLocationManagerDelegate {
         UserDefaults.standard.synchronize()
     }
    
-    
-    
     // CALLED WHEN USER ENTERED THE REGION
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
@@ -221,7 +216,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 
                 var inTimeDict = [String: Any]()
                 
-                inTimeDict["storeID"] = (identifier.last!)
+                inTimeDict["storeID"] = Int(identifier.last!)
                 inTimeDict["op"] = "enter"
                 inTimeDict["timestamp"] = Date().currentTimeMillis()
                 inTimeDict["latitude"] = String(format: "%f", (manager.location?.coordinate.latitude)!)
@@ -245,7 +240,6 @@ extension TTILocationManager: CLLocationManagerDelegate {
         }
     }
     
-    
         // CALLED WHEN USER EXIT THE REGION
      func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         
@@ -259,7 +253,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 
                 var outTimeDict = [String: Any]()
                 
-                outTimeDict["storeID"] = (identifier.last!)
+                outTimeDict["storeID"] = Int(identifier.last!)
                 outTimeDict["op"] = "exit"
                 outTimeDict["timestamp"] = Date().currentTimeMillis()
                 outTimeDict["latitude"] = String(format: "%f", (manager.location?.coordinate.latitude)!)
@@ -285,11 +279,20 @@ extension TTILocationManager: CLLocationManagerDelegate {
         }
     }
  
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        self.locationManager.requestState(for: region)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        if (state == CLRegionState.inside) {
+            self.locationManager(manager, didEnterRegion: region)
+        }
+    }
 }
 
 
 extension Date {
     func currentTimeMillis() -> Int64! {
-        return Int64(self.timeIntervalSince1970 * 1000)
+        return Int64(self.timeIntervalSince1970)
     }
 }
