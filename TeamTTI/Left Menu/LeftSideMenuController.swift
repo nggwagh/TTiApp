@@ -46,11 +46,24 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         KeychainSwift().delete(Constant.API.Login.refreshToken)
         KeychainSwift().delete(Constant.API.Login.accessToken)
         KeychainSwift().delete(Constant.API.User.userID)
-
+        
+        self.removeRegionMonitoringWhenLogout()
+        
         //Move to login screen
         RootViewControllerManager.refreshRootViewController()
     }
 
+    //STOP MONITORING REGIONS IF USER LOGOUT THE APP
+    func removeRegionMonitoringWhenLogout() {
+        
+        for region in TTILocationManager.sharedLocationManager.locationManager.monitoredRegions {
+            
+                TTILocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
+               print("Removed Region :\(region)")
+
+        }
+    }
+    
     // MARK: - Table view data source
 
      func numberOfSections(in tableView: UITableView) -> Int {
