@@ -122,7 +122,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
         
         //set playbook name
         if let playbookUrl = self.tastDetails.objective?.playbookUrl {
-            self.playBookNameLabel.text = playbookUrl[0].lastPathComponent
+            self.playBookNameLabel.text = playbookUrl.count > 0 ? playbookUrl[0].lastPathComponent : ""
         }
     }
     
@@ -216,14 +216,20 @@ class TaskViewController: UIViewController, DateElementDelegate {
     // MARK: - IBAction Methods
     
     @IBAction func viewPlaybookButtonTapped(_ sender: UIButton) {
-        let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
-        let viewPlaybookViewController = playbookStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Playbook.playbookDetailViewController) as! PlaybookDetailViewController
         
-        if let playbookUrl = self.tastDetails.objective?.playbookUrl {
-            viewPlaybookViewController.playbookURL = playbookUrl[0]
+        if (self.tastDetails.objective?.playbookUrl?.count)! > 0 {
+            
+            let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
+            let viewPlaybookViewController = playbookStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Playbook.playbookDetailViewController) as! PlaybookDetailViewController
+            
+            if let playbookUrl = self.tastDetails.objective?.playbookUrl {
+                viewPlaybookViewController.playbookURL = playbookUrl[0]
+            }
+            
+            self.navigationController?.pushViewController(viewPlaybookViewController, animated: true)
         }
         
-        self.navigationController?.pushViewController(viewPlaybookViewController, animated: true)
+        
     }
     
     @IBAction func viewAllPhotosButtonTapped(_ sender: UIButton) {

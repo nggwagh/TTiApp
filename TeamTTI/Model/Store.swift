@@ -54,8 +54,8 @@ extension Store {
             
             let countDictionary = storeJsonObject["counts"] as? [String: Any]
             
-            let storeLatitude = Double((storeJsonObject["latitude"] as? String)!)
-            let storeLongitude = Double((storeJsonObject["longitude"] as? String)!)
+            let storeLatitude = (storeJsonObject["latitude"] != nil) ?  Double((storeJsonObject["latitude"] as? String)!) : 0
+            let storeLongitude = (storeJsonObject["longitude"] != nil) ? Double((storeJsonObject["longitude"] as? String)!) : 0
 
             return Store(name: storeJsonObject["name"] as! String,
                          id: storeJsonObject["id"] as! Int,
