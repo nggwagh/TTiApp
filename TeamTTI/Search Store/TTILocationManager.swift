@@ -30,6 +30,8 @@ class TTILocationManager: NSObject {
         self.locationManager.requestAlwaysAuthorization()
     }
     
+    
+    
     func monitorRegions(regionsToMonitor : [Store])  {
         
         self.locationsToMonitor = regionsToMonitor
@@ -40,7 +42,7 @@ class TTILocationManager: NSObject {
             
             let identifier = String(location.name + " " + "\(location.id)")
             let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter,
-                                                  radius: 100,
+                                                  radius: 50,
                                                   identifier: identifier)
             
             //SAVE CLOSEST STORE ARRAY
@@ -60,6 +62,8 @@ class TTILocationManager: NSObject {
                 geofenceRegion.notifyOnEntry = true
                 geofenceRegion.notifyOnExit = true
                 
+                print("Created region: \(geofenceRegion)")
+                
                 self.locationManager.startMonitoring(for: geofenceRegion)
             }
             
@@ -70,6 +74,7 @@ class TTILocationManager: NSObject {
             // self.dummyTestApi()
         }
     }
+    
     
     //MARK:- Private methods
     
@@ -105,17 +110,23 @@ class TTILocationManager: NSObject {
     
     func checkIfClosestStoreNotAvailableThenStopMonitoring() {
         
-        let storeIdArray : [Int] =  UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
+        let closestStoreIdArray : [Int] =  self.locationsToMonitor.compactMap{ return $0.id }.sorted()
         
         for region in self.locationManager.monitoredRegions {
-            print(region)
             
             let regionIdentifierId = region.identifier.components(separatedBy: " ").last
             
-            if (!storeIdArray.contains(Int(regionIdentifierId!)!)) {
+            if (!closestStoreIdArray.contains(Int(regionIdentifierId!)!)) {
                 
+                print("Removed region: \(region)")
+
                 //REMOVE AFTER GETTING OUTTIME FROM MONITORING ARRAY
                 self.locationManager.stopMonitoring(for: region)
+                
+                // REMOVING FROM USERDEFAULTS
+                UserDefaults.standard.set(closestStoreIdArray, forKey: "closestStoreIdArray")
+                UserDefaults.standard.synchronize()
+
             }
         }
     }
@@ -125,7 +136,7 @@ class TTILocationManager: NSObject {
             RootViewControllerManager.refreshRootViewController()
             
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.distanceFilter = 30
+            locationManager.distanceFilter = 10
             locationManager.startUpdatingLocation()
         }
         else {
@@ -161,7 +172,7 @@ class TTILocationManager: NSObject {
     }
 
     //Mark: - Schedule Local notification
-    /*
+  //  /*
     @objc func scheduleLocalNotification(body: String, title: String) {
         let center = UNUserNotificationCenter.current()
         
@@ -176,7 +187,7 @@ class TTILocationManager: NSObject {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
     }
-    */
+ //   */
     
 }
 
@@ -235,7 +246,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 self.setSpentTimeForStore(region: inTimeDict)
                 
                 //Schedule local notification
-           //     self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Entered region \(identifier.last!)")
+               self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Entered region \(identifier.last!)")
                 
             }
         }
@@ -271,11 +282,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 //CALL API TO UPDATE OUTTIME
                 self.setSpentTimeForStore(region: outTimeDict)
                 
-                //REMOVE AFTER GETTING OUTTIME FROM MONITORING ARRAY
-              //  self.locationManager.stopMonitoring(for: region)
-                
                 //Schedule local notification
-           //     self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Exit region \(identifier.last!)")
+                self.scheduleLocalNotification(body: "Latitude: \(manager.location?.coordinate.latitude ?? 0) and Longitude: \(manager.location?.coordinate.longitude ?? 0)", title: "Exit region \(identifier.last!)")
             }
         }
     }
