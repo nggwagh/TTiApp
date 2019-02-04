@@ -72,4 +72,8 @@ extension Date{
     static func isInSameMonth(date: Date) -> Bool {
         return Calendar.current.isDate(Date(), equalTo: date, toGranularity: .month)
     }
+    
+    func currentTimeMillis() -> Int64! {
+        return Int64(self.timeIntervalSince1970)
+    }
 }
