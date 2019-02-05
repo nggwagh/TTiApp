@@ -17,26 +17,29 @@ extension Constant.Storyboard {
 }
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        txtEmail.text = "juan@pulpandfiber.com"
-//        txtPassword.text = "tester"
+                txtEmail.text = "juan@pulpandfiber.com"
+                txtPassword.text = "tester"
         
-//        txtEmail.text = "Harrison.diamond@ttigroupna.com"
+        //        txtEmail.text = "Harrison.diamond@ttigroupna.com"
+        //        txtPassword.text = "tticanada"
+        
+//        txtEmail.text = "matthew.magee@ttigroupna.com"
 //        txtPassword.text = "tticanada"
-
+        
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
-
+    
     //MARK: Actions
     @IBAction func loginTapped(_ sender: Any) {
         self.performLogin()
@@ -65,7 +68,7 @@ extension LoginViewController {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
                         let keychain = KeychainSwift()
-
+                        
                         if let refreshToken = jsonDict[Constant.API.Login.refreshToken] as? String {
                             keychain.set( refreshToken , forKey: Constant.API.Login.refreshToken )
                         }
@@ -73,8 +76,8 @@ extension LoginViewController {
                             keychain.set( token , forKey: Constant.API.Login.accessToken )
                             //Nikhil to check
                             /* ObjectiveDataProvider.shared.loadData(completion: { (_) in
-                                RootViewControllerManager.refreshRootViewController()
-                            }) */
+                             RootViewControllerManager.refreshRootViewController()
+                             }) */
                             
                             self.getUserDetails()
                         }
@@ -91,14 +94,14 @@ extension LoginViewController {
                     
                 }
                 
-            
+                
             case let .failure(error):
                 print(error.localizedDescription) //MOYA error
                 Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
             }
         }
     }
-
+    
     private func getUserDetails() {
         
         //show progress hud
@@ -118,7 +121,7 @@ extension LoginViewController {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
                         let keychain = KeychainSwift()
-
+                        
                         if let userID = jsonDict["id"] as? Int {
                             keychain.set( String(userID) , forKey: Constant.API.User.userID )
                             RootViewControllerManager.refreshRootViewController()
@@ -150,7 +153,7 @@ extension LoginViewController {
             txtPassword.becomeFirstResponder()
             return false
         }
-
+        
         return true
     }
 }
@@ -161,14 +164,14 @@ extension LoginViewController {
 //MARK: UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-
+        
         if textField == txtEmail {
             txtPassword.becomeFirstResponder()
         } else {
             //login
             performLogin()
         }
-
+        
         return true
     }
 }
