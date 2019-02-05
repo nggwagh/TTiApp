@@ -55,4 +55,7 @@ class HomeNavigationBar: UIView {
         self.downArrowImageView.image = UIImage.init(named: imageName)
     }
 
+    func enableTitleButton(_ shouldEnable: Bool) {
+        self.titleButton.isEnabled = shouldEnable
+    }
 }

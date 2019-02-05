@@ -24,7 +24,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     private var storeObjectiveNetworkTask: Cancellable?
     private var stores: [Store]?
     private var selectedStore: Store?
-//    private var storeObjectives: [StoreObjective]? = []
+    //    private var storeObjectives: [StoreObjective]? = []
     private var isAlreadyShownSearchView = false
     private var closestStores: [Store]! = []
     
@@ -130,6 +130,10 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         
                         self.storeObjectivesResponse = StoreObjective.build(from: jsonDict["objectives"] as! Array)
                         
+                        if (self.storeObjectivesResponse.count == 0) {
+                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "No objectives available for selected store.")
+                        }
+                    
                         self.buildSectionArray()
                         
                         let countDictionary = jsonDict["counts"] as? [String: Any]
@@ -157,7 +161,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     }
     
     func buildSectionArray() {
-       
+        
         self.allStoreObjectives.removeAll()
         
         let highPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
@@ -168,7 +172,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
             dict["storeObjectives"] = [obj] as AnyObject
             self.allStoreObjectives.append(dict)
         }
-    
+        
         let mediumPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
         var mediumPriorityObjectivesDict = [String : AnyObject]()
         mediumPriorityObjectivesDict["headerTitle"] = "" as AnyObject
@@ -190,15 +194,15 @@ class HomeViewController: UIViewController, DateElementDelegate {
     }
     
     func buildSectionArrayToSchedule() {
-
+        
         self.allStoreObjectives.removeAll()
-
+        
         let highPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
-
+        
         let dueDatesStringArray = highPriorityNonCompletedObjectives.compactMap { Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.MMMMddyyyy, ($0.objective?.dueDate!)!) } // return array of date
-
+        
         let uniqueDates = Array(Set(dueDatesStringArray)).sorted(by: { $0 < $1 })
-
+        
         uniqueDates.forEach {
             let dateKey = $0
             let filterArray = highPriorityNonCompletedObjectives.filter { ((Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.MMMMddyyyy, ($0.objective?.dueDate!)!) == dateKey)) }
@@ -207,13 +211,13 @@ class HomeViewController: UIViewController, DateElementDelegate {
             dict["storeObjectives"] = filterArray as AnyObject
             self.allStoreObjectives.append(dict)
         }
-
+        
         let mediumPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
-    
+        
         let lowPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .low && $0.status != .complete) })
         
         let completedObjectives = storeObjectivesResponse.filter({ ($0.status == .complete) })
-       
+        
         var array = [StoreObjective]()
         array.append(contentsOf: mediumPriorityNonCompletedObjectives)
         array.append(contentsOf: lowPriorityNonCompletedObjectives)
@@ -244,21 +248,36 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
+                        //Sort array by Closest stores first
                         self.stores = Store.build(from: jsonDict).sorted(by: { (store1 : Store, store2 : Store) -> Bool in
                             return Int(store1.distanceFromCurrentLocation!) < Int(store2.distanceFromCurrentLocation!)
                         })
                         
-                        //DEFAULT STORE WILL BE THE 1ST STORE FROM CLOSEST STORE
-                        let userStores = self.stores!.filter({ ($0.userID == Int(SettingsManager.shared().getUserID()!)) })
-                        
-                        //MAKE FRIST MY STORE AS DEFAULT STORE
-                        self.selectStore(userStores[0])
-                        
-                        self.initializeStoreSearchController()
-                        
-                        //START MONITORING FOR CLOSEST STORES
-                        self.startMonitoringClosestStores(allStore: self.stores!)
-                        
+                        if (self.stores != nil && (self.stores?.count)! > 0) {
+                            //DEFAULT STORE WILL BE THE 1ST STORE FROM USER'S STORE
+                            let userStores = self.stores!.filter({ ($0.userID == Int(SettingsManager.shared().getUserID()!)) })
+                            
+                            if (userStores.count > 0) {
+                                //MAKE FRIST MY STORE AS DEFAULT STORE
+                                self.selectStore(userStores[0])
+                            }
+                            else {
+                                //MAKE FRIST STORE AS DEFAULT STORE
+                                self.selectStore(self.stores![0])
+                            }
+                            
+                            //Enable store selection
+                            self.navigationBar.enableTitleButton(true)
+                            self.initializeStoreSearchController()
+                            
+                            //START MONITORING FOR CLOSEST STORES
+                            self.startMonitoringClosestStores(allStore: self.stores!)
+                        }
+                        else {
+                            //Disable store selection
+                            self.navigationBar.enableTitleButton(false)
+                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "No stores available.")
+                        }
                     }
                     catch let error {
                         print(error.localizedDescription)
@@ -438,7 +457,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     @objc func handleCheckUncheckButtonTap(sender : UIButton) {
         
         sender.isSelected = !sender.isSelected;
-
+        
         let cell = sender.superview?.superview as! UITableViewCell
         let indexPath = tableView.indexPath(for: cell)
         
@@ -451,23 +470,23 @@ class HomeViewController: UIViewController, DateElementDelegate {
         else{
             self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
         }
-
+        
         //VALIDATING AND CHECKING IF SELECTED OBJECTIVE HAS SAME DUE DATE OR NOT
-
+        
         //GET ALL SELECTED OBJECTIVES DUE DATES IN ARRAY
         let dueDateArray = self.selectedStoreObjectives.compactMap {
             return $0.objective?.dueDate
         }
-
+        
         //CHECK IF ALL HAVE SAME DUE DATE
         let allItemsWithEqualDueDate = dueDateArray.dropLast().allSatisfy { $0 == dueDateArray.last }
-
+        
         if !allItemsWithEqualDueDate {
-
+            
             sender.isSelected = !sender.isSelected;
-
+            
             self.selectedStoreObjectives = (self.selectedStoreObjectives.filter({$0.objective?.id != storeObjectiveObj.objectiveID }))
-
+            
             Alert.showMessage(onViewContoller: self, title: "Error", message: "Please only select objectives in the same due date group for scheduling.")
             
             
@@ -528,12 +547,15 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (section == 0) {
-            return 1
+            if (self.storeObjectivesResponse.count > 0) {
+                return 1
+            }
         }
         else {
             let count = (self.allStoreObjectives[section - 1]["storeObjectives"]?.count)
             return count!
         }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -573,48 +595,48 @@ extension HomeViewController: UITableViewDelegate {
         return CGFloat.leastNormalMagnitude
     }
     
-        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    
-            if (section == 0) {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if (section == 0) {
+            return nil
+        }
+        else {
+            let headerTitle = self.allStoreObjectives[section - 1]["headerTitle"] as! String
+            
+            if !(headerTitle.isEmpty) {
+                let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 28))
+                
+                let label = UILabel()
+                label.frame = CGRect.init(x: 20, y: 0, width: headerView.frame.width, height: headerView.frame.height)
+                label.text = headerTitle
+                label.font = UIFont.init(name: "Avenir", size: 12.5)
+                label.textColor = UIColor.init(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 1.0)
+                headerView.addSubview(label)
+                headerView.backgroundColor = tableView.backgroundColor;
+                return headerView
+            }
+            else{
                 return nil
             }
-            else {
-                let headerTitle = self.allStoreObjectives[section - 1]["headerTitle"] as! String
-                
-                if !(headerTitle.isEmpty) {
-                    let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 28))
-                    
-                    let label = UILabel()
-                    label.frame = CGRect.init(x: 20, y: 0, width: headerView.frame.width, height: headerView.frame.height)
-                    label.text = headerTitle
-                    label.font = UIFont.init(name: "Avenir", size: 12.5)
-                    label.textColor = UIColor.init(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 1.0)
-                    headerView.addSubview(label)
-                    headerView.backgroundColor = tableView.backgroundColor;
-                    return headerView
-                }
-                else{
-                    return nil
-                }
-            }
         }
+    }
     
-        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-    
-            if (section == 0) {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        
+        if (section == 0) {
+            return CGFloat.leastNormalMagnitude
+        }
+        else {
+            let headerTitle = self.allStoreObjectives[section - 1]["headerTitle"] as! String
+            
+            if !(headerTitle.isEmpty) {
+                return 28
+            }
+            else{
                 return CGFloat.leastNormalMagnitude
             }
-            else {
-                let headerTitle = self.allStoreObjectives[section - 1]["headerTitle"] as! String
-                
-                if !(headerTitle.isEmpty) {
-                    return 28
-                }
-                else{
-                    return CGFloat.leastNormalMagnitude
-                }
-            }
         }
+    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
@@ -654,13 +676,13 @@ extension HomeViewController: HomeNavigationBarDelegate {
         self.navigationBar.calendarButton.isSelected = !self.navigationBar.calendarButton.isSelected
         
         if (self.navigationBar.calendarButton.isSelected){
-
+            
             self.buildSectionArrayToSchedule()
-
+            
         }else{
             self.buildSectionArray()
         }
-                
+        
         tableView.reloadData()
     }
     
