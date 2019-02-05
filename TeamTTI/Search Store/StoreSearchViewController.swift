@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KeychainSwift
 
 enum Stores : Int {
     case MyStores = 0
@@ -66,12 +65,10 @@ class StoreSearchViewController: UIViewController {
     func buildStoreSectionsArray(){
         var storesArray : [Store] = stores
         
-        let keychain = KeychainSwift()
-        
-        myStores = storesArray.filter({$0.userID == Int(keychain.get(Constant.API.User.userID)!)})
+        myStores = storesArray.filter({$0.userID == Int(SettingsManager.shared().getUserID()!)})
         
         storesArray.removeAll { (store : Store) -> Bool in
-            store.userID == Int(keychain.get(Constant.API.User.userID)!)
+            store.userID == Int(SettingsManager.shared().getUserID()!)
         }
         
         if storesArray.count >= 3 {

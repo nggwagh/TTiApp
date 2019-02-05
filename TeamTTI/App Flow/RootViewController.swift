@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import KeychainSwift
 import MMDrawerController
 
 class RootViewControllerFactory {
@@ -17,7 +16,7 @@ class RootViewControllerFactory {
     
     static func getRootViewController() -> UIViewController {
         
-        if let _ = KeychainSwift().get(Constant.API.User.userID) {
+        if let _ = SettingsManager.shared().getUserID() {
             //Nikhil to check
 //            ObjectiveDataProvider.shared.loadData { _ in }
             let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)

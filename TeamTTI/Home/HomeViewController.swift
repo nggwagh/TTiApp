@@ -9,7 +9,6 @@
 import UIKit
 import Moya
 import MMDrawerController
-import KeychainSwift
 
 class HomeViewController: UIViewController, DateElementDelegate {
     
@@ -250,8 +249,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         })
                         
                         //DEFAULT STORE WILL BE THE 1ST STORE FROM CLOSEST STORE
-                        let keychain = KeychainSwift()
-                        let userStores = self.stores!.filter({ ($0.userID == Int(keychain.get(Constant.API.User.userID)!)) })
+                        let userStores = self.stores!.filter({ ($0.userID == Int(SettingsManager.shared().getUserID()!)) })
                         
                         //MAKE FRIST MY STORE AS DEFAULT STORE
                         self.selectStore(userStores[0])
@@ -282,12 +280,10 @@ class HomeViewController: UIViewController, DateElementDelegate {
     //FUNCTION TO START MONITORING FOR CLOSEST STORE
     func startMonitoringClosestStores(allStore: [Store]) {
         
-        let keychain = KeychainSwift()
-        
         var storesArray : [Store] = allStore
         
         storesArray.removeAll { (store : Store) -> Bool in
-            store.userID == Int(keychain.get(Constant.API.User.userID)!)
+            store.userID == Int(SettingsManager.shared().getUserID()!)
         }
         
         if storesArray.count >= 3 {
@@ -299,9 +295,6 @@ class HomeViewController: UIViewController, DateElementDelegate {
         }
         
         //start monitoring for my stores
-        //Remove existing regions
-//        UserDefaults.standard.removeObject(forKey: "closestStoreIdArray")
-//        UserDefaults.standard.synchronize()
         TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: self.closestStores)
     }
     

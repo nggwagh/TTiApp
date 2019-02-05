@@ -20,6 +20,7 @@
 		00F6C61621AC50DF003D697A /* HUSemiCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F6C61321AC50DF003D697A /* HUSemiCircleChart.m */; };
 		00F6C61721AC50DF003D697A /* HUChartEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F6C61421AC50DF003D697A /* HUChartEntry.m */; };
 		0AD4B9635C6B129730AD7547 /* Pods_TeamTTIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0FB0F0C91EC64F2F8F892E /* Pods_TeamTTIUITests.framework */; };
+		3501FC5B2209883D00D08F97 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501FC5A2209883D00D08F97 /* SettingsManager.swift */; };
 		3527014221CA182800EC692F /* UIViewBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3527014121CA182700EC692F /* UIViewBorder.swift */; };
 		356107E621D3B11F00464B00 /* AlamofireImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356107E521D3B11F00464B00 /* AlamofireImageDownloader.swift */; };
 		3573797E21C7B7EA007DDF42 /* PlaybookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573797D21C7B7EA007DDF42 /* PlaybookTableViewController.swift */; };
@@ -111,6 +112,7 @@
 		00F6C61821AC5252003D697A /* TeamTTI-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamTTI-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C0FB0F0C91EC64F2F8F892E /* Pods_TeamTTIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamTTIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A21F8E4E4DD82AE9982A38 /* Pods_TeamTTI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamTTI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3501FC5A2209883D00D08F97 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		3527014121CA182700EC692F /* UIViewBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewBorder.swift; sourceTree = "<group>"; };
 		356107E521D3B11F00464B00 /* AlamofireImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireImageDownloader.swift; sourceTree = "<group>"; };
 		3573797D21C7B7EA007DDF42 /* PlaybookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookTableViewController.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */,
 				356107E521D3B11F00464B00 /* AlamofireImageDownloader.swift */,
 				35CB4E0C21F8623A003B3671 /* Extensions.swift */,
+				3501FC5A2209883D00D08F97 /* SettingsManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -651,12 +654,8 @@
 			buildActionMask = 12;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
@@ -713,7 +712,6 @@
 				"${BUILT_PRODUCTS_DIR}/FlowFramework/Flow.framework",
 				"${BUILT_PRODUCTS_DIR}/FormFramework/Form.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Lift/Lift.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
@@ -731,7 +729,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Form.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
@@ -767,6 +764,7 @@
 				CFC729672198EB1A0065BCAC /* Objective.swift in Sources */,
 				3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */,
 				CFF45BF721A0ABA90045B56D /* ObjectiveDataProvider.swift in Sources */,
+				3501FC5B2209883D00D08F97 /* SettingsManager.swift in Sources */,
 				35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */,
 				526A60E021D2113500E5CD65 /* NewsApi.swift in Sources */,
 				0008804D219408BA00AA8EFC /* UserApi.swift in Sources */,

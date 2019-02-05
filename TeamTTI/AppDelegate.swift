@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
-import KeychainSwift
 import UserNotifications
 import Fabric
 import Crashlytics

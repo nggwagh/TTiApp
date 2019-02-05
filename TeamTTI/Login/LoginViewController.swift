@@ -8,7 +8,6 @@
 
 import UIKit
 import Moya
-import KeychainSwift
 
 extension Constant.Storyboard {
     struct Login {
@@ -67,18 +66,12 @@ extension LoginViewController {
                     do {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
-                        let keychain = KeychainSwift()
                         
                         if let refreshToken = jsonDict[Constant.API.Login.refreshToken] as? String {
-                            keychain.set( refreshToken , forKey: Constant.API.Login.refreshToken )
+                            SettingsManager.shared().setRefreshToken(refreshToken)
                         }
                         if let token = jsonDict[Constant.API.Login.accessToken] as? String {
-                            keychain.set( token , forKey: Constant.API.Login.accessToken )
-                            //Nikhil to check
-                            /* ObjectiveDataProvider.shared.loadData(completion: { (_) in
-                             RootViewControllerManager.refreshRootViewController()
-                             }) */
-                            
+                            SettingsManager.shared().setAccessToken(token)
                             self.getUserDetails()
                         }
                         
@@ -120,10 +113,9 @@ extension LoginViewController {
                     do {
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
                         print(jsonDict)
-                        let keychain = KeychainSwift()
                         
                         if let userID = jsonDict["id"] as? Int {
-                            keychain.set( String(userID) , forKey: Constant.API.User.userID )
+                            SettingsManager.shared().setUserID(userID.description)
                             RootViewControllerManager.refreshRootViewController()
                         }
                     }

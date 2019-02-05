@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import TeamTTI
+@testable import Pods_TeamTTI
 
 class TeamTTITests: XCTestCase {
 

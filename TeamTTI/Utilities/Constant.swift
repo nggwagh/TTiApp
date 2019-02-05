@@ -22,6 +22,8 @@ struct Constant {
         struct User {
             static let path = "/api/v1/user/me"
             static let userID = "userId"
+            static let currentLatitude = "currentLatitude"
+            static let currentLongitude = "currentLongitude"
             static let resetPasswordAPIPath = "/api/v1/user/reset_password"
         }
 

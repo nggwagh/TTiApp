@@ -8,7 +8,6 @@
 
 import UIKit
 import MMDrawerController
-import KeychainSwift
 
 class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -26,10 +25,8 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         menuItems = [""]
-        
-        
+                
         self.versionLabel.text = String(format: "App version: %@ (%@)", Bundle.main.releaseVersionNumber!,Bundle.main.buildVersionNumber!)
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -42,10 +39,8 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
     
     func logoutTheUser() {
         
-        //clear user details from keychain
-        KeychainSwift().delete(Constant.API.Login.refreshToken)
-        KeychainSwift().delete(Constant.API.Login.accessToken)
-        KeychainSwift().delete(Constant.API.User.userID)
+        //clear user details from user default
+        SettingsManager.shared().resetSettings()
         
         self.removeRegionMonitoringWhenLogout()
         

@@ -226,9 +226,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         
-        UserDefaults.standard.set(locValue.latitude, forKey: "CurrentLatitude")
-        UserDefaults.standard.set(locValue.longitude, forKey: "CurrentLongitude")
-        UserDefaults.standard.synchronize()
+        SettingsManager.shared().setUserLocationLatitude(locValue.latitude)
+        SettingsManager.shared().setUserLocationLongitude(locValue.longitude)
     }
     
     // CALLED WHEN USER ENTERED THE REGION
