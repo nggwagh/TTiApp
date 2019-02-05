@@ -9,18 +9,18 @@
 import UIKit
 
 class GraphTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var containerView: UIView!
     private var semiCircleChart: HUSemiCircleChart!
-        
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-    
+        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -32,10 +32,6 @@ class GraphTableViewCell: UITableViewCell {
     
     func configure(unfinished: Int, finished: Int, total: Int)  {
         //TODO:- handle this with default value and refactor this dirtiness
-        
-        if total == 0 {
-            return
-        }
         
         if (semiCircleChart != nil){
             semiCircleChart.removeFromSuperview()
@@ -49,14 +45,16 @@ class GraphTableViewCell: UITableViewCell {
         let dataSource = NSMutableArray()
         dataSource.add(HUChartEntry.init(name: "Finished", value: NSNumber(integerLiteral: finished)))
         dataSource.add(HUChartEntry.init(name: "UnFinished", value: NSNumber(integerLiteral: unfinished)))
-
+        
         semiCircleChart.data = dataSource
-        semiCircleChart.completedPercentage = Int32(round(Double(truncating: NSNumber(integerLiteral: finished)) / Double(truncating: NSNumber(integerLiteral: total)) * 100)
-)
+        
+        if total > 0 {
+            semiCircleChart.completedPercentage = Int32(round(Double(truncating: NSNumber(integerLiteral: finished)) / Double(truncating: NSNumber(integerLiteral: total)) * 100))
+        }
+        
         semiCircleChart.completedTask = Int32(truncating: NSNumber(integerLiteral: finished))
         semiCircleChart.totalTask = Int32(truncating: NSNumber(integerLiteral: total))
         semiCircleChart.title = "test" // we already fixed everything in third party code, this is
         semiCircleChart.showPortionTextType = DONT_SHOW_PORTION
     }
-
 }

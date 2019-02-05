@@ -29,7 +29,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     private var isAlreadyShownSearchView = false
     private var closestStores: [Store]! = []
     
-    private var totalTasks : Int = 10
+    private var totalTasks : Int = 0
     private var completedTasks : Int = 0
     
     private var storeSearchViewController = StoreSearchViewController()
