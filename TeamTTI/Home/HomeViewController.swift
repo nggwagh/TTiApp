@@ -651,6 +651,9 @@ extension HomeViewController: HomeNavigationBarDelegate {
             storeSearchViewController.cancelSearch()
         }
         
+        //Reset store selection
+        self.selectedStoreObjectives.removeAll()
+        
         //open calendar
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.scheduleView.isHidden = self.navigationBar.calendarButton.isSelected
