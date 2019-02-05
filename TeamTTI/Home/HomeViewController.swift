@@ -131,7 +131,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         self.storeObjectivesResponse = StoreObjective.build(from: jsonDict["objectives"] as! Array)
                         
                         if (self.storeObjectivesResponse.count == 0) {
-                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "No objectives available for selected store.")
+                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "There are no objectives assigned to this store. Please contact admin if you believe this is an error.")
                         }
                     
                         self.buildSectionArray()
@@ -276,7 +276,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         else {
                             //Disable store selection
                             self.navigationBar.enableTitleButton(false)
-                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "No stores available.")
+                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "No stores assigned.")
                         }
                     }
                     catch let error {

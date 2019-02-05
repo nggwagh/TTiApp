@@ -23,14 +23,14 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//                txtEmail.text = "juan@pulpandfiber.com"
-//                txtPassword.text = "tester"
+                txtEmail.text = "juan@pulpandfiber.com"
+                txtPassword.text = "tester"
         
         //        txtEmail.text = "Harrison.diamond@ttigroupna.com"
         //        txtPassword.text = "tticanada"
         
-        txtEmail.text = "matthew.magee@ttigroupna.com"
-        txtPassword.text = "tticanada"
+//        txtEmail.text = "matthew.magee@ttigroupna.com"
+//        txtPassword.text = "tticanada"
         
     }
     
