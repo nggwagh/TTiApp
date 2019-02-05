@@ -24,13 +24,19 @@ class TTILocationManager: NSObject {
     
     override init() {}
     
-    func startUpdatingCurrentLocation() {
+    func checkLocationAuthorization() {
         // Ask for Authorisation from the User.
         locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
     }
     
-    
+    func startUpdatingCurrentLocation() {
+        // Ask for Authorisation from the User.
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 10
+        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.startUpdatingLocation()
+    }
     
     func monitorRegions(regionsToMonitor : [Store])  {
         
@@ -134,10 +140,7 @@ class TTILocationManager: NSObject {
     func moveToNextViewController() {
         if CLLocationManager.locationServicesEnabled() {
             RootViewControllerManager.refreshRootViewController()
-            
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.distanceFilter = 10
-            locationManager.startUpdatingLocation()
+            self.startUpdatingCurrentLocation()
         }
         else {
             print("Location services are not enabled")

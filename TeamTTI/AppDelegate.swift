@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
-        TTILocationManager.sharedLocationManager.startUpdatingCurrentLocation()
+        TTILocationManager.sharedLocationManager.checkLocationAuthorization()
         
         return true
     }
