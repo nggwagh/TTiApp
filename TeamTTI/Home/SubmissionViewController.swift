@@ -122,7 +122,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         }
         
         
-        submitObject["comments"] = self.commentTextView.text
+        submitObject[Constants.comments] = self.commentTextView.text
         submitObject["completionTypeID"] = 0 //FOR NOW COMPLETIONTYPE WILL BE 0 UNTILL API GUY COMMUNICATE
         
         /*
@@ -136,7 +136,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             
             print("Date:\(todaysDate)")
             
-            submitObject["estimatedCompletionDate"] = todaysDate
+            submitObject[Constants.estimatedCompletionDate] = todaysDate
         }
         else
         {
@@ -145,7 +145,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             let estimateDate = formatter.date(from: self.scheduledDateLabel.text!)
             formatter.dateFormat = "yyyy-MM-dd"
             let finalDate = formatter.string(from: estimateDate!)
-            submitObject["estimatedCompletionDate"] = finalDate
+            submitObject[Constants.estimatedCompletionDate] = finalDate
         }
         */
         
@@ -306,7 +306,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             
             calender.isDueDatePassed = false
             
-            calender.configure(withThemeColor: UIColor.init(named: "tti_blue"), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
+            calender.configure(withThemeColor: UIColor.init(named: Constants.tti_blue), headertextColor: UIColor.black, dueDate: (self.tastDetails.objective?.dueDate)!)
         }
         
         calender.center = self.view.center

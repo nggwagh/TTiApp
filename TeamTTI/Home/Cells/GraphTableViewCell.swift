@@ -42,7 +42,7 @@ class GraphTableViewCell: UITableViewCell {
         }
         
         semiCircleChart = HUSemiCircleChart(frame: CGRect.init(x: 50, y: -100, width: 250, height: 320))
-        semiCircleChart.colors = NSMutableArray.init(array: [UIColor.init(named: "tti_blue")!,UIColor.init(named: "graph_unfinished_color")!])
+        semiCircleChart.colors = NSMutableArray.init(array: [UIColor.init(named: Constants.tti_blue)!,UIColor.init(named: "graph_unfinished_color")!])
         containerView.addSubview(semiCircleChart)
         
         //data

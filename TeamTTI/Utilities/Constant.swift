@@ -53,3 +53,34 @@ struct Constant {
 
 }
 
+struct Constants {
+    //Common constants
+    static let headerTitle = "headerTitle"
+    static let storeObjectives = "storeObjectives"
+    static let taskValueUpdated = "TaskValueUpdated"
+    
+    static let objectives = "objectives"
+    static let counts = "counts"
+    static let totalObjectives = "totalObjectives"
+    static let completed = "completed"
+    static let closestStoreIdArray = "closestStoreIdArray"
+    static let objectiveID = "objectiveID"
+    static let storeID = "storeID"
+    static let estimatedCompletionDate = "estimatedCompletionDate"
+    static let comments = "comments"
+    
+    //Alert messages
+    static let objectivesScheduleSuccess = "Objectives scheduled successfully."
+    static let scheduledPastDueDateMessage = "Please explain why the objective is scheduled past the due date:"
+    static let selectSameDueDateMessage = "Please only select objectives in the same due date group for scheduling."
+    static let selectObjectiveMessage = "Please select the Objectives."
+    
+    //UITableviewCell identifiers
+    static let graphTableViewCell = "GraphTableViewCell"
+    static let storeObjectiveTableViewCell = "StoreObjectiveTableViewCell"
+    
+    //Image names
+    static let tti_blue = "tti_blue"
+    static let upArrow = "UpArrow"
+    static let down_arrow = "down_arrow"
+}

@@ -15,6 +15,7 @@ extension Constant.Storyboard {
         static let TaskDetailSegueIdentifier = "TaskDetailSegueIdentifier"
         static let TaskSegueIdentifier = "TaskSegueIdentifier"
         static let SubmissionSegueIdentifier = "SubmissionSegueIdentifier"
+        static let storeSearchViewController = "StoreSearchViewController"
     }
     
     struct News {

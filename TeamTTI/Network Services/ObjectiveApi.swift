@@ -109,7 +109,7 @@ extension ObjectiveApi: TargetType {
             
         case .schedule(let objectiveArray):
             return .requestParameters(parameters:
-                ["objectives": objectiveArray],encoding: JSONEncoding.default)
+                [Constants.objectives: objectiveArray],encoding: JSONEncoding.default)
             
             
         case .submitObjective(_,_, let submitJson):
@@ -118,7 +118,7 @@ extension ObjectiveApi: TargetType {
         case .uploadStoreObjectiveImage(let image, _, _):
             
 //            let vName = "Taken at store"
-//            let vNameData = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(vName.data(using: .utf8)!), name: "comments")
+//            let vNameData = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(vName.data(using: .utf8)!), name: Constants.comments)
             
             let imageData = UIImageJPEGRepresentation(image, 0.5)
             print("Upload image size\(String(describing: imageData?.count))")

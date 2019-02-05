@@ -44,7 +44,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             //Magnifying glass
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
-            glassIconView.tintColor = UIColor.init(named: "tti_blue")
+            glassIconView.tintColor = UIColor.init(named: Constants.tti_blue)
         }
         
         // Refresh control add in tableview.

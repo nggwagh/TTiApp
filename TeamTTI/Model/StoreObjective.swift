@@ -82,12 +82,12 @@ extension StoreObjective {
             let storeDictionary = storeObjectiveJsonObject["store"] as? [String: Any]
 
           return  StoreObjective(id: storeObjectiveJsonObject["id"] as! Int,
-                           storeId: storeObjectiveJsonObject["storeID"] as! Int,
+                           storeId: storeObjectiveJsonObject[Constants.storeID] as! Int,
                            objectiveID: storeObjectiveJsonObject["objectiveID"] as! Int,
                            status: .status(for: storeObjectiveJsonObject["status"]!),
-                           estimatedCompletionDate: DateFormatter.formatter_yyyyMMdd.parse(value: storeObjectiveJsonObject["estimatedCompletionDate"]),
+                           estimatedCompletionDate: DateFormatter.formatter_yyyyMMdd.parse(value: storeObjectiveJsonObject[Constants.estimatedCompletionDate]),
                            completionDate: DateFormatter.formatter_yyyyMMdd.parse(value: storeObjectiveJsonObject["completionDate"]),
-                           comments: storeObjectiveJsonObject["comments"] as? String,
+                           comments: storeObjectiveJsonObject[Constants.comments] as? String,
                            createdBy: storeObjectiveJsonObject["createdBy"] as? Int,
                            updatedBy: storeObjectiveJsonObject["updatedBy"] as? Int,
                            deletedAt: DateFormatter.formatter_yyyyMMdd_hhmmss.parse(value: storeObjectiveJsonObject["deleted_at"]),
@@ -115,12 +115,12 @@ extension StoreObjective {
 /*
  {
  "id": 1,
- "storeID": 2,
+ Constants.storeID: 2,
  "objectiveID": 1,
  "status": 0,
- "estimatedCompletionDate": null,
+ Constants.estimatedCompletionDate: null,
  "completionDate": null,
- "comments": "",
+ Constants.comments: "",
  "createdBy": 1,
  "updatedBy": null,
  "deleted_at": null,

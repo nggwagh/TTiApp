@@ -48,7 +48,7 @@ class StoreSearchViewController: UIViewController {
             
             //Magnifying glass
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
-            glassIconView.tintColor = UIColor.init(named: "tti_blue")
+            glassIconView.tintColor = UIColor.init(named: Constants.tti_blue)
         }
     }
     
