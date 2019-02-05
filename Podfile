@@ -19,8 +19,10 @@ pod 'MBProgressHUD', '~> 1.1.0'
 pod 'UITextView+Placeholder'
 pod 'Optik'
 pod 'AlamofireImage', '3.3.0'
+pod 'Fabric'
+pod 'Crashlytics'
 
-  target 'TeamTTITests' do
+target 'TeamTTITests' do
     inherit! :search_paths
     # Pods for testing
   end
