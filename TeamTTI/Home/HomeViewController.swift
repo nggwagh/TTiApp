@@ -131,7 +131,11 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         self.storeObjectivesResponse = StoreObjective.build(from: jsonDict["objectives"] as! Array)
                         
                         if (self.storeObjectivesResponse.count == 0) {
+                            self.navigationBar.calendarButton.isHidden = true
                             Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "There are no objectives assigned to this store. Please contact admin if you believe this is an error.")
+                        }
+                        else {
+                            self.navigationBar.calendarButton.isHidden = false
                         }
                     
                         self.buildSectionArray()
@@ -266,16 +270,20 @@ class HomeViewController: UIViewController, DateElementDelegate {
                                 self.selectStore(self.stores![0])
                             }
                             
-                            //Enable store selection
+                            //Enable store selection and show calender button
                             self.navigationBar.enableTitleButton(true)
+                            self.navigationBar.calendarButton.isHidden = false
+                            
                             self.initializeStoreSearchController()
                             
                             //START MONITORING FOR CLOSEST STORES
                             self.startMonitoringClosestStores(allStore: self.stores!)
                         }
                         else {
-                            //Disable store selection
+                            //Disable store selection and show calender button
                             self.navigationBar.enableTitleButton(false)
+                            self.navigationBar.calendarButton.isHidden = true
+                            
                             Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "No stores assigned.")
                         }
                     }
