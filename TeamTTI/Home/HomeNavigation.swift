@@ -11,6 +11,7 @@ import Foundation
 extension Constant.Storyboard {
     struct Home {
         static let id = "Home"
+        static let id_manager = "ManagerHome"
         static let leftSideMenuNavigationController = "LeftSideMenuNavigationController"
         static let TaskDetailSegueIdentifier = "TaskDetailSegueIdentifier"
         static let TaskSegueIdentifier = "TaskSegueIdentifier"

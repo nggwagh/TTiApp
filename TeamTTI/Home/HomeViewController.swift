@@ -9,6 +9,7 @@
 import UIKit
 import Moya
 import MMDrawerController
+import Crashlytics
 
 class HomeViewController: UIViewController, DateElementDelegate {
     
@@ -641,6 +642,7 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         self.performSegue(withIdentifier: Constant.Storyboard.Home.TaskDetailSegueIdentifier, sender: indexPath)
+        Crashlytics.sharedInstance().crash()
     }
 }
 

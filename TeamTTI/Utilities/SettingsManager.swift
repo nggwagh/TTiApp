@@ -35,6 +35,16 @@ class SettingsManager: NSObject {
         return (userID)
     }
     
+    // MARK:- User Role -
+    func setUserRole(_ userRole: String) {
+        UserDefaults.standard.set(userRole, forKey: Constant.API.User.role)
+        UserDefaults.standard.synchronize()
+    }
+    func getUserRole() -> String? {
+        let userRole = UserDefaults.standard.string(forKey: Constant.API.User.role)
+        return (userRole)
+    }
+    
     // MARK:- User AccessToken -
     func setAccessToken(_ userAccessToken: String) {
         UserDefaults.standard.set(userAccessToken, forKey: Constant.API.Login.accessToken)

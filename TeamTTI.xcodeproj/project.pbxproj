@@ -21,6 +21,7 @@
 		00F6C61721AC50DF003D697A /* HUChartEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F6C61421AC50DF003D697A /* HUChartEntry.m */; };
 		0AD4B9635C6B129730AD7547 /* Pods_TeamTTIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0FB0F0C91EC64F2F8F892E /* Pods_TeamTTIUITests.framework */; };
 		3501FC5B2209883D00D08F97 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3501FC5A2209883D00D08F97 /* SettingsManager.swift */; };
+		3504DAE2220B257D00F48AC3 /* TaskDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3504DAE1220B257D00F48AC3 /* TaskDetailCollectionViewCell.swift */; };
 		3527014221CA182800EC692F /* UIViewBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3527014121CA182700EC692F /* UIViewBorder.swift */; };
 		356107E621D3B11F00464B00 /* AlamofireImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356107E521D3B11F00464B00 /* AlamofireImageDownloader.swift */; };
 		3573797E21C7B7EA007DDF42 /* PlaybookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573797D21C7B7EA007DDF42 /* PlaybookTableViewController.swift */; };
@@ -41,7 +42,10 @@
 		35C75A5A21D929EA0040BB2F /* Planner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35C75A5921D929EA0040BB2F /* Planner.storyboard */; };
 		35C75A5D21D92DE10040BB2F /* PlannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C75A5C21D92DE10040BB2F /* PlannerTableViewCell.swift */; };
 		35CB4E0D21F8623A003B3671 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CB4E0C21F8623A003B3671 /* Extensions.swift */; };
+		35D5FD0D220AEC68002F8CAA /* ManagerHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35D5FD0C220AEC68002F8CAA /* ManagerHome.storyboard */; };
+		35D5FD0F220AF887002F8CAA /* ManagerHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D5FD0E220AF887002F8CAA /* ManagerHomeViewController.swift */; };
 		35D8109B21E62065001242B9 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D8109A21E62065001242B9 /* ResetPasswordViewController.swift */; };
+		35F4DA5A220C4AE900DDBA56 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4DA59220C4AE900DDBA56 /* CustomLayout.swift */; };
 		35FDFEFD21CCC40C00389C49 /* PickerViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */; };
 		35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */; };
 		35FFC30C21C3B14500F80EA8 /* LeftSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */; };
@@ -113,6 +117,7 @@
 		0C0FB0F0C91EC64F2F8F892E /* Pods_TeamTTIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamTTIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A21F8E4E4DD82AE9982A38 /* Pods_TeamTTI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamTTI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3501FC5A2209883D00D08F97 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		3504DAE1220B257D00F48AC3 /* TaskDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		3527014121CA182700EC692F /* UIViewBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewBorder.swift; sourceTree = "<group>"; };
 		356107E521D3B11F00464B00 /* AlamofireImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireImageDownloader.swift; sourceTree = "<group>"; };
 		3573797D21C7B7EA007DDF42 /* PlaybookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookTableViewController.swift; sourceTree = "<group>"; };
@@ -133,7 +138,10 @@
 		35C75A5921D929EA0040BB2F /* Planner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Planner.storyboard; path = TeamTTI/Planner/Planner.storyboard; sourceTree = SOURCE_ROOT; };
 		35C75A5C21D92DE10040BB2F /* PlannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTableViewCell.swift; sourceTree = "<group>"; };
 		35CB4E0C21F8623A003B3671 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		35D5FD0C220AEC68002F8CAA /* ManagerHome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ManagerHome.storyboard; sourceTree = "<group>"; };
+		35D5FD0E220AF887002F8CAA /* ManagerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerHomeViewController.swift; sourceTree = "<group>"; };
 		35D8109A21E62065001242B9 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		35F4DA59220C4AE900DDBA56 /* CustomLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		35FDFEFC21CCC40C00389C49 /* PickerViewUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewUtility.swift; sourceTree = "<group>"; };
 		35FDFEFE21CCF59000389C49 /* PhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerController.swift; sourceTree = "<group>"; };
 		35FFC30B21C3B14500F80EA8 /* LeftSideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSideMenuController.swift; sourceTree = "<group>"; };
@@ -455,9 +463,12 @@
 		CFC7295421986F0E0065BCAC /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				35F4DA59220C4AE900DDBA56 /* CustomLayout.swift */,
 				CFC7295521986F380065BCAC /* Home.storyboard */,
+				35D5FD0C220AEC68002F8CAA /* ManagerHome.storyboard */,
 				CFC7295721986FF60065BCAC /* HomeNavigation.swift */,
 				CFC7295F2198B4250065BCAC /* HomeViewController.swift */,
+				35D5FD0E220AF887002F8CAA /* ManagerHomeViewController.swift */,
 				3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */,
 				3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */,
 				35A5259921CB664600C43A16 /* SubmissionViewController.swift */,
@@ -484,6 +495,7 @@
 			children = (
 				CFF45C4921A1D0590045B56D /* GraphTableViewCell.swift */,
 				CFF45C4B21A1D07C0045B56D /* StoreObjectiveTableViewCell.swift */,
+				3504DAE1220B257D00F48AC3 /* TaskDetailCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -609,6 +621,7 @@
 				CF4832C8217CF3C2000660C6 /* LaunchScreen.storyboard in Resources */,
 				35B6749D21C4DAD1000238DD /* News.storyboard in Resources */,
 				CF4832C5217CF3C2000660C6 /* Assets.xcassets in Resources */,
+				35D5FD0D220AEC68002F8CAA /* ManagerHome.storyboard in Resources */,
 				CF4832C0217CF3C1000660C6 /* Main.storyboard in Resources */,
 				35C75A5A21D929EA0040BB2F /* Planner.storyboard in Resources */,
 			);
@@ -661,7 +674,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 9f5f68c7373aeb083b7ddbe7213a2c2499af724c 571b47112c735ee076cfca0ad5cd14f0a96030fbc34e842f4db5f2678e73de2c\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" b431af0841c29f723f691c57cbbc63286111f1bc 49ffbde176bd1cd0b5d94a649508b69cdbe16dff77460435455fea95608c5089\n";
 		};
 		941F453BA145FAA12177B418 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -765,12 +778,14 @@
 				3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */,
 				CFF45BF721A0ABA90045B56D /* ObjectiveDataProvider.swift in Sources */,
 				3501FC5B2209883D00D08F97 /* SettingsManager.swift in Sources */,
+				3504DAE2220B257D00F48AC3 /* TaskDetailCollectionViewCell.swift in Sources */,
 				35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */,
 				526A60E021D2113500E5CD65 /* NewsApi.swift in Sources */,
 				0008804D219408BA00AA8EFC /* UserApi.swift in Sources */,
 				35D8109B21E62065001242B9 /* ResetPasswordViewController.swift in Sources */,
 				35B6749B21C4D17F000238DD /* News.swift in Sources */,
 				CF4832C3217CF3C1000660C6 /* TeamTTI.xcdatamodeld in Sources */,
+				35F4DA5A220C4AE900DDBA56 /* CustomLayout.swift in Sources */,
 				00F6C61721AC50DF003D697A /* HUChartEntry.m in Sources */,
 				523F5A4E21EF8D4D0050E85E /* PlannerAPI.swift in Sources */,
 				52FEFDFD21FC34CE00EF27E0 /* Playbook.swift in Sources */,
@@ -799,6 +814,7 @@
 				35FFC30C21C3B14500F80EA8 /* LeftSideMenuController.swift in Sources */,
 				00F6C61621AC50DF003D697A /* HUSemiCircleChart.m in Sources */,
 				CFF45C4A21A1D0590045B56D /* GraphTableViewCell.swift in Sources */,
+				35D5FD0F220AF887002F8CAA /* ManagerHomeViewController.swift in Sources */,
 				003D87D621A72A230095D52F /* HomeNavigationBar.swift in Sources */,
 				00D6AAA321ADBD080059F6F1 /* TTICalendar.m in Sources */,
 				00C192A021ADC46900F42026 /* XIB+Load.swift in Sources */,

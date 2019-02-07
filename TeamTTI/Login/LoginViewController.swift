@@ -26,8 +26,8 @@ class LoginViewController: UIViewController {
                 txtEmail.text = "juan@pulpandfiber.com"
                 txtPassword.text = "tester"
         
-        //        txtEmail.text = "Harrison.diamond@ttigroupna.com"
-        //        txtPassword.text = "tticanada"
+//                txtEmail.text = "Harrison.diamond@ttigroupna.com"
+//                txtPassword.text = "tticanada"
         
 //        txtEmail.text = "matthew.magee@ttigroupna.com"
 //        txtPassword.text = "tticanada"
@@ -116,6 +116,9 @@ extension LoginViewController {
                         
                         if let userID = jsonDict["id"] as? Int {
                             SettingsManager.shared().setUserID(userID.description)
+                        }
+                        if let userRole = jsonDict["role"] as? Int {
+                            SettingsManager.shared().setUserRole(userRole.description)
                             RootViewControllerManager.refreshRootViewController()
                         }
                     }

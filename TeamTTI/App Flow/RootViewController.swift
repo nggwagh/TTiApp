@@ -17,14 +17,21 @@ class RootViewControllerFactory {
     static func getRootViewController() -> UIViewController {
         
         if let _ = SettingsManager.shared().getUserID() {
-            //Nikhil to check
-//            ObjectiveDataProvider.shared.loadData { _ in }
-            let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
-            let homeViewController = homeStoryboard.instantiateInitialViewController()
-            let leftSideMenuNavitationController = homeStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Home.leftSideMenuNavigationController) as! UINavigationController
-            centerContainer = MMDrawerController(center: homeViewController, leftDrawerViewController: leftSideMenuNavitationController)
-//            centerContainer.openDrawerGestureModeMask = MMOpenDrawerGestureMode.panningCenterView
-//            centerContainer.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.panningCenterView
+            let role = SettingsManager.shared().getUserRole()
+            if (role == "1") {
+                let managerHomeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id_manager, bundle: nil)
+                let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
+                let managerHomeViewController = managerHomeStoryboard.instantiateInitialViewController()
+                let leftSideMenuNavitationController = homeStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Home.leftSideMenuNavigationController) as! UINavigationController
+                centerContainer = MMDrawerController(center: managerHomeViewController, leftDrawerViewController: leftSideMenuNavitationController)
+            }
+            else {
+                let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
+                let homeViewController = homeStoryboard.instantiateInitialViewController()
+                let leftSideMenuNavitationController = homeStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Home.leftSideMenuNavigationController) as! UINavigationController
+                centerContainer = MMDrawerController(center: homeViewController, leftDrawerViewController: leftSideMenuNavitationController)
+            }
+           
             centerContainer.centerHiddenInteractionMode = MMDrawerOpenCenterInteractionMode.full
             return centerContainer
             
