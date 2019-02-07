@@ -307,17 +307,9 @@ class HomeViewController: UIViewController, DateElementDelegate {
     //FUNCTION TO START MONITORING FOR CLOSEST STORE
     func startMonitoringClosestStores(allStore: [Store]) {
         
-        var storesArray : [Store] = allStore
-        
-        storesArray.removeAll { (store : Store) -> Bool in
-            store.userID == Int(SettingsManager.shared().getUserID()!)
-        }
-        
-        if storesArray.count >= 3 {
-            for i in 0...(storesArray.count - 1) {
-                if (i < 3){
-                    self.closestStores.append(storesArray[i])
-                }
+        if allStore.count >= 5 {
+            for i in 0...4 {
+                self.closestStores.append(allStore[i])
             }
         }
         
