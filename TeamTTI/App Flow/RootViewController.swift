@@ -18,7 +18,7 @@ class RootViewControllerFactory {
         
         if let _ = SettingsManager.shared().getUserID() {
             let role = SettingsManager.shared().getUserRole()
-            if (role == "1") {
+            if (role == "1" || role == "2") {
                 let managerHomeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id_manager, bundle: nil)
                 let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
                 let managerHomeViewController = managerHomeStoryboard.instantiateInitialViewController()

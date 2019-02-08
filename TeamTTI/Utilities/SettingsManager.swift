@@ -37,6 +37,7 @@ class SettingsManager: NSObject {
     
     // MARK:- User Role -
     func setUserRole(_ userRole: String) {
+        // 1 -> admin, 2 -> DM, 3->FSR
         UserDefaults.standard.set(userRole, forKey: Constant.API.User.role)
         UserDefaults.standard.synchronize()
     }

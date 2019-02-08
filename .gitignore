@@ -390,3 +390,107 @@ Pods/Target Support Files/Result/Result-umbrella.h
 Pods/Target Support Files/Result/Result.modulemap
 Pods/Target Support Files/Result/Result.xcconfig
 TeamTTI.xcworkspace/xcuserdata/mohinimehetre.xcuserdatad/UserInterfaceState.xcuserstate
+Pods/UITextView+Placeholder/Sources/UITextView+Placeholder.m
+Pods/UITextView+Placeholder/Sources/UITextView+Placeholder.h
+Pods/UITextView+Placeholder/README.md
+Pods/UITextView+Placeholder/LICENSE
+Pods/Target Support Files/UITextView+Placeholder/UITextView+Placeholder.xcconfig
+Pods/Target Support Files/UITextView+Placeholder/UITextView+Placeholder.modulemap
+Pods/Target Support Files/UITextView+Placeholder/UITextView+Placeholder-umbrella.h
+Pods/Target Support Files/UITextView+Placeholder/UITextView+Placeholder-prefix.pch
+Pods/Target Support Files/UITextView+Placeholder/UITextView+Placeholder-dummy.m
+Pods/Target Support Files/UITextView+Placeholder/Info.plist
+Pods/Target Support Files/Optik/Optik.xcconfig
+Pods/Target Support Files/Optik/Optik.modulemap
+Pods/Target Support Files/Optik/Optik-umbrella.h
+Pods/Target Support Files/Optik/Optik-prefix.pch
+Pods/Target Support Files/Optik/Optik-dummy.m
+Pods/Target Support Files/Optik/Info.plist
+Pods/Target Support Files/MBProgressHUD/MBProgressHUD.xcconfig
+Pods/Target Support Files/MBProgressHUD/MBProgressHUD.modulemap
+Pods/Target Support Files/MBProgressHUD/MBProgressHUD-umbrella.h
+Pods/Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch
+Pods/Target Support Files/MBProgressHUD/MBProgressHUD-dummy.m
+Pods/Target Support Files/MBProgressHUD/Info.plist
+Pods/Target Support Files/AlamofireImage/Info.plist
+Pods/Target Support Files/AlamofireImage/AlamofireImage.xcconfig
+Pods/Target Support Files/AlamofireImage/AlamofireImage.modulemap
+Pods/Target Support Files/AlamofireImage/AlamofireImage-umbrella.h
+Pods/Target Support Files/AlamofireImage/AlamofireImage-prefix.pch
+Pods/Target Support Files/AlamofireImage/AlamofireImage-dummy.m
+Pods/Pods.xcodeproj/xcuserdata/mohinimehetre.xcuserdatad/xcschemes/UITextView+Placeholder.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/mohinimehetre.xcuserdatad/xcschemes/Optik.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/mohinimehetre.xcuserdatad/xcschemes/MBProgressHUD.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/mohinimehetre.xcuserdatad/xcschemes/AlamofireImage.xcscheme
+Pods/Optik/README.md
+Pods/Optik/Optik/Classes/TransitionController.swift
+Pods/Optik/Optik/Classes/TransitionAnimator.swift
+Pods/Optik/Optik/Classes/Optik.swift
+Pods/Optik/Optik/Classes/ImageViewerDelegate.swift
+Pods/Optik/Optik/Classes/ImageViewController.swift
+Pods/Optik/Optik/Classes/ImageDownloader.swift
+Pods/Optik/Optik/Classes/ImageData.swift
+Pods/Optik/Optik/Classes/DismissButtonPosition.swift
+Pods/Optik/Optik/Classes/CGRectExtensions.swift
+Pods/Optik/Optik/Classes/Animation/VectorRepresentable.swift
+Pods/Optik/Optik/Classes/Animation/Vector4D.swift
+Pods/Optik/Optik/Classes/Animation/Vector1D.swift
+Pods/Optik/Optik/Classes/Animation/SpringIntegrator.swift
+Pods/Optik/Optik/Classes/Animation/SpringAnimation.swift
+Pods/Optik/Optik/Classes/Animation/Lens.swift
+Pods/Optik/Optik/Classes/Animation/Interpolatable.swift
+Pods/Optik/Optik/Classes/Animation/AnimatorProducible.swift
+Pods/Optik/Optik/Classes/Animation/Animator.swift
+Pods/Optik/Optik/Classes/Animation/Animation.swift
+Pods/Optik/Optik/Classes/Animation/AnimatableProperty.swift
+Pods/Optik/Optik/Classes/AlbumViewController.swift
+Pods/Optik/Optik/Assets/Optik.xcassets/DismissIcon.imageset/DismissIcon.pdf
+Pods/Optik/Optik/Assets/Optik.xcassets/DismissIcon.imageset/Contents.json
+Pods/Optik/Optik/Assets/Optik.xcassets/Contents.json
+Pods/Optik/LICENSE
+Pods/MBProgressHUD/README.mdown
+Pods/MBProgressHUD/MBProgressHUD.m
+Pods/MBProgressHUD/MBProgressHUD.h
+Pods/MBProgressHUD/LICENSE
+Pods/Fabric/uploadDSYM
+Pods/Fabric/upload-symbols
+Pods/Fabric/run
+Pods/Fabric/README.md
+Pods/Fabric/iOS/Fabric.framework/uploadDSYM
+Pods/Fabric/iOS/Fabric.framework/run
+Pods/Fabric/iOS/Fabric.framework/Modules/module.modulemap
+Pods/Fabric/iOS/Fabric.framework/Info.plist
+Pods/Fabric/iOS/Fabric.framework/Headers/Fabric.h
+Pods/Fabric/iOS/Fabric.framework/Headers/FABAttributes.h
+Pods/Fabric/iOS/Fabric.framework/Fabric
+Pods/Fabric/Fabric.framework/run
+Pods/Fabric/Fabric.framework/README
+Pods/Crashlytics/submit
+Pods/Crashlytics/README.md
+Pods/Crashlytics/iOS/Crashlytics.framework/uploadDSYM
+Pods/Crashlytics/iOS/Crashlytics.framework/submit
+Pods/Crashlytics/iOS/Crashlytics.framework/run
+Pods/Crashlytics/iOS/Crashlytics.framework/Modules/module.modulemap
+Pods/Crashlytics/iOS/Crashlytics.framework/Info.plist
+Pods/Crashlytics/iOS/Crashlytics.framework/Headers/Crashlytics.h
+Pods/Crashlytics/iOS/Crashlytics.framework/Headers/CLSStackFrame.h
+Pods/Crashlytics/iOS/Crashlytics.framework/Headers/CLSReport.h
+Pods/Crashlytics/iOS/Crashlytics.framework/Headers/CLSLogging.h
+Pods/Crashlytics/iOS/Crashlytics.framework/Headers/CLSAttributes.h
+Pods/Crashlytics/iOS/Crashlytics.framework/Headers/Answers.h
+Pods/Crashlytics/iOS/Crashlytics.framework/Headers/ANSCompatibility.h
+Pods/Crashlytics/iOS/Crashlytics.framework/Crashlytics
+Pods/Crashlytics/Crashlytics.framework/submit
+Pods/Crashlytics/Crashlytics.framework/README
+Pods/AlamofireImage/Source/UIImageView+AlamofireImage.swift
+Pods/AlamofireImage/Source/UIImage+AlamofireImage.swift
+Pods/AlamofireImage/Source/UIButton+AlamofireImage.swift
+Pods/AlamofireImage/Source/Request+AlamofireImage.swift
+Pods/AlamofireImage/Source/ImageFilter.swift
+Pods/AlamofireImage/Source/ImageDownloader.swift
+Pods/AlamofireImage/Source/ImageCache.swift
+Pods/AlamofireImage/Source/Image.swift
+Pods/AlamofireImage/Source/AFIError.swift
+Pods/AlamofireImage/README.md
+Pods/AlamofireImage/LICENSE
+Podfile.lock
