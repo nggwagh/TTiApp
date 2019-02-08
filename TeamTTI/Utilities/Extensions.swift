@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 extension Bundle {
     var displayName: String? {
@@ -26,5 +27,14 @@ extension UIAlertController {
         controller.addAction(settingsAction)
         
         return controller
+    }
+}
+
+extension CLLocation {
+    func distanceFromCurrentLocationInMiles(latitude: Double, longitude: Double) -> Double{
+        let coordinate = CLLocation(latitude: latitude, longitude: longitude)
+        var distanceInMeters = self.distance(from: coordinate) // result is in meters
+        distanceInMeters = distanceInMeters / 1000 //result in kilometers
+        return distanceInMeters
     }
 }

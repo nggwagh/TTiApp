@@ -18,7 +18,7 @@ class TTILocationManager: NSObject {
     static let sharedLocationManager = TTILocationManager()
     private var locationsToMonitor = [Store]()
     private var storeNetworkTask: Cancellable?
-    
+    let refreshStoreDistance = 5.0 //in km
     
     //MARK:- Instance Methods
     
@@ -207,6 +207,48 @@ class TTILocationManager: NSObject {
             }
         }
     }
+    
+    func refreshMonitoringStores() {
+        
+        storeNetworkTask?.cancel()
+        
+        storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.stores()) { result in
+            
+            switch result {
+            case let .success(response):
+                if case 200..<400 = response.statusCode {
+                    do {
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
+                        
+                        //Sort array by Closest stores first
+                        let stores = Store.build(from: jsonDict).sorted(by: { (store1 : Store, store2 : Store) -> Bool in
+                            return Int(store1.distanceFromCurrentLocation!) < Int(store2.distanceFromCurrentLocation!)
+                        })
+                        
+                        //start monitoring for top 5 closest stores
+                        var closestStores: [Store]! = []
+                        if stores.count >= 5 {
+                            for i in 0...4 {
+                                closestStores.append(stores[i])
+                            }
+                        }
+                        TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
+                else {
+                    let responseString = String(data: response.data, encoding: String.Encoding.utf8)
+                    print(responseString!)
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+            }
+        }
+    }
 }
 
 extension TTILocationManager: CLLocationManagerDelegate {
@@ -231,6 +273,35 @@ extension TTILocationManager: CLLocationManagerDelegate {
         
         SettingsManager.shared().setUserLocationLatitude(locValue.latitude)
         SettingsManager.shared().setUserLocationLongitude(locValue.longitude)
+        
+        let launchTimeLat = SettingsManager.shared().getUserLocationLaunchTimeLatitude()
+        let launchTimeLong = SettingsManager.shared().getUserLocationLaunchTimeLongitude()
+        
+        if (launchTimeLat == 0 && launchTimeLong == 0) {
+            SettingsManager.shared().setUserLocationLaunchTimeLatitude(locValue.latitude)
+            SettingsManager.shared().setUserLocationLaunchTimeLongitude(locValue.longitude)
+        }
+        else {
+            if let _ = SettingsManager.shared().getUserID() {
+
+                let currentCoordinate = CLLocation(latitude: SettingsManager.shared().getUserLocationLatitude()!, longitude: SettingsManager.shared().getUserLocationLongitude()!)
+                
+                let distance = currentCoordinate.distanceFromCurrentLocationInMiles(latitude: launchTimeLat!, longitude: launchTimeLong!)
+                
+                if (distance >= refreshStoreDistance) {
+                    if ((RootViewControllerFactory.centerContainer.centerViewController?.isKind(of: UINavigationController.self))!){
+                        let currentViewController = (RootViewControllerFactory.centerContainer.centerViewController as! UINavigationController).viewControllers[0]
+                        if (currentViewController.isKind(of: HomeViewController.self)) {
+                            (currentViewController as! HomeViewController).loadStores()
+                        }
+                        else {
+                            //refresh stores and start monitoring here
+                            self.refreshMonitoringStores()
+                        }
+                    }
+                }
+            }
+        }
     }
     
     // CALLED WHEN USER ENTERED THE REGION

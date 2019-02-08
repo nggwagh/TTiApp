@@ -26,7 +26,6 @@ class HomeViewController: UIViewController, DateElementDelegate {
     private var selectedStore: Store?
     //    private var storeObjectives: [StoreObjective]? = []
     private var isAlreadyShownSearchView = false
-    private var closestStores: [Store]! = []
     
     private var totalTasks : Int = 0
     private var completedTasks : Int = 0
@@ -307,14 +306,16 @@ class HomeViewController: UIViewController, DateElementDelegate {
     //FUNCTION TO START MONITORING FOR CLOSEST STORE
     func startMonitoringClosestStores(allStore: [Store]) {
         
+        var closestStores: [Store]! = []
+
         if allStore.count >= 5 {
             for i in 0...4 {
-                self.closestStores.append(allStore[i])
+                closestStores.append(allStore[i])
             }
         }
         
-        //start monitoring for my stores
-        TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: self.closestStores)
+        //start monitoring for top 5 closest stores
+        TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
     }
     
     

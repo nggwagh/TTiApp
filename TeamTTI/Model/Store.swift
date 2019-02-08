@@ -54,6 +54,8 @@ extension Store {
             
             let countDictionary = storeJsonObject["counts"] as? [String: Any]
             
+            let currentCoordinate = CLLocation(latitude: SettingsManager.shared().getUserLocationLatitude()!, longitude: SettingsManager.shared().getUserLocationLongitude()!)
+
             let storeLatitude = (storeJsonObject["latitude"] != nil) ?  Double((storeJsonObject["latitude"] as? String)!) : 0
             let storeLongitude = (storeJsonObject["longitude"] != nil) ? Double((storeJsonObject["longitude"] as? String)!) : 0
 
@@ -85,20 +87,8 @@ extension Store {
                 longitude: storeLongitude, //"-122.406417" as AnyObject
                          totalObjectives:countDictionary?["totalObjectives"] as? Int,
                          completed:countDictionary?["completed"] as? Int,
-                         distanceFromCurrentLocation: distanceFromCurrentLocationInMiles(latitude: storeLatitude!, longitude: storeLongitude!))
+                         distanceFromCurrentLocation: currentCoordinate.distanceFromCurrentLocationInMiles(latitude: storeLatitude!, longitude: storeLongitude!))
         })
-    }
-    
-    static func distanceFromCurrentLocationInMiles(latitude: Double, longitude: Double) -> Double{
-
-        let currentCoordinate = CLLocation(latitude: SettingsManager.shared().getUserLocationLatitude()!, longitude: SettingsManager.shared().getUserLocationLongitude()!)
-        let storeCoordinate = CLLocation(latitude: latitude, longitude: longitude)
-        
-        var distanceInMeters = currentCoordinate.distance(from: storeCoordinate) // result is in meters
-        
-        distanceInMeters = distanceInMeters / 1000 //result in kilometers
-        
-        return distanceInMeters
     }
 }
 
