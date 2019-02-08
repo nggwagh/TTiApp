@@ -117,13 +117,13 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjD-4n-WzJ">
-                                                            <rect key="frame" x="8" y="22.5" width="64" height="20.5"/>
+                                                            <rect key="frame" x="8" y="22.5" width="59" height="20.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiF-Tf-kIi">
-                                                            <rect key="frame" x="0.0" y="64.5" width="80" height="0.5"/>
+                                                            <rect key="frame" x="0.0" y="64.5" width="75" height="0.5"/>
                                                             <color key="backgroundColor" name="nav_title_color"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="Q5J-5s-AIZ"/>
@@ -200,6 +200,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="UcB-1h-xWU" id="Bmr-QU-a0j"/>
+                        <outlet property="regionTextField" destination="gYC-26-kUn" id="C0D-27-Ruy"/>
                         <outlet property="selectRegionBackgroundView" destination="NNK-0U-Dpc" id="K4C-iX-Tza"/>
                         <outlet property="tableView" destination="yqo-df-j1j" id="KI7-VU-oCa"/>
                     </connections>
