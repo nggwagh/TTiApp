@@ -85,6 +85,26 @@ class SettingsManager: NSObject {
         return (longitude)
     }
     
+    // MARK:- User location Latitude launchtime -
+    func setUserLocationLaunchTimeLatitude(_ latitude: Double) {
+        UserDefaults.standard.set(latitude, forKey: Constant.API.User.currentLatitude_launchtime)
+        UserDefaults.standard.synchronize()
+    }
+    func getUserLocationLaunchTimeLatitude() -> Double? {
+        let latitude = UserDefaults.standard.double(forKey: Constant.API.User.currentLatitude_launchtime)
+        return (latitude)
+    }
+    
+    // MARK:- User location Longitude launchtime -
+    func setUserLocationLaunchTimeLongitude(_ longitude: Double) {
+        UserDefaults.standard.set(longitude, forKey: Constant.API.User.currentLongitude_launchtime)
+        UserDefaults.standard.synchronize()
+    }
+    func getUserLocationLaunchTimeLongitude() -> Double? {
+        let longitude = UserDefaults.standard.double(forKey: Constant.API.User.currentLongitude_launchtime)
+        return (longitude)
+    }
+    
     // MARK:- Empty user default -
     func resetSettings() {
         UserDefaults.standard.removeObject(forKey: Constant.API.User.userID)

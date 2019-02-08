@@ -54,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+        
+        //Reset launchtime latitude and longitude
+        SettingsManager.shared().setUserLocationLaunchTimeLatitude(0)
+        SettingsManager.shared().setUserLocationLaunchTimeLongitude(0)
     }
     
     // MARK: - Core Data stack
