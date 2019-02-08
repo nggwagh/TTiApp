@@ -15,6 +15,8 @@ enum UserApi {
     case login(email: String, password: String)
     case userDetails()
     case resetPassword(email: String)
+    case deviceDetails(deviceId: String, deviceToken: String)
+
 }
 
 
@@ -33,7 +35,12 @@ extension UserApi: TargetType {
             
         case .resetPassword(_):
             return Constant.API.User.resetPasswordAPIPath
+            
+        case .deviceDetails(_,_):
+            return Constant.API.User.deviceDetailsAPIPath
         }
+        
+        
     }
     
     var method: Moya.Method {
@@ -46,6 +53,10 @@ extension UserApi: TargetType {
             
         case .resetPassword(_):
             return .post
+            
+        case .deviceDetails(_,_):
+            return .post
+
         }
     }
     
@@ -71,6 +82,11 @@ extension UserApi: TargetType {
         case let .resetPassword(email):
             return .requestParameters(parameters:
                 ["email": email],encoding: JSONEncoding.default)
+            
+        case let .deviceDetails(deviceId,deviceToken):
+            return .requestParameters(parameters:
+                ["deviceID": deviceId, "deviceToken": deviceToken],encoding: JSONEncoding.default)
+            
         }
     }
     

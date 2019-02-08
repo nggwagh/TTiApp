@@ -28,6 +28,8 @@ struct Constant {
             static let currentLatitude_launchtime = "currentLatitude_launchtime"
             static let currentLongitude_launchtime = "currentLongitude_launchtime"
             static let resetPasswordAPIPath = "/api/v1/user/reset_password"
+            static let deviceDetailsAPIPath = "/api/v1/user/me/device"
+
         }
 
         struct Store {

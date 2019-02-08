@@ -123,6 +123,12 @@ extension LoginViewController {
                             SettingsManager.shared().setUserRole(userRole.description)
                             RootViewControllerManager.refreshRootViewController()
                         }
+                        
+                        //SEND DEVICE TOKEN TO SERVER FOR PUSH NOTIFICATIONS
+                        if (UserDefaults.standard.value(forKey: "DeviceToken") != nil){
+                            self.registerDeviceToken()
+                        }
+                        
                     }
                     catch let error {
                         print(error.localizedDescription)
@@ -139,6 +145,47 @@ extension LoginViewController {
                 Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
             }
         }
+    }
+    
+    private func registerDeviceToken() {
+        
+       let devicetoken = UserDefaults.standard.value(forKey: "DeviceToken")
+        let deviceID = UIDevice.current.identifierForVendor?.uuidString
+
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
+        MoyaProvider<UserApi>(plugins: [AuthPlugin()]).request(.deviceDetails(deviceId: deviceID!, deviceToken: devicetoken as! String)) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+            //TODO:- make generic solution for error handling
+            case let .success(response) :
+                
+                if case 200..<400 = response.statusCode {
+                    do {
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [String: Any]
+                        print(jsonDict)
+                
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    //TODO:- handle an invaild status code
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+            }
+        }
+        
     }
     
     private func validate() -> Bool {
