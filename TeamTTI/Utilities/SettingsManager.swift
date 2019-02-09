@@ -106,6 +106,17 @@ class SettingsManager: NSObject {
         return (longitude)
     }
     
+    // MARK:- Regions -
+    func setRegions(_ regions: [Region]) {
+        UserDefaults.standard.set(regions, forKey: Constant.API.User.regions)
+        UserDefaults.standard.synchronize()
+    }
+    func getRegions() -> [Region] {
+        let regions = UserDefaults.standard.array(forKey: Constant.API.User.regions)
+        return (regions as! [Region])
+    }
+    
+    
     // MARK:- Empty user default -
     func resetSettings() {
         UserDefaults.standard.removeObject(forKey: Constant.API.User.userID)
@@ -113,6 +124,7 @@ class SettingsManager: NSObject {
         UserDefaults.standard.removeObject(forKey: Constant.API.Login.refreshToken)
         UserDefaults.standard.removeObject(forKey: Constant.API.User.currentLatitude)
         UserDefaults.standard.removeObject(forKey: Constant.API.User.currentLongitude)
+        UserDefaults.standard.removeObject(forKey: Constant.API.User.regions)
 
         UserDefaults.standard.synchronize()
     }

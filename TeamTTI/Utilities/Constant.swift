@@ -30,6 +30,8 @@ struct Constant {
             static let resetPasswordAPIPath = "/api/v1/user/reset_password"
             static let deviceDetailsAPIPath = "/api/v1/user/me/device"
 
+            static let regions = "regions"
+
         }
 
         struct Store {
@@ -49,6 +51,12 @@ struct Constant {
         
         struct Planner {
             static let path = "api/v1/user/me/schedule"
+        }
+        
+        struct Region {
+            static let getRegionsPath = "api/v1/region"
+            static let getRegionsDetailPath = "api/v1/store_objective/summary"
+
         }
     }
 

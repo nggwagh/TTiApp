@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Moya
 
 class ManagerHomeViewController: UIViewController {
     
@@ -17,12 +18,36 @@ class ManagerHomeViewController: UIViewController {
     
     let regionsArray = ["West", "Central East", "Central West", "Central North", "Central South"]
     
-    
+    var allRegionsArray: [RegionDetail]?
+    var selectedRegionArray: [RegionDetail]?
+
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectRegionBackgroundView: UIView!
     @IBOutlet weak var regionTextField: UITextField!
 
+    //MARK:- View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        
+        self.getRegionsList()
+
+        /*
+        //LOAD REGIONS API ONCE
+        if (UserDefaults.standard.bool(forKey: "isRegionsCalled")){
+            self.getRegionsDetail()
+        } else{
+            self.getRegionsList()
+        }
+       */
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         selectRegionBackgroundView.dropShadow(scale: true)
@@ -42,6 +67,101 @@ class ManagerHomeViewController: UIViewController {
     }
     
     //MARK:- Private Methods
+    
+    //PASS THIS FUNCTION REGION ARRAY (SELECTED FROM DROPDOWN) AND ACCORDINGLY SHOW REGION WISE DATA
+    func prepareDataForRegions(RegionSelected: [String]){
+        
+        //USE THIS ARRAY TO SHOW OBJECTIVE STATUS AFTER INSERTING "" AT 0TH INDEX
+        let taskArray = self.allRegionsArray?.compactMap({ return $0.name })
+        
+        //TODO: Filter out details array based on selected regions
+        
+    }
+    
+    func getRegionsList(){
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
+        MoyaProvider<RegionsAPI>(plugins: [AuthPlugin()]).request(.getRegions()) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+            case let .success(response) :
+                
+                if case 200..<400 = response.statusCode {
+                    do {
+                      
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                    
+                        print(jsonDict)
+
+//                        let regionsList = Region.build(from: jsonDict)
+//                        SettingsManager.shared().setRegions(regionsList)
+                        
+                        UserDefaults.standard.set(true, forKey: "isRegionsCalled")
+                        UserDefaults.standard.synchronize()
+                        
+                        self.getRegionsDetail()
+
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getRegionsDetail(){
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
+        MoyaProvider<RegionsAPI>(plugins: [AuthPlugin()]).request(.getRegionsDetail()) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+            case let .success(response) :
+                
+                if case 200..<400 = response.statusCode {
+                    do {
+                        
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        
+                        print(jsonDict)
+                        
+                        self.allRegionsArray = RegionDetail.build(from: jsonDict)
+                        self.prepareDataForRegions(RegionSelected: [""])
+                        
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+            }
+        }
+    }
     
 }
 
