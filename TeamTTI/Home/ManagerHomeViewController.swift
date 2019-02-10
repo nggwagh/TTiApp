@@ -191,7 +191,16 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
             cell.countLabel.text = self.regionsArray[indexPath.row].name
         }
         else {
-            cell.countLabel.text = (self.allRegionsArray[indexPath.section - 1].count?["\(indexPath.row + 1)"])?.description
+            let count = (self.allRegionsArray[indexPath.section - 1].count?["\(indexPath.row + 1)"])
+            cell.countLabel.text = count?.description
+            
+            if (count == 0) {
+                cell.countLabel.textColor = .darkText
+            }
+            else {
+                cell.countLabel.textColor = .white
+                cell.countLabel.backgroundColor = UIColor.init(named: "tti_blue")
+            }
         }
         return cell
     }
