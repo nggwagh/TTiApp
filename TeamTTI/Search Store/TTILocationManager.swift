@@ -227,7 +227,7 @@ class TTILocationManager: NSObject {
                         })
                         
                         //start monitoring for top 5 closest stores
-                        var closestStores: [Store]! = []
+                        var closestStores = [Store]()
                         if stores.count >= 5 {
                             for i in 0...4 {
                                 closestStores.append(stores[i])

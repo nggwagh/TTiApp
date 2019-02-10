@@ -12,20 +12,16 @@ import Moya
 class ManagerHomeViewController: UIViewController {
     
     let reuseIdentifier = "TaskDetailCell" // also enter this string as the cell identifier in the storyboard
-    var items = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
     
-    let taskStatusArray = ["", "In Progress", "Not Scheduled", "Incomplete with Comment", "Scheduled Past Deadline", "Pending Approval", "Past Due", "Completed"]
+    var regionsArray = [Region]()
+    var allRegionsArray = [RegionDetail]()
+    var selectedRegionArray = [RegionDetail]()
     
-    let regionsArray = ["West", "Central East", "Central West", "Central North", "Central South"]
-    
-    var allRegionsArray: [RegionDetail]?
-    var selectedRegionArray: [RegionDetail]?
-
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectRegionBackgroundView: UIView!
     @IBOutlet weak var regionTextField: UITextField!
-
+    
     //MARK:- View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +32,7 @@ class ManagerHomeViewController: UIViewController {
         
         
         self.getRegionsList()
-
+        
         /*
         //LOAD REGIONS API ONCE
         if (UserDefaults.standard.bool(forKey: "isRegionsCalled")){
@@ -44,7 +40,7 @@ class ManagerHomeViewController: UIViewController {
         } else{
             self.getRegionsList()
         }
-       */
+        */
         
     }
     
@@ -72,7 +68,7 @@ class ManagerHomeViewController: UIViewController {
     func prepareDataForRegions(RegionSelected: [String]){
         
         //USE THIS ARRAY TO SHOW OBJECTIVE STATUS AFTER INSERTING "" AT 0TH INDEX
-        let taskArray = self.allRegionsArray?.compactMap({ return $0.name })
+        let taskArray = self.allRegionsArray.compactMap({ return $0.name })
         
         //TODO: Filter out details array based on selected regions
         
@@ -93,19 +89,19 @@ class ManagerHomeViewController: UIViewController {
                 
                 if case 200..<400 = response.statusCode {
                     do {
-                      
+                        
                         let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
-                    
+                        
                         print(jsonDict)
-
-//                        let regionsList = Region.build(from: jsonDict)
-//                        SettingsManager.shared().setRegions(regionsList)
+                        
+                        self.regionsArray = Region.build(from: jsonDict)
+                        //                        SettingsManager.shared().setRegions(self.regionsArray)
                         
                         UserDefaults.standard.set(true, forKey: "isRegionsCalled")
                         UserDefaults.standard.synchronize()
                         
                         self.getRegionsDetail()
-
+                        
                     }
                     catch let error {
                         print(error.localizedDescription)
@@ -145,7 +141,10 @@ class ManagerHomeViewController: UIViewController {
                         
                         self.allRegionsArray = RegionDetail.build(from: jsonDict)
                         self.prepareDataForRegions(RegionSelected: [""])
-                        
+                        if (self.allRegionsArray.count > 0) {
+                            self.collectionView.reloadData()
+                            self.tableView.reloadData()
+                        }
                     }
                     catch let error {
                         print(error.localizedDescription)
@@ -169,7 +168,10 @@ class ManagerHomeViewController: UIViewController {
 extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return taskStatusArray.count
+        if self.allRegionsArray.count > 0 {
+            return self.allRegionsArray.count + 1
+        }
+        else { return 1 }
     }
     
     // tell the collection view how many cells to make
@@ -186,10 +188,10 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         if (indexPath.section == 0) {
             cell.countLabel.numberOfLines = 0
-            cell.countLabel.text = self.regionsArray[indexPath.row]
+            cell.countLabel.text = self.regionsArray[indexPath.row].name
         }
         else {
-            cell.countLabel.text = self.items[indexPath.section]
+            cell.countLabel.text = (self.allRegionsArray[indexPath.section - 1].count?["\(indexPath.row + 1)"])?.description
         }
         return cell
     }
@@ -209,16 +211,18 @@ extension ManagerHomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskStatusArray.count
+        return self.allRegionsArray.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
         
-        tableViewCell.textLabel?.text = taskStatusArray[indexPath.row]
-        tableViewCell.textLabel?.numberOfLines = 0
-        tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 14)
-        tableViewCell.textLabel?.textColor = .darkText
+        if (indexPath.row > 0) {
+            tableViewCell.textLabel?.text = self.allRegionsArray[indexPath.row - 1].name
+            tableViewCell.textLabel?.numberOfLines = 0
+            tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 14)
+            tableViewCell.textLabel?.textColor = .darkText
+        }
         return tableViewCell
     }
 }
