@@ -195,6 +195,9 @@
                                     <constraint firstAttribute="width" constant="32" id="TW2-u3-uMt"/>
                                 </constraints>
                                 <state key="normal" image="left_menu"/>
+                                <connections>
+                                    <action selector="leftMenuClicked" destination="n8u-Ax-3BY" eventType="touchUpInside" id="SgK-rN-CO8"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>

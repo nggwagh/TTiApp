@@ -8,6 +8,7 @@
 
 import UIKit
 import Moya
+import MMDrawerController
 
 class ManagerHomeViewController: UIViewController {
     
@@ -50,6 +51,18 @@ class ManagerHomeViewController: UIViewController {
     }
     
     //MARK: - IBAction methods
+    
+    @IBAction func leftMenuClicked() {
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true) { status in
+            //Disable tableview interaction when side menu is open
+            if RootViewControllerFactory.centerContainer.openSide == MMDrawerSide.left{
+                self.view.isUserInteractionEnabled = false
+            }
+            else{
+                self.view.isUserInteractionEnabled = true
+            }
+        }
+    }
     
     @IBAction func nextPageButtonClicked(_ sender: AnyObject) {
         
