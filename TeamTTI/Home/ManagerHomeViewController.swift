@@ -13,9 +13,9 @@ class ManagerHomeViewController: UIViewController {
     
     let reuseIdentifier = "TaskDetailCell" // also enter this string as the cell identifier in the storyboard
     
-    var regionsArray = [Region]()
-    var allRegionsArray = [RegionDetail]()
-    var selectedRegionArray = [RegionDetail]()
+    var allRegionsArray = [Region]()
+    var selectedRegionsArray = [Region]()
+    var regionDetailsArray = [RegionDetail]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
@@ -34,13 +34,13 @@ class ManagerHomeViewController: UIViewController {
         self.getRegionsList()
         
         /*
-        //LOAD REGIONS API ONCE
-        if (UserDefaults.standard.bool(forKey: "isRegionsCalled")){
-            self.getRegionsDetail()
-        } else{
-            self.getRegionsList()
-        }
-        */
+         //LOAD REGIONS API ONCE
+         if (UserDefaults.standard.bool(forKey: "isRegionsCalled")){
+         self.getRegionsDetail()
+         } else{
+         self.getRegionsList()
+         }
+         */
         
     }
     
@@ -65,13 +65,13 @@ class ManagerHomeViewController: UIViewController {
     //MARK:- Private Methods
     
     //PASS THIS FUNCTION REGION ARRAY (SELECTED FROM DROPDOWN) AND ACCORDINGLY SHOW REGION WISE DATA
-    func prepareDataForRegions(RegionSelected: [String]){
+    func prepareDataForRegions(regionSelected: [String]){
         
-        //USE THIS ARRAY TO SHOW OBJECTIVE STATUS AFTER INSERTING "" AT 0TH INDEX
-        let taskArray = self.allRegionsArray.compactMap({ return $0.name })
-        
-        //TODO: Filter out details array based on selected regions
-        
+        if (regionSelected.count > 0) {
+            //TODO: Filter out details array based on selected regions
+            self.selectedRegionsArray = self.allRegionsArray.filter({ regionSelected.contains($0.name!) })
+            print(self.selectedRegionsArray)
+        }
     }
     
     func getRegionsList(){
@@ -94,8 +94,8 @@ class ManagerHomeViewController: UIViewController {
                         
                         print(jsonDict)
                         
-                        self.regionsArray = Region.build(from: jsonDict)
-                        //                        SettingsManager.shared().setRegions(self.regionsArray)
+                        self.allRegionsArray = Region.build(from: jsonDict)
+                        //                        SettingsManager.shared().setRegions(self.allRegionsArray)
                         
                         UserDefaults.standard.set(true, forKey: "isRegionsCalled")
                         UserDefaults.standard.synchronize()
@@ -139,9 +139,10 @@ class ManagerHomeViewController: UIViewController {
                         
                         print(jsonDict)
                         
-                        self.allRegionsArray = RegionDetail.build(from: jsonDict)
-                        self.prepareDataForRegions(RegionSelected: [""])
-                        if (self.allRegionsArray.count > 0) {
+                        self.regionDetailsArray = RegionDetail.build(from: jsonDict)
+                        self.selectedRegionsArray = self.allRegionsArray
+                        self.prepareDataForRegions(regionSelected: ["West", "East", "Central East"])
+                        if (self.regionDetailsArray.count > 0) {
                             self.collectionView.reloadData()
                             self.tableView.reloadData()
                         }
@@ -168,15 +169,15 @@ class ManagerHomeViewController: UIViewController {
 extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if self.allRegionsArray.count > 0 {
-            return self.allRegionsArray.count + 1
+        if self.regionDetailsArray.count > 0 {
+            return self.regionDetailsArray.count + 1
         }
         else { return 1 }
     }
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return regionsArray.count
+        return selectedRegionsArray.count
     }
     
     // make a cell for each cell index path
@@ -188,10 +189,11 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         if (indexPath.section == 0) {
             cell.countLabel.numberOfLines = 0
-            cell.countLabel.text = self.regionsArray[indexPath.row].name
+            cell.countLabel.text = self.selectedRegionsArray[indexPath.row].name
         }
         else {
-            let count = (self.allRegionsArray[indexPath.section - 1].count?["\(indexPath.row + 1)"])
+            
+            let count = (self.regionDetailsArray[indexPath.section - 1].count?[(self.selectedRegionsArray[indexPath.row].id?.description)!])
             cell.countLabel.text = count?.description
             
             if (count == 0) {
@@ -208,8 +210,12 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
     // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // handle tap events
-        print("You selected cell #\(indexPath)!")
+        let count = (self.regionDetailsArray[indexPath.section - 1].count?[(self.selectedRegionsArray[indexPath.row].id?.description)!])
+        
+        if (count! > 0) {
+            // handle tap events
+            print("You selected cell count\(String(describing: count?.description))!")
+        }
     }
 }
 
@@ -220,14 +226,14 @@ extension ManagerHomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.allRegionsArray.count + 1
+        return self.regionDetailsArray.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
         
         if (indexPath.row > 0) {
-            tableViewCell.textLabel?.text = self.allRegionsArray[indexPath.row - 1].name
+            tableViewCell.textLabel?.text = self.regionDetailsArray[indexPath.row - 1].name
             tableViewCell.textLabel?.numberOfLines = 0
             tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 14)
             tableViewCell.textLabel?.textColor = .darkText
