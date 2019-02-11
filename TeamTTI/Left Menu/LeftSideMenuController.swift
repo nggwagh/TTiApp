@@ -90,10 +90,20 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         switch(indexPath.row)
         {
         case 0:
-            let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
-            let homeViewController = homeStoryboard.instantiateInitialViewController()
-            RootViewControllerFactory.centerContainer.centerViewController = homeViewController
+            
+            let role = SettingsManager.shared().getUserRole()
+            if (role == "1" || role == "2") {
+                let managerHomeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id_manager, bundle: nil)
+                let managerHomeViewController = managerHomeStoryboard.instantiateInitialViewController()
+                RootViewControllerFactory.centerContainer.centerViewController = managerHomeViewController
+            }
+            else {
+                let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
+                let homeViewController = homeStoryboard.instantiateInitialViewController()
+                RootViewControllerFactory.centerContainer.centerViewController = homeViewController
+            }
             RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+            
             break;
         case 1:
             
