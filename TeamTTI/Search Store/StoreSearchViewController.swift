@@ -34,7 +34,7 @@ class StoreSearchViewController: UIViewController {
     
     weak var delegate: StoreSearchViewControllerDelegate?
     
-    @IBOutlet private weak var searchedStoreTableView: UITableView!
+    @IBOutlet weak var searchedStoreTableView: UITableView!
     @IBOutlet private weak var searchBar: UISearchBar!
 
     override func viewDidLoad() {
@@ -63,7 +63,9 @@ class StoreSearchViewController: UIViewController {
     }
     
     func buildStoreSectionsArray(){
+        
         var storesArray : [Store] = stores
+        closestStores.removeAll()
         
         myStores = storesArray.filter({$0.userID == Int(SettingsManager.shared().getUserID()!)})
         
