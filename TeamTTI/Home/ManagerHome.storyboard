@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z67-ub-8yA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z67-ub-8yA">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,6 +40,9 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="n8u-Ax-3BY" id="B9g-fO-KUK"/>
+                                                </connections>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down_arrow_blue" translatesAutoresizingMaskIntoConstraints="NO" id="nFp-gd-2re">
                                                 <rect key="frame" x="300" y="0.0" width="15" height="35"/>
@@ -168,18 +171,46 @@
                                     <constraint firstAttribute="trailing" secondItem="uAe-5Z-V1M" secondAttribute="trailing" id="t1m-pZ-6BM"/>
                                 </constraints>
                             </view>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sqs-tX-Tlt">
+                                <rect key="frame" x="5" y="164.5" width="365" height="502.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="yEa-IV-dbQ">
+                                    <rect key="frame" x="0.0" y="78" width="365" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableViewCell" id="5fA-Qq-vwS">
+                                        <rect key="frame" x="0.0" y="28" width="365" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5fA-Qq-vwS" id="1Jo-9u-nVI">
+                                            <rect key="frame" x="0.0" y="0.0" width="365" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="n8u-Ax-3BY" id="rBY-y8-ggg"/>
+                                    <outlet property="delegate" destination="n8u-Ax-3BY" id="9Cp-xM-dXT"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="p8w-dK-8Wx" firstAttribute="trailing" secondItem="NNK-0U-Dpc" secondAttribute="trailing" constant="20" id="2Jh-8Y-xlz"/>
+                            <constraint firstItem="Sqs-tX-Tlt" firstAttribute="leading" secondItem="p8w-dK-8Wx" secondAttribute="leading" constant="5" id="3xM-FR-1vg"/>
                             <constraint firstItem="Kuc-UD-sal" firstAttribute="top" secondItem="p8w-dK-8Wx" secondAttribute="top" constant="15" id="7Zb-VH-I1M"/>
                             <constraint firstItem="NNK-0U-Dpc" firstAttribute="leading" secondItem="p8w-dK-8Wx" secondAttribute="leading" constant="20" id="9OF-Hb-0C1"/>
                             <constraint firstItem="p8w-dK-8Wx" firstAttribute="trailing" secondItem="Kuc-UD-sal" secondAttribute="trailing" constant="20" id="CW7-dq-RuS"/>
                             <constraint firstItem="74m-1Q-XgP" firstAttribute="top" secondItem="NNK-0U-Dpc" secondAttribute="bottom" constant="15" id="ECq-QL-bt8"/>
                             <constraint firstItem="74m-1Q-XgP" firstAttribute="leading" secondItem="gFH-PI-UTu" secondAttribute="leading" id="Sbf-6F-qzF"/>
+                            <constraint firstItem="p8w-dK-8Wx" firstAttribute="bottom" secondItem="Sqs-tX-Tlt" secondAttribute="bottom" id="WrS-ND-q5T"/>
                             <constraint firstAttribute="trailing" secondItem="74m-1Q-XgP" secondAttribute="trailing" id="Zrh-QH-enX"/>
+                            <constraint firstItem="p8w-dK-8Wx" firstAttribute="trailing" secondItem="Sqs-tX-Tlt" secondAttribute="trailing" constant="5" id="ail-87-tCE"/>
                             <constraint firstItem="NNK-0U-Dpc" firstAttribute="top" secondItem="Kuc-UD-sal" secondAttribute="bottom" constant="10" id="bDD-Nu-Spf"/>
                             <constraint firstItem="Kuc-UD-sal" firstAttribute="leading" secondItem="p8w-dK-8Wx" secondAttribute="leading" constant="20" id="clC-wR-nt6"/>
+                            <constraint firstItem="Sqs-tX-Tlt" firstAttribute="top" secondItem="NNK-0U-Dpc" secondAttribute="bottom" constant="15" id="ruc-O8-Rce"/>
                             <constraint firstAttribute="bottom" secondItem="74m-1Q-XgP" secondAttribute="bottom" id="yLs-EP-8cn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="p8w-dK-8Wx"/>
@@ -204,6 +235,7 @@
                     <connections>
                         <outlet property="collectionView" destination="UcB-1h-xWU" id="Bmr-QU-a0j"/>
                         <outlet property="regionTextField" destination="gYC-26-kUn" id="C0D-27-Ruy"/>
+                        <outlet property="regionsTableView" destination="Sqs-tX-Tlt" id="Uqw-Ke-sIY"/>
                         <outlet property="selectRegionBackgroundView" destination="NNK-0U-Dpc" id="K4C-iX-Tza"/>
                         <outlet property="tableView" destination="yqo-df-j1j" id="KI7-VU-oCa"/>
                     </connections>
@@ -238,7 +270,7 @@
     </scenes>
     <resources>
         <image name="down_arrow_blue" width="17" height="11"/>
-        <image name="left_menu" width="23" height="16"/>
+        <image name="left_menu" width="23" height="16.5"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

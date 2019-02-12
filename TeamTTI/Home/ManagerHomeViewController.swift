@@ -20,6 +20,7 @@ class ManagerHomeViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var regionsTableView: UITableView!
     @IBOutlet weak var selectRegionBackgroundView: UIView!
     @IBOutlet weak var regionTextField: UITextField!
     
@@ -77,16 +78,6 @@ class ManagerHomeViewController: UIViewController {
     
     //MARK:- Private Methods
     
-    //PASS THIS FUNCTION REGION ARRAY (SELECTED FROM DROPDOWN) AND ACCORDINGLY SHOW REGION WISE DATA
-    func prepareDataForRegions(regionSelected: [String]){
-        
-        if (regionSelected.count > 0) {
-            //TODO: Filter out details array based on selected regions
-            self.selectedRegionsArray = self.allRegionsArray.filter({ regionSelected.contains($0.name!) })
-            print(self.selectedRegionsArray)
-        }
-    }
-    
     func getRegionsList(){
         
         //show progress hud
@@ -109,7 +100,10 @@ class ManagerHomeViewController: UIViewController {
                         
                         self.allRegionsArray = Region.build(from: jsonDict)
                         //                        SettingsManager.shared().setRegions(self.allRegionsArray)
-                        
+                        self.selectedRegionsArray = self.allRegionsArray
+                        self.allRegionsArray.append(Region.init(id: 99, name: "View All", code: ""))
+                        self.regionsTableView.reloadData()
+
                         UserDefaults.standard.set(true, forKey: "isRegionsCalled")
                         UserDefaults.standard.synchronize()
                         
@@ -153,8 +147,6 @@ class ManagerHomeViewController: UIViewController {
                         print(jsonDict)
                         
                         self.regionDetailsArray = RegionDetail.build(from: jsonDict)
-                        self.selectedRegionsArray = self.allRegionsArray
-                        self.prepareDataForRegions(regionSelected: ["West", "East", "Central East"])
                         if (self.regionDetailsArray.count > 0) {
                             self.collectionView.reloadData()
                             self.tableView.reloadData()
@@ -239,22 +231,58 @@ extension ManagerHomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.regionDetailsArray.count + 1
+        if (tableView == self.tableView) {
+            return self.regionDetailsArray.count + 1
+        }
+        else {
+            return self.allRegionsArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
         
-        if (indexPath.row > 0) {
-            tableViewCell.textLabel?.text = self.regionDetailsArray[indexPath.row - 1].name
-            tableViewCell.textLabel?.numberOfLines = 0
-            tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 14)
-            tableViewCell.textLabel?.textColor = .darkText
+        if (tableView == self.tableView) {
+            if (indexPath.row > 0) {
+                tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 14)
+                tableViewCell.textLabel?.text = self.regionDetailsArray[indexPath.row - 1].name
+                tableViewCell.textLabel?.textColor = .darkText
+                tableViewCell.textLabel?.numberOfLines = 0
+            }
         }
+        else {
+            tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 16)
+            tableViewCell.textLabel?.text = self.allRegionsArray[indexPath.row].name
+            tableViewCell.textLabel?.textColor = .darkGray
+            
+            let isSelected = self.selectedRegionsArray.contains(where: { $0.name == self.allRegionsArray[indexPath.row].name})
+            if (isSelected) {
+                tableViewCell.accessoryView = UIImageView.init(image: UIImage.init(named: "objective_complete"))
+            }
+            else {
+                tableViewCell.accessoryView = nil
+            }
+        }
+        
         return tableViewCell
     }
 }
 
+extension ManagerHomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (tableView == self.regionsTableView) {
+            
+            let isSelected = self.selectedRegionsArray.contains(where: { $0.name == self.allRegionsArray[indexPath.row].name })
+            if (isSelected) {
+                self.selectedRegionsArray = self.selectedRegionsArray.filter({ $0.name != self.allRegionsArray[indexPath.row].name })
+            }
+            else {
+                self.selectedRegionsArray.append(self.allRegionsArray[indexPath.row])
+            }
+            self.regionsTableView.reloadData()
+        }
+    }
+}
 
 extension ManagerHomeViewController: UIScrollViewDelegate {
     
@@ -265,5 +293,12 @@ extension ManagerHomeViewController: UIScrollViewDelegate {
         else if (scrollView == self.collectionView) {
             self.tableView.contentOffset.y = self.collectionView.contentOffset.y
         }
+    }
+}
+
+extension ManagerHomeViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.regionsTableView.isHidden = !self.regionsTableView.isHidden;
+        return false
     }
 }
