@@ -338,13 +338,20 @@ class HomeViewController: UIViewController, DateElementDelegate {
     }
     
     func initializeStoreSearchController() {
-        let storyboard =  UIStoryboard.init(name: "Home", bundle: nil)
-        storeSearchViewController = storyboard.instantiateViewController(withIdentifier: "StoreSearchViewController") as! StoreSearchViewController
-        storeSearchViewController.delegate = self
+        
+        if !isAlreadyShownSearchView {
+            let storyboard =  UIStoryboard.init(name: "Home", bundle: nil)
+            storeSearchViewController = storyboard.instantiateViewController(withIdentifier: "StoreSearchViewController") as! StoreSearchViewController
+            storeSearchViewController.delegate = self
+            let rect = CGRect(x: self.view.bounds.origin.x, y: self.tableView.frame.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+            storeSearchViewController.view.frame = rect
+        }
         storeSearchViewController.stores = self.stores ?? [Store]()
         storeSearchViewController.buildStoreSectionsArray()
-        let rect = CGRect(x: self.view.bounds.origin.x, y: self.tableView.frame.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-        storeSearchViewController.view.frame = rect
+        
+        if isAlreadyShownSearchView {
+            storeSearchViewController.searchedStoreTableView.reloadData()
+        }
     }
     
     func saveScheduledDate(selectedDate: Date, comment: String){
