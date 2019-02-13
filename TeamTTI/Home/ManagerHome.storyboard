@@ -119,8 +119,12 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="75" height="65"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjD-4n-WzJ">
-                                                            <rect key="frame" x="8" y="22.5" width="59" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="111" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="kjD-4n-WzJ">
+                                                            <rect key="frame" x="22.5" y="17.5" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="CtL-NJ-ZUO"/>
+                                                                <constraint firstAttribute="width" constant="30" id="jlZ-5g-DFT"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -139,16 +143,16 @@
                                                 </view>
                                                 <constraints>
                                                     <constraint firstItem="yiF-Tf-kIi" firstAttribute="leading" secondItem="Jev-yR-zbR" secondAttribute="leadingMargin" constant="-8" id="4Ep-Nq-7fG"/>
+                                                    <constraint firstItem="kjD-4n-WzJ" firstAttribute="centerX" secondItem="Jev-yR-zbR" secondAttribute="centerX" id="EAm-bo-zfQ"/>
                                                     <constraint firstAttribute="bottomMargin" secondItem="yiF-Tf-kIi" secondAttribute="bottom" constant="-8" id="EyV-7G-T7S"/>
-                                                    <constraint firstAttribute="trailingMargin" secondItem="kjD-4n-WzJ" secondAttribute="trailing" id="MVZ-Tp-NxC"/>
                                                     <constraint firstAttribute="trailing" secondItem="yiF-Tf-kIi" secondAttribute="trailing" id="SJM-Uo-ryu"/>
-                                                    <constraint firstItem="kjD-4n-WzJ" firstAttribute="centerX" secondItem="Jev-yR-zbR" secondAttribute="centerX" id="TMn-p1-sqh"/>
-                                                    <constraint firstItem="kjD-4n-WzJ" firstAttribute="centerY" secondItem="Jev-yR-zbR" secondAttribute="centerY" id="e74-8A-gsn"/>
-                                                    <constraint firstItem="kjD-4n-WzJ" firstAttribute="leading" secondItem="Jev-yR-zbR" secondAttribute="leadingMargin" id="tMS-DH-F1w"/>
+                                                    <constraint firstItem="kjD-4n-WzJ" firstAttribute="centerY" secondItem="Jev-yR-zbR" secondAttribute="centerY" id="cWe-MQ-Fmm"/>
                                                 </constraints>
                                                 <size key="customSize" width="75" height="65"/>
                                                 <connections>
                                                     <outlet property="countLabel" destination="kjD-4n-WzJ" id="iyI-u7-bdM"/>
+                                                    <outlet property="labelHeight" destination="CtL-NJ-ZUO" id="54h-oS-nxq"/>
+                                                    <outlet property="labelWidth" destination="jlZ-5g-DFT" id="wsn-jf-5oU"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

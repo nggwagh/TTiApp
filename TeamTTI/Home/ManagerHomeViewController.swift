@@ -12,8 +12,6 @@ import MMDrawerController
 
 class ManagerHomeViewController: UIViewController {
     
-    let reuseIdentifier = "TaskDetailCell" // also enter this string as the cell identifier in the storyboard
-    
     var allRegionsArray = [Region]()
     var selectedRegionsArray = [Region]()
     var regionDetailsArray = [RegionDetail]()
@@ -104,9 +102,10 @@ class ManagerHomeViewController: UIViewController {
                         print(jsonDict)
                         
                         self.allRegionsArray = Region.build(from: jsonDict)
-                        //                        SettingsManager.shared().setRegions(self.allRegionsArray)
+                        self.allRegionsArray.append(Region.init(id: 99, name: "View All", code: ""))
+
+                        //SettingsManager.shared().setRegions(self.allRegionsArray)
                         let role = SettingsManager.shared().getUserRole()
-                        
                         
                         if (role == "1") {
                             //View all for admin
@@ -117,7 +116,7 @@ class ManagerHomeViewController: UIViewController {
                             self.selectedRegionsArray = self.allRegionsArray.filter({ $0.id == SettingsManager.shared().getDefaultRegionID() })
                         }
                         
-                        self.allRegionsArray.append(Region.init(id: 99, name: "View All", code: ""))
+                        self.updateRegionField()
                         self.regionsTableView.reloadData()
 
                         UserDefaults.standard.set(true, forKey: "isRegionsCalled")
@@ -221,6 +220,8 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        let reuseIdentifier = "TaskDetailCell"
+        
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! TaskDetailCollectionViewCell
         
@@ -234,20 +235,24 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.countLabel.text = self.selectedRegionsArray[indexPath.row].name
                 cell.countLabel.backgroundColor = .white
                 cell.countLabel.textColor = .darkText
+                cell.setLabel(size: 70, height: 60)
             }
         }
         else {
-            
+            cell.setLabel(size: 30, height: 30)
             let count = (self.regionDetailsArray[indexPath.section - 1].count?[(self.selectedRegionsArray[indexPath.row].id?.description)!])
             cell.countLabel.text = count?.description
             
             if (count == 0) {
                 cell.countLabel.textColor = .darkText
                 cell.countLabel.backgroundColor = .white
+                cell.countLabel.layer.cornerRadius = 0
             }
             else {
                 cell.countLabel.textColor = .white
-                cell.countLabel.backgroundColor = UIColor.init(named: "tti_blue")
+                cell.countLabel.backgroundColor = UIColor.init(red: 86.0/255.0, green: 178.0/255.0, blue: 170.0/255.0, alpha: 1)
+                cell.countLabel.layer.cornerRadius = 15
+                cell.countLabel.layer.masksToBounds = true
             }
         }
         return cell
@@ -272,10 +277,8 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
             if (indexPath.row == self.collectionView.numberOfItems(inSection: indexPath.section) - 1) { //it's your last cell
                 //Load more data & reload your collection view
                 self.nextPreviousRegionScrollButton.setTitle("<--", for: UIControlState.normal)
-                print("last cell")
             }
             else if (indexPath.row == 0) {
-                print("first cell")
                 self.nextPreviousRegionScrollButton.setTitle("-->", for: UIControlState.normal)
             }
         }
