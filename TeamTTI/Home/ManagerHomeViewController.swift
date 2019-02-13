@@ -79,6 +79,12 @@ class ManagerHomeViewController: UIViewController {
         }
     }
     
+    @IBAction func submitButtonTapped(_ sender: AnyObject) {
+        self.regionsTableView.isHidden = true
+        self.updateRegionField()
+        self.collectionView.reloadData()
+    }
+    
     //MARK:- Private Methods
     
     func getRegionsList(){
@@ -354,7 +360,6 @@ extension ManagerHomeViewController: UITableViewDelegate {
                     self.selectedRegionsArray.append(self.allRegionsArray[indexPath.row])
                 }
             }
-            self.updateRegionField()
             self.regionsTableView.reloadData()
         }
     }
@@ -375,9 +380,6 @@ extension ManagerHomeViewController: UIScrollViewDelegate {
 extension ManagerHomeViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.regionsTableView.isHidden = !self.regionsTableView.isHidden;
-        if (self.regionsTableView.isHidden) {
-            self.collectionView.reloadData()
-        }
         return false
     }
 }
