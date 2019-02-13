@@ -96,7 +96,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         super.viewDidLayoutSubviews()
         
         if (isViewEditable! && !isViewLoadedForFirstTime) {
-            completionTypesBackgroundView.dropShadow(scale: true)
+            completionTypesBackgroundView.dropShadow(color: .gray, shadowOpacity: 0.5, shadowSize: 0.5)
         }
     }
     
@@ -386,8 +386,8 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         if  isViewEditable! {
             statusStackView.isHidden = true
             completionTypeAndStatusPartition.isHidden = true
-            reasonBackgroundView.dropShadow(scale: true)
-            scheduledDateBackgroundView.dropShadow(scale: true)
+            reasonBackgroundView.dropShadow(color: .gray, shadowOpacity: 0.5, shadowSize: 0.5)
+            scheduledDateBackgroundView.dropShadow(color: .gray, shadowOpacity: 0.5, shadowSize: 0.5)
             completionTypeDropdownArrow.isHidden = false
             commentTextView.isUserInteractionEnabled = true
             commentTextView.placeholder = "Type your comment here"

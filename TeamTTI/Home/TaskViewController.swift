@@ -46,7 +46,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        scheduledDateBackgroundView.dropShadow(scale: true)
+        scheduledDateBackgroundView.dropShadow(color: .gray, shadowOpacity: 0.5, shadowSize: 0.5)
     }
     
     // MARK: - Private Methods

@@ -44,28 +44,14 @@ extension UIView {
         }
     }
     
-    func dropShadow(scale: Bool = true) {
+    func dropShadow(color: UIColor, shadowOpacity: Float = 0.5, shadowSize: CGFloat = 1) {
+        let frame = CGRect(x: -shadowSize, y: -shadowSize, width: (self.frame.width + (2 * shadowSize)) , height: (self.frame.height + (2 * shadowSize)))
+        let shadowPath = UIBezierPath(rect: frame)
         layer.masksToBounds = false
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: -1, height: 1)
-        layer.shadowRadius = 1
-        
-        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
-        layer.shouldRasterize = true
-        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
-    }
-    
-    func dropShadowWith(color: UIColor, opacity: Float = 0.5, offSet: CGSize, radius: CGFloat = 1, scale: Bool = true) {
-        layer.masksToBounds = false
-        layer.shadowColor = color.cgColor
-        layer.shadowOpacity = opacity
-        layer.shadowOffset = offSet
-        layer.shadowRadius = radius
-        
-        layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        layer.shouldRasterize = true
-        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
     }
     
     func removeShadow() {

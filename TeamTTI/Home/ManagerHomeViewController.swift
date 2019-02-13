@@ -23,7 +23,8 @@ class ManagerHomeViewController: UIViewController {
     @IBOutlet weak var regionsTableView: UITableView!
     @IBOutlet weak var selectRegionBackgroundView: UIView!
     @IBOutlet weak var regionTextField: UITextField!
-    
+    @IBOutlet weak var nextPreviousRegionScrollButton: UIButton!
+
     //MARK:- View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,7 @@ class ManagerHomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        selectRegionBackgroundView.dropShadow(scale: true)
+        selectRegionBackgroundView.dropShadow(color: .gray, shadowOpacity: 0.5, shadowSize: 0.2)
     }
     
     //MARK: - IBAction methods
@@ -67,13 +68,17 @@ class ManagerHomeViewController: UIViewController {
     
     @IBAction func nextPageButtonClicked(_ sender: AnyObject) {
         
-        guard let indexPath = collectionView.indexPathsForVisibleItems.first.flatMap({
-            IndexPath(item: $0.row + 2, section: $0.section)
-        }), collectionView.cellForItem(at: indexPath) != nil else {
-            return
+        let indexPaths = collectionView.indexPathsForVisibleItems.filter({ $0.section == 1 })
+        var indexPath = IndexPath(row: (indexPaths.first?.row)!, section:(indexPaths.first?.section)! )
+
+        if (self.nextPreviousRegionScrollButton.titleLabel?.text == "<--") {
+            indexPath.row = (indexPath.row) - 1
+            collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
         }
-        
-        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        else if (self.nextPreviousRegionScrollButton.titleLabel?.text == "-->") {
+            indexPath.row = (indexPath.row) + 1
+            collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        }
     }
     
     //MARK:- Private Methods
@@ -179,6 +184,13 @@ class ManagerHomeViewController: UIViewController {
         }
     }
     
+    func updateRegionField() {
+        let regionNames = self.selectedRegionsArray.compactMap {
+            return $0.name
+        }
+        
+        self.regionTextField.text = regionNames.joined(separator: ", ")
+    }
 }
 
 
@@ -249,6 +261,23 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
         if (count! > 0) {
             // handle tap events
             print("You selected cell count\(String(describing: count?.description))!")
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if (self.selectedRegionsArray.count <= 3) {
+            self.nextPreviousRegionScrollButton.setTitle("", for: UIControlState.normal)
+        }
+        else {
+            if (indexPath.row == self.collectionView.numberOfItems(inSection: indexPath.section) - 1) { //it's your last cell
+                //Load more data & reload your collection view
+                self.nextPreviousRegionScrollButton.setTitle("<--", for: UIControlState.normal)
+                print("last cell")
+            }
+            else if (indexPath.row == 0) {
+                print("first cell")
+                self.nextPreviousRegionScrollButton.setTitle("-->", for: UIControlState.normal)
+            }
         }
     }
 }
@@ -322,6 +351,7 @@ extension ManagerHomeViewController: UITableViewDelegate {
                     self.selectedRegionsArray.append(self.allRegionsArray[indexPath.row])
                 }
             }
+            self.updateRegionField()
             self.regionsTableView.reloadData()
         }
     }
