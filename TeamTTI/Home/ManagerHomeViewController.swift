@@ -22,6 +22,7 @@ class ManagerHomeViewController: UIViewController {
     @IBOutlet weak var selectRegionBackgroundView: UIView!
     @IBOutlet weak var regionTextField: UITextField!
     @IBOutlet weak var nextPreviousRegionScrollButton: UIButton!
+    @IBOutlet weak var arrowImageView: UIImageView!
 
     //MARK:- View Lifecycle
     override func viewDidLoad() {
@@ -193,7 +194,7 @@ class ManagerHomeViewController: UIViewController {
         let regionNames = self.selectedRegionsArray.compactMap {
             return $0.name
         }
-        
+        self.arrowImageView.image = UIImage(named: "down_arrow_blue")
         self.regionTextField.text = regionNames.joined(separator: ", ")
     }
 }
@@ -379,7 +380,8 @@ extension ManagerHomeViewController: UIScrollViewDelegate {
 
 extension ManagerHomeViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.regionsTableView.isHidden = !self.regionsTableView.isHidden;
+        self.regionsTableView.isHidden = false;
+        self.arrowImageView.image = UIImage(named: "up_arrow_blue")
         return false
     }
 }

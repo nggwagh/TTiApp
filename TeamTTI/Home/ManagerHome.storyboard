@@ -261,6 +261,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="arrowImageView" destination="nFp-gd-2re" id="vdC-B8-cn9"/>
                         <outlet property="collectionView" destination="UcB-1h-xWU" id="Bmr-QU-a0j"/>
                         <outlet property="nextPreviousRegionScrollButton" destination="uAe-5Z-V1M" id="LiU-0X-icO"/>
                         <outlet property="regionTextField" destination="gYC-26-kUn" id="C0D-27-Ruy"/>
