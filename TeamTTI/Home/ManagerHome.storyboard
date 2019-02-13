@@ -90,7 +90,7 @@
                                         <view key="tableFooterView" contentMode="scaleToFill" id="bYn-Kk-GLM">
                                             <rect key="frame" x="0.0" y="66" width="120" height="0.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" name="nav_title_color"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="65" id="wbJ-UR-8Tt">
@@ -153,6 +153,7 @@
                                                     <outlet property="countLabel" destination="kjD-4n-WzJ" id="iyI-u7-bdM"/>
                                                     <outlet property="labelHeight" destination="CtL-NJ-ZUO" id="54h-oS-nxq"/>
                                                     <outlet property="labelWidth" destination="jlZ-5g-DFT" id="wsn-jf-5oU"/>
+                                                    <outlet property="lineLabel" destination="yiF-Tf-kIi" id="4f0-kp-FWF"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -267,6 +268,7 @@
                         <outlet property="regionTextField" destination="gYC-26-kUn" id="C0D-27-Ruy"/>
                         <outlet property="regionsTableView" destination="Sqs-tX-Tlt" id="Uqw-Ke-sIY"/>
                         <outlet property="selectRegionBackgroundView" destination="NNK-0U-Dpc" id="K4C-iX-Tza"/>
+                        <outlet property="tableFooterView" destination="bYn-Kk-GLM" id="7G7-HB-q8K"/>
                         <outlet property="tableView" destination="yqo-df-j1j" id="KI7-VU-oCa"/>
                     </connections>
                 </viewController>

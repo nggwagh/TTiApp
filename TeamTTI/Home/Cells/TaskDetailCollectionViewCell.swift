@@ -12,7 +12,8 @@ class TaskDetailCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var labelWidth: NSLayoutConstraint!
     @IBOutlet weak var labelHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var lineLabel: UILabel!
+
     public func setLabel(size width: CGFloat, height: CGFloat) {
         self.labelWidth.constant = width
         self.labelHeight.constant = height

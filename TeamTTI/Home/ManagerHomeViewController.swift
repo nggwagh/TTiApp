@@ -23,6 +23,7 @@ class ManagerHomeViewController: UIViewController {
     @IBOutlet weak var regionTextField: UITextField!
     @IBOutlet weak var nextPreviousRegionScrollButton: UIButton!
     @IBOutlet weak var arrowImageView: UIImageView!
+    @IBOutlet weak var tableFooterView: UIView!
 
     //MARK:- View Lifecycle
     override func viewDidLoad() {
@@ -123,9 +124,11 @@ class ManagerHomeViewController: UIViewController {
                             self.selectedRegionsArray = self.allRegionsArray.filter({ $0.id == SettingsManager.shared().getDefaultRegionID() })
                         }
                         
-                        self.updateRegionField()
-                        self.regionsTableView.reloadData()
-
+                        if (self.selectedRegionsArray.count > 0) {
+                            self.updateRegionField()
+                            self.regionsTableView.reloadData()
+                        }
+                        
                         UserDefaults.standard.set(true, forKey: "isRegionsCalled")
                         UserDefaults.standard.synchronize()
                         
@@ -172,6 +175,14 @@ class ManagerHomeViewController: UIViewController {
                         if (self.regionDetailsArray.count > 0) {
                             self.collectionView.reloadData()
                             self.tableView.reloadData()
+//                            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 0.5))
+                            self.tableFooterView.backgroundColor = UIColor(named: "nav_title_color")
+//                            self.tableView.tableFooterView = footerView
+                        }
+                        else {
+                            self.tableFooterView.backgroundColor = .clear
+
+//                            self.tableView.tableFooterView = nil
                         }
                     }
                     catch let error {
@@ -236,6 +247,7 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
         if (indexPath.section == 0) {
             if (self.selectedRegionsArray.count == 0) {
                 cell.countLabel.text = ""
+                cell.lineLabel.isHidden = true
             }
             else {
                 cell.countLabel.numberOfLines = 0
@@ -243,12 +255,14 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.countLabel.backgroundColor = .white
                 cell.countLabel.textColor = .darkText
                 cell.setLabel(size: 70, height: 60)
+                cell.lineLabel.isHidden = false
             }
         }
         else {
             cell.setLabel(size: 30, height: 30)
             let count = (self.regionDetailsArray[indexPath.section - 1].count?[(self.selectedRegionsArray[indexPath.row].id?.description)!])
             cell.countLabel.text = count?.description
+            cell.lineLabel.isHidden = false
             
             if (count == 0) {
                 cell.countLabel.textColor = .darkText
@@ -363,6 +377,10 @@ extension ManagerHomeViewController: UITableViewDelegate {
             }
             self.regionsTableView.reloadData()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 0.5))
     }
 }
 
