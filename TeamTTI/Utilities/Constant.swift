@@ -23,6 +23,7 @@ struct Constant {
             static let path = "/api/v1/user/me"
             static let userID = "userId"
             static let role = "role"
+            static let regionID = "regionID"
             static let currentLatitude = "currentLatitude"
             static let currentLongitude = "currentLongitude"
             static let currentLatitude_launchtime = "currentLatitude_launchtime"

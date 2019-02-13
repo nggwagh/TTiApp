@@ -116,6 +116,15 @@ class SettingsManager: NSObject {
         return (regions as! [Region])
     }
     
+    // MARK:- User RefreshToken -
+    func setDefaultRegionID(_ defaultRegionID: String) {
+        UserDefaults.standard.set(defaultRegionID, forKey: Constant.API.User.regionID)
+        UserDefaults.standard.synchronize()
+    }
+    func getDefaultRegionID() -> Int? {
+        let defaultRegionID = UserDefaults.standard.integer(forKey: Constant.API.User.regionID)
+        return (defaultRegionID)
+    }
     
     // MARK:- Empty user default -
     func resetSettings() {
@@ -124,6 +133,8 @@ class SettingsManager: NSObject {
         UserDefaults.standard.removeObject(forKey: Constant.API.Login.refreshToken)
         UserDefaults.standard.removeObject(forKey: Constant.API.User.currentLatitude)
         UserDefaults.standard.removeObject(forKey: Constant.API.User.currentLongitude)
+        UserDefaults.standard.removeObject(forKey: Constant.API.User.currentLatitude_launchtime)
+        UserDefaults.standard.removeObject(forKey: Constant.API.User.currentLongitude_launchtime)
         UserDefaults.standard.removeObject(forKey: Constant.API.User.regions)
 
         UserDefaults.standard.synchronize()

@@ -100,7 +100,18 @@ class ManagerHomeViewController: UIViewController {
                         
                         self.allRegionsArray = Region.build(from: jsonDict)
                         //                        SettingsManager.shared().setRegions(self.allRegionsArray)
-                        self.selectedRegionsArray = self.allRegionsArray
+                        let role = SettingsManager.shared().getUserRole()
+                        
+                        
+                        if (role == "1") {
+                            //View all for admin
+                            self.selectedRegionsArray = self.allRegionsArray
+                        }
+                        else {
+                            //View default region for manager
+                            self.selectedRegionsArray = self.allRegionsArray.filter({ $0.id == SettingsManager.shared().getDefaultRegionID() })
+                        }
+                        
                         self.allRegionsArray.append(Region.init(id: 99, name: "View All", code: ""))
                         self.regionsTableView.reloadData()
 
@@ -174,7 +185,7 @@ class ManagerHomeViewController: UIViewController {
 extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if self.regionDetailsArray.count > 0 {
+        if (self.regionDetailsArray.count > 0 && self.selectedRegionsArray.count > 0) {
             return self.regionDetailsArray.count + 1
         }
         else { return 1 }
@@ -182,7 +193,17 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedRegionsArray.count
+        
+        if (self.selectedRegionsArray.count > 0) {
+            let hasViewAllOption = self.selectedRegionsArray.contains(where: { $0.id == 99 })
+            if (hasViewAllOption) {
+                return self.selectedRegionsArray.count - 1
+            }
+            else {
+                return self.selectedRegionsArray.count
+            }
+        }
+        else { return 1 }
     }
     
     // make a cell for each cell index path
@@ -193,8 +214,15 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
         
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         if (indexPath.section == 0) {
-            cell.countLabel.numberOfLines = 0
-            cell.countLabel.text = self.selectedRegionsArray[indexPath.row].name
+            if (self.selectedRegionsArray.count == 0) {
+                cell.countLabel.text = ""
+            }
+            else {
+                cell.countLabel.numberOfLines = 0
+                cell.countLabel.text = self.selectedRegionsArray[indexPath.row].name
+                cell.countLabel.backgroundColor = .white
+                cell.countLabel.textColor = .darkText
+            }
         }
         else {
             
@@ -203,6 +231,7 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
             
             if (count == 0) {
                 cell.countLabel.textColor = .darkText
+                cell.countLabel.backgroundColor = .white
             }
             else {
                 cell.countLabel.textColor = .white
@@ -253,14 +282,15 @@ extension ManagerHomeViewController: UITableViewDataSource {
         else {
             tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 16)
             tableViewCell.textLabel?.text = self.allRegionsArray[indexPath.row].name
-            tableViewCell.textLabel?.textColor = .darkGray
             
             let isSelected = self.selectedRegionsArray.contains(where: { $0.name == self.allRegionsArray[indexPath.row].name})
             if (isSelected) {
                 tableViewCell.accessoryView = UIImageView.init(image: UIImage.init(named: "objective_complete"))
+                tableViewCell.textLabel?.textColor = .darkText
             }
             else {
                 tableViewCell.accessoryView = nil
+                tableViewCell.textLabel?.textColor = .darkGray
             }
         }
         
@@ -271,13 +301,26 @@ extension ManagerHomeViewController: UITableViewDataSource {
 extension ManagerHomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView == self.regionsTableView) {
-            
             let isSelected = self.selectedRegionsArray.contains(where: { $0.name == self.allRegionsArray[indexPath.row].name })
             if (isSelected) {
-                self.selectedRegionsArray = self.selectedRegionsArray.filter({ $0.name != self.allRegionsArray[indexPath.row].name })
+                let defaultRegionId = SettingsManager.shared().getDefaultRegionID()
+                if (defaultRegionId == self.allRegionsArray[indexPath.row].id) {
+                    Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "Can not deselect this region.")
+                }
+                else {
+                    self.selectedRegionsArray = self.selectedRegionsArray.filter({ $0.name != self.allRegionsArray[indexPath.row].name })
+                    self.selectedRegionsArray = self.selectedRegionsArray.filter({ $0.id != 99 })
+                }
             }
             else {
-                self.selectedRegionsArray.append(self.allRegionsArray[indexPath.row])
+                if (self.allRegionsArray[indexPath.row].id == 99) {
+                    //view all option is selected
+                    self.selectedRegionsArray.removeAll()
+                    self.selectedRegionsArray = self.allRegionsArray
+                }
+                else {
+                    self.selectedRegionsArray.append(self.allRegionsArray[indexPath.row])
+                }
             }
             self.regionsTableView.reloadData()
         }
@@ -299,6 +342,9 @@ extension ManagerHomeViewController: UIScrollViewDelegate {
 extension ManagerHomeViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.regionsTableView.isHidden = !self.regionsTableView.isHidden;
+        if (self.regionsTableView.isHidden) {
+            self.collectionView.reloadData()
+        }
         return false
     }
 }
