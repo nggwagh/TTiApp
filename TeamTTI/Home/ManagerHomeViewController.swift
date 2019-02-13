@@ -15,7 +15,8 @@ class ManagerHomeViewController: UIViewController {
     var allRegionsArray = [Region]()
     var selectedRegionsArray = [Region]()
     var regionDetailsArray = [RegionDetail]()
-    
+    var regionObjectivesArray = [RegionObjective]()
+
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var regionsTableView: UITableView!
@@ -201,6 +202,48 @@ class ManagerHomeViewController: UIViewController {
         }
     }
     
+    
+    func getRegionObjectives(status: Int, regionId: Int){
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
+        MoyaProvider<RegionsAPI>(plugins: [AuthPlugin()]).request(.getRegionObjectives(Status: status, RegionID: regionId)) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+            case let .success(response) :
+                
+                if case 200..<400 = response.statusCode {
+                    do {
+                        
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        
+                        print(jsonDict)
+                        
+                        // OPEN DETAILS SCREEN AFTER RECEIVING OBJECTIVE LIST
+                        self.regionObjectivesArray = RegionObjective.build(from: jsonDict)
+
+                        
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+            }
+        }
+    }
+    
     func updateRegionField() {
         let regionNames = self.selectedRegionsArray.compactMap {
             return $0.name
@@ -287,6 +330,9 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
         if (count! > 0) {
             // handle tap events
             print("You selected cell count\(String(describing: count?.description))!")
+            
+            //PASS STATUS AND REGIONID HERE
+            self.getRegionObjectives(status: (self.regionDetailsArray[indexPath.section - 1].id!), regionId: (self.selectedRegionsArray[indexPath.row].id!))
         }
     }
     

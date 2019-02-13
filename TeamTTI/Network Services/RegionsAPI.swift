@@ -13,14 +13,27 @@ import Moya
 enum RegionsAPI {
     case getRegions()
     case getRegionsDetail()
+    case getRegionObjectives(Status: Int, RegionID: Int)
+
 }
 
 
 extension RegionsAPI: TargetType {
     
     var baseURL: URL {
-        return Constant.API.baseURL
-    }
+        
+        switch self {
+        case .getRegions():
+            return Constant.API.baseURL
+            
+        case .getRegionsDetail():
+            return Constant.API.baseURL
+            
+        case .getRegionObjectives(_, let regionID):
+            return URL(string: "\(Constant.API.baseURL)/?regionID=\(regionID)")!
+
+        }
+  }
     
     var path: String {
         
@@ -30,6 +43,10 @@ extension RegionsAPI: TargetType {
             
         case .getRegionsDetail():
             return Constant.API.Region.getRegionsDetailPath
+            
+        case .getRegionObjectives(let status,_):
+            return "api/v1/store_objective/status/\(status)/list"
+
         }
     }
     
@@ -40,6 +57,9 @@ extension RegionsAPI: TargetType {
             return .get
             
         case .getRegionsDetail():
+            return .get
+            
+        case .getRegionObjectives(_,_):
             return .get
         }
     }
