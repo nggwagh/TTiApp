@@ -15,7 +15,6 @@ class ManagerHomeViewController: UIViewController {
     var allRegionsArray = [Region]()
     var selectedRegionsArray = [Region]()
     var regionDetailsArray = [RegionDetail]()
-    var regionObjectivesArray = [RegionObjective]()
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
@@ -30,10 +29,6 @@ class ManagerHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
         
         self.getRegionsList()
         
@@ -45,12 +40,29 @@ class ManagerHomeViewController: UIViewController {
          self.getRegionsList()
          }
          */
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         selectRegionBackgroundView.dropShadow(color: .gray, shadowOpacity: 0.5, shadowSize: 0.2)
+    }
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == Constant.Storyboard.Home.RegionObjectiveDetailIdentifier {
+            let indexPath: IndexPath = sender as! IndexPath
+            let destinationVC = segue.destination as! RegionDetailViewController
+            destinationVC.status = (self.regionDetailsArray[indexPath.section - 1].id!)
+            destinationVC.regionId = (self.selectedRegionsArray[indexPath.row].id!)
+            destinationVC.statusString = (self.regionDetailsArray[indexPath.section - 1].name!)
+            destinationVC.regionString = (self.selectedRegionsArray[indexPath.row].name!)
+            destinationVC.objectiveCount = ((self.regionDetailsArray[indexPath.section - 1].count?[(self.selectedRegionsArray[indexPath.row].id?.description)!])!)
+        }
     }
     
     //MARK: - IBAction methods
@@ -202,48 +214,6 @@ class ManagerHomeViewController: UIViewController {
         }
     }
     
-    
-    func getRegionObjectives(status: Int, regionId: Int){
-        
-        //show progress hud
-        self.showHUD(progressLabel: "")
-        
-        MoyaProvider<RegionsAPI>(plugins: [AuthPlugin()]).request(.getRegionObjectives(Status: status, RegionID: regionId)) { result in
-            
-            //hide progress hud
-            self.dismissHUD(isAnimated: true)
-            
-            switch result {
-            case let .success(response) :
-                
-                if case 200..<400 = response.statusCode {
-                    do {
-                        
-                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
-                        
-                        print(jsonDict)
-                        
-                        // OPEN DETAILS SCREEN AFTER RECEIVING OBJECTIVE LIST
-                        self.regionObjectivesArray = RegionObjective.build(from: jsonDict)
-
-                        
-                    }
-                    catch let error {
-                        print(error.localizedDescription)
-                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
-                    }
-                } else {
-                    print("unhandled status code\(response.statusCode)")
-                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
-                }
-                
-            case let .failure(error):
-                print(error.localizedDescription) //MOYA error
-                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
-            }
-        }
-    }
-    
     func updateRegionField() {
         let regionNames = self.selectedRegionsArray.compactMap {
             return $0.name
@@ -332,7 +302,7 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
             print("You selected cell count\(String(describing: count?.description))!")
             
             //PASS STATUS AND REGIONID HERE
-            self.getRegionObjectives(status: (self.regionDetailsArray[indexPath.section - 1].id!), regionId: (self.selectedRegionsArray[indexPath.row].id!))
+            self.performSegue(withIdentifier: Constant.Storyboard.Home.RegionObjectiveDetailIdentifier, sender: indexPath)
         }
     }
     

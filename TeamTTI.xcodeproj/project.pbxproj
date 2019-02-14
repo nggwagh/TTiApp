@@ -30,6 +30,8 @@
 		3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */; };
 		3580B25221EF77AF00D225F0 /* PlannerCalender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3580B25121EF77AF00D225F0 /* PlannerCalender.swift */; };
 		3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */; };
+		359DB51522159399009331DB /* RegionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359DB51422159399009331DB /* RegionDetailViewController.swift */; };
+		359DB51722159B0E009331DB /* RegionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359DB51622159B0E009331DB /* RegionDetailCell.swift */; };
 		35A5259821CB599700C43A16 /* MBProgressHudUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */; };
 		35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259921CB664600C43A16 /* SubmissionViewController.swift */; };
 		35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */; };
@@ -130,6 +132,8 @@
 		3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		3580B25121EF77AF00D225F0 /* PlannerCalender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannerCalender.swift; sourceTree = "<group>"; };
 		3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		359DB51422159399009331DB /* RegionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailViewController.swift; sourceTree = "<group>"; };
+		359DB51622159B0E009331DB /* RegionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailCell.swift; sourceTree = "<group>"; };
 		35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBProgressHudUtility.swift; sourceTree = "<group>"; };
 		35A5259921CB664600C43A16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
 		35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocationManager.swift; sourceTree = "<group>"; };
@@ -483,6 +487,7 @@
 				3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */,
 				3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */,
 				35A5259921CB664600C43A16 /* SubmissionViewController.swift */,
+				359DB51422159399009331DB /* RegionDetailViewController.swift */,
 				CFF45C4421A1CFEC0045B56D /* Cells */,
 			);
 			path = Home;
@@ -510,6 +515,7 @@
 				CFF45C4921A1D0590045B56D /* GraphTableViewCell.swift */,
 				CFF45C4B21A1D07C0045B56D /* StoreObjectiveTableViewCell.swift */,
 				3504DAE1220B257D00F48AC3 /* TaskDetailCollectionViewCell.swift */,
+				359DB51622159B0E009331DB /* RegionDetailCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -811,6 +817,8 @@
 				3527014221CA182800EC692F /* UIViewBorder.swift in Sources */,
 				CFC729652198D8AA0065BCAC /* Store.swift in Sources */,
 				CFC729602198B4250065BCAC /* HomeViewController.swift in Sources */,
+				359DB51522159399009331DB /* RegionDetailViewController.swift in Sources */,
+				359DB51722159B0E009331DB /* RegionDetailCell.swift in Sources */,
 				3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */,
 				35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */,
 				CFC729622198CBFF0065BCAC /* AuthPlugin.swift in Sources */,
