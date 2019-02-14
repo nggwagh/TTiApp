@@ -289,6 +289,11 @@ extension TTILocationManager: CLLocationManagerDelegate {
                 let distance = currentCoordinate.distanceFromCurrentLocationInMiles(latitude: launchTimeLat!, longitude: launchTimeLong!)
                 
                 if (distance >= refreshStoreDistance) {
+                    
+                    //UPDATING LAT/LONG TO LATEST
+                    SettingsManager.shared().setUserLocationLaunchTimeLatitude(locValue.latitude)
+                    SettingsManager.shared().setUserLocationLaunchTimeLongitude(locValue.longitude)
+                    
                     if ((RootViewControllerFactory.centerContainer.centerViewController?.isKind(of: UINavigationController.self))!){
                         let currentViewController = (RootViewControllerFactory.centerContainer.centerViewController as! UINavigationController).viewControllers[0]
                         if (currentViewController.isKind(of: HomeViewController.self)) {
