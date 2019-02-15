@@ -59,37 +59,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
         {
             taskDetailPosterImageView.af_setImage(withURL:self.tastDetails.descImages[0], placeholderImage: UIImage(named: "ImageNotFound")!)
         }
-        
-        
-        if self.tastDetails.images.count > 0
-        {
-            imageArray.append(self.tastDetails.images[0])
-            
-            taskImageView1.af_setImage(withURL: self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
-            
-            taskImageView1.isUserInteractionEnabled = true
-        }
-        
-        if self.tastDetails.images.count == 2
-        {
-            imageArray.append(self.tastDetails.images[1])
-            
-            taskImageView2.af_setImage(withURL: self.tastDetails.images[1], placeholderImage: UIImage(named: "ImageNotFound")!)
-            
-            taskImageView2.isUserInteractionEnabled = true
-            
-        }
-        
-        if self.tastDetails.images.count == 3
-        {
-            imageArray.append(self.tastDetails.images[2])
-            
-            taskImageView3.af_setImage(withURL: self.tastDetails.images[2], placeholderImage: UIImage(named: "ImageNotFound")!)
-            
-            taskImageView3.isUserInteractionEnabled = true
-            
-        }
-    }
+     }
     
     
     
@@ -198,6 +168,76 @@ class TaskViewController: UIViewController, DateElementDelegate {
         }
     }
 
+    func getPeerExamples(){
+        
+        //Show progress hud
+        self.showHUD(progressLabel: "")
+        
+        MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request( .getPeerExample(storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID)){ result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                   
+                    if self.tastDetails.images.count > 0
+                    {
+                        self.imageArray.append(self.tastDetails.images[0])
+                        
+                        self.taskImageView1.af_setImage(withURL: self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
+                        
+                        self.taskImageView1.isUserInteractionEnabled = true
+                    }
+                    
+                    if self.tastDetails.images.count == 2
+                    {
+                        self.imageArray.append(self.tastDetails.images[1])
+                        
+                        self.taskImageView2.af_setImage(withURL: self.tastDetails.images[1], placeholderImage: UIImage(named: "ImageNotFound")!)
+                        
+                        self.taskImageView2.isUserInteractionEnabled = true
+                        
+                    }
+                    
+                    if self.tastDetails.images.count == 3
+                    {
+                        self.imageArray.append(self.tastDetails.images[2])
+                        
+                        self.taskImageView3.af_setImage(withURL: self.tastDetails.images[2], placeholderImage: UIImage(named: "ImageNotFound")!)
+                        
+                        self.taskImageView3.isUserInteractionEnabled = true
+                        
+                    }
+    
+                    if self.tastDetails.images.count > 0
+                    {
+                        self.loadFullScreenImage(at: 0)
+                    }
+                    
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+                
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+                break
+            }
+        }
+    }
+
+    
+    
     func handlePassOverdue(isPass: Bool) {
         
         if isPass {
@@ -234,10 +274,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     @IBAction func viewAllPhotosButtonTapped(_ sender: UIButton) {
         
-        if self.tastDetails.images.count > 0
-        {
-            loadFullScreenImage(at: 0)
-        }
+        self.getPeerExamples()
         
     }
     
