@@ -32,7 +32,8 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     public var tastDetails : StoreObjective!
     var imageArray = [URL]()
-    
+    private var peerExampleTask: Cancellable?
+
     //MARK:- View Lifecycle
     
     override func viewDidLoad() {
@@ -168,12 +169,14 @@ class TaskViewController: UIViewController, DateElementDelegate {
         }
     }
 
-    func getPeerExamples(){
+    func getPeerImages(){
         
         //Show progress hud
         self.showHUD(progressLabel: "")
         
-        MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request( .getPeerExample(storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID)){ result in
+        peerExampleTask?.cancel()
+        
+        peerExampleTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.getPeerExample(storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID)) { result in
             
             // hiding progress hud
             self.dismissHUD(isAnimated: true)
@@ -184,41 +187,54 @@ class TaskViewController: UIViewController, DateElementDelegate {
                 print(response)
                 
                 if case 200..<400 = response.statusCode {
-                   
-                    if self.tastDetails.images.count > 0
-                    {
-                        self.imageArray.append(self.tastDetails.images[0])
-                        
-                        self.taskImageView1.af_setImage(withURL: self.tastDetails.images[0], placeholderImage: UIImage(named: "ImageNotFound")!)
-                        
-                        self.taskImageView1.isUserInteractionEnabled = true
-                    }
                     
-                    if self.tastDetails.images.count == 2
-                    {
-                        self.imageArray.append(self.tastDetails.images[1])
+                    do{
+                        let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
                         
-                        self.taskImageView2.af_setImage(withURL: self.tastDetails.images[1], placeholderImage: UIImage(named: "ImageNotFound")!)
+                        let imagesArray = PeerExample.build(from: jsonDict)
                         
-                        self.taskImageView2.isUserInteractionEnabled = true
+                        if imagesArray.count > 0
+                        {
+                            
+                            self.imageArray.append(imagesArray[imagesArray.count-1].imageURL![0])
+                            
+                            self.taskImageView1.af_setImage(withURL: imagesArray[imagesArray.count-1].imageURL![0], placeholderImage: UIImage(named: "ImageNotFound")!)
+                            
+                            self.taskImageView1.isUserInteractionEnabled = true
+                        }
+                        
+                        if imagesArray.count > 2
+                        {
+                            self.imageArray.append(imagesArray[imagesArray.count-2].imageURL![0])
+                            
+                            self.taskImageView2.af_setImage(withURL: (imagesArray[imagesArray.count-2].imageURL![0]), placeholderImage: UIImage(named: "ImageNotFound")!)
+                            
+                            self.taskImageView2.isUserInteractionEnabled = true
+                            
+                        }
+                        
+                        if imagesArray.count > 3
+                        {
+                            self.imageArray.append(imagesArray[imagesArray.count-3].imageURL![0])
+                            
+                            self.taskImageView3.af_setImage(withURL: (imagesArray[imagesArray.count-3].imageURL![0]), placeholderImage: UIImage(named: "ImageNotFound")!)
+                            
+                            self.taskImageView3.isUserInteractionEnabled = true
+                            
+                        }
+                        
+//                        if imagesArray.count > 0
+//                        {
+//                            self.loadFullScreenImage(at: 0)
+//                        }
+                        
                         
                     }
-                    
-                    if self.tastDetails.images.count == 3
-                    {
-                        self.imageArray.append(self.tastDetails.images[2])
-                        
-                        self.taskImageView3.af_setImage(withURL: self.tastDetails.images[2], placeholderImage: UIImage(named: "ImageNotFound")!)
-                        
-                        self.taskImageView3.isUserInteractionEnabled = true
-                        
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
                     }
-    
-                    if self.tastDetails.images.count > 0
-                    {
-                        self.loadFullScreenImage(at: 0)
-                    }
-                    
                 }
                 else
                 {
@@ -233,9 +249,12 @@ class TaskViewController: UIViewController, DateElementDelegate {
                 Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
                 break
             }
+            
         }
+        
     }
-
+    
+    
     
     
     func handlePassOverdue(isPass: Bool) {
@@ -274,7 +293,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
     
     @IBAction func viewAllPhotosButtonTapped(_ sender: UIButton) {
         
-        self.getPeerExamples()
+        self.getPeerImages()
         
     }
     
