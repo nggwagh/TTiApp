@@ -21,6 +21,9 @@ enum ObjectiveApi {
     case uploadStoreObjectiveImage(image: UIImage, storeID: Int, objectiveID: Int)
     
     case deletePhoto(photoID: String)
+    
+    case getPeerExample(storeID: Int, objectiveID: Int)
+
 }
 
 /*
@@ -72,6 +75,8 @@ extension ObjectiveApi: TargetType {
         case .deletePhoto(let photoID):
             return "api/v1/image/\(photoID)"
 
+        case .getPeerExample(let storeID, let objectiveID):
+            return "api/v1/store/\(storeID)/objective/\(objectiveID)/peerExamples"
         }
     }
 
@@ -93,6 +98,9 @@ extension ObjectiveApi: TargetType {
             
         case .deletePhoto(_):
             return .delete
+            
+        case .getPeerExample(_,_):
+            return .get
         }
     }
 
@@ -129,6 +137,9 @@ extension ObjectiveApi: TargetType {
             
         case .deletePhoto(_):
             return .requestPlain
+            
+        case .getPeerExample(_,_):
+            return .requestPlain
         }
     }
     
@@ -149,6 +160,9 @@ extension ObjectiveApi: TargetType {
             return ["Content-type" : "multipart/form-data"]
             
         case .deletePhoto(_):
+            return ["Content-type" : "application/json"]
+
+        case .getPeerExample(_,_):
             return ["Content-type" : "application/json"]
 
         }
