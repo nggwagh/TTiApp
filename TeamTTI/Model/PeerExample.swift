@@ -2,7 +2,7 @@
 //  PeerExample.swift
 //  TeamTTI
 //
-//  Created by Nikhil Wagh on 2/15/19.
+//  Created by Nikhil Wagh on 2/16/19.
 //  Copyright © 2019 TeamTTI. All rights reserved.
 //
 
@@ -19,8 +19,8 @@ extension PeerExample {
     static func build(from peerExampleJsonObjects: [[String:Any]]) -> [PeerExample] {
         return peerExampleJsonObjects.compactMap({ peerExampleJsonObject in
             return PeerExample( storeId: peerExampleJsonObject["storeID"] as? Int,
-                            objectiveId: peerExampleJsonObject["objectiveID"] as? Int,
-                            imageURL: ((peerExampleJsonObject["images"] != nil) ? ((peerExampleJsonObject["images"] as! [[String : AnyObject]]).compactMap{ return URL(string: $0["fileURL"] as! String)}) : []))
+                                objectiveId: peerExampleJsonObject["objectiveID"] as? Int,
+                                imageURL: ((peerExampleJsonObject["images"] != nil) ? ((peerExampleJsonObject["images"] as! [[String : AnyObject]]).compactMap{ return URL(string: $0["fileURL"] as! String)}) : []))
         })
     }
 }
