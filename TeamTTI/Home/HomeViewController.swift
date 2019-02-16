@@ -353,6 +353,13 @@ class HomeViewController: UIViewController, DateElementDelegate {
         if isAlreadyShownSearchView {
             storeSearchViewController.searchedStoreTableView.reloadData()
         }
+        
+        //BASED ON ADMIN OR MANAGER ROLE SHOW SEARCH LIST WHEN LOADS HOME SCREEN
+        let role = SettingsManager.shared().getUserRole()
+        
+        if (role == "1" || role == "2") {
+            self.performSearch()
+        }
     }
     
     func saveScheduledDate(selectedDate: Date, comment: String){

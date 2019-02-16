@@ -31,11 +31,56 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        menuItems = ["Home", "Planner", "News", "Playbooks", "Logout"]
+        
+        let role = SettingsManager.shared().getUserRole()
+        
+        if (role == "1" || role == "2" ) {
+            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Logout"]
+        }
+        else {
+            menuItems = ["Home", "Planner", "News", "Playbooks", "Logout"]
+        }
+        
         self.menuTableView.reloadData()
     }
     
     // MARK: - Private Methods
+    
+    func loadHomeVC(){
+        let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
+        let homeViewController = homeStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = homeViewController
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+    }
+    
+    func loadManagerHomeVC(){
+        let managerHomeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id_manager, bundle: nil)
+        let managerHomeViewController = managerHomeStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = managerHomeViewController
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+        
+    }
+    
+    func loadPlannerVC(){
+        let plannerStoryboard = UIStoryboard.init(name: Constant.Storyboard.Planner.id, bundle: nil)
+        let plannerViewController = plannerStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = plannerViewController
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+    }
+    
+    func loadNewsVC(){
+        let newsStoryboard = UIStoryboard.init(name: Constant.Storyboard.News.id, bundle: nil)
+        let newsViewController = newsStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = newsViewController
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+    }
+    
+    func loadPlaybookVC(){
+        let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
+        let playbookViewController = playbookStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = playbookViewController
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+    }
     
     func logoutTheUser() {
         
@@ -87,52 +132,78 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - Table view delegate
 
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let role = SettingsManager.shared().getUserRole()
+
         switch(indexPath.row)
         {
         case 0:
             
-            let role = SettingsManager.shared().getUserRole()
             if (role == "1" || role == "2") {
-                let managerHomeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id_manager, bundle: nil)
-                let managerHomeViewController = managerHomeStoryboard.instantiateInitialViewController()
-                RootViewControllerFactory.centerContainer.centerViewController = managerHomeViewController
+               self.loadManagerHomeVC()
             }
             else {
-                let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
-                let homeViewController = homeStoryboard.instantiateInitialViewController()
-                RootViewControllerFactory.centerContainer.centerViewController = homeViewController
+                self.loadHomeVC()
             }
-            RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
-            
+
             break;
+            
         case 1:
             
-            let plannerStoryboard = UIStoryboard.init(name: Constant.Storyboard.Planner.id, bundle: nil)
-            let plannerViewController = plannerStoryboard.instantiateInitialViewController()
-            RootViewControllerFactory.centerContainer.centerViewController = plannerViewController
-            RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
- 
+            if (role == "1" || role == "2") {
+                self.loadHomeVC()
+            }
+            else {
+                self.loadPlannerVC()
+            }
+           
             break;
+            
         case 2:
-            let newsStoryboard = UIStoryboard.init(name: Constant.Storyboard.News.id, bundle: nil)
-            let newsViewController = newsStoryboard.instantiateInitialViewController()
-            RootViewControllerFactory.centerContainer.centerViewController = newsViewController
-            RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+            
+             if (role == "1" || role == "2") {
+                self.loadPlannerVC()
+             }
+             else{
+                self.loadNewsVC()
+             }
+            
             break;
         case 3:
-            let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
-            let playbookViewController = playbookStoryboard.instantiateInitialViewController()
-            RootViewControllerFactory.centerContainer.centerViewController = playbookViewController
-            RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+            
+            if (role == "1" || role == "2") {
+                self.loadNewsVC()
+            }
+            else{
+                self.loadPlaybookVC()
+            }
+            
             break;
+            
         case 4:
-            self.logoutTheUser()
+            
+            if (role == "1" || role == "2") {
+                self.loadPlaybookVC()
+            }
+            else{
+                self.logoutTheUser()
+            }
+            
             break;
+            
+        case 5:
+            
+            self.logoutTheUser()
+            
+            break;
+            
         default:
             break
         }
     }
 }
+
+
 
 extension Bundle {
     

@@ -260,7 +260,7 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
         if (indexPath.section == 0) {
             if (self.selectedRegionsArray.count == 0) {
                 cell.countLabel.text = ""
-                cell.lineLabel.isHidden = true
+              //  cell.lineLabel.isHidden = true
             }
             else {
                 cell.countLabel.numberOfLines = 0
@@ -268,14 +268,14 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.countLabel.backgroundColor = .white
                 cell.countLabel.textColor = .darkText
                 cell.setLabel(size: 70, height: 60)
-                cell.lineLabel.isHidden = false
+             //   cell.lineLabel.isHidden = false
             }
         }
         else {
             cell.setLabel(size: 30, height: 30)
             let count = (self.regionDetailsArray[indexPath.section - 1].count?[(self.selectedRegionsArray[indexPath.row].id?.description)!])
             cell.countLabel.text = count?.description
-            cell.lineLabel.isHidden = false
+           // cell.lineLabel.isHidden = false
             
             if (count == 0) {
                 cell.countLabel.textColor = .darkText

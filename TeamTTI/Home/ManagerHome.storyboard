@@ -80,14 +80,14 @@
                                             <action selector="nextPageButtonClicked:" destination="n8u-Ax-3BY" eventType="touchUpInside" id="DgY-ug-Apx"/>
                                         </connections>
                                     </button>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="yqo-df-j1j">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="yqo-df-j1j">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="502.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="9ws-bH-gxH"/>
                                         </constraints>
                                         <color key="separatorColor" name="nav_title_color"/>
-                                        <view key="tableFooterView" contentMode="scaleToFill" id="bYn-Kk-GLM">
+                                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="bYn-Kk-GLM">
                                             <rect key="frame" x="0.0" y="66" width="120" height="0.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -97,7 +97,7 @@
                                                 <rect key="frame" x="0.0" y="1" width="120" height="65"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wbJ-UR-8Tt" id="Ysp-hb-w55">
-                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="64.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="65"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -129,7 +129,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiF-Tf-kIi">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiF-Tf-kIi">
                                                             <rect key="frame" x="0.0" y="64.5" width="75" height="0.5"/>
                                                             <color key="backgroundColor" name="nav_title_color"/>
                                                             <constraints>
@@ -636,9 +636,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Cross" width="57.599998474121094" height="57.599998474121094"/>
+        <image name="Cross" width="30" height="30"/>
         <image name="down_arrow_blue" width="17" height="11"/>
-        <image name="left_menu" width="23" height="16.5"/>
+        <image name="left_menu" width="23" height="16"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

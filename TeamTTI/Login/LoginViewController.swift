@@ -126,7 +126,7 @@ extension LoginViewController {
                         if let regionID = jsonDict["regionID"] as? Int {
                             SettingsManager.shared().setDefaultRegionID(regionID.description)
                         }
-                        SettingsManager.shared().setDefaultRegionID("1")
+                      //  SettingsManager.shared().setDefaultRegionID("1")
                         
                         //SEND DEVICE TOKEN TO SERVER FOR PUSH NOTIFICATIONS
                         if (UserDefaults.standard.value(forKey: "DeviceToken") != nil){
