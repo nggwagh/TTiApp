@@ -44,8 +44,8 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     private var isImageSet: Bool? = false
     private var isImageDeleted: Bool? = false
 
-    let completionTypes : [String] = ["Complete", "Incomplete"]
-    let reasons : [String] = ["Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
+    let completionTypes : [String] = [" ", "Complete", "Incomplete"]
+    let reasons : [String] = [" ", "Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
     
     var isViewLoadedForFirstTime : Bool = true
     
@@ -324,22 +324,49 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
             return
         }
         
-        if (completionTypeTextField.text == "Incomplete"){
-            if commentTextView.text!.count == 0
-            {
-                UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                    self.commentWarningView.isHidden = false
-                })
+        if (completionTypeTextField.text == " ")
+        {
+            
+            let alertContoller =  UIAlertController.init(title: "Error", message: "Completion type can not be empty.", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
             }
-            else
-            {
-                UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                    self.commentWarningView.isHidden = true
-                    self.submitObective()
-                })
+            
+            alertContoller.addAction(action)
+            self.present(alertContoller, animated: true, completion: nil)
+        }
+        else if (completionTypeTextField.text == "Incomplete")
+        {
+            if reasonTextField.text!.count == 0 {
+                
+                let alertContoller =  UIAlertController.init(title: "Error", message: "Reason can not be empty.", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                }
+                
+                alertContoller.addAction(action)
+                self.present(alertContoller, animated: true, completion: nil)
+                
+            }
+            else {
+                
+                if commentTextView.text!.count == 0
+                {
+                    UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                        self.commentWarningView.isHidden = false
+                    })
+                }
+                else
+                {
+                    UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                        self.commentWarningView.isHidden = true
+                        self.submitObective()
+                    })
+                }
             }
         }
-        else{
+        else
+        {
             if (!isImageSet!){
                 let alertContoller =  UIAlertController.init(title: "Error", message: "Please upload Photo from Camera/Gallery.", preferredStyle: .alert)
                 
