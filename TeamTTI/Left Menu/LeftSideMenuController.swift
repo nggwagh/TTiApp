@@ -16,6 +16,7 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var menuTableView: UITableView!
     
     @IBOutlet weak var versionLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +43,14 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         self.menuTableView.reloadData()
+        
+        //WHEN RECEIVED PUSH NOTIFICATIONS
+        if UserDefaults.standard.bool(forKey: "isNotification"){
+            
+            self.perform(#selector(loadNewsVC), with: nil, afterDelay: 0.5)
+            UserDefaults.standard.set(false, forKey: "isNotification")
+            UserDefaults.standard.synchronize()
+        }
     }
     
     // MARK: - Private Methods
@@ -68,7 +77,7 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
     }
     
-    func loadNewsVC(){
+    @objc func loadNewsVC(){
         let newsStoryboard = UIStoryboard.init(name: Constant.Storyboard.News.id, bundle: nil)
         let newsViewController = newsStoryboard.instantiateInitialViewController()
         RootViewControllerFactory.centerContainer.centerViewController = newsViewController

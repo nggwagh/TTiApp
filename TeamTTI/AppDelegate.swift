@@ -12,6 +12,7 @@ import IQKeyboardManagerSwift
 import UserNotifications
 import Fabric
 import Crashlytics
+import MMDrawerController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -30,6 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         registerForPushNotifications()
 
+         // WHEN ALL IS NOT RUNNING AND RECEIVING NOTIFICATIONS
+        if launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] != nil {
+            
+            let notification: [AnyHashable: Any]? = (launchOptions![UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any])!
+            
+            self.application(application: UIApplication.shared, didReceiveRemoteNotification: notification! as [NSObject : AnyObject])
+        }
+        
         
         return true
     }
@@ -127,6 +136,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
+    @objc func whenReceivedPushNotification(){
+        
+        UserDefaults.standard.set(true, forKey: "isNotification")
+        UserDefaults.standard.synchronize()
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+        
+    }
+
+    
     //MARK:- Push Notification Delegate
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -150,6 +168,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("Failed to register for remote notifications with error: \(error)")
     }
     
+   
+    /*
+        func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    
+            print("Recived In Background/Foreground: \(userInfo)")
+            self.whenReceivedPushNotification()
+    
+        }
+   */
+    
+    private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
+        print("Recived In Background/Foreground: \(userInfo)")
+        self.perform(#selector(self.whenReceivedPushNotification), with: nil, afterDelay: 1)
+    }
+    
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
@@ -157,16 +191,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let userInfo = response.notification.request.content.userInfo
         print("Recived In Background/Foreground: \(userInfo)")
-        
+        self.whenReceivedPushNotification()
     }
 
-    
     
      func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
         
         completionHandler([.alert, .sound])
-        
     }
 
+    
 }
 
