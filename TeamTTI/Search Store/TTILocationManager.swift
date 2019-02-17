@@ -18,7 +18,7 @@ class TTILocationManager: NSObject {
     static let sharedLocationManager = TTILocationManager()
     private var locationsToMonitor = [Store]()
     private var storeNetworkTask: Cancellable?
-    let refreshStoreDistance = 5.0 //in km
+    let refreshStoreDistance = 10.0 //in km
     
     //MARK:- Instance Methods
     
