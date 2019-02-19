@@ -257,6 +257,7 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
             }
             else {
                 cell.countLabel.numberOfLines = 0
+                cell.countLabel?.font = UIFont.init(name: "Avenir-Medium", size: 14)
                 cell.countLabel.text = self.selectedRegionsArray[indexPath.row].name
                 cell.countLabel.backgroundColor = .white
                 cell.countLabel.textColor = .darkText
@@ -335,7 +336,7 @@ extension ManagerHomeViewController: UITableViewDataSource {
         
         if (tableView == self.tableView) {
             if (indexPath.row > 0) {
-                tableViewCell.textLabel?.font = UIFont.init(name: "Avenir", size: 14)
+                tableViewCell.textLabel?.font = UIFont.init(name: "Avenir-Medium", size: 14)
                 tableViewCell.textLabel?.text = self.regionDetailsArray[indexPath.row - 1].name
                 tableViewCell.textLabel?.textColor = .darkText
                 tableViewCell.textLabel?.numberOfLines = 0
