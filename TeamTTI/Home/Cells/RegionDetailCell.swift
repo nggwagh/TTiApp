@@ -50,8 +50,21 @@ class RegionDetailCell: UITableViewCell {
         self.storeLabel.text = regionDetail.store ?? " "
         self.storeNumberLabel.text = regionDetail.storeNumber.debugDescription
         self.FSRLabel.text = regionDetail.fsr ?? " "
-        self.dueDateLabel.text = regionDetail.dueDate ?? " "
-        self.estimatedDateLabel.text = (regionDetail.estimationCompletionDate ?? "") + "\n"
+        
+        if let dueDate = regionDetail.dueDate {
+            self.dueDateLabel.text = Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd, outputDateFormat: DateFormats.MMMddyyyy, dueDate)
+        }
+        else {
+            self.dueDateLabel.text = " "
+        }
+        
+        if let estimatedCompletionDate = regionDetail.estimationCompletionDate {
+            self.estimatedDateLabel.text = (Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd, outputDateFormat: DateFormats.MMMddyyyy, estimatedCompletionDate)) + "\n"
+        }
+        else {
+            self.estimatedDateLabel.text = " \n"
+        }
+        
         self.commentsLabel.text = regionDetail.comment ?? " "
     }
     
