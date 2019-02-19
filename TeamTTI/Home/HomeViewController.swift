@@ -665,13 +665,6 @@ extension HomeViewController: UITableViewDelegate {
 extension HomeViewController: HomeNavigationBarDelegate {
     func leftMenuClicked() {
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true) { status in
-            //Disable tableview interaction when side menu is open
-            if RootViewControllerFactory.centerContainer.openSide == MMDrawerSide.left{
-                self.tableView.isUserInteractionEnabled = false
-            }
-            else{
-                self.tableView.isUserInteractionEnabled = true
-            }
         }
     }
     

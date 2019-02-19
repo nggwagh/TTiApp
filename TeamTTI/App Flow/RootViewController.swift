@@ -24,15 +24,23 @@ class RootViewControllerFactory {
                 let managerHomeViewController = managerHomeStoryboard.instantiateInitialViewController()
                 let leftSideMenuNavitationController = homeStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Home.leftSideMenuNavigationController) as! UINavigationController
                 centerContainer = MMDrawerController(center: managerHomeViewController, leftDrawerViewController: leftSideMenuNavitationController)
+                centerContainer.openDrawerGestureModeMask = .all
+                centerContainer.closeDrawerGestureModeMask = .all
+                centerContainer.centerHiddenInteractionMode = .none
+                centerContainer.shouldStretchDrawer = false
             }
             else {
                 let homeStoryboard = UIStoryboard.init(name: Constant.Storyboard.Home.id, bundle: nil)
                 let homeViewController = homeStoryboard.instantiateInitialViewController()
                 let leftSideMenuNavitationController = homeStoryboard.instantiateViewController(withIdentifier: Constant.Storyboard.Home.leftSideMenuNavigationController) as! UINavigationController
                 centerContainer = MMDrawerController(center: homeViewController, leftDrawerViewController: leftSideMenuNavitationController)
+                centerContainer.openDrawerGestureModeMask = .all
+                centerContainer.closeDrawerGestureModeMask = .all
+                centerContainer.centerHiddenInteractionMode = .none
+                centerContainer.shouldStretchDrawer = false
             }
            
-            centerContainer.centerHiddenInteractionMode = MMDrawerOpenCenterInteractionMode.full
+//            centerContainer.centerHiddenInteractionMode = MMDrawerOpenCenterInteractionMode.full
             return centerContainer
             
         } else {

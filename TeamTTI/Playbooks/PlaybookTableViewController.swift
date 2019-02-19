@@ -141,13 +141,6 @@ class PlaybookTableViewController: UITableViewController {
     
     @IBAction func leftMenuClicked() {
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true) { status in
-            //Disable tableview interaction when side menu is open
-            if RootViewControllerFactory.centerContainer.openSide == MMDrawerSide.left{
-                self.view.isUserInteractionEnabled = false
-            }
-            else{
-                self.view.isUserInteractionEnabled = true
-            }
         }
     }
 }
