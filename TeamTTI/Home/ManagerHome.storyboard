@@ -312,6 +312,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LwP-CU-mhh">
                                 <rect key="frame" x="0.0" y="61.5" width="375" height="605.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="NqN-gd-7ha">
                                     <rect key="frame" x="0.0" y="281" width="375" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -636,9 +637,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Cross" width="30" height="30"/>
+        <image name="Cross" width="57.599998474121094" height="57.599998474121094"/>
         <image name="down_arrow_blue" width="17" height="11"/>
-        <image name="left_menu" width="23" height="16"/>
+        <image name="left_menu" width="23" height="16.5"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
