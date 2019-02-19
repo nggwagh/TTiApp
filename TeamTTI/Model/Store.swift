@@ -12,7 +12,7 @@ import MapKit
 struct Store {
     let name: String
     let id: Int
-    let regionID: Int
+    let regionID: Int?
     let storeNumber: Int?
     let userID: Int?
     let addressLine1: String?
@@ -61,7 +61,7 @@ extension Store {
 
             return Store(name: storeJsonObject["name"] as! String,
                          id: storeJsonObject["id"] as! Int,
-                         regionID: storeJsonObject["regionID"] as! Int,
+                         regionID: storeJsonObject["regionID"] as? Int,
                          storeNumber: storeJsonObject["storeNumber"] as? Int,
                          userID: storeJsonObject["userID"] as? Int,
                          addressLine1: storeJsonObject["addressLine1"] as? String,
