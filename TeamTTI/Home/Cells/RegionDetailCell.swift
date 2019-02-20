@@ -25,7 +25,8 @@ class RegionDetailCell: UITableViewCell {
     @IBOutlet var dueDateBackgroundView : UIView!
     @IBOutlet var estimatedDateBackgroundView : UIView!
     @IBOutlet var commentsBackgroundView : UIView!
-        
+    @IBOutlet var attachmentButton : UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
