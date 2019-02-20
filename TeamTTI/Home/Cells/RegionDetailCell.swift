@@ -62,10 +62,10 @@ class RegionDetailCell: UITableViewCell {
             self.estimatedDateLabel.text = (Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd, outputDateFormat: DateFormats.MMMddyyyy, estimatedCompletionDate)) + "\n"
         }
         else {
-            self.estimatedDateLabel.text = " \n"
+            self.estimatedDateLabel.text = "-\n"
         }
         
-        self.commentsLabel.text = regionDetail.comment ?? " "
+        self.commentsLabel.text = regionDetail.comment ?? "-"
     }
     
     func setBackgoundColors(color: UIColor) {
