@@ -25,13 +25,17 @@ class ManagerHomeViewController: UIViewController {
     @IBOutlet weak var arrowImageView: UIImageView!
     @IBOutlet weak var tableFooterView: UIView!
 
+    private var stores: [Store]?
+
+    private var storeNetworkTask: Cancellable?
+
     //MARK:- View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         self.getRegionsList()
-        
+        self.loadStores()
         /*
          //LOAD REGIONS API ONCE
          if (UserDefaults.standard.bool(forKey: "isRegionsCalled")){
@@ -213,6 +217,68 @@ class ManagerHomeViewController: UIViewController {
         }
         self.arrowImageView.image = UIImage(named: "down_arrow_blue")
         self.regionTextField.text = regionNames.joined(separator: ", ")
+    }
+    
+    func loadStores() {
+        
+        //show progress hud
+        self.showHUD(progressLabel: "")
+        
+        storeNetworkTask?.cancel()
+        
+        storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.stores()) { result in
+            
+            //hide progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+            case let .success(response):
+                if case 200..<400 = response.statusCode {
+                    do {
+                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
+                        
+                        //Sort array by Closest stores first
+                        self.stores = Store.build(from: jsonDict).sorted(by: { (store1 : Store, store2 : Store) -> Bool in
+                            return Int(store1.distanceFromCurrentLocation!) < Int(store2.distanceFromCurrentLocation!)
+                        })
+                        
+                        if (self.stores != nil && (self.stores?.count)! > 0) {
+                            
+                            //START MONITORING FOR CLOSEST STORES
+                            self.startMonitoringClosestStores(allStore: self.stores!)
+                        }
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                } else {
+                    print("unhandled status code\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                    
+                }
+                
+            case let .failure(error):
+                print(error.localizedDescription) //MOYA error
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+            }
+        }
+    }
+    
+    //FUNCTION TO START MONITORING FOR CLOSEST STORE
+    func startMonitoringClosestStores(allStore: [Store]) {
+        
+        var closestStores: [Store]! = []
+        
+        if allStore.count >= 5 {
+            for i in 0...4 {
+                closestStores.append(allStore[i])
+            }
+        }
+        
+        //start monitoring for top 5 closest stores
+        TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
     }
 }
 

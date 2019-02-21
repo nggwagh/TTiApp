@@ -184,9 +184,7 @@ class TTILocationManager: NSObject {
     
     func setSpentTimeForStore(region: [String: Any]) {
         
-        storeNetworkTask?.cancel()
-        
-        storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.setStoreSpentTime(regionObject: region)) { result in
+        MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.setStoreSpentTime(regionObject: region)) { result in
             
             switch result {
             case let .success(response):
