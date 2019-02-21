@@ -16,6 +16,8 @@ struct RegionObjective {
     let dueDate: String?
     let estimationCompletionDate: String?
     let comment: String?
+    var images: [URL]
+    let status: StoreObjectiveStatus
 }
 
 
@@ -34,7 +36,12 @@ extension RegionObjective {
                                 fsr: user!["name"] as? String,
                                 dueDate: objective!["dueDate"] as? String,
                                 estimationCompletionDate: regionObjectiveJsonObject["estimatedCompletionDate"] as? String,
-                                comment: regionObjectiveJsonObject["comments"] as? String)
+                                comment: regionObjectiveJsonObject["comments"] as? String,
+                                images: (regionObjectiveJsonObject["images"] != nil) ? ((regionObjectiveJsonObject["images"] as! [[String : AnyObject]]).compactMap
+                                    {
+                                        return URL(string: $0["fileURL"] as! String)
+                                }) : [],
+                                status: .status(for: regionObjectiveJsonObject["status"]!))
         })
     }
 }

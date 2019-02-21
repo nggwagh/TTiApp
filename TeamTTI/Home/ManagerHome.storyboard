@@ -513,30 +513,30 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M73-LT-jFr">
-                                                            <rect key="frame" x="130" y="9" width="175" height="16.5"/>
+                                                            <rect key="frame" x="130" y="9" width="195" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                             <color key="textColor" red="0.19997459649999999" green="0.2000150084" blue="0.1999689341" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyp-8Z-gXu">
-                                                            <rect key="frame" x="325" y="5" width="25" height="25"/>
+                                                        <button hidden="YES" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyp-8Z-gXu">
+                                                            <rect key="frame" x="325" y="0.0" width="40" height="40"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="25" id="dwV-mX-OMs"/>
-                                                                <constraint firstAttribute="height" constant="25" id="gT1-Tf-RNM"/>
+                                                                <constraint firstAttribute="width" constant="40" id="dwV-mX-OMs"/>
+                                                                <constraint firstAttribute="height" constant="40" id="gT1-Tf-RNM"/>
                                                             </constraints>
-                                                            <state key="normal" backgroundImage="attachment"/>
+                                                            <state key="normal" image="attachment"/>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="M73-LT-jFr" secondAttribute="bottom" constant="10.5" id="4uM-d5-Ogb"/>
-                                                        <constraint firstItem="xyp-8Z-gXu" firstAttribute="top" secondItem="MQz-gr-kKI" secondAttribute="top" constant="5" id="JdO-4C-KWR"/>
+                                                        <constraint firstItem="xyp-8Z-gXu" firstAttribute="top" secondItem="MQz-gr-kKI" secondAttribute="top" id="JdO-4C-KWR"/>
                                                         <constraint firstItem="M73-LT-jFr" firstAttribute="leading" secondItem="x86-18-8Ag" secondAttribute="trailing" constant="10" id="ShS-Qb-7AK"/>
                                                         <constraint firstItem="x86-18-8Ag" firstAttribute="top" secondItem="MQz-gr-kKI" secondAttribute="top" constant="9" id="Yyw-Vz-PEN"/>
                                                         <constraint firstItem="x86-18-8Ag" firstAttribute="leading" secondItem="MQz-gr-kKI" secondAttribute="leading" constant="10" id="dUb-Yo-2za"/>
                                                         <constraint firstItem="x86-18-8Ag" firstAttribute="top" secondItem="M73-LT-jFr" secondAttribute="top" id="gZ4-Ut-CmA"/>
-                                                        <constraint firstAttribute="trailing" secondItem="M73-LT-jFr" secondAttribute="trailing" constant="70" id="uPT-pJ-ghL"/>
-                                                        <constraint firstAttribute="trailing" secondItem="xyp-8Z-gXu" secondAttribute="trailing" constant="25" id="zJM-nJ-bSg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="M73-LT-jFr" secondAttribute="trailing" constant="50" id="uPT-pJ-ghL"/>
+                                                        <constraint firstAttribute="trailing" secondItem="xyp-8Z-gXu" secondAttribute="trailing" constant="10" id="zJM-nJ-bSg"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -648,10 +648,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Cross" width="30" height="30"/>
-        <image name="attachment" width="16" height="16"/>
+        <image name="Cross" width="57.599998474121094" height="57.599998474121094"/>
+        <image name="attachment" width="42.666667938232422" height="42.666667938232422"/>
         <image name="down_arrow_blue" width="17" height="11"/>
-        <image name="left_menu" width="23" height="16"/>
+        <image name="left_menu" width="23" height="16.5"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

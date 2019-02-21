@@ -38,7 +38,7 @@ class RegionDetailCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setUpRegionDetailCell(regionDetail: RegionObjective) {
+    func setUpRegionDetailCell(regionDetail: RegionObjective, target: UIViewController, action: Selector) {
 //        self.objectiveLabel.text = "dfdfsfds ffsdfdsfdsf fdsfsdfsdf fsdfsdfdsf fsdfsdfsdfdsf"
 //        self.storeLabel.text = "dfdfsfds ffsdfdsfdsf fdsfsdfsdf fsdfsdfdsf fsdfsdfsdfdsf"
 //        self.storeNumberLabel.text = "dfdfsfds ffsdfdsfdsf fdsfsdfsdf fsdfsdfdsf fsdfsdfsdfdsf"
@@ -67,6 +67,16 @@ class RegionDetailCell: UITableViewCell {
         }
         
         self.commentsLabel.text = regionDetail.comment ?? "-"
+        
+        //Show attachement icon if there are images
+        if (regionDetail.status == .complete && regionDetail.images.count > 0) {
+            self.attachmentButton.isHidden = false
+            self.attachmentButton.addTarget(target, action: action, for: UIControlEvents.touchUpInside)
+        }
+        else {
+            self.attachmentButton.isHidden = true
+            self.attachmentButton.removeTarget(target, action: action, for: UIControlEvents.touchUpInside)
+        }
     }
     
     func setBackgoundColors(color: UIColor) {

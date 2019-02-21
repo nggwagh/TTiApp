@@ -8,6 +8,8 @@
 
 import UIKit
 import Moya
+import AlamofireImage
+import Optik
 
 class RegionDetailViewController: UIViewController {
     
@@ -43,6 +45,17 @@ class RegionDetailViewController: UIViewController {
     }
     
     //MARK: - Private methods
+    
+    @objc func viewAttachment(sender: UIButton) {
+        let index = sender.tag
+        let objective = self.regionObjectivesArray[index]
+       
+        let imageDownloader = AlamofireImageDownloader()
+        
+        let imageViewer = Optik.imageViewer(withURLs: objective.images, initialImageDisplayIndex: 0, imageDownloader: imageDownloader, activityIndicatorColor: UIColor.white, dismissButtonImage: nil, dismissButtonPosition: DismissButtonPosition.topLeading)
+        
+        self.present(imageViewer, animated: true, completion: nil)
+    }
     
     func getRegionObjectives(status: Int, regionId: Int){
         
@@ -102,7 +115,9 @@ extension RegionDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let regionDetailCell = tableView.dequeueReusableCell(withIdentifier: "RegionDetailCell") as! RegionDetailCell
-        regionDetailCell.setUpRegionDetailCell(regionDetail: self.regionObjectivesArray[indexPath.row])
+        regionDetailCell.setUpRegionDetailCell(regionDetail: self.regionObjectivesArray[indexPath.row], target: self, action: #selector(viewAttachment(sender:)))
+        regionDetailCell.attachmentButton.tag = indexPath.row
+        
         if indexPath.row % 2 == 0 {
             regionDetailCell.setBackgoundColors(color: .white)
         }
