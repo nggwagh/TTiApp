@@ -150,33 +150,36 @@ class TTILocationManager: NSObject {
     func updateStoreRegionState(region: CLRegion, state: String) {
         
         if let currentLocation = self.locationManager.location {
-          
+            
             if region is CLCircularRegion {
                 // Do what you want if this information
                 
-                let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as! [Int]
-                let identifier = region.identifier.components(separatedBy: " ")
-                
-                if closestStoreIdArray.contains(Int(identifier.last!)!) {
-                    
-                    var inTimeDict = [String: Any]()
-                    
-                    inTimeDict["storeID"] = Int(identifier.last!)
-                    inTimeDict["op"] = state
-                    inTimeDict["timestamp"] = Date().currentTimeMillis()
-                    inTimeDict["latitude"] = String(format: "%f", (currentLocation.coordinate.latitude))
-                    inTimeDict["longitude"] = String(format: "%f", (currentLocation.coordinate.longitude))
-                    
-                    let currentCoordinate = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-                    
-                    let storeRegion = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
-                    
-                    let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
-                    
-                    inTimeDict["distance"] = Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
-                    
-                    //CALL API TO UPDATE INTIME
-                    self.setSpentTimeForStore(region: inTimeDict)
+                if let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [Int] {
+                    if (closestStoreIdArray.count > 0) {
+                     
+                        let identifier = region.identifier.components(separatedBy: " ")
+
+                        if (identifier.count > 0 && (closestStoreIdArray.contains(Int(identifier.last!)!))) {
+                            
+                                var inTimeDict = [String: Any]()
+                                inTimeDict["storeID"] = Int(identifier.last!)
+                                inTimeDict["op"] = state
+                                inTimeDict["timestamp"] = Date().currentTimeMillis()
+                                inTimeDict["latitude"] = String(format: "%f", (currentLocation.coordinate.latitude))
+                                inTimeDict["longitude"] = String(format: "%f", (currentLocation.coordinate.longitude))
+                                
+                                let currentCoordinate = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+                                
+                                let storeRegion = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
+                                
+                                let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
+                                
+                                inTimeDict["distance"] = Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
+                                
+                                //CALL API TO UPDATE INTIME
+                                self.setSpentTimeForStore(region: inTimeDict)
+                        }
+                    }
                 }
             }
         }
