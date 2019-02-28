@@ -355,6 +355,11 @@ extension ManagerHomeViewController: UICollectionViewDelegate, UICollectionViewD
     // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if (indexPath.section == 0) {
+            return
+        }
+        
         let count = (self.regionDetailsArray[indexPath.section - 1].count?[(self.selectedRegionsArray[indexPath.row].id?.description)!])
         
         if (count! > 0) {
