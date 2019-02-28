@@ -656,6 +656,9 @@ extension HomeViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if (indexPath.section == 0) {
+            return
+        }
         self.performSegue(withIdentifier: Constant.Storyboard.Home.TaskDetailSegueIdentifier, sender: indexPath)
     }
 }
