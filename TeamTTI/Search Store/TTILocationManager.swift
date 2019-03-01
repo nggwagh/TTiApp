@@ -11,6 +11,7 @@ import MapKit
 import Moya
 import UserNotifications
 
+
 class TTILocationManager: NSObject {
     
     //MARK:- Instance Variables
@@ -155,12 +156,18 @@ class TTILocationManager: NSObject {
                 // Do what you want if this information
                 
                 if let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [Int] {
+                    
                     if (closestStoreIdArray.count > 0) {
                      
                         let identifier = region.identifier.components(separatedBy: " ")
 
-                        if (identifier.count > 0 && (closestStoreIdArray.contains(Int(identifier.last!)!))) {
-                            
+                        let isValidStoreId = identifier.last?.isNumber
+                        
+                        if isValidStoreId! {
+                           
+                            if (closestStoreIdArray.contains(Int(identifier.last!)!))
+                            {
+                                
                                 var inTimeDict = [String: Any]()
                                 inTimeDict["storeID"] = Int(identifier.last!)
                                 inTimeDict["op"] = state
@@ -178,6 +185,7 @@ class TTILocationManager: NSObject {
                                 
                                 //CALL API TO UPDATE INTIME
                                 self.setSpentTimeForStore(region: inTimeDict)
+                            }
                         }
                     }
                 }
@@ -252,6 +260,7 @@ class TTILocationManager: NSObject {
         }
     }
 }
+
 
 extension TTILocationManager: CLLocationManagerDelegate {
     
@@ -329,5 +338,11 @@ extension TTILocationManager: CLLocationManagerDelegate {
         if (state == CLRegionState.inside) {
             self.updateStoreRegionState(region: region, state: "enter")
         }
+    }
+}
+
+extension String  {
+    var isNumber: Bool {
+        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 }
