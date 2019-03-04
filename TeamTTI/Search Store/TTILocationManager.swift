@@ -53,15 +53,15 @@ class TTILocationManager: NSObject {
                                                   identifier: identifier)
             
             //SAVE CLOSEST STORE ARRAY
-            var closestStoresArray = [Int]()
-            if let storeIdArray : [Int] =  UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [Int] {
+            var closestStoresArray = [String]()
+            if let storeIdArray : [String] =  UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [String] {
                 closestStoresArray.append(contentsOf: storeIdArray)
             }
             
             
-            if (!closestStoresArray.contains(location.id)) {
+            if (!closestStoresArray.contains(location.id.description)) {
                 
-                closestStoresArray.append(location.id)
+                closestStoresArray.append(location.id.description)
                 
                 UserDefaults.standard.set(closestStoresArray, forKey: "closestStoreIdArray")
                 UserDefaults.standard.synchronize()
@@ -117,13 +117,13 @@ class TTILocationManager: NSObject {
     
     func checkIfClosestStoreNotAvailableThenStopMonitoring() {
         
-        let closestStoreIdArray : [Int] =  self.locationsToMonitor.compactMap{ return $0.id }.sorted()
+        let closestStoreIdArray : [String] =  self.locationsToMonitor.compactMap{ return $0.id.description }.sorted()
         
         for region in self.locationManager.monitoredRegions {
             
             let regionIdentifierId = region.identifier.components(separatedBy: " ").last
             
-            if (!closestStoreIdArray.contains(Int(regionIdentifierId!)!)) {
+            if (!closestStoreIdArray.contains(regionIdentifierId!)) {
                 
                 print("Removed region: \(region)")
                 
@@ -155,19 +155,18 @@ class TTILocationManager: NSObject {
             if region is CLCircularRegion {
                 // Do what you want if this information
                 
-                if let closestStoreIdArray: [Int] = UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [Int] {
+                if let closestStoreIdArray = UserDefaults.standard.value(forKey: "closestStoreIdArray") as? [String] {
                     
                     if (closestStoreIdArray.count > 0) {
                      
-                        let identifier = region.identifier.components(separatedBy: " ")
+                        let identifier = region.identifier.components(separatedBy: ":")
 
                         let isValidStoreId = identifier.last?.isNumber
                         
                         if isValidStoreId! {
                            
-                            if (closestStoreIdArray.contains(Int(identifier.last!)!))
+                            if (closestStoreIdArray.contains(identifier.last!))
                             {
-                                
                                 var inTimeDict = [String: Any]()
                                 inTimeDict["storeID"] = Int(identifier.last!)
                                 inTimeDict["op"] = state
