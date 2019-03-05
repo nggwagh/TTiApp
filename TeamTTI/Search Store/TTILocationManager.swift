@@ -159,7 +159,7 @@ class TTILocationManager: NSObject {
                     
                     if (closestStoreIdArray.count > 0) {
                      
-                        let identifier = region.identifier.components(separatedBy: ":")
+                        let identifier = region.identifier.components(separatedBy: " ")
 
                         let isValidStoreId = identifier.last?.isNumber
                         
