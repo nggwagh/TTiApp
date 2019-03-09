@@ -176,11 +176,11 @@ class TTILocationManager: NSObject {
                                 
                                 let currentCoordinate = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
                                 
-                                let storeRegion = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
+                                let storeRegion = self.locationsToMonitor.filter{ $0.id.description == identifier.last! }
                                 
                                 let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
                                 
-                                inTimeDict["distance"] = Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
+                                inTimeDict["distance"] = currentCoordinate.distance(from: storeCoordinate) // result is in meters
                                 
                                 //CALL API TO UPDATE INTIME
                                 self.setSpentTimeForStore(region: inTimeDict)
@@ -199,13 +199,8 @@ class TTILocationManager: NSObject {
             switch result {
             case let .success(response):
                 if case 200..<400 = response.statusCode {
-                    do {
-                        let jsonDict =   try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
-                        print(jsonDict)
-                    }
-                    catch let error {
-                        print(error.localizedDescription)
-                    }
+                    let responseString = String(data: response.data, encoding: String.Encoding.utf8)
+                    print(responseString!)
                 } else {
                     let responseString = String(data: response.data, encoding: String.Encoding.utf8)
                     print(responseString!)
