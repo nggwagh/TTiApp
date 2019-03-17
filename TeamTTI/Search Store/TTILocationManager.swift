@@ -176,11 +176,15 @@ class TTILocationManager: NSObject {
                                 
                                 let currentCoordinate = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
                                 
-                                let storeRegion = self.locationsToMonitor.filter{ $0.id.description == identifier.last! }
+                                let storeRegion = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
                                 
                                 let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
                                 
-                                inTimeDict["distance"] = currentCoordinate.distance(from: storeCoordinate) // result is in meters
+                                var distance =  Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
+                                if (distance < 0) {
+                                    distance = 0
+                                }
+                                inTimeDict["distance"] = distance
                                 
                                 //CALL API TO UPDATE INTIME
                                 self.setSpentTimeForStore(region: inTimeDict)
