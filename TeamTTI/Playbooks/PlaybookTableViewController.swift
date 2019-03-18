@@ -48,6 +48,8 @@ class PlaybookTableViewController: UITableViewController {
             let destinationVC = segue.destination as! PlaybookDetailViewController
             
             destinationVC.playbookURL = playbookObject.playbookURL![0]
+
+            
         }
     }
 
@@ -134,7 +136,17 @@ class PlaybookTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        searchController.isActive = false
         
-        self.performSegue(withIdentifier: Constant.Storyboard.Playbook.viewPlaybookIdentifier, sender: indexPath.row)
+        let playbookObject = self.playbooks[indexPath.row] as Playbook
+
+        if (playbookObject.playbookURL!.count > 0){
+            
+            self.performSegue(withIdentifier: Constant.Storyboard.Playbook.viewPlaybookIdentifier, sender: indexPath.row)
+
+        } else {
+            
+            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "Playbook link is unavailable")
+        }
+        
     }
 
     //MARK: - IBAction methods
