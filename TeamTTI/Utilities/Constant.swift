@@ -11,7 +11,7 @@ import Foundation
 struct Constant {
 
     struct API {
-        static let baseURL = URL.init(string: "http://test.teamtti.ca")!
+        static let baseURL = URL.init(string: "https://www.teamtti.ca")!
 
         struct Login {
             static let path = "oauth/token"
