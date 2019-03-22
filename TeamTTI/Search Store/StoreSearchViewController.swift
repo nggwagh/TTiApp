@@ -69,16 +69,28 @@ class StoreSearchViewController: UIViewController {
         
         myStores = storesArray.filter({$0.userID == Int(SettingsManager.shared().getUserID()!)})
         
+        //Remove my stores from original stores array
         storesArray.removeAll { (store : Store) -> Bool in
             store.userID == Int(SettingsManager.shared().getUserID()!)
         }
+        
+        var remainingStores = storesArray
         
         if storesArray.count >= 3 {
             for i in 0...(storesArray.count - 1) {
                 if (i < 3){
                 closestStores.append(storesArray[i])
+                //Remove closest stores from original stores array
+                remainingStores.remove(at: 0)
                 }
             }
+        }
+        
+        //BASED ON ADMIN OR MANAGER ROLE SHOW SEARCH LIST WHEN LOADS HOME SCREEN with all stores section
+        let role = SettingsManager.shared().getUserRole()
+        
+        if (role == "1" || role == "2") {
+            self.allStores.append(contentsOf: remainingStores)
         }
     }
 
@@ -107,7 +119,7 @@ class StoreSearchViewController: UIViewController {
                 
             case .AllStores:
                 if (allStores.count > 0){
-//                    headerTitle = "All Stores"
+                    headerTitle = "All Stores"
                 }
             }
         }

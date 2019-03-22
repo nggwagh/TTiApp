@@ -182,7 +182,7 @@ extension NewsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchText = searchBar.text, !searchText.isEmpty {
             filteredNews =  news.filter { (newsObject) -> Bool in
-                return newsObject.title.lowercased().contains(searchText.lowercased())
+                return newsObject.title?.lowercased().contains(searchText.lowercased()) ?? false
             }
             
         } else {

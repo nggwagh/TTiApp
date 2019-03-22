@@ -9,9 +9,9 @@
 import Foundation
 
 struct News {
-    let title: String
-    let detail: String
-    let id: Int
+    let title: String?
+    let detail: String?
+    let id: Int?
     let date: String?
     let imageURL : [String]?
 }
@@ -20,9 +20,9 @@ extension News {
     
     static func build(from newsJsonObjects: [[String:Any]]) -> [News] {
         return newsJsonObjects.compactMap({ newsJsonObject in
-            return News(title: newsJsonObject["subject"] as! String,
-                        detail: newsJsonObject["content"] as! String,
-                         id: newsJsonObject["id"] as! Int,
+            return News(title: newsJsonObject["subject"] as? String,
+                        detail: newsJsonObject["content"] as? String,
+                        id: newsJsonObject["id"] as? Int,
                          date: Date.convertDateString(inputDateFormat: DateFormats.yyyyMMdd_HHmmss, outputDateFormat: DateFormats.MMMddyyyy, (newsJsonObject["date"] as! String)),
                          imageURL: (newsJsonObject["images"] != nil) ? ((newsJsonObject["images"] as! [[String : AnyObject]]).compactMap
                             {

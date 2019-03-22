@@ -70,7 +70,7 @@ struct Objective {
     let description: String?
     let status: ObjectiveStatus
     let dueDate: Date?
-    let priority: Priority
+    let priority: Priority?
     let type: ObjectiveType
     let trackProgress: Int?
     let createdBy: Int?

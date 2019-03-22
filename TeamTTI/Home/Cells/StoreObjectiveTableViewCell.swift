@@ -34,7 +34,7 @@ extension StoreObjectiveTableViewCell {
     func configure(with storeObjective: StoreObjective, isSelectionOn: Bool, isChecked: Bool) {
         completionIcon.image = storeObjective.status.iconImage
         lblTitle.text = storeObjective.objective?.title
-        lblPriority.text = storeObjective.objective?.priority.displayValue
+        lblPriority.text = storeObjective.objective?.priority?.displayValue
         
         if !isSelectionOn {
             checkMarkButton.isHidden = true
