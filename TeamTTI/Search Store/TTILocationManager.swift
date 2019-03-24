@@ -35,7 +35,9 @@ class TTILocationManager: NSObject {
         // Ask for Authorisation from the User.
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 10
-        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = false
+//        locationManager.startMonitoringSignificantLocationChanges()
         locationManager.startUpdatingLocation()
     }
     
@@ -73,13 +75,12 @@ class TTILocationManager: NSObject {
                 
                 self.locationManager.startMonitoring(for: geofenceRegion)
             }
-            
-            //CODE TO CHECK AND REMOVE REGION MONITORING IF ITS NOT BELONGS TO CLOSED STORES THEN REMOVE REGION MONITORING
-            self.checkIfClosestStoreNotAvailableThenStopMonitoring()
-            
-            //test code for api testing
-            // self.dummyTestApi()
         }
+        //CODE TO CHECK AND REMOVE REGION MONITORING IF ITS NOT BELONGS TO CLOSED STORES THEN REMOVE REGION MONITORING
+        self.checkIfClosestStoreNotAvailableThenStopMonitoring()
+        
+        //test code for api testing
+        // self.dummyTestApi()
     }
     
     
@@ -176,18 +177,20 @@ class TTILocationManager: NSObject {
                                 
                                 let currentCoordinate = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
                                 
-                                let storeRegion = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
+                                let storeRegion: [Store]? = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
                                 
-                                let storeCoordinate = CLLocation(latitude: storeRegion[0].latitude!, longitude: storeRegion[0].longitude!)
-                                
-                                var distance =  Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
-                                if (distance < 0) {
-                                    distance = 0
+                                if (storeRegion != nil) {
+                                    let storeCoordinate = CLLocation(latitude: storeRegion![0].latitude!, longitude: storeRegion![0].longitude!)
+                                    
+                                    var distance =  Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
+                                    if (distance < 0) {
+                                        distance = 0
+                                    }
+                                    inTimeDict["distance"] = distance
+                                    
+                                    //CALL API TO UPDATE INTIME
+                                    self.setSpentTimeForStore(region: inTimeDict)
                                 }
-                                inTimeDict["distance"] = distance
-                                
-                                //CALL API TO UPDATE INTIME
-                                self.setSpentTimeForStore(region: inTimeDict)
                             }
                         }
                     }
@@ -277,7 +280,7 @@ extension TTILocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        guard let locValue: CLLocationCoordinate2D = locations.last?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         
         SettingsManager.shared().setUserLocationLatitude(locValue.latitude)
