@@ -175,19 +175,24 @@ class TTILocationManager: NSObject {
                                 inTimeDict["latitude"] = String(format: "%f", (currentLocation.coordinate.latitude))
                                 inTimeDict["longitude"] = String(format: "%f", (currentLocation.coordinate.longitude))
                                 
-                                let currentCoordinate = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+                                let currentCoordinate : CLLocation? = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
                                 
                                 let storeRegion: [Store]? = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
                                 
-                                if (storeRegion != nil) {
-                                    let storeCoordinate = CLLocation(latitude: storeRegion![0].latitude!, longitude: storeRegion![0].longitude!)
+                                if (storeRegion != nil && currentCoordinate != nil) {
+                                    let storeCoordinate : CLLocation? = CLLocation(latitude: storeRegion![0].latitude!, longitude: storeRegion![0].longitude!)
                                     
-                                    var distance =  Int(currentCoordinate.distance(from: storeCoordinate)) // result is in meters
-                                    if (distance < 0) {
-                                        distance = 0
+                                    if (storeCoordinate != nil) {
+                                        var distance =  Int(currentCoordinate?.distance(from: storeCoordinate!) ?? 0) // result is in meters
+                                        if (distance < 0) {
+                                            distance = 0
+                                        }
+                                        inTimeDict["distance"] = distance
                                     }
-                                    inTimeDict["distance"] = distance
-                                    
+                                    else {
+                                        inTimeDict["distance"] = 0
+                                    }
+                                   
                                     //CALL API TO UPDATE INTIME
                                     self.setSpentTimeForStore(region: inTimeDict)
                                 }
