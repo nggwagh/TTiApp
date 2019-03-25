@@ -37,9 +37,10 @@ class LoginViewController: UIViewController {
 //        txtEmail.text = "Sean@expertel.ca"
 //        txtPassword.text = "tester123"
         
-        //Production
-//        txtEmail.text = "Dogens"
-//        txtPassword.text = "sean1188"
+     // Production (Dont Submit any task on Production Env.)
+//        txtEmail.text = "sean@expertel.ca"
+//        txtPassword.text = "tticanada"
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

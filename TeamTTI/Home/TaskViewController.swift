@@ -192,7 +192,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
                         let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
-                        let imagesArray = PeerExample.build(from: jsonDict)
+                        let imagesArray = PeerExample.build(from: jsonDict).filter{ ($0.imageURL?.count)! > 0 }
                         
                         if imagesArray.count > 0
                         {
@@ -204,7 +204,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
                             self.taskImageView1.isUserInteractionEnabled = true
                         }
                         
-                        if imagesArray.count > 2
+                        if imagesArray.count >= 2
                         {
                             self.imageArray.append(imagesArray[imagesArray.count-2].imageURL![0])
                             
@@ -214,7 +214,7 @@ class TaskViewController: UIViewController, DateElementDelegate {
                             
                         }
                         
-                        if imagesArray.count > 3
+                        if imagesArray.count >= 3
                         {
                             self.imageArray.append(imagesArray[imagesArray.count-3].imageURL![0])
                             
