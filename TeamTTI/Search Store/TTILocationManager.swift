@@ -21,6 +21,8 @@ class TTILocationManager: NSObject {
     private var storeNetworkTask: Cancellable?
     let refreshStoreDistance = 10.0 //in km
     
+    private var recordedTimeStamp = Date()
+    
     //MARK:- Instance Methods
     
     override init() {}
@@ -151,6 +153,15 @@ class TTILocationManager: NSObject {
     
     func updateStoreRegionState(region: CLRegion, state: String) {
         
+        if (state == "enter") {
+            let elapsed = Date().timeIntervalSince(recordedTimeStamp)
+            recordedTimeStamp = Date()
+            print("Time elapsed\(elapsed)")
+            if (elapsed < 5) {
+                return
+            }
+        }
+        
         if let currentLocation = self.locationManager.location {
             
             if region is CLCircularRegion {
@@ -179,7 +190,7 @@ class TTILocationManager: NSObject {
                                 
                                 let storeRegion: [Store]? = self.locationsToMonitor.filter{ $0.id == Int((identifier.last!)) }
                                 
-                                if (storeRegion != nil && currentCoordinate != nil) {
+                                if ((storeRegion?.count)! > 0 && storeRegion != nil && currentCoordinate != nil) {
                                     let storeCoordinate : CLLocation? = CLLocation(latitude: storeRegion![0].latitude!, longitude: storeRegion![0].longitude!)
                                     
                                     if (storeCoordinate != nil) {
