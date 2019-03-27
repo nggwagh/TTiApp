@@ -45,7 +45,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
     private var isImageDeleted: Bool? = false
 
     let completionTypes : [String] = ["", "Complete", "Incomplete"]
-    let reasons : [String] = ["", "Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketting Issue"]
+    let reasons : [String] = ["", "Store Refusal", "No Inventory", "Lack of Space", "Vacant Territory", "Marketing Issue", "Opt-out"]
     
     var isViewLoadedForFirstTime : Bool = true
     
