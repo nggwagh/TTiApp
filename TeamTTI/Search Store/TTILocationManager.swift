@@ -34,13 +34,19 @@ class TTILocationManager: NSObject {
     }
     
     func startUpdatingCurrentLocation() {
+        
         // Ask for Authorisation from the User.
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 10
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        
         locationManager.allowsBackgroundLocationUpdates = true
+        
         locationManager.pausesLocationUpdatesAutomatically = false
-//        locationManager.startMonitoringSignificantLocationChanges()
-        locationManager.startUpdatingLocation()
+        
+        locationManager.startMonitoringSignificantLocationChanges()
+        
+//        locationManager.startUpdatingLocation()
     }
     
     func monitorRegions(regionsToMonitor : [Store])  {
@@ -53,7 +59,7 @@ class TTILocationManager: NSObject {
             
             let identifier = String(location.name + " " + "\(location.id)")
             let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter,
-                                                  radius: 100,
+                                                  radius: 200,
                                                   identifier: identifier)
             
             //SAVE CLOSEST STORE ARRAY

@@ -8,6 +8,8 @@
 
 import UIKit
 import Moya
+import Fabric
+import Crashlytics
 
 extension Constant.Storyboard {
     struct Login {
@@ -83,7 +85,9 @@ extension LoginViewController {
                             SettingsManager.shared().setAccessToken(token)
                             self.getUserDetails()
                         }
-                        
+                        //Setting user email id as indentifier for crashlytics
+                        Crashlytics.sharedInstance().setUserIdentifier(self.txtEmail.text)
+
                     }
                     catch let error {
                         print(error.localizedDescription)
@@ -139,7 +143,6 @@ extension LoginViewController {
                         if (UserDefaults.standard.value(forKey: "DeviceToken") != nil){
                             self.registerDeviceToken()
                         }
-                        
                     }
                     catch let error {
                         print(error.localizedDescription)

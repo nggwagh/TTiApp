@@ -39,9 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.application(application: UIApplication.shared, didReceiveRemoteNotification: notification! as [NSObject : AnyObject])
         }
         
-        
         return true
     }
+    
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -62,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
        
         UIApplication.shared.applicationIconBadgeNumber = 0
+        self.checkVersionAndLogoutIfOld()
 
     }
     
@@ -74,6 +76,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         SettingsManager.shared().setUserLocationLaunchTimeLatitude(0)
         SettingsManager.shared().setUserLocationLaunchTimeLongitude(0)
     }
+    
+    //MARK: -Global
+    
+    func checkVersionAndLogoutIfOld() {
+        
+        let dictionary = Bundle.main.infoDictionary!
+        
+        let newVersion = dictionary["CFBundleShortVersionString"] as! String
+        let newBuild = dictionary["CFBundleVersion"] as! String
+        
+        if ((UserDefaults.standard.value(forKey: "version") != nil) && (UserDefaults.standard.value(forKey: "build") != nil)){
+            
+            let oldVersion = UserDefaults.standard.value(forKey: "version") as! String
+            let oldBuild = UserDefaults.standard.value(forKey: "build") as! String
+            
+            if ((newVersion > oldVersion) || (newBuild > oldBuild)) {
+                
+                //logout
+                
+                //clear user details from user default
+                SettingsManager.shared().resetSettings()
+                
+                for region in TTILocationManager.sharedLocationManager.locationManager.monitoredRegions {
+                    
+                    TTILocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
+                    print("Removed Region :\(region)")
+                    
+                }
+                
+                //Move to login screen
+                RootViewControllerManager.refreshRootViewController()
+                
+                
+                UserDefaults.standard.set(newVersion, forKey: "version")
+                UserDefaults.standard.set(newBuild, forKey: "build")
+                UserDefaults.standard.synchronize()
+            }
+            
+        } else {
+            
+            //logout
+            
+            //clear user details from user default
+            SettingsManager.shared().resetSettings()
+            
+            for region in TTILocationManager.sharedLocationManager.locationManager.monitoredRegions {
+                
+                TTILocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
+                print("Removed Region :\(region)")
+                
+            }
+            
+            //Move to login screen
+            RootViewControllerManager.refreshRootViewController()
+            
+            
+            UserDefaults.standard.set(newVersion, forKey: "version")
+            UserDefaults.standard.set(newBuild, forKey: "build")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
     
     // MARK: - Core Data stack
     
