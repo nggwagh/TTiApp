@@ -42,11 +42,11 @@ class TTILocationManager: NSObject {
         
         locationManager.allowsBackgroundLocationUpdates = true
         
-        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.pausesLocationUpdatesAutomatically = true
         
-        locationManager.startMonitoringSignificantLocationChanges()
+//      locationManager.startMonitoringSignificantLocationChanges()
         
-//        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
     }
     
     func monitorRegions(regionsToMonitor : [Store])  {
@@ -59,7 +59,7 @@ class TTILocationManager: NSObject {
             
             let identifier = String(location.name + " " + "\(location.id)")
             let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter,
-                                                  radius: 200,
+                                                  radius: 500,
                                                   identifier: identifier)
             
             //SAVE CLOSEST STORE ARRAY
