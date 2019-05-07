@@ -36,10 +36,10 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         let role = SettingsManager.shared().getUserRole()
         
         if (role == "1" || role == "2" ) {
-            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Logout"]
+            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Survey", "Logout"]
         }
         else {
-            menuItems = ["Home", "Planner", "News", "Playbooks", "Logout"]
+            menuItems = ["Home", "Planner", "News", "Playbooks", "Survey", "Logout"]
         }
         
         self.menuTableView.reloadData()
@@ -88,6 +88,13 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         let playbookStoryboard = UIStoryboard.init(name: Constant.Storyboard.Playbook.id, bundle: nil)
         let playbookViewController = playbookStoryboard.instantiateInitialViewController()
         RootViewControllerFactory.centerContainer.centerViewController = playbookViewController
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+    }
+    
+    @objc func loadSurveyVC(){
+        let newsStoryboard = UIStoryboard.init(name: Constant.Storyboard.News.id, bundle: nil)
+        let newsViewController = newsStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = newsViewController
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
     }
     
@@ -195,12 +202,23 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
                 self.loadPlaybookVC()
             }
             else{
-                self.logoutTheUser()
+                self.loadSurveyVC()
             }
             
             break;
             
         case 5:
+            
+            if (role == "1" || role == "2") {
+                self.loadSurveyVC()
+            }
+            else{
+                self.logoutTheUser()
+            }
+                        
+            break;
+            
+        case 6:
             
             self.logoutTheUser()
             
