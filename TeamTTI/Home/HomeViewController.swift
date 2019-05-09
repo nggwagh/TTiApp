@@ -42,6 +42,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var navigationBar: HomeNavigationBar!
     
     var refreshControl   = UIRefreshControl()
+    var isCurrentObjectiveSelected = true
     
     //MARK:- View Lifecycle
     override func viewDidLoad() {
@@ -167,8 +168,17 @@ class HomeViewController: UIViewController, DateElementDelegate {
     func buildSectionArray() {
         
         self.allStoreObjectives.removeAll()
+
+        var allObjectives = storeObjectivesResponse
         
-        let highPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
+//        var allObjectives = storeObjectivesResponse.filter { Date.isInSameMonth(date: ($0.objective?.dueDate!)!) == true}
+//
+//        if(!isCurrentObjectiveSelected) {
+//            allObjectives = storeObjectivesResponse.filter { Date.isInSameMonth(date: ($0.objective?.dueDate!)!) == false}
+//        }
+        print("Mohini")
+        print(allObjectives)
+        let highPriorityNonCompletedObjectives = allObjectives.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
         
         for obj in highPriorityNonCompletedObjectives {
             var dict = [String : AnyObject]()
@@ -177,20 +187,20 @@ class HomeViewController: UIViewController, DateElementDelegate {
             self.allStoreObjectives.append(dict)
         }
         
-        let mediumPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
+        let mediumPriorityNonCompletedObjectives = allObjectives.filter({ ($0.objective?.priority == .medium && $0.status != .complete) })
         var mediumPriorityObjectivesDict = [String : AnyObject]()
         mediumPriorityObjectivesDict["headerTitle"] = "" as AnyObject
         mediumPriorityObjectivesDict["storeObjectives"] = mediumPriorityNonCompletedObjectives as AnyObject
         self.allStoreObjectives.append(mediumPriorityObjectivesDict)
         
-        let lowPriorityNonCompletedObjectives = storeObjectivesResponse.filter({ ($0.objective?.priority == .low && $0.status != .complete) })
+        let lowPriorityNonCompletedObjectives = allObjectives.filter({ ($0.objective?.priority == .low && $0.status != .complete) })
         var lowPriorityObjectivesDict = [String : AnyObject]()
         lowPriorityObjectivesDict["headerTitle"] = "" as AnyObject
         lowPriorityObjectivesDict["storeObjectives"] = lowPriorityNonCompletedObjectives as AnyObject
         self.allStoreObjectives.append(lowPriorityObjectivesDict)
         
         
-        let completedObjectives = storeObjectivesResponse.filter({ ($0.status == .complete) })
+        let completedObjectives = allObjectives.filter({ ($0.status == .complete) })
         var completedObjectivesDict = [String : AnyObject]()
         completedObjectivesDict["headerTitle"] = "" as AnyObject
         completedObjectivesDict["storeObjectives"] = completedObjectives as AnyObject
@@ -578,7 +588,7 @@ extension HomeViewController: UITableViewDataSource {
         
         if (indexPath.section == 0) {
             let  graphTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "GraphTableViewCell") as! GraphTableViewCell
-            graphTableViewCell.configure(unfinished: (self.totalTasks - self.completedTasks), finished: self.completedTasks, total: self.totalTasks)
+            graphTableViewCell.configure(unfinished: (self.totalTasks - self.completedTasks), finished: self.completedTasks, total: self.totalTasks, delegate: self)
             return graphTableViewCell
         }
         else {
@@ -725,6 +735,21 @@ extension HomeViewController: StoreSearchViewControllerDelegate {
         isAlreadyShownSearchView = false
         navigationBar.setArrowImage("down_arrow")
     }
+}
+
+extension HomeViewController:ObjectiveButtonTap {
+    func currentObjectiveButtonTapped() {
+        self.isCurrentObjectiveSelected = true
+        self.buildSectionArray()
+        reloadTableView()
+    }
+    
+    func upcomingObjectiveButtonTapped() {
+        self.isCurrentObjectiveSelected = false
+        self.buildSectionArray()
+        reloadTableView() 
+    }
+
 }
 
 /*
