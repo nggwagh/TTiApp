@@ -21,8 +21,8 @@ extension StoreApi: TargetType {
         switch self {
         case .stores():
             return URL(string: "\(Constant.API.baseURL)/?showCounts=1")!
-        case .setStoreSpentTime(_):
-            return Constant.API.baseURL
+        case let .storeObjectivesFor(_,month,year):
+            return  URL(string: "\(Constant.API.baseURL)/?month=\(month)&year=\(year)")!
         default:
             return Constant.API.baseURL
         }
@@ -32,8 +32,9 @@ extension StoreApi: TargetType {
         switch self {
         case .stores():
             return Constant.API.Store.path 
-        case let .storeObjectivesFor(storeId, month, year):
-            return Constant.API.Store.path + "/\(storeId)/objective?month=\(month)&year=\(year)"
+        case let .storeObjectivesFor(storeId, _, _):
+            return Constant.API.Store.path + "/\(storeId)/objective"
+
         case .setStoreSpentTime(_):
             return Constant.API.Store.geoItemPath
         }

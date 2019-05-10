@@ -100,7 +100,7 @@ extension PhotoPickerController: UIImagePickerControllerDelegate, UINavigationCo
             }
             
             if let validDelegate = imagePickerDelegate, let validImage = imageToUse {
-                UIImageWriteToSavedPhotosAlbum(originalImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                UIImageWriteToSavedPhotosAlbum(originalImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
                 validDelegate.photoPicker(picker: self, didSelectImage: validImage)
             }
             
