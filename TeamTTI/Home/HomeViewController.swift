@@ -107,6 +107,14 @@ class HomeViewController: UIViewController, DateElementDelegate {
             return
         }
         
+        var month = 3
+        var year = 2019
+        
+        if (!isCurrentObjectiveSelected) {
+            month = 4
+            year = 2019
+        }
+        
         //show progress hud
         self.showHUD(progressLabel: "")
         
@@ -115,7 +123,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
         
         guard let storeId = self.selectedStore?.id else { return }
         
-        storeObjectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.storeObjectivesFor(storeId: storeId)) { result in
+        storeObjectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.storeObjectivesFor(storeId: storeId, month: month, year: year)) { result in
             
             //hide progress hud
             self.dismissHUD(isAnimated: true)
@@ -170,14 +178,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
         self.allStoreObjectives.removeAll()
 
         var allObjectives = storeObjectivesResponse
-        
-//        var allObjectives = storeObjectivesResponse.filter { Date.isInSameMonth(date: ($0.objective?.dueDate!)!) == true}
-//
-//        if(!isCurrentObjectiveSelected) {
-//            allObjectives = storeObjectivesResponse.filter { Date.isInSameMonth(date: ($0.objective?.dueDate!)!) == false}
-//        }
-        print("Mohini")
-        print(allObjectives)
+
         let highPriorityNonCompletedObjectives = allObjectives.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
         
         for obj in highPriorityNonCompletedObjectives {
@@ -740,14 +741,12 @@ extension HomeViewController: StoreSearchViewControllerDelegate {
 extension HomeViewController:ObjectiveButtonTap {
     func currentObjectiveButtonTapped() {
         self.isCurrentObjectiveSelected = true
-        self.buildSectionArray()
-        reloadTableView()
+        self.refreshStore()
     }
     
     func upcomingObjectiveButtonTapped() {
         self.isCurrentObjectiveSelected = false
-        self.buildSectionArray()
-        reloadTableView() 
+        self.refreshStore()
     }
 
 }

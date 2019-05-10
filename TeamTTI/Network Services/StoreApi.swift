@@ -11,7 +11,7 @@ import Moya
 
 enum StoreApi {
     case stores()
-    case storeObjectivesFor(storeId: Int)
+    case storeObjectivesFor(storeId: Int, month: Int, year: Int)
     case setStoreSpentTime(regionObject: [String: Any])
 }
 
@@ -32,8 +32,8 @@ extension StoreApi: TargetType {
         switch self {
         case .stores():
             return Constant.API.Store.path 
-        case let .storeObjectivesFor(storeId):
-            return Constant.API.Store.path + "/\(storeId)/objective"
+        case let .storeObjectivesFor(storeId, month, year):
+            return Constant.API.Store.path + "/\(storeId)/objective?month=\(month)&year=\(year)"
         case .setStoreSpentTime(_):
             return Constant.API.Store.geoItemPath
         }
