@@ -107,11 +107,11 @@ class HomeViewController: UIViewController, DateElementDelegate {
             return
         }
         
-        var month = 3
+        var month = "03"
         var year = 2019
         
         if (!isCurrentObjectiveSelected) {
-            month = 4
+            month = "04"
             year = 2019
         }
         

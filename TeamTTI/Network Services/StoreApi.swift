@@ -11,7 +11,7 @@ import Moya
 
 enum StoreApi {
     case stores()
-    case storeObjectivesFor(storeId: Int, month: Int, year: Int)
+    case storeObjectivesFor(storeId: Int, month: String, year: Int)
     case setStoreSpentTime(regionObject: [String: Any])
 }
 
