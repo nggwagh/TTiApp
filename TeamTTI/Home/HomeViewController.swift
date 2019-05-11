@@ -107,12 +107,13 @@ class HomeViewController: UIViewController, DateElementDelegate {
             return
         }
         
-        var month = "03"
-        var year = 2019
+        var month = Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.MM, Date())
+        var year = Int(Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyy, Date()))
         
         if (!isCurrentObjectiveSelected) {
-            month = "04"
-            year = 2019
+            let nextMonthDate = Calendar.current.date(byAdding: .month, value: 1, to: Date())
+            month = Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.MM, nextMonthDate!)
+            year = Int(Date.convertDate(from: DateFormats.yyyyMMdd_HHmmss, to: DateFormats.yyyy, nextMonthDate!))
         }
         
         //show progress hud
@@ -123,7 +124,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
         
         guard let storeId = self.selectedStore?.id else { return }
         
-        storeObjectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.storeObjectivesFor(storeId: storeId, month: month, year: year)) { result in
+        storeObjectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.storeObjectivesFor(storeId: storeId, month: month, year: year!)) { result in
             
             //hide progress hud
             self.dismissHUD(isAnimated: true)
@@ -177,7 +178,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
         
         self.allStoreObjectives.removeAll()
 
-        var allObjectives = storeObjectivesResponse
+        let allObjectives = storeObjectivesResponse
 
         let highPriorityNonCompletedObjectives = allObjectives.filter({ ($0.objective?.priority == .high && $0.status != .complete) })
         

@@ -16,6 +16,8 @@ struct DateFormats {
     static let MMMMddyyyy = "MMMM dd, yyyy"
     static let MMMM = "MMMM"
     static let EEE = "EEE"
+    static let MM = "MM"
+    static let yyyy = "yyyy"
 }
 
 extension DateFormatter {
