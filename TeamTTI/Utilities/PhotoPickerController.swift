@@ -100,7 +100,9 @@ extension PhotoPickerController: UIImagePickerControllerDelegate, UINavigationCo
             }
             
             if let validDelegate = imagePickerDelegate, let validImage = imageToUse {
-                UIImageWriteToSavedPhotosAlbum(originalImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                if (picker.sourceType == .camera) {
+                    UIImageWriteToSavedPhotosAlbum(originalImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                }
                 validDelegate.photoPicker(picker: self, didSelectImage: validImage)
             }
             
@@ -110,7 +112,7 @@ extension PhotoPickerController: UIImagePickerControllerDelegate, UINavigationCo
     
     //MARK: - Add image to Library
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
+        if error != nil {
             // we got back an error!
             print("Save error")
         } else {
