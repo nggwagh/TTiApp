@@ -199,7 +199,7 @@ class SubmissionViewController: UIViewController, DateElementDelegate, PhotoPick
         
         submitObjectiveTask?.cancel()
         
-        submitObjectiveTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.uploadStoreObjectiveImage(image: image, storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID)){ result in
+        submitObjectiveTask = MoyaProvider<ObjectiveApi>(plugins: [AuthPlugin()]).request(.uploadStoreObjectiveImage(image: image.fixOrientation(), storeID: self.tastDetails.storeId, objectiveID: self.tastDetails.objectiveID)){ result in
             
             // hiding progress hud
             self.dismissHUD(isAnimated: true)
@@ -510,5 +510,20 @@ extension UITextField {
 
     func loadDropdownData(data: [String], selectionHandler : Selector, pickerDelegate:UIViewController, initialText: String) {
         self.inputView = PickerViewUtility(pickerData: data, dropdownField: self, onSelect: selectionHandler, forDelegate: pickerDelegate, initialText: initialText)
+    }
+}
+
+extension UIImage {
+    func fixOrientation() -> UIImage {
+        if self.imageOrientation == UIImageOrientation.up {
+            return self
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        let normalizedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return normalizedImage;
     }
 }
