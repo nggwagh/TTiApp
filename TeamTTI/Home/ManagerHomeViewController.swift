@@ -27,7 +27,7 @@ class ManagerHomeViewController: UIViewController {
 
     private var stores: [Store]?
     private var storeNetworkTask: Cancellable?
-    let preferredRegionsArray = ["West", "Alberta", "Ontario west", "Ontario Central", "Ontario East", "East"]
+    let preferredRegionsArray = ["West", "Alberta", "Ontario West", "Ontario Central", "Ontario East", "East"]
 
     //MARK:- View Lifecycle
     override func viewDidLoad() {
