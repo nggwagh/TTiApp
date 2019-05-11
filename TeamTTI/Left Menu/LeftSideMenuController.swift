@@ -36,10 +36,10 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         let role = SettingsManager.shared().getUserRole()
         
         if (role == "1" || role == "2" ) {
-            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Survey", "Logout"]
+            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Surveys", "Logout"]
         }
         else {
-            menuItems = ["Home", "Planner", "News", "Playbooks", "Survey", "Logout"]
+            menuItems = ["Home", "Planner", "News", "Playbooks", "Surveys", "Logout"]
         }
         
         self.menuTableView.reloadData()
@@ -92,9 +92,9 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func loadSurveyVC(){
-        let newsStoryboard = UIStoryboard.init(name: Constant.Storyboard.News.id, bundle: nil)
-        let newsViewController = newsStoryboard.instantiateInitialViewController()
-        RootViewControllerFactory.centerContainer.centerViewController = newsViewController
+        let surveyStoryboard = UIStoryboard.init(name: Constant.Storyboard.Survey.id, bundle: nil)
+        let surveyViewController = surveyStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = surveyViewController
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
     }
     

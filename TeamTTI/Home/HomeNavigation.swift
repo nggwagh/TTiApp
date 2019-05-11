@@ -31,6 +31,13 @@ extension Constant.Storyboard {
         
     }
     
+    struct Survey {
+        static let id = "Survey"
+        static let surveyDetailsSegueIdentifier = "SurveyDetailsIdentifier"
+        static let openSurveySegueIdentifier = "OpenSurveyIdentifier"
+
+    }
+    
     struct Planner {
         static let id = "Planner"
         static let PlannerViewControllerIdentifier = "PlannerViewControllerIdentifier"
