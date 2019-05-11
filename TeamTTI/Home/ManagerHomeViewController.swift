@@ -26,8 +26,8 @@ class ManagerHomeViewController: UIViewController {
     @IBOutlet weak var tableFooterView: UIView!
 
     private var stores: [Store]?
-
     private var storeNetworkTask: Cancellable?
+    let preferredRegionsArray = ["West", "Alberta", "Ontario west", "Ontario Central", "Ontario East", "East"]
 
     //MARK:- View Lifecycle
     override func viewDidLoad() {
@@ -92,12 +92,28 @@ class ManagerHomeViewController: UIViewController {
     }
     
     @IBAction func submitButtonTapped(_ sender: AnyObject) {
+        self.selectedRegionsArray = self.reorder(by: self.preferredRegionsArray, arrayToSort: self.selectedRegionsArray)
         self.regionsTableView.isHidden = true
         self.updateRegionField()
         self.collectionView.reloadData()
     }
     
     //MARK:- Private Methods
+    
+    func reorder(by preferredOrder: [String], arrayToSort:[Region]) -> [Region] {
+        
+        return arrayToSort.sorted { (a, b) -> Bool in
+            guard let first = preferredOrder.index(of: a.name!) else {
+                return false
+            }
+            
+            guard let second = preferredOrder.index(of: b.name!) else {
+                return true
+            }
+            
+            return first < second
+        }
+    }
     
     func getRegionsList(){
         
@@ -120,6 +136,7 @@ class ManagerHomeViewController: UIViewController {
                         print(jsonDict)
                         
                         self.allRegionsArray = Region.build(from: jsonDict)
+                        self.allRegionsArray = self.reorder(by: self.preferredRegionsArray, arrayToSort: self.allRegionsArray)
                         self.allRegionsArray.append(Region.init(id: 99, name: "View All", code: ""))
 
                         //SettingsManager.shared().setRegions(self.allRegionsArray)
