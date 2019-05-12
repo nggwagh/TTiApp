@@ -339,7 +339,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
         
         self.setStoreDetails()
         
-        if (graphTableViewCell != nil) {
+        if (graphTableViewCell != nil && !(graphTableViewCell?.currentObjectiveButton.isSelected)!) {
             graphTableViewCell?.handleCurrentObjectiveButtonTap(sender: (graphTableViewCell?.currentObjectiveButton)!)
             return
         }
