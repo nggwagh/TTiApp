@@ -19,6 +19,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleButtonView: UIView!
+    var  graphTableViewCell: GraphTableViewCell?
     
     //MARK:- Instance variables
     private var storeNetworkTask: Cancellable?
@@ -338,6 +339,11 @@ class HomeViewController: UIViewController, DateElementDelegate {
         
         self.setStoreDetails()
         
+        if (graphTableViewCell != nil) {
+            graphTableViewCell?.handleCurrentObjectiveButtonTap(sender: (graphTableViewCell?.currentObjectiveButton)!)
+            return
+        }
+        
         self.refreshStore()
     }
     
@@ -589,9 +595,9 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if (indexPath.section == 0) {
-            let  graphTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "GraphTableViewCell") as! GraphTableViewCell
-            graphTableViewCell.configure(unfinished: (self.totalTasks - self.completedTasks), finished: self.completedTasks, total: self.totalTasks, delegate: self)
-            return graphTableViewCell
+            graphTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "GraphTableViewCell") as? GraphTableViewCell
+            graphTableViewCell?.configure(unfinished: (self.totalTasks - self.completedTasks), finished: self.completedTasks, total: self.totalTasks, delegate: self)
+            return graphTableViewCell!
         }
         else {
             let storeObjectives = self.allStoreObjectives[indexPath.section - 1]["storeObjectives"] as! [StoreObjective]
