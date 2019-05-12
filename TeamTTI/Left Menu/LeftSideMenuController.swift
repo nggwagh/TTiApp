@@ -47,7 +47,13 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         //WHEN RECEIVED PUSH NOTIFICATIONS
         if UserDefaults.standard.bool(forKey: "isNotification"){
             
-            self.perform(#selector(loadNewsVC), with: nil, afterDelay: 0.5)
+            if UserDefaults.standard.bool(forKey: "isNews"){
+                self.perform(#selector(loadNewsVC), with: nil, afterDelay: 0.5)
+            } else{
+                self.perform(#selector(loadSurveyVC), with: nil, afterDelay: 0.5)
+            }
+            
+            UserDefaults.standard.set(false, forKey: "isNews")
             UserDefaults.standard.set(false, forKey: "isNotification")
             UserDefaults.standard.synchronize()
         }

@@ -200,7 +200,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    @objc func whenReceivedPushNotification(){
+    @objc func whenReceivedPushNotification(payload: Any){
+        
+        let dictionary = payload as? [String: Any]
+        
+        if ((dictionary!["type"] as? String) == "news"){
+            UserDefaults.standard.set(true, forKey: "isNews")
+            }
         
         UserDefaults.standard.set(true, forKey: "isNotification")
         UserDefaults.standard.synchronize()
@@ -245,7 +251,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         
         print("Recived In Background/Foreground: \(userInfo)")
-        self.perform(#selector(self.whenReceivedPushNotification), with: nil, afterDelay: 1)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.whenReceivedPushNotification(payload: userInfo)
+        }
     }
     
     
@@ -255,7 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let userInfo = response.notification.request.content.userInfo
         print("Recived In Background/Foreground: \(userInfo)")
-        self.whenReceivedPushNotification()
+        self.whenReceivedPushNotification(payload: userInfo)
     }
 
     
