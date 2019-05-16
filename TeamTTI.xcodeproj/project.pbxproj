@@ -64,6 +64,9 @@
 		5240A1F22286B05600F3C0E9 /* OpenSurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5240A1F12286B05600F3C0E9 /* OpenSurveyViewController.swift */; };
 		526A60E021D2113500E5CD65 /* NewsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A60DF21D2113400E5CD65 /* NewsApi.swift */; };
 		5272BA2F2281FE0400D6C30E /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272BA2E2281FE0400D6C30E /* SurveyViewController.swift */; };
+		52FD4939228DD3C7005710EC /* Performance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52FD4938228DD3C7005710EC /* Performance.storyboard */; };
+		52FD493B228DD455005710EC /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FD493A228DD455005710EC /* PerformanceViewController.swift */; };
+		52FD493D228DD476005710EC /* PerformanceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FD493C228DD476005710EC /* PerformanceDetailsViewController.swift */; };
 		52FEFDFD21FC34CE00EF27E0 /* Playbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FEFDFC21FC34CE00EF27E0 /* Playbook.swift */; };
 		808A173D9C4668D8A90B68C1 /* Pods_TeamTTI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A21F8E4E4DD82AE9982A38 /* Pods_TeamTTI.framework */; };
 		CF4832BB217CF3C1000660C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4832BA217CF3C1000660C6 /* AppDelegate.swift */; };
@@ -172,6 +175,9 @@
 		5240A1F12286B05600F3C0E9 /* OpenSurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSurveyViewController.swift; sourceTree = "<group>"; };
 		526A60DF21D2113400E5CD65 /* NewsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsApi.swift; sourceTree = "<group>"; };
 		5272BA2E2281FE0400D6C30E /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
+		52FD4938228DD3C7005710EC /* Performance.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Performance.storyboard; sourceTree = "<group>"; };
+		52FD493A228DD455005710EC /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
+		52FD493C228DD476005710EC /* PerformanceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceDetailsViewController.swift; sourceTree = "<group>"; };
 		52FEFDFC21FC34CE00EF27E0 /* Playbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playbook.swift; sourceTree = "<group>"; };
 		7FDAF4D000B29CB0B4C42E25 /* Pods-TeamTTIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTTIUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamTTIUITests/Pods-TeamTTIUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8BEC00D1775FCD6F632960D6 /* Pods-TeamTTITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamTTITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamTTITests/Pods-TeamTTITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -379,6 +385,16 @@
 			path = Survey;
 			sourceTree = "<group>";
 		};
+		52FD4937228DD3A5005710EC /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				52FD4938228DD3C7005710EC /* Performance.storyboard */,
+				52FD493A228DD455005710EC /* PerformanceViewController.swift */,
+				52FD493C228DD476005710EC /* PerformanceDetailsViewController.swift */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
 		CA4084387168F81FBC8BAB08 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +433,7 @@
 		CF4832B9217CF3C1000660C6 /* TeamTTI */ = {
 			isa = PBXGroup;
 			children = (
+				52FD4937228DD3A5005710EC /* Performance */,
 				5272BA2D2281FC3100D6C30E /* Survey */,
 				5200F994220DE47500BFD88E /* TeamTTI.entitlements */,
 				35C75A5621D9217A0040BB2F /* Planner */,
@@ -666,6 +683,7 @@
 				00D6AAA221ADBD080059F6F1 /* DateElement.xib in Resources */,
 				CFAB0F9B218F19D4000765F8 /* Login.storyboard in Resources */,
 				CFC7295621986F380065BCAC /* Home.storyboard in Resources */,
+				52FD4939228DD3C7005710EC /* Performance.storyboard in Resources */,
 				3573798021C7B7F2007DDF42 /* Playbook.storyboard in Resources */,
 				CF4832C8217CF3C2000660C6 /* LaunchScreen.storyboard in Resources */,
 				35B6749D21C4DAD1000238DD /* News.storyboard in Resources */,
@@ -821,6 +839,7 @@
 				35B6749921C4D043000238DD /* NewsViewController.swift in Sources */,
 				CFAB0FA2218F4CC4000765F8 /* String+Validations.swift in Sources */,
 				3580B25221EF77AF00D225F0 /* PlannerCalender.swift in Sources */,
+				52FD493D228DD476005710EC /* PerformanceDetailsViewController.swift in Sources */,
 				35FDFEFF21CCF59000389C49 /* PhotoPickerController.swift in Sources */,
 				CFAB0F9F218F332B000765F8 /* RootViewController.swift in Sources */,
 				35B674A221C58278000238DD /* NewsDetailViewController.swift in Sources */,
@@ -860,6 +879,7 @@
 				35CB4E0D21F8623A003B3671 /* Extensions.swift in Sources */,
 				35B674A021C4DFD1000238DD /* NewsTableViewCell.swift in Sources */,
 				35C75A5821D921A20040BB2F /* PlannerViewController.swift in Sources */,
+				52FD493B228DD455005710EC /* PerformanceViewController.swift in Sources */,
 				CFC7295E21989FCD0065BCAC /* StoreApi.swift in Sources */,
 				35FDFEFD21CCC40C00389C49 /* PickerViewUtility.swift in Sources */,
 				3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */,

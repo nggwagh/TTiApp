@@ -38,6 +38,11 @@ extension Constant.Storyboard {
 
     }
     
+    struct Performance {
+        static let id = "Performance"
+        static let PerformanceDetailsViewControllerIdentifier = "PerformanceDetailsViewControllerIdentifier"
+    }
+    
     struct Planner {
         static let id = "Planner"
         static let PlannerViewControllerIdentifier = "PlannerViewControllerIdentifier"

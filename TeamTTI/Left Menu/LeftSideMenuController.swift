@@ -35,10 +35,16 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         
         let role = SettingsManager.shared().getUserRole()
         
-        if (role == "1" || role == "2" ) {
+        if (role == "1")
+        {
             menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Surveys", "Logout"]
         }
-        else {
+        else if (role == "2")
+        {
+            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Surveys", "Rep Performance", "Logout"]
+        }
+        else
+        {
             menuItems = ["Home", "Planner", "News", "Playbooks", "Surveys", "Logout"]
         }
         
@@ -101,6 +107,13 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         let surveyStoryboard = UIStoryboard.init(name: Constant.Storyboard.Survey.id, bundle: nil)
         let surveyViewController = surveyStoryboard.instantiateInitialViewController()
         RootViewControllerFactory.centerContainer.centerViewController = surveyViewController
+        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+    }
+    
+    @objc func loadRepPerformanceVC(){
+        let performanceStoryboard = UIStoryboard.init(name: Constant.Storyboard.Performance.id, bundle: nil)
+        let performanceViewController = performanceStoryboard.instantiateInitialViewController()
+        RootViewControllerFactory.centerContainer.centerViewController = performanceViewController
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
     }
     
@@ -225,6 +238,17 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
             break;
             
         case 6:
+            
+            if (role == "1") {
+                self.logoutTheUser()
+            }
+            else if (role == "2") {
+                self.loadRepPerformanceVC()
+            }
+        
+            break;
+            
+        case 7:
             
             self.logoutTheUser()
             
