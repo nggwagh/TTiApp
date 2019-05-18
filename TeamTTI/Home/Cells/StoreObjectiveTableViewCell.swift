@@ -16,6 +16,7 @@ class StoreObjectiveTableViewCell: UITableViewCell {
     @IBOutlet weak var lblPriority: UILabel!
     @IBOutlet weak var checkMarkButton: UIButton!
     @IBOutlet weak var checkMarkButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var commentButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,5 +52,13 @@ extension StoreObjectiveTableViewCell {
             checkMarkButton.isHidden = true
             checkMarkButtonWidthConstraint.constant = 30;
         }
+    }
+    
+    func configure(with storeObjective: StoreObjective) {
+        lblTitle.text = storeObjective.objective?.title
+        lblPriority.text = storeObjective.objective?.priority?.displayValue
+
+        checkMarkButtonWidthConstraint.constant = 0;
+        checkMarkButtonWidthConstraint.constant = 30;
     }
 }

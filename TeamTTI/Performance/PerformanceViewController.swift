@@ -49,6 +49,18 @@ class PerformanceViewController: UIViewController {
         }
     }
     
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if (segue.identifier == "PerformanceDetailsSegueIdentifier") {
+//            let item = items[(sender as! NSIndexPath).section]
+            let destination = segue.destination as! PerformanceDetailsViewController
+            destination.storeName = "Store name"
+        }
+    }
 }
 
 extension PerformanceViewController: UITableViewDataSource {

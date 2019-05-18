@@ -11,13 +11,14 @@ import UIKit
 class PerformanceDetailsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var storeNameLabel: UILabel?
+    private var storeObjectives = [StoreObjective]()
+    var storeName: String?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.storeNameLabel?.text = self.storeName
     }
-    
 
     /*
     // MARK: - Navigation
@@ -38,9 +39,14 @@ extension PerformanceDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
+//        return self.storeObjectives.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell", for: indexPath) as? StoreObjectiveTableViewCell {
+//            cell.configure(with: self.storeObjectives[indexPath.row])
+            return cell
+        }
         return UITableViewCell()
     }
 }
