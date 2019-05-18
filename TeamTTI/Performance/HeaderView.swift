@@ -19,7 +19,6 @@ class HeaderView: UITableViewHeaderFooterView {
             guard let item = item else {
                 return
             }
-            
             nameLabel?.text = "Mohini Store (1)"
             objectiveCountLabel?.text = "12/15"
             setCollapsed(collapsed: item.isCollapsed)
@@ -28,7 +27,7 @@ class HeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var nameLabel: UILabel?
     @IBOutlet weak var objectiveCountLabel: UILabel?
-    @IBOutlet weak var arrowLabel: UILabel?
+    @IBOutlet weak var arrowImage: UIImageView?
     var section: Int = 0
     
     weak var delegate: HeaderViewDelegate?
@@ -52,7 +51,7 @@ class HeaderView: UITableViewHeaderFooterView {
     }
 
     func setCollapsed(collapsed: Bool) {
-        arrowLabel?.rotate(collapsed ? 0.0 : .pi)
+        arrowImage?.rotate(collapsed ? 0.0 : .pi)
         if (!collapsed) {
             nameLabel?.font = UIFont.boldSystemFont(ofSize: 15.5)
             objectiveCountLabel?.font = UIFont.boldSystemFont(ofSize: 15.5)
