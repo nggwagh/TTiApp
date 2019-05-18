@@ -91,6 +91,10 @@ extension PerformanceViewController: UITableViewDelegate {
         }
         return UIView()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "PerformanceDetailsSegueIdentifier", sender: indexPath)
+    }
 }
 
 extension PerformanceViewController: HeaderViewDelegate {

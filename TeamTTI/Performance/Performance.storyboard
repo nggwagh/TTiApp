@@ -132,6 +132,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="rnj-Xw-rpf" id="zL6-0q-FIf"/>
+                        <segue destination="Xg2-1y-FrW" kind="show" identifier="PerformanceDetailsSegueIdentifier" id="LEJ-nC-pEq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMX-Tl-Z6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -161,6 +162,69 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFN-Iq-F4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4" y="1474"/>
+        </scene>
+        <!--Rep Performance-->
+        <scene sceneID="R7i-BC-Wws">
+            <objects>
+                <viewController id="Xg2-1y-FrW" customClass="PerformanceDetailsViewController" customModule="TeamTTI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MQy-y4-49k">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yrS-Au-UOD">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" name="white_smoke"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="lh2-bE-y2E">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Objectives" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVY-dW-LwD">
+                                            <rect key="frame" x="15" y="13" width="345" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="white_smoke"/>
+                                    <constraints>
+                                        <constraint firstItem="qVY-dW-LwD" firstAttribute="centerY" secondItem="lh2-bE-y2E" secondAttribute="centerY" id="RNi-TB-tUs"/>
+                                        <constraint firstAttribute="trailing" secondItem="qVY-dW-LwD" secondAttribute="trailing" constant="15" id="diX-Oy-qaD"/>
+                                        <constraint firstItem="qVY-dW-LwD" firstAttribute="leading" secondItem="lh2-bE-y2E" secondAttribute="leading" constant="15" id="xzm-Op-DD1"/>
+                                    </constraints>
+                                </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="vkL-7z-MYh">
+                                    <rect key="frame" x="0.0" y="44" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="Xg2-1y-FrW" id="eBR-c4-lrB"/>
+                                    <outlet property="delegate" destination="Xg2-1y-FrW" id="Y0K-1e-JQO"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yrS-Au-UOD" firstAttribute="top" secondItem="zzu-xL-l2D" secondAttribute="top" id="3yA-VF-iky"/>
+                            <constraint firstItem="zzu-xL-l2D" firstAttribute="trailing" secondItem="yrS-Au-UOD" secondAttribute="trailing" id="4Qs-xa-oNK"/>
+                            <constraint firstItem="zzu-xL-l2D" firstAttribute="bottom" secondItem="yrS-Au-UOD" secondAttribute="bottom" id="AeU-aa-11s"/>
+                            <constraint firstItem="yrS-Au-UOD" firstAttribute="leading" secondItem="zzu-xL-l2D" secondAttribute="leading" id="Mzx-wu-Txh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zzu-xL-l2D"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Rep Performance" id="Fee-ne-irH">
+                        <barButtonItem key="backBarButtonItem" title="  " id="4fm-4w-EdP">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="yrS-Au-UOD" id="RkB-l0-MDp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="39k-FQ-bRs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="HhO-oX-U4I"/>
+            </objects>
+            <point key="canvasLocation" x="1378" y="1474"/>
         </scene>
     </scenes>
     <resources>
