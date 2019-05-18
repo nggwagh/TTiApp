@@ -28,6 +28,10 @@
 		3573798021C7B7F2007DDF42 /* Playbook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3573797F21C7B7F2007DDF42 /* Playbook.storyboard */; };
 		3573798221C7BC37007DDF42 /* PlaybookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */; };
 		3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */; };
+		357FF55F228FC1B60044FD7A /* RepPerformanceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357FF55E228FC1B60044FD7A /* RepPerformanceItem.swift */; };
+		357FF562228FC5260044FD7A /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 357FF560228FC5260044FD7A /* HeaderView.xib */; };
+		357FF563228FC5260044FD7A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357FF561228FC5260044FD7A /* HeaderView.swift */; };
+		357FF565228FC6220044FD7A /* RepPerformanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357FF564228FC6220044FD7A /* RepPerformanceCell.swift */; };
 		3580B25221EF77AF00D225F0 /* PlannerCalender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3580B25121EF77AF00D225F0 /* PlannerCalender.swift */; };
 		3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */; };
 		359DB51522159399009331DB /* RegionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359DB51422159399009331DB /* RegionDetailViewController.swift */; };
@@ -139,6 +143,10 @@
 		3573797F21C7B7F2007DDF42 /* Playbook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Playbook.storyboard; sourceTree = "<group>"; };
 		3573798121C7BC37007DDF42 /* PlaybookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybookDetailViewController.swift; sourceTree = "<group>"; };
 		3573798321C7E3C5007DDF42 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		357FF55E228FC1B60044FD7A /* RepPerformanceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepPerformanceItem.swift; sourceTree = "<group>"; };
+		357FF560228FC5260044FD7A /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		357FF561228FC5260044FD7A /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		357FF564228FC6220044FD7A /* RepPerformanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepPerformanceCell.swift; sourceTree = "<group>"; };
 		3580B25121EF77AF00D225F0 /* PlannerCalender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannerCalender.swift; sourceTree = "<group>"; };
 		3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		359DB51422159399009331DB /* RegionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailViewController.swift; sourceTree = "<group>"; };
@@ -388,9 +396,13 @@
 		52FD4937228DD3A5005710EC /* Performance */ = {
 			isa = PBXGroup;
 			children = (
+				357FF561228FC5260044FD7A /* HeaderView.swift */,
+				357FF560228FC5260044FD7A /* HeaderView.xib */,
 				52FD4938228DD3C7005710EC /* Performance.storyboard */,
 				52FD493A228DD455005710EC /* PerformanceViewController.swift */,
 				52FD493C228DD476005710EC /* PerformanceDetailsViewController.swift */,
+				357FF55E228FC1B60044FD7A /* RepPerformanceItem.swift */,
+				357FF564228FC6220044FD7A /* RepPerformanceCell.swift */,
 			);
 			path = Performance;
 			sourceTree = "<group>";
@@ -680,6 +692,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				357FF562228FC5260044FD7A /* HeaderView.xib in Resources */,
 				00D6AAA221ADBD080059F6F1 /* DateElement.xib in Resources */,
 				CFAB0F9B218F19D4000765F8 /* Login.storyboard in Resources */,
 				CFC7295621986F380065BCAC /* Home.storyboard in Resources */,
@@ -834,6 +847,7 @@
 				0008804F21940A3300AA8EFC /* Constant.swift in Sources */,
 				CFF45C4321A1B59D0045B56D /* StoreObjective.swift in Sources */,
 				5272BA2F2281FE0400D6C30E /* SurveyViewController.swift in Sources */,
+				357FF55F228FC1B60044FD7A /* RepPerformanceItem.swift in Sources */,
 				3573797E21C7B7EA007DDF42 /* PlaybookTableViewController.swift in Sources */,
 				CF4832BD217CF3C1000660C6 /* LoginViewController.swift in Sources */,
 				35B6749921C4D043000238DD /* NewsViewController.swift in Sources */,
@@ -858,6 +872,7 @@
 				35B6749B21C4D17F000238DD /* News.swift in Sources */,
 				CF4832C3217CF3C1000660C6 /* TeamTTI.xcdatamodeld in Sources */,
 				35F4DA5A220C4AE900DDBA56 /* CustomLayout.swift in Sources */,
+				357FF565228FC6220044FD7A /* RepPerformanceCell.swift in Sources */,
 				00F6C61721AC50DF003D697A /* HUChartEntry.m in Sources */,
 				523F5A4E21EF8D4D0050E85E /* PlannerAPI.swift in Sources */,
 				5200F996220E900900BFD88E /* RegionsAPI.swift in Sources */,
@@ -874,6 +889,7 @@
 				CFC729622198CBFF0065BCAC /* AuthPlugin.swift in Sources */,
 				005D9D7D2194AD9B003F8CA2 /* Alert.swift in Sources */,
 				5200F99C2214844C00BFD88E /* RegionObjective.swift in Sources */,
+				357FF563228FC5260044FD7A /* HeaderView.swift in Sources */,
 				CFF45BF921A18D930045B56D /* Date+Formatting.swift in Sources */,
 				35C75A5D21D92DE10040BB2F /* PlannerTableViewCell.swift in Sources */,
 				35CB4E0D21F8623A003B3671 /* Extensions.swift in Sources */,
