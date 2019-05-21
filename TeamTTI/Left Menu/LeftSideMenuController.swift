@@ -111,10 +111,12 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func loadRepPerformanceVC(){
+        /*
         let performanceStoryboard = UIStoryboard.init(name: Constant.Storyboard.Performance.id, bundle: nil)
         let performanceViewController = performanceStoryboard.instantiateInitialViewController()
         RootViewControllerFactory.centerContainer.centerViewController = performanceViewController
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+       */
     }
     
     func logoutTheUser() {
