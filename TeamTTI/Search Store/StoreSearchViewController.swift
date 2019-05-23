@@ -49,6 +49,9 @@ class StoreSearchViewController: UIViewController {
             glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
             glassIconView.tintColor = UIColor.init(named: "tti_blue")
         }
+        
+    searchedStoreTableView.contentInset = UIEdgeInsetsMake(0, 0, self.view.frame.width, 0)
+
     }
     
     //MARK: - Private methods
