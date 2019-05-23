@@ -494,3 +494,24 @@ Pods/AlamofireImage/Source/AFIError.swift
 Pods/AlamofireImage/README.md
 Pods/AlamofireImage/LICENSE
 Podfile.lock
+Pods/Pods.xcodeproj/xcuserdata/MohiniMehetre.xcuserdatad/xcschemes/Crashlytics.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/MohiniMehetre.xcuserdatad/xcschemes/Fabric.xcscheme
+Pods/Target Support Files/Alamofire/Alamofire-Info.plist
+Pods/Target Support Files/AlamofireImage/AlamofireImage-Info.plist
+Pods/Target Support Files/Crashlytics/Crashlytics.xcconfig
+Pods/Target Support Files/Fabric/Fabric.xcconfig
+Pods/Target Support Files/FlowFramework/FlowFramework-Info.plist
+Pods/Target Support Files/FormFramework/FormFramework-Info.plist
+Pods/Target Support Files/FSCalendar/FSCalendar-Info.plist
+Pods/Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-Info.plist
+Pods/Target Support Files/Lift/Lift-Info.plist
+Pods/Target Support Files/MBProgressHUD/MBProgressHUD-Info.plist
+Pods/Target Support Files/MMDrawerController/MMDrawerController-Info.plist
+Pods/Target Support Files/Moya/Moya-Info.plist
+Pods/Target Support Files/Optik/Optik-Info.plist
+Pods/Target Support Files/Pods-TeamTTI/Pods-TeamTTI-Info.plist
+Pods/Target Support Files/Pods-TeamTTITests/Pods-TeamTTITests-Info.plist
+Pods/Target Support Files/Pods-TeamTTIUITests/Pods-TeamTTIUITests-Info.plist
+Pods/Target Support Files/PresentationFramework/PresentationFramework-Info.plist
+Pods/Target Support Files/Result/Result-Info.plist
+Pods/Target Support Files/UITextView+Placeholder/UITextView+Placeholder-Info.plist

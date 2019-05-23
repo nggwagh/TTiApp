@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tdU-de-swx">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -106,6 +106,12 @@
                                     <outlet property="titleLabel" destination="nMG-DA-Zio" id="p2q-lx-2lJ"/>
                                 </connections>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upcoming objectives available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4d-65-6Ct">
+                                <rect key="frame" x="61.666666666666657" y="388" width="290.66666666666674" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="pZJ-yi-wYM">
                                 <rect key="frame" x="0.0" y="108" width="414" height="628"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -353,8 +359,10 @@
                             <constraint firstItem="wCw-pi-nst" firstAttribute="trailing" secondItem="KJ6-P2-9rk" secondAttribute="trailing" id="OKB-wO-mlz"/>
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="top" secondItem="fCG-cV-VLH" secondAttribute="bottom" id="bVt-hl-Yik"/>
                             <constraint firstItem="htV-N0-BVL" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="bq3-28-R2D"/>
+                            <constraint firstItem="s4d-65-6Ct" firstAttribute="centerX" secondItem="wCw-pi-nst" secondAttribute="centerX" id="dXe-2P-id2"/>
                             <constraint firstItem="htV-N0-BVL" firstAttribute="top" secondItem="KJ6-P2-9rk" secondAttribute="bottom" id="fNf-6N-ZpU"/>
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="itY-W1-mLL"/>
+                            <constraint firstItem="s4d-65-6Ct" firstAttribute="centerY" secondItem="wCw-pi-nst" secondAttribute="centerY" id="mZz-Ki-ctT"/>
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="top" secondItem="Nby-ir-Gtw" secondAttribute="top" id="mkk-3B-aAQ"/>
                             <constraint firstItem="fCG-cV-VLH" firstAttribute="top" secondItem="wCw-pi-nst" secondAttribute="top" id="p4f-2v-Lif"/>
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="ygp-qC-zJr"/>
@@ -367,6 +375,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="uAv-Mv-M20" id="ND7-bR-Z26"/>
                         <outlet property="navigationBar" destination="fCG-cV-VLH" id="PwC-oO-MWQ"/>
+                        <outlet property="noObjectivesLabel" destination="s4d-65-6Ct" id="9Pc-PI-8hr"/>
                         <outlet property="scheduleButton" destination="M1c-gg-hKK" id="edp-6C-OMp"/>
                         <outlet property="scheduleButtonView" destination="4fH-kZ-mTp" id="nZr-NL-2Yz"/>
                         <outlet property="scheduleView" destination="htV-N0-BVL" id="lW9-0y-EbM"/>
@@ -1466,19 +1475,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CalenderIcon" width="18" height="19"/>
+        <image name="CalenderIcon" width="28" height="29"/>
         <image name="CloseIcon" width="20" height="20"/>
-        <image name="ImageNotFound" width="103" height="103"/>
-        <image name="ScheduleIcon" width="18" height="19"/>
-        <image name="UploadImage" width="432" height="260"/>
+        <image name="ImageNotFound" width="309" height="309"/>
+        <image name="ScheduleIcon" width="18.666666030883789" height="19"/>
+        <image name="UploadImage" width="1296" height="780"/>
         <image name="accessoryDisclosure" width="7" height="11"/>
         <image name="calender" width="47" height="48"/>
-        <image name="check" width="20" height="20"/>
-        <image name="down_arrow" width="14" height="8"/>
-        <image name="down_arrow_blue" width="11" height="7"/>
-        <image name="left_menu" width="30" height="22"/>
+        <image name="check" width="30" height="30"/>
+        <image name="down_arrow" width="21" height="12"/>
+        <image name="down_arrow_blue" width="34" height="22"/>
+        <image name="left_menu" width="30.666666030883789" height="22"/>
         <image name="objective_complete" width="23" height="23"/>
-        <image name="unCheck" width="20" height="20"/>
+        <image name="unCheck" width="30" height="30"/>
         <namedColor name="nav_title_color">
             <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

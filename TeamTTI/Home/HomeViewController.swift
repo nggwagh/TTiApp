@@ -19,6 +19,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleButtonView: UIView!
+    @IBOutlet weak var noObjectivesLabel: UILabel!
     var  graphTableViewCell: GraphTableViewCell?
     
     //MARK:- Instance variables
@@ -143,10 +144,14 @@ class HomeViewController: UIViewController, DateElementDelegate {
                         
                         if (self.storeObjectivesResponse.count == 0) {
                             self.navigationBar.calendarButton.isHidden = true
-                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "There are no objectives assigned to this store. Please contact admin if you believe this is an error.")
+//                            Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: "There are no objectives assigned to this store. Please contact admin if you believe this is an error.")
+                            self.noObjectivesLabel.isHidden = false
+                            self.tableView.isHidden = true
                         }
                         else {
                             self.navigationBar.calendarButton.isHidden = false
+                            self.noObjectivesLabel.isHidden = true
+                            self.tableView.isHidden = false
                         }
                     
                         self.buildSectionArray()
