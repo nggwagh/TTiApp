@@ -41,7 +41,7 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         }
         else if (role == "2")
         {
-            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Surveys", "Rep Performance", "Logout"]
+            menuItems = ["Home", "Stores", "Planner", "News", "Playbooks", "Surveys", "Store Performance", "Logout"]
         }
         else
         {
@@ -111,12 +111,12 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func loadRepPerformanceVC(){
-        /*
+        
         let performanceStoryboard = UIStoryboard.init(name: Constant.Storyboard.Performance.id, bundle: nil)
         let performanceViewController = performanceStoryboard.instantiateInitialViewController()
         RootViewControllerFactory.centerContainer.centerViewController = performanceViewController
         RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
-       */
+    
     }
     
     func logoutTheUser() {
