@@ -112,6 +112,13 @@
                                 <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcX-tW-uyi">
+                                <rect key="frame" x="117" y="422" width="180" height="30"/>
+                                <state key="normal" title="Back to current objectives"/>
+                                <connections>
+                                    <action selector="handleBackToCurrentObjectivesButtonTapWithSender:" destination="4Jh-aR-zil" eventType="touchUpInside" id="CGU-Mi-Ajl"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="pZJ-yi-wYM">
                                 <rect key="frame" x="0.0" y="108" width="414" height="628"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -357,6 +364,7 @@
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="bottom" secondItem="fCG-cV-VLH" secondAttribute="bottom" id="CqX-iI-ryX"/>
                             <constraint firstItem="htV-N0-BVL" firstAttribute="trailing" secondItem="wCw-pi-nst" secondAttribute="trailing" id="MuL-Lf-8yw"/>
                             <constraint firstItem="wCw-pi-nst" firstAttribute="trailing" secondItem="KJ6-P2-9rk" secondAttribute="trailing" id="OKB-wO-mlz"/>
+                            <constraint firstItem="xcX-tW-uyi" firstAttribute="top" secondItem="s4d-65-6Ct" secondAttribute="bottom" constant="10" id="YhA-dY-Gy0"/>
                             <constraint firstItem="pZJ-yi-wYM" firstAttribute="top" secondItem="fCG-cV-VLH" secondAttribute="bottom" id="bVt-hl-Yik"/>
                             <constraint firstItem="htV-N0-BVL" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="bq3-28-R2D"/>
                             <constraint firstItem="s4d-65-6Ct" firstAttribute="centerX" secondItem="wCw-pi-nst" secondAttribute="centerX" id="dXe-2P-id2"/>
@@ -365,6 +373,7 @@
                             <constraint firstItem="s4d-65-6Ct" firstAttribute="centerY" secondItem="wCw-pi-nst" secondAttribute="centerY" id="mZz-Ki-ctT"/>
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="top" secondItem="Nby-ir-Gtw" secondAttribute="top" id="mkk-3B-aAQ"/>
                             <constraint firstItem="fCG-cV-VLH" firstAttribute="top" secondItem="wCw-pi-nst" secondAttribute="top" id="p4f-2v-Lif"/>
+                            <constraint firstItem="xcX-tW-uyi" firstAttribute="centerX" secondItem="wCw-pi-nst" secondAttribute="centerX" id="r1O-gc-NRj"/>
                             <constraint firstItem="KJ6-P2-9rk" firstAttribute="leading" secondItem="wCw-pi-nst" secondAttribute="leading" id="ygp-qC-zJr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wCw-pi-nst"/>
@@ -376,6 +385,7 @@
                         <outlet property="cancelButton" destination="uAv-Mv-M20" id="ND7-bR-Z26"/>
                         <outlet property="navigationBar" destination="fCG-cV-VLH" id="PwC-oO-MWQ"/>
                         <outlet property="noObjectivesLabel" destination="s4d-65-6Ct" id="9Pc-PI-8hr"/>
+                        <outlet property="returnButton" destination="xcX-tW-uyi" id="lj0-jw-EBe"/>
                         <outlet property="scheduleButton" destination="M1c-gg-hKK" id="edp-6C-OMp"/>
                         <outlet property="scheduleButtonView" destination="4fH-kZ-mTp" id="nZr-NL-2Yz"/>
                         <outlet property="scheduleView" destination="htV-N0-BVL" id="lW9-0y-EbM"/>

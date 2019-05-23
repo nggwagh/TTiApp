@@ -20,6 +20,8 @@ class HomeViewController: UIViewController, DateElementDelegate {
     @IBOutlet weak var scheduleButton: UIButton!
     @IBOutlet weak var scheduleButtonView: UIView!
     @IBOutlet weak var noObjectivesLabel: UILabel!
+    @IBOutlet weak var returnButton: UIButton!
+    
     var  graphTableViewCell: GraphTableViewCell?
     
     //MARK:- Instance variables
@@ -134,6 +136,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
             self.refreshControl.endRefreshing()
             
             self.noObjectivesLabel.isHidden = true
+            self.returnButton.isHidden = true
             self.tableView.isHidden = false
             
             switch result {
@@ -152,6 +155,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
                             }
                             else {
                                 self.noObjectivesLabel.isHidden = false
+                                self.returnButton.isHidden = false
                                 self.tableView.isHidden = true
                             }
                         }
@@ -579,6 +583,10 @@ class HomeViewController: UIViewController, DateElementDelegate {
             
             Alert.showMessage(onViewContoller: self, title: "Error", message: "Please select the Objectives.")
         }
+    }
+    
+    @IBAction func handleBackToCurrentObjectivesButtonTap(sender : UIButton) {
+        self.selectStore(self.selectedStore!)
     }
 }
 
