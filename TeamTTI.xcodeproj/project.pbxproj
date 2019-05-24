@@ -61,6 +61,7 @@
 		5200F99A220EA33500BFD88E /* RegionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5200F999220EA33500BFD88E /* RegionDetail.swift */; };
 		5200F99C2214844C00BFD88E /* RegionObjective.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5200F99B2214844C00BFD88E /* RegionObjective.swift */; };
 		5200F9A022173F6400BFD88E /* PeerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5200F99F22173F6400BFD88E /* PeerExample.swift */; };
+		52281661229836B6006DCCF7 /* StorePerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52281660229836B6006DCCF7 /* StorePerformance.swift */; };
 		523F5A4E21EF8D4D0050E85E /* PlannerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F5A4D21EF8D4D0050E85E /* PlannerAPI.swift */; };
 		5240A1EC228688D100F3C0E9 /* Survey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5240A1EB228688D100F3C0E9 /* Survey.swift */; };
 		5240A1EE2286900D00F3C0E9 /* Survey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5240A1ED2286900C00F3C0E9 /* Survey.storyboard */; };
@@ -176,6 +177,7 @@
 		5200F999220EA33500BFD88E /* RegionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetail.swift; sourceTree = "<group>"; };
 		5200F99B2214844C00BFD88E /* RegionObjective.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionObjective.swift; sourceTree = "<group>"; };
 		5200F99F22173F6400BFD88E /* PeerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerExample.swift; sourceTree = "<group>"; };
+		52281660229836B6006DCCF7 /* StorePerformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePerformance.swift; sourceTree = "<group>"; };
 		523F5A4D21EF8D4D0050E85E /* PlannerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerAPI.swift; sourceTree = "<group>"; };
 		5240A1EB228688D100F3C0E9 /* Survey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Survey.swift; sourceTree = "<group>"; };
 		5240A1ED2286900C00F3C0E9 /* Survey.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Survey.storyboard; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 				5200F99B2214844C00BFD88E /* RegionObjective.swift */,
 				5200F99F22173F6400BFD88E /* PeerExample.swift */,
 				5240A1EB228688D100F3C0E9 /* Survey.swift */,
+				52281660229836B6006DCCF7 /* StorePerformance.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -887,6 +890,7 @@
 				5240A1F22286B05600F3C0E9 /* OpenSurveyViewController.swift in Sources */,
 				35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */,
 				CFC729622198CBFF0065BCAC /* AuthPlugin.swift in Sources */,
+				52281661229836B6006DCCF7 /* StorePerformance.swift in Sources */,
 				005D9D7D2194AD9B003F8CA2 /* Alert.swift in Sources */,
 				5200F99C2214844C00BFD88E /* RegionObjective.swift in Sources */,
 				357FF563228FC5260044FD7A /* HeaderView.swift in Sources */,

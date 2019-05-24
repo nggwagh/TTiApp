@@ -13,6 +13,8 @@ enum StoreApi {
     case stores()
     case storeObjectivesFor(storeId: Int, month: String, year: Int)
     case setStoreSpentTime(regionObject: [String: Any])
+    case getStorePerformanceList(regionId: Int)
+
 }
 
 extension StoreApi: TargetType {
@@ -23,6 +25,8 @@ extension StoreApi: TargetType {
             return URL(string: "\(Constant.API.baseURL)/?showCounts=1")!
         case let .storeObjectivesFor(_,month,year):
             return  URL(string: "\(Constant.API.baseURL)/?month=\(month)&year=\(year)")!
+        case let .getStorePerformanceList(regionId):
+            return  URL(string: "\(Constant.API.baseURL)/?regionID=\(regionId)&showCounts=1")!
         default:
             return Constant.API.baseURL
         }
@@ -30,13 +34,19 @@ extension StoreApi: TargetType {
 
     var path: String {
         switch self {
+            
         case .stores():
-            return Constant.API.Store.path 
+            return Constant.API.Store.path
+            
         case let .storeObjectivesFor(storeId, _, _):
             return Constant.API.Store.path + "/\(storeId)/objective"
 
         case .setStoreSpentTime(_):
             return Constant.API.Store.geoItemPath
+            
+        case .getStorePerformanceList(_):
+            return Constant.API.Store.path + "/search"
+
         }
     }
 
@@ -48,6 +58,8 @@ extension StoreApi: TargetType {
             return .get
         case .setStoreSpentTime:
             return .post
+        case .getStorePerformanceList(_):
+            return .get
         }
 
     }
@@ -66,6 +78,8 @@ extension StoreApi: TargetType {
             print("Geo Item parameters: \(regionObject)")
             return .requestParameters(parameters:regionObject,
                                       encoding: JSONEncoding.default)
+        case .getStorePerformanceList(_):
+            return .requestPlain
         }
     }
 

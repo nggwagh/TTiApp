@@ -13,11 +13,18 @@ import Moya
 
 class PerformanceViewController: UIViewController {
 
+    //MARK: - IBOutlets
+    
     @IBOutlet weak var tableView: UITableView?
 
     var items = [RepPerformanceItem]()
     
     var reloadSections: ((_ section: Int) -> Void)?
+    
+    var storeList = [StorePerformance]()
+    
+    private var storeNetworkTask: Cancellable?
+
     
     //MARK: - View Lifecycle
 
@@ -42,6 +49,60 @@ class PerformanceViewController: UIViewController {
         tableView?.estimatedRowHeight = 100
         tableView?.rowHeight = UITableViewAutomaticDimension
         tableView?.sectionHeaderHeight = 50
+        
+        self.getStorePerformanceList()
+        
+    }
+    
+    
+    //MARK: - Private Methods
+    
+    func getStorePerformanceList(){
+        
+        //Show progress hud
+        self.showHUD(progressLabel: "")
+        
+        storeNetworkTask?.cancel()
+        
+        storeNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.getStorePerformanceList(regionId: SettingsManager.shared().getDefaultRegionID()!)) { result in
+            
+            // hiding progress hud
+            self.dismissHUD(isAnimated: true)
+            
+            switch result {
+                
+            case let .success(response):
+                print(response)
+                
+                if case 200..<400 = response.statusCode {
+                    
+                    do{
+                        let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
+                        print(jsonDict)
+                        
+                        self.storeList = StorePerformance.build(from: jsonDict)
+                        
+                    }
+                    catch let error {
+                        print(error.localizedDescription)
+                        Alert.show(alertType: .parsingFailed, onViewContoller: self)
+                    }
+                }
+                else
+                {
+                    print("Status code:\(response.statusCode)")
+                    Alert.show(alertType: .wrongStatusCode(response.statusCode), onViewContoller: self)
+                }
+                
+                
+                break
+            case let .failure(error):
+                print(error.localizedDescription)
+                Alert.showMessage(onViewContoller: self, title: Bundle.main.displayName, message: error.localizedDescription)
+                break
+            }
+        }
+        
     }
     
     @IBAction func leftMenuClicked() {
