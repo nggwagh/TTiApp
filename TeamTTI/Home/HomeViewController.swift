@@ -768,11 +768,21 @@ extension HomeViewController: StoreSearchViewControllerDelegate {
 
 extension HomeViewController:ObjectiveButtonTap {
     func currentObjectiveButtonTapped() {
+
+        if (self.navigationBar.calendarButton.isSelected){
+        self.handleCancelButtonTap(sender: cancelButton)
+        }
+        
         self.isCurrentObjectiveSelected = true
         self.refreshStore()
     }
     
     func upcomingObjectiveButtonTapped() {
+        
+        if (self.navigationBar.calendarButton.isSelected){
+            self.handleCancelButtonTap(sender: cancelButton)
+        }
+
         self.isCurrentObjectiveSelected = false
         self.refreshStore()
     }
