@@ -12,10 +12,12 @@ class RepPerformanceCell: UITableViewCell {
 
     @IBOutlet weak var storeNameLabel: UILabel?
     @IBOutlet weak var objectiveCountLabel: UILabel?
+    @IBOutlet weak var fsrNameLabel: UILabel?
 
-    var item: RepPerformanceItem? {
+    var item: StorePerformance? {
         didSet {
-            storeNameLabel?.text = "Mohini Store"
+            storeNameLabel?.text = "\(item?.storeName ?? "")(\(item?.storeNumber?.description ?? ""))"
+            fsrNameLabel?.text = item?.repName
             objectiveCountLabel?.text = "12/15"
         }
     }

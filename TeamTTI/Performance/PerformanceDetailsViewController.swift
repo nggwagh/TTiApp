@@ -25,9 +25,7 @@ class PerformanceDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.storeNameLabel?.text = self.storeName
-        
         self.getStorePerformanceObjectiveList()
-        
     }
 
     /*
@@ -67,7 +65,7 @@ class PerformanceDetailsViewController: UIViewController {
                         print(jsonDict)
                         
                         self.storeObjectives = StoreObjective.build(from: jsonDict["objectives"] as! [[String : Any]])
-                        
+                        self.tableView?.reloadData()
                     }
                     catch let error {
                         print(error.localizedDescription)
@@ -103,13 +101,12 @@ extension PerformanceDetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     //  return self.storeObjectives.count
-        return 5
+       return self.storeObjectives.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "StoreObjectiveTableViewCell", for: indexPath) as? StoreObjectiveTableViewCell {
-          //  cell.configure(with: self.storeObjectives[indexPath.row])
+            cell.configure(with: self.storeObjectives[indexPath.row])
             return cell
         }
         return UITableViewCell()

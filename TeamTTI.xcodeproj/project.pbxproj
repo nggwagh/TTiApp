@@ -38,6 +38,7 @@
 		359DB51722159B0E009331DB /* RegionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359DB51622159B0E009331DB /* RegionDetailCell.swift */; };
 		35A5259821CB599700C43A16 /* MBProgressHudUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */; };
 		35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259921CB664600C43A16 /* SubmissionViewController.swift */; };
+		35A5A29222994AE30008AAC6 /* StorePerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5A29122994AE30008AAC6 /* StorePerformanceViewController.swift */; };
 		35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */; };
 		35B6749921C4D043000238DD /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749821C4D043000238DD /* NewsViewController.swift */; };
 		35B6749B21C4D17F000238DD /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749A21C4D17F000238DD /* News.swift */; };
@@ -154,6 +155,7 @@
 		359DB51622159B0E009331DB /* RegionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailCell.swift; sourceTree = "<group>"; };
 		35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBProgressHudUtility.swift; sourceTree = "<group>"; };
 		35A5259921CB664600C43A16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
+		35A5A29122994AE30008AAC6 /* StorePerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePerformanceViewController.swift; sourceTree = "<group>"; };
 		35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocationManager.swift; sourceTree = "<group>"; };
 		35B6749821C4D043000238DD /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		35B6749A21C4D17F000238DD /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				52FD493C228DD476005710EC /* PerformanceDetailsViewController.swift */,
 				357FF55E228FC1B60044FD7A /* RepPerformanceItem.swift */,
 				357FF564228FC6220044FD7A /* RepPerformanceCell.swift */,
+				35A5A29122994AE30008AAC6 /* StorePerformanceViewController.swift */,
 			);
 			path = Performance;
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				5240A1F22286B05600F3C0E9 /* OpenSurveyViewController.swift in Sources */,
 				35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */,
 				CFC729622198CBFF0065BCAC /* AuthPlugin.swift in Sources */,
+				35A5A29222994AE30008AAC6 /* StorePerformanceViewController.swift in Sources */,
 				52281661229836B6006DCCF7 /* StorePerformance.swift in Sources */,
 				005D9D7D2194AD9B003F8CA2 /* Alert.swift in Sources */,
 				5200F99C2214844C00BFD88E /* RegionObjective.swift in Sources */,
