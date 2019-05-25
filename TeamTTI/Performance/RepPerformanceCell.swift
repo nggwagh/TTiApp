@@ -16,9 +16,9 @@ class RepPerformanceCell: UITableViewCell {
 
     var item: StorePerformance? {
         didSet {
-            storeNameLabel?.text = "\(item?.storeName ?? "")(\(item?.storeNumber?.description ?? ""))"
+            storeNameLabel?.text = "\(item?.storeName ?? "") (\(item?.storeNumber?.description ?? ""))"
             fsrNameLabel?.text = item?.repName
-            objectiveCountLabel?.text = "12/15"
+            objectiveCountLabel?.text = String(format: "%d/%d", item?.completed ?? "",item?.totalObjectives ?? "")
         }
     }
     

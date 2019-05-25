@@ -23,18 +23,26 @@ class StorePerformanceViewController: UIViewController {
     
     private var storeNetworkTask: Cancellable?
     
+    var refreshControl   = UIRefreshControl()
+
     
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.getStorePerformanceList()
+        
+        // Refresh control add in tableview.
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(getStorePerformanceList), for: .valueChanged)
+        self.tableView!.addSubview(refreshControl)
     }
     
     
     //MARK: - Private Methods
     
-    func getStorePerformanceList(){
+    @objc func getStorePerformanceList(){
         
         //Show progress hud
         self.showHUD(progressLabel: "")
@@ -45,6 +53,9 @@ class StorePerformanceViewController: UIViewController {
             
             // hiding progress hud
             self.dismissHUD(isAnimated: true)
+            
+            self.refreshControl.endRefreshing()
+
             
             switch result {
                 
@@ -97,6 +108,8 @@ class StorePerformanceViewController: UIViewController {
             let permanceDetail = self.storeList[(sender as! NSIndexPath).row]
             let destination = segue.destination as! PerformanceDetailsViewController
             destination.storeName = permanceDetail.storeName
+            destination.storeId = permanceDetail.id
+
         }
     }
 }

@@ -48,7 +48,7 @@ class PerformanceDetailsViewController: UIViewController {
         
         objectiveNetworkTask?.cancel()
         
-        objectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.getStorePerformanceObjective(storeId: 2)) { result in
+        objectiveNetworkTask = MoyaProvider<StoreApi>(plugins: [AuthPlugin()]).request(.getStorePerformanceObjective(storeId: storeId!)) { result in
             
             // hiding progress hud
             self.dismissHUD(isAnimated: true)

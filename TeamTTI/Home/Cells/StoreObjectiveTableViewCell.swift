@@ -17,6 +17,7 @@ class StoreObjectiveTableViewCell: UITableViewCell {
     @IBOutlet weak var checkMarkButton: UIButton!
     @IBOutlet weak var checkMarkButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var statusView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,10 +56,26 @@ extension StoreObjectiveTableViewCell {
     }
     
     func configure(with storeObjective: StoreObjective) {
+        
         lblTitle.text = storeObjective.objective?.title
-        lblPriority.text = storeObjective.objective?.priority?.displayValue
+        commentButton.isUserInteractionEnabled = false
+        
+        if (storeObjective.status == StoreObjectiveStatus.complete){
+            lblPriority.text = "COMPLETE"
+            statusView.backgroundColor = UIColor(red: 86/255, green: 178/255, blue: 170/255, alpha: 1.0)
+        } else {
+            lblPriority.text = "INCOMPLETE"
+            statusView.backgroundColor = UIColor(red: 128/255, green: 140/255, blue: 142/255, alpha: 1.0)
+        }
+        
+        if (storeObjective.comments != nil) {
+            commentButton.isHidden = false
+            checkMarkButtonWidthConstraint.constant = 20;
 
-        checkMarkButtonWidthConstraint.constant = 0;
-        checkMarkButtonWidthConstraint.constant = 30;
+        } else {
+            commentButton.isHidden = true
+            checkMarkButtonWidthConstraint.constant = 0;
+        }
+
     }
 }
