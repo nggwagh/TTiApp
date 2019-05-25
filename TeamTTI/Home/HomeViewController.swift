@@ -254,10 +254,13 @@ class HomeViewController: UIViewController, DateElementDelegate {
         array.append(contentsOf: lowPriorityNonCompletedObjectives)
         array.append(contentsOf: completedObjectives)
         
-        var objectivesDict = [String : AnyObject]()
-        objectivesDict["headerTitle"] = "Other" as AnyObject
-        objectivesDict["storeObjectives"] = array as AnyObject
-        self.allStoreObjectives.append(objectivesDict)
+        if (array.count > 0) {
+            
+            var objectivesDict = [String : AnyObject]()
+            objectivesDict["headerTitle"] = "Other" as AnyObject
+            objectivesDict["storeObjectives"] = array as AnyObject
+            self.allStoreObjectives.append(objectivesDict)
+        }
     }
     
     func loadStores() {
