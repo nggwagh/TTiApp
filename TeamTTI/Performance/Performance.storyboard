@@ -109,8 +109,14 @@
                                 <action selector="leftMenuClicked" destination="HFc-ef-If0" id="0RC-EV-0rb"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Sort" id="khb-Wz-Pcc">
+                            <connections>
+                                <action selector="sortButtonAction:" destination="HFc-ef-If0" id="YG6-le-CTV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="sortButton" destination="khb-Wz-Pcc" id="ghx-Q3-4f5"/>
                         <outlet property="tableView" destination="rnj-Xw-rpf" id="zL6-0q-FIf"/>
                         <segue destination="Xg2-1y-FrW" kind="show" identifier="PerformanceDetailsSegueIdentifier" id="LEJ-nC-pEq"/>
                     </connections>

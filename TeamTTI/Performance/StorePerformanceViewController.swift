@@ -25,7 +25,11 @@ class StorePerformanceViewController: UIViewController {
     
     var refreshControl   = UIRefreshControl()
 
+    var isSorted: Bool? = false
     
+    @IBOutlet weak var sortButton: UIBarButtonItem!
+    
+  
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -68,7 +72,14 @@ class StorePerformanceViewController: UIViewController {
                         let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: []) as! [[String: Any]]
                         print(jsonDict)
                         
+                        self.isSorted = false
+
                         self.storeList = StorePerformance.build(from: jsonDict)
+                        
+                       self.storeList =  self.storeList.sorted(by: { (obj1: StorePerformance, obj2: StorePerformance) -> Bool in
+                            return (obj1.completed ?? 0 < obj2.completed ?? 0)
+                         })
+                        
                         self.tableView?.reloadData()
                     }
                     catch let error {
@@ -112,6 +123,34 @@ class StorePerformanceViewController: UIViewController {
 
         }
     }
+    
+    // MARK: - IBActions
+    
+    @IBAction func sortButtonAction(_ sender: Any) {
+        
+        if (self.storeList.count > 0) {
+           
+            if(!isSorted!) {
+                
+                isSorted = true
+                
+                self.storeList =  self.storeList.sorted(by: { (obj1: StorePerformance, obj2: StorePerformance) -> Bool in
+                    return (obj1.completed ?? 0 > obj2.completed ?? 0)
+                })
+                
+            } else {
+                
+                isSorted = false
+
+                self.storeList =  self.storeList.sorted(by: { (obj1: StorePerformance, obj2: StorePerformance) -> Bool in
+                    return (obj1.completed ?? 0 < obj2.completed ?? 0)
+                })
+            }
+            self.tableView?.reloadData()
+        }
+    }
+    
+    
 }
 
 extension StorePerformanceViewController: UITableViewDataSource {
