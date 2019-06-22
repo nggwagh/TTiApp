@@ -9,13 +9,7 @@
 import UIKit
 import CoreData
 
-protocol LocationDBProtocol {
-    func moniteredStoresDeleted()
-}
-
 class TTILocationDBManager: NSObject {
-    
-    static var dbDelegate:LocationDBProtocol?
     
     static func save(currentLocationDetails: CurrentLocationDetails) {
         
@@ -53,6 +47,27 @@ class TTILocationDBManager: NSObject {
         }
     }
     
+    static func getLocationCount() -> Int {
+        //1
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        
+        //2
+        let fetchRequest =
+            NSFetchRequest<TTICurrentLocation>(entityName: "TTICurrentLocation")
+        fetchRequest.includesPropertyValues = false
+        
+        //3
+        do {
+            let count = try managedContext.count(for: fetchRequest)
+            return count
+        } catch {
+            print(error.localizedDescription)
+        }
+        return 0
+    }
+    
     static func fetchLocations() -> [TTICurrentLocation] {
         //1
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -78,9 +93,7 @@ class TTILocationDBManager: NSObject {
     }
     
     //Delete values from table
-    static func deleteLocations(locations: [TTICurrentLocation], controllerRef: UIViewController) {
-        
-        dbDelegate = controllerRef as? LocationDBProtocol
+    static func deleteLocations(locations: [TTICurrentLocation]) {
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -109,10 +122,8 @@ class TTILocationDBManager: NSObject {
                     }
                 }
             }
-            dbDelegate?.moniteredStoresDeleted()
             try managedContext.save()
         } catch let error as NSError {
-            controllerRef.dismissHUD(isAnimated: true)
             print("Error while deleting location details from core data: \(error.userInfo)")
         }
     }

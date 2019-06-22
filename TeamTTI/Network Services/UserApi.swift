@@ -16,7 +16,7 @@ enum UserApi {
     case userDetails()
     case resetPassword(email: String)
     case deviceDetails(deviceId: String, deviceToken: String)
-
+    case setLocationDetails(userId: String, locationDetails: [[String:Any]])
 }
 
 
@@ -38,6 +38,9 @@ extension UserApi: TargetType {
             
         case .deviceDetails(_,_):
             return Constant.API.User.deviceDetailsAPIPath
+            
+        case let .setLocationDetails(userId,_):
+            return String.init(format: Constant.API.User.locationPath, userId)
         }
         
         
@@ -57,6 +60,8 @@ extension UserApi: TargetType {
         case .deviceDetails(_,_):
             return .post
 
+        case .setLocationDetails(_,_):
+            return .post
         }
     }
     
@@ -86,6 +91,10 @@ extension UserApi: TargetType {
         case let .deviceDetails(deviceId,deviceToken):
             return .requestParameters(parameters:
                 ["deviceID": deviceId, "deviceToken": deviceToken],encoding: JSONEncoding.default)
+            
+        case let .setLocationDetails(_, locationDetails):
+            return .requestParameters(parameters:
+                ["locations": locationDetails],encoding: JSONEncoding.default)
             
         }
     }
