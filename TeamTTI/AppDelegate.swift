@@ -98,12 +98,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 //clear user details from user default
                 SettingsManager.shared().resetSettings()
                 
-                for region in TTILocationManager.sharedLocationManager.locationManager.monitoredRegions {
-                    
-                    TTILocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
-                    print("Removed Region :\(region)")
-                    
-                }
+                //Mohini:Location changes
+                /* for region in TTILocationManagerOld.sharedLocationManager.locationManager.monitoredRegions {
+                 TTILocationManagerOld.sharedLocationManager.locationManager.stopMonitoring(for: region)
+                 print("Removed Region :\(region)")
+                 
+                 }*/
+                TTILocationManager.sharedLocationManager.locationManager.stopUpdatingLocation()
+
                 
                 //Move to login screen
                 RootViewControllerManager.refreshRootViewController()
@@ -121,12 +123,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             //clear user details from user default
             SettingsManager.shared().resetSettings()
             
-            for region in TTILocationManager.sharedLocationManager.locationManager.monitoredRegions {
+            //Mohini:Location changes
+            /*
+            for region in TTILocationManagerOld.sharedLocationManager.locationManager.monitoredRegions {
                 
-                TTILocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
+                TTILocationManagerOld.sharedLocationManager.locationManager.stopMonitoring(for: region)
                 print("Removed Region :\(region)")
                 
-            }
+            }*/
+            TTILocationManager.sharedLocationManager.locationManager.stopUpdatingLocation()
             
             //Move to login screen
             RootViewControllerManager.refreshRootViewController()
@@ -272,7 +277,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         completionHandler([.alert, .sound])
     }
-
-    
 }
 

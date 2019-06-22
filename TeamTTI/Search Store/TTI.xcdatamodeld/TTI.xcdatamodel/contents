@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14270.11" systemVersion="17G4015" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="TTICurrentLocation" representedClassName="TTICurrentLocation" syncable="YES" codeGenerationType="class">
+    <entity name="StoreMonitoring" representedClassName="StoreMonitoring" syncable="YES" codeGenerationType="class">
         <attribute name="currentlatitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currentlongitude" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timestamp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TTICurrentLocation" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="StoreMonitoring" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

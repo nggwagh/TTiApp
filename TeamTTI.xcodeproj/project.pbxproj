@@ -36,10 +36,13 @@
 		3582CE0A21CA5A3C00A9F7C2 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */; };
 		359DB51522159399009331DB /* RegionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359DB51422159399009331DB /* RegionDetailViewController.swift */; };
 		359DB51722159B0E009331DB /* RegionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359DB51622159B0E009331DB /* RegionDetailCell.swift */; };
+		35A16BF822BDE1F700EE8BDB /* TTILocationDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A16BF722BDE1F700EE8BDB /* TTILocationDBManager.swift */; };
+		35A16BFD22BDE7E500EE8BDB /* TTILocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A16BFC22BDE7E500EE8BDB /* TTILocation.swift */; };
+		35A16BFF22BDF26800EE8BDB /* TTILocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A16BFE22BDF26800EE8BDB /* TTILocationManager.swift */; };
 		35A5259821CB599700C43A16 /* MBProgressHudUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */; };
 		35A5259A21CB664600C43A16 /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5259921CB664600C43A16 /* SubmissionViewController.swift */; };
 		35A5A29222994AE30008AAC6 /* StorePerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5A29122994AE30008AAC6 /* StorePerformanceViewController.swift */; };
-		35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */; };
+		35ABA58721EB0AF00001C0B4 /* TTILocationManagerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ABA58621EB0AF00001C0B4 /* TTILocationManagerOld.swift */; };
 		35B6749921C4D043000238DD /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749821C4D043000238DD /* NewsViewController.swift */; };
 		35B6749B21C4D17F000238DD /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6749A21C4D17F000238DD /* News.swift */; };
 		35B6749D21C4DAD1000238DD /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35B6749C21C4DAD1000238DD /* News.storyboard */; };
@@ -153,10 +156,13 @@
 		3582CE0921CA5A3C00A9F7C2 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		359DB51422159399009331DB /* RegionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailViewController.swift; sourceTree = "<group>"; };
 		359DB51622159B0E009331DB /* RegionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailCell.swift; sourceTree = "<group>"; };
+		35A16BF722BDE1F700EE8BDB /* TTILocationDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocationDBManager.swift; sourceTree = "<group>"; };
+		35A16BFC22BDE7E500EE8BDB /* TTILocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocation.swift; sourceTree = "<group>"; };
+		35A16BFE22BDF26800EE8BDB /* TTILocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocationManager.swift; sourceTree = "<group>"; };
 		35A5259721CB599700C43A16 /* MBProgressHudUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBProgressHudUtility.swift; sourceTree = "<group>"; };
 		35A5259921CB664600C43A16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
 		35A5A29122994AE30008AAC6 /* StorePerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePerformanceViewController.swift; sourceTree = "<group>"; };
-		35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocationManager.swift; sourceTree = "<group>"; };
+		35ABA58621EB0AF00001C0B4 /* TTILocationManagerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTILocationManagerOld.swift; sourceTree = "<group>"; };
 		35B6749821C4D043000238DD /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		35B6749A21C4D17F000238DD /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		35B6749C21C4DAD1000238DD /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
@@ -283,9 +289,12 @@
 		003D87D721A72FCD0095D52F /* Search Store */ = {
 			isa = PBXGroup;
 			children = (
-				35ABA58621EB0AF00001C0B4 /* TTILocationManager.swift */,
+				35ABA58621EB0AF00001C0B4 /* TTILocationManagerOld.swift */,
 				007427DC21AA8CE8005C8554 /* StoreSearchViewController.swift */,
 				007427DE21AA94AE005C8554 /* StoreSearchTableViewCell.swift */,
+				35A16BF722BDE1F700EE8BDB /* TTILocationDBManager.swift */,
+				35A16BFC22BDE7E500EE8BDB /* TTILocation.swift */,
+				35A16BFE22BDF26800EE8BDB /* TTILocationManager.swift */,
 			);
 			path = "Search Store";
 			sourceTree = "<group>";
@@ -853,7 +862,9 @@
 				0008804F21940A3300AA8EFC /* Constant.swift in Sources */,
 				CFF45C4321A1B59D0045B56D /* StoreObjective.swift in Sources */,
 				5272BA2F2281FE0400D6C30E /* SurveyViewController.swift in Sources */,
+				35A16BF822BDE1F700EE8BDB /* TTILocationDBManager.swift in Sources */,
 				357FF55F228FC1B60044FD7A /* RepPerformanceItem.swift in Sources */,
+				35A16BFF22BDF26800EE8BDB /* TTILocationManager.swift in Sources */,
 				3573797E21C7B7EA007DDF42 /* PlaybookTableViewController.swift in Sources */,
 				CF4832BD217CF3C1000660C6 /* LoginViewController.swift in Sources */,
 				35B6749921C4D043000238DD /* NewsViewController.swift in Sources */,
@@ -878,6 +889,7 @@
 				35B6749B21C4D17F000238DD /* News.swift in Sources */,
 				CF4832C3217CF3C1000660C6 /* TeamTTI.xcdatamodeld in Sources */,
 				35F4DA5A220C4AE900DDBA56 /* CustomLayout.swift in Sources */,
+				35A16BFD22BDE7E500EE8BDB /* TTILocation.swift in Sources */,
 				357FF565228FC6220044FD7A /* RepPerformanceCell.swift in Sources */,
 				00F6C61721AC50DF003D697A /* HUChartEntry.m in Sources */,
 				523F5A4E21EF8D4D0050E85E /* PlannerAPI.swift in Sources */,
@@ -891,7 +903,7 @@
 				359DB51722159B0E009331DB /* RegionDetailCell.swift in Sources */,
 				3573798421C7E3C5007DDF42 /* TaskDetailViewController.swift in Sources */,
 				5240A1F22286B05600F3C0E9 /* OpenSurveyViewController.swift in Sources */,
-				35ABA58721EB0AF00001C0B4 /* TTILocationManager.swift in Sources */,
+				35ABA58721EB0AF00001C0B4 /* TTILocationManagerOld.swift in Sources */,
 				CFC729622198CBFF0065BCAC /* AuthPlugin.swift in Sources */,
 				35A5A29222994AE30008AAC6 /* StorePerformanceViewController.swift in Sources */,
 				52281661229836B6006DCCF7 /* StorePerformance.swift in Sources */,

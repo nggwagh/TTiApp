@@ -124,7 +124,9 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         //clear user details from user default
         SettingsManager.shared().resetSettings()
         
-        self.removeRegionMonitoringWhenLogout()
+        //Mohini:Location changes
+//        self.removeRegionMonitoringWhenLogout()
+        TTILocationManager.sharedLocationManager.locationManager.stopUpdatingLocation()
         
         //Move to login screen
         RootViewControllerManager.refreshRootViewController()
@@ -133,9 +135,9 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
     //STOP MONITORING REGIONS IF USER LOGOUT THE APP
     func removeRegionMonitoringWhenLogout() {
         
-        for region in TTILocationManager.sharedLocationManager.locationManager.monitoredRegions {
+        for region in TTILocationManagerOld.sharedLocationManager.locationManager.monitoredRegions {
             
-                TTILocationManager.sharedLocationManager.locationManager.stopMonitoring(for: region)
+                TTILocationManagerOld.sharedLocationManager.locationManager.stopMonitoring(for: region)
                print("Removed Region :\(region)")
 
         }

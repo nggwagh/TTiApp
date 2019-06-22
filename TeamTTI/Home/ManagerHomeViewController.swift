@@ -294,8 +294,9 @@ class ManagerHomeViewController: UIViewController {
             }
         }
         
+        //Mohini:Location changes
         //start monitoring for top 5 closest stores
-        TTILocationManager.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
+//        TTILocationManagerOld.sharedLocationManager.monitorRegions(regionsToMonitor: closestStores)
     }
 }
 
