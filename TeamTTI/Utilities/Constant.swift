@@ -12,8 +12,8 @@ struct Constant {
 
     struct API {
     
-//          static let baseURL = URL.init(string: "http://test.teamtti.ca")!
-        static let baseURL = URL.init(string: "https://www.teamtti.ca")!
+          static let baseURL = URL.init(string: "http://test.teamtti.ca")!
+//        static let baseURL = URL.init(string: "https://www.teamtti.ca")!
 
         struct Login {
             static let path = "oauth/token"
@@ -32,7 +32,7 @@ struct Constant {
             static let currentLongitude_launchtime = "currentLongitude_launchtime"
             static let resetPasswordAPIPath = "/api/v1/user/reset_password"
             static let deviceDetailsAPIPath = "/api/v1/user/me/device"
-
+            static let locationPath = "api/v1/user/%@/location"
             static let regions = "regions"
 
         }
@@ -50,8 +50,6 @@ struct Constant {
             static let path = "api/v1/news"
             static let playbookPath = "api/v1/quicklink"
             static let surveyPath = "api/v1/survey"
-
-
         }
         
         struct Planner {
@@ -61,7 +59,6 @@ struct Constant {
         struct Region {
             static let getRegionsPath = "api/v1/region"
             static let getRegionsDetailPath = "api/v1/store_objective/summary"
-
         }
     }
 
