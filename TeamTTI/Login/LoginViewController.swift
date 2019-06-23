@@ -29,9 +29,9 @@ class LoginViewController: UIViewController {
 //        txtEmail.text = "juan@pulpandfiber.com"
 //        txtPassword.text = "tester"
         
-//          txtPassword.text = "tticanada"
+          txtPassword.text = "tticanada"
 //        txtEmail.text = "nick@expertel.ca" // Admin
-//          txtEmail.text = "nickdm@expertel.ca" // DM
+          txtEmail.text = "nickdm@expertel.ca" // DM
 //        txtEmail.text = "nickfsr@expertel.ca" // FSR
 //        txtEmail.text = "Harrison.diamond@ttigroupna.com"
 //        txtEmail.text = "matthew.magee@ttigroupna.com"

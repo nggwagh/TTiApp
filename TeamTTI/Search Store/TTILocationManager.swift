@@ -70,30 +70,34 @@ class TTILocationManager: NSObject {
         
         let savedLocations = TTILocationDBManager.fetchLocations()
         var locationsInputArray = [[String:Any]]()
-        for location in savedLocations {
-            print("Location: \(location.currentlatitude ?? ""), \(location.currentlatitude ?? ""), \(location.timestamp ?? "")")
-            var locDict = [String: Any]()
-            locDict["latitude"] = location.currentlatitude
-            locDict["longitude"] = location.currentlongitude
-            locDict["timestamp"] = Int(location.timestamp!)
-            locationsInputArray.append(locDict)
-        }
         
-        MoyaProvider<UserApi>(plugins: [AuthPlugin()]).request(.setLocationDetails(userId: SettingsManager.shared().getUserID()!, locationDetails: locationsInputArray)) { result in
+        if (savedLocations.count > 0) {
             
-            switch result {
-            case let .success(response):
-                if case 200..<400 = response.statusCode {
-                    let responseString = String(data: response.data, encoding: String.Encoding.utf8)
-                    TTILocationDBManager.deleteLocations(locations: savedLocations)
-                    print(responseString!)
-                } else {
-                    let responseString = String(data: response.data, encoding: String.Encoding.utf8)
-                    print(responseString!)
-                }
+            for location in savedLocations {
+                print("Location: \(location.currentlatitude ?? ""), \(location.currentlatitude ?? ""), \(location.timestamp ?? "")")
+                var locDict = [String: Any]()
+                locDict["latitude"] = location.currentlatitude
+                locDict["longitude"] = location.currentlongitude
+                locDict["timestamp"] = Int(location.timestamp!)
+                locationsInputArray.append(locDict)
+            }
+            
+            MoyaProvider<UserApi>(plugins: [AuthPlugin()]).request(.setLocationDetails(userId: SettingsManager.shared().getUserID()!, locationDetails: locationsInputArray)) { result in
                 
-            case let .failure(error):
-                print(error.localizedDescription) //MOYA error
+                switch result {
+                case let .success(response):
+                    if case 200..<400 = response.statusCode {
+                        let responseString = String(data: response.data, encoding: String.Encoding.utf8)
+                        TTILocationDBManager.deleteLocations(locations: savedLocations)
+                        print(responseString!)
+                    } else {
+                        let responseString = String(data: response.data, encoding: String.Encoding.utf8)
+                        print(responseString!)
+                    }
+                    
+                case let .failure(error):
+                    print(error.localizedDescription) //MOYA error
+                }
             }
         }
     }

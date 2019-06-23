@@ -64,7 +64,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
        
         UIApplication.shared.applicationIconBadgeNumber = 0
     //  self.checkVersionAndLogoutIfOld()
-
+        
+        //CHECK IF LAST SYNC DATE DIFFERENCE > 4 HRS THEN SUBMIT NEW LOCATIONS ARRAY
+        
+        if (UserDefaults.standard.value(forKey: "isSync") != nil) {
+            
+                let cal = Calendar.current
+                let oldDate = UserDefaults.standard.value(forKey: "isSync")
+                let newDate = Date()
+                let components = cal.dateComponents(Set<Calendar.Component>([.hour]), from: oldDate as! Date, to: newDate)
+                let diff = components.hour!
+            
+                if (diff > 4) {
+                    
+                     DispatchQueue.main.async {
+                        TTILocationManager.sharedLocationManager.sendLocations()
+                    }
+                    UserDefaults.standard.set(newDate, forKey: "isSync")
+                    UserDefaults.standard.synchronize()
+                    
+                }
+            }
+            else
+            {
+                let newDate = Date()
+                UserDefaults.standard.set(newDate, forKey: "isSync")
+                UserDefaults.standard.synchronize()
+            }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -209,14 +235,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let dictionary = payload as? [String: Any]
         
-        if ((dictionary!["type"] as? String) == "news"){
-            UserDefaults.standard.set(true, forKey: "isNews")
+        //WHEN SILENT NOTIFICATION IS RECEIVED
+        if ((dictionary!["type"] as? String) == "location") {
+        
+            DispatchQueue.main.async {
+             TTILocationManager.sharedLocationManager.sendLocations()
             }
-        
-        UserDefaults.standard.set(true, forKey: "isNotification")
-        UserDefaults.standard.synchronize()
-        RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
-        
+            
+         } else {
+            
+            if ((dictionary!["type"] as? String) == "news"){
+                UserDefaults.standard.set(true, forKey: "isNews")
+            }
+            
+            UserDefaults.standard.set(true, forKey: "isNotification")
+            UserDefaults.standard.synchronize()
+            RootViewControllerFactory.centerContainer.toggle(MMDrawerSide.left, animated: true, completion: nil)
+        }
     }
 
     
