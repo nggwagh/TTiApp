@@ -6,8 +6,8 @@ target 'TeamTTI' do
   use_frameworks!
 
   # Pods for TeamTTI
-pod 'FlowFramework', '1.4.0'
-pod 'FormFramework', '1.3.3'
+pod 'FlowFramework', '1.4.2'
+#pod 'FormFramework', '1.3.3'
 pod 'PresentationFramework', '1.2.2'
 pod 'Lift', '2.0.2'
 pod 'IQKeyboardManagerSwift'

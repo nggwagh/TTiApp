@@ -279,14 +279,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
    
-    /*
         func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     
             print("Recived In Background/Foreground: \(userInfo)")
-            self.whenReceivedPushNotification()
-    
+            self.whenReceivedPushNotification(payload: userInfo)
+
         }
-   */
+   
     
     private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         
