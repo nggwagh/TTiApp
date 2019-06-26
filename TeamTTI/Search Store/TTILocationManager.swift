@@ -16,7 +16,6 @@ class TTILocationManager: NSObject {
     //MARK:- Instance Variables
     let locationManager = CLLocationManager()
     static let sharedLocationManager = TTILocationManager()
-    private var locationsToMonitor = [Store]()
     
     private var recordedTimeStamp = Date()
     
@@ -41,9 +40,16 @@ class TTILocationManager: NSObject {
         
         locationManager.pausesLocationUpdatesAutomatically = true
         
-        locationManager.startUpdatingLocation()
+     //   locationManager.startUpdatingLocation()
+        
+        locationManager.startMonitoringSignificantLocationChanges()
+
     }
     
+    func restartUpdatingCurrentLocation() {
+        locationManager.stopMonitoringSignificantLocationChanges()
+        locationManager.startMonitoringSignificantLocationChanges()
+    }
     //MARK:- Private methods
     
     func moveToNextViewController() {
