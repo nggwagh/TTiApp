@@ -60,8 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-        TTILocationManager.sharedLocationManager.restartUpdatingCurrentLocation()
+        if (UserDefaults.standard.bool(forKey: "isLogin")) {
 
+        TTILocationManager.sharedLocationManager.restartUpdatingCurrentLocation()
+            
+        }
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -78,17 +81,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
      // CHECK IF SAVED LOCATION IS > 0 THEN THEN SUBMIT NEW LOCATIONS ARRAY
         
-        let savedLocations = TTILocationDBManager.fetchLocations()
-
-        if (savedLocations.count > 1) {
+        if (UserDefaults.standard.bool(forKey: "isLogin")) {
             
-            DispatchQueue.main.async {
-                TTILocationManager.sharedLocationManager.sendLocations()
+            let savedLocations = TTILocationDBManager.fetchLocations()
+            
+            if (savedLocations.count > 1) {
+                
+                DispatchQueue.main.async {
+                    TTILocationManager.sharedLocationManager.sendLocations()
+                }
             }
+            
+            TTILocationManager.sharedLocationManager.startUpdatingCurrentLocation()
         }
-    
-        TTILocationManager.sharedLocationManager.startUpdatingCurrentLocation()
-
+        
+        
         
         /*
         //CHECK IF LAST SYNC DATE DIFFERENCE > 4 HRS THEN SUBMIT NEW LOCATIONS ARRAY
@@ -263,7 +270,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let dictionary = payload as? [String: Any]
         
         //WHEN SILENT NOTIFICATION IS RECEIVED
-        if ((dictionary!["type"] as? String) == "location") {
+        if ((dictionary!["type"] as? String) == "locations") {
         
             DispatchQueue.main.async {
              TTILocationManager.sharedLocationManager.sendLocations()

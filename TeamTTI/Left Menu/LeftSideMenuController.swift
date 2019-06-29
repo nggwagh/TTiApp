@@ -125,11 +125,15 @@ class LeftSideMenuController: UIViewController, UITableViewDataSource, UITableVi
         SettingsManager.shared().resetSettings()
         
         //Mohini:Location changes
-//        self.removeRegionMonitoringWhenLogout()
-        TTILocationManager.sharedLocationManager.locationManager.stopUpdatingLocation()
+//      self.removeRegionMonitoringWhenLogout()
+        TTILocationManager.sharedLocationManager.locationManager.stopMonitoringSignificantLocationChanges()
         
         //Move to login screen
         RootViewControllerManager.refreshRootViewController()
+        
+        UserDefaults.standard.set(false, forKey: "isLogin")
+        UserDefaults.standard.synchronize()
+        
     }
 
     //STOP MONITORING REGIONS IF USER LOGOUT THE APP

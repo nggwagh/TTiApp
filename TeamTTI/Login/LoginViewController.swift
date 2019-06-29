@@ -29,9 +29,9 @@ class LoginViewController: UIViewController {
 //        txtEmail.text = "juan@pulpandfiber.com"
 //        txtPassword.text = "tester"
         
-          txtPassword.text = "tticanada"
-//        txtEmail.text = "nick@expertel.ca" // Admin
-          txtEmail.text = "nickdm@expertel.ca" // DM
+//           txtPassword.text = "tticanada"
+//           txtEmail.text = "nick@expertel.ca" // Admin
+//          txtEmail.text = "nickdm@expertel.ca" // DM
 //        txtEmail.text = "nickfsr@expertel.ca" // FSR
 //        txtEmail.text = "Harrison.diamond@ttigroupna.com"
 //        txtEmail.text = "matthew.magee@ttigroupna.com"
@@ -143,6 +143,9 @@ extension LoginViewController {
                         if (UserDefaults.standard.value(forKey: "DeviceToken") != nil){
                             self.registerDeviceToken()
                         }
+                        
+                        UserDefaults.standard.set(true, forKey: "isLogin")
+                        UserDefaults.standard.synchronize()
                     }
                     catch let error {
                         print(error.localizedDescription)
