@@ -31,19 +31,32 @@ class TTILocationManager: NSObject {
     
     func startUpdatingCurrentLocation() {
         
-        // Ask for Authorisation from the User.
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        if (UserDefaults.standard.bool(forKey: "isLaunched")) {
+           
+            locationManager.startMonitoringSignificantLocationChanges()
+            
+            UserDefaults.standard.set(false, forKey: "isLaunched")
+            UserDefaults.standard.synchronize()
+            
+        } else {
+            
+            // Ask for Authorisation from the User.
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            
+            locationManager.distanceFilter = 200
+            
+            locationManager.allowsBackgroundLocationUpdates = true
+            
+            locationManager.pausesLocationUpdatesAutomatically = true
+            
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func startSignificantLocationChangeService() {
         
-        locationManager.distanceFilter = 200
-        
-        locationManager.allowsBackgroundLocationUpdates = true
-        
-        locationManager.pausesLocationUpdatesAutomatically = true
-        
-     //   locationManager.startUpdatingLocation()
-        
+        locationManager.stopUpdatingLocation()
         locationManager.startMonitoringSignificantLocationChanges()
-
     }
     
     func restartUpdatingCurrentLocation() {

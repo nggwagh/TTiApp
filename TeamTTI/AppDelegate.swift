@@ -42,8 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // WHEN ALL IS NOT RUNNING AND RECEIVING LOCATION CHANGE
         if launchOptions?[UIApplicationLaunchOptionsKey.location] != nil {
             
-            TTILocationManager.sharedLocationManager.checkLocationAuthorization()
+            UserDefaults.standard.set(true, forKey: "isLaunched")
+            UserDefaults.standard.synchronize()
             
+            TTILocationManager.sharedLocationManager.checkLocationAuthorization()
         }
         
         return true
@@ -60,11 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-        if (UserDefaults.standard.bool(forKey: "isLogin")) {
-
-        TTILocationManager.sharedLocationManager.restartUpdatingCurrentLocation()
-            
-        }
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -91,40 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     TTILocationManager.sharedLocationManager.sendLocations()
                 }
             }
-            
+           
             TTILocationManager.sharedLocationManager.startUpdatingCurrentLocation()
         }
-        
-        
-        
-        /*
-        //CHECK IF LAST SYNC DATE DIFFERENCE > 4 HRS THEN SUBMIT NEW LOCATIONS ARRAY
-        
-        if (UserDefaults.standard.value(forKey: "isSync") != nil) {
-            
-                let cal = Calendar.current
-                let oldDate = UserDefaults.standard.value(forKey: "isSync")
-                let newDate = Date()
-                let components = cal.dateComponents(Set<Calendar.Component>([.hour]), from: oldDate as! Date, to: newDate)
-                let diff = components.hour!
-            
-                if (diff > 4) {
-                    
-                     DispatchQueue.main.async {
-                        TTILocationManager.sharedLocationManager.sendLocations()
-                    }
-                    UserDefaults.standard.set(newDate, forKey: "isSync")
-                    UserDefaults.standard.synchronize()
-                    
-                }
-            }
-            else
-            {
-                let newDate = Date()
-                UserDefaults.standard.set(newDate, forKey: "isSync")
-                UserDefaults.standard.synchronize()
-            }
-       */
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -135,6 +101,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //Reset launchtime latitude and longitude
         SettingsManager.shared().setUserLocationLaunchTimeLatitude(0)
         SettingsManager.shared().setUserLocationLaunchTimeLongitude(0)
+        
+        //STARTING SIGNIFICANT LOCATION WHEN APP IS KILLED
+        TTILocationManager.sharedLocationManager.startSignificantLocationChangeService()
     }
     
     //MARK: -Global
