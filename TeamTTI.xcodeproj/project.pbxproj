@@ -73,6 +73,7 @@
 		5240A1F22286B05600F3C0E9 /* OpenSurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5240A1F12286B05600F3C0E9 /* OpenSurveyViewController.swift */; };
 		526A60E021D2113500E5CD65 /* NewsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A60DF21D2113400E5CD65 /* NewsApi.swift */; };
 		5272BA2F2281FE0400D6C30E /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272BA2E2281FE0400D6C30E /* SurveyViewController.swift */; };
+		52A9C66622E2099700613BE2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A9C66522E2099700613BE2 /* WebKit.framework */; };
 		52FD4939228DD3C7005710EC /* Performance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52FD4938228DD3C7005710EC /* Performance.storyboard */; };
 		52FD493B228DD455005710EC /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FD493A228DD455005710EC /* PerformanceViewController.swift */; };
 		52FD493D228DD476005710EC /* PerformanceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FD493C228DD476005710EC /* PerformanceDetailsViewController.swift */; };
@@ -193,6 +194,7 @@
 		5240A1F12286B05600F3C0E9 /* OpenSurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSurveyViewController.swift; sourceTree = "<group>"; };
 		526A60DF21D2113400E5CD65 /* NewsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsApi.swift; sourceTree = "<group>"; };
 		5272BA2E2281FE0400D6C30E /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
+		52A9C66522E2099700613BE2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		52FD4938228DD3C7005710EC /* Performance.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Performance.storyboard; sourceTree = "<group>"; };
 		52FD493A228DD455005710EC /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
 		52FD493C228DD476005710EC /* PerformanceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceDetailsViewController.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A9C66622E2099700613BE2 /* WebKit.framework in Frameworks */,
 				808A173D9C4668D8A90B68C1 /* Pods_TeamTTI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +336,7 @@
 		0A626A8319C59179F18B8360 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52A9C66522E2099700613BE2 /* WebKit.framework */,
 				23A21F8E4E4DD82AE9982A38 /* Pods_TeamTTI.framework */,
 				FC85DAEA5DE46733D854EC5E /* Pods_TeamTTITests.framework */,
 				0C0FB0F0C91EC64F2F8F892E /* Pods_TeamTTIUITests.framework */,

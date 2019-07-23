@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
             let savedLocations = TTILocationDBManager.fetchLocations()
             
-            if (savedLocations.count > 1) {
+            if (savedLocations.count > 5) {
                 
                 DispatchQueue.main.async {
                     TTILocationManager.sharedLocationManager.sendLocations()

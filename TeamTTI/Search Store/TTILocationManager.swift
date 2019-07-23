@@ -41,9 +41,9 @@ class TTILocationManager: NSObject {
         } else {
             
             // Ask for Authorisation from the User.
-            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             
-            locationManager.distanceFilter = 200
+            locationManager.distanceFilter = 50
             
             locationManager.allowsBackgroundLocationUpdates = true
             
@@ -77,11 +77,24 @@ class TTILocationManager: NSObject {
     
     func saveCurrentLocationLocally() {
         if let currentLocation = self.locationManager.location {
+            
             var currentLocationDetails = CurrentLocationDetails()
-            currentLocationDetails.currentlatitude = String(format: "%f", (currentLocation.coordinate.latitude))
-            currentLocationDetails.currentlongitude = String(format: "%f", (currentLocation.coordinate.longitude))
-            currentLocationDetails.timestamp = String(format: "%d", Date().currentTimeMillis())
-            TTILocationDBManager.save(currentLocationDetails: currentLocationDetails)
+            
+            let oldLat = UserDefaults.standard.value(forKey: "oldLat") as? Double
+            let oldLong = UserDefaults.standard.value(forKey: "oldLong") as? Double
+
+            if ((currentLocation.coordinate.latitude != oldLat) && (currentLocation.coordinate.longitude != oldLong))
+            {
+                currentLocationDetails.currentlatitude = String(format: "%f", (currentLocation.coordinate.latitude))
+                currentLocationDetails.currentlongitude = String(format: "%f", (currentLocation.coordinate.longitude))
+                currentLocationDetails.timestamp = String(format: "%d", Date().currentTimeMillis())
+                
+                UserDefaults.standard.set(currentLocation.coordinate.latitude, forKey: "oldLat")
+                UserDefaults.standard.set(currentLocation.coordinate.longitude, forKey: "oldLong")
+                UserDefaults.standard.synchronize()
+                
+                TTILocationDBManager.save(currentLocationDetails: currentLocationDetails)
+            }
         }
     }
   
@@ -140,8 +153,8 @@ extension TTILocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let locValue: CLLocationCoordinate2D = locations.last?.coordinate else { return }
-//        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        guard let locValue: CLLocationCoordinate2D = locations.last?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
         self.saveCurrentLocationLocally()
     }
 }

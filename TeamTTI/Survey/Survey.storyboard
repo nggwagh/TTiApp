@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2J5-gs-BX4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2J5-gs-BX4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -294,7 +294,7 @@
                         <barButtonItem key="backBarButtonItem" title="  " id="FQl-5Q-nQC"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="wkWebView" destination="xfk-6i-ESo" id="NAP-Lq-mdg"/>
+                        <outlet property="wkWebView" destination="xfk-6i-ESo" id="cmh-AU-v2V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J9d-B6-ylr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -303,8 +303,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NewsPlaceholder" width="47" height="47"/>
-        <image name="SurveyDetails" width="800" height="450"/>
+        <image name="NewsPlaceholder" width="23.5" height="23.5"/>
+        <image name="SurveyDetails" width="400" height="225"/>
         <image name="left_menu" width="23" height="16.5"/>
         <namedColor name="tti_blue">
             <color red="0.0" green="0.61176470588235299" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
