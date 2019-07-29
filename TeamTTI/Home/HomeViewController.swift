@@ -35,7 +35,7 @@ class HomeViewController: UIViewController, DateElementDelegate {
     private var totalTasks : Int = 0
     private var completedTasks : Int = 0
     
-    private var storeSearchViewController = StoreSearchViewController()
+    private var storeSearchViewController : StoreSearchViewController?
     
     private var selectedStoreObjectives = [StoreObjective]()
     
@@ -378,16 +378,16 @@ class HomeViewController: UIViewController, DateElementDelegate {
         
         if !isAlreadyShownSearchView {
             let storyboard =  UIStoryboard.init(name: "Home", bundle: nil)
-            storeSearchViewController = storyboard.instantiateViewController(withIdentifier: "StoreSearchViewController") as! StoreSearchViewController
-            storeSearchViewController.delegate = self
+            storeSearchViewController = storyboard.instantiateViewController(withIdentifier: "StoreSearchViewController") as? StoreSearchViewController
+            storeSearchViewController?.delegate = self
             let rect = CGRect(x: self.view.bounds.origin.x, y: self.tableView.frame.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-            storeSearchViewController.view.frame = rect
+            storeSearchViewController?.view.frame = rect
         }
-        storeSearchViewController.stores = self.stores ?? [Store]()
-        storeSearchViewController.buildStoreSectionsArray()
+        storeSearchViewController?.stores = self.stores ?? [Store]()
+        storeSearchViewController?.buildStoreSectionsArray()
         
         if isAlreadyShownSearchView {
-            storeSearchViewController.searchedStoreTableView.reloadData()
+            storeSearchViewController?.searchedStoreTableView.reloadData()
         }
         
         //BASED ON ADMIN OR MANAGER ROLE SHOW SEARCH LIST WHEN LOADS HOME SCREEN
@@ -715,7 +715,7 @@ extension HomeViewController: HomeNavigationBarDelegate {
         
         //remove store list if already present
         if isAlreadyShownSearchView {
-            storeSearchViewController.cancelSearch()
+            storeSearchViewController?.cancelSearch()
         }
         
         //Reset store selection
@@ -740,16 +740,20 @@ extension HomeViewController: HomeNavigationBarDelegate {
     
     func performSearch() {
         
+        guard storeSearchViewController != nil else {
+            return
+        }
+    
         //open serach controller
         if !isAlreadyShownSearchView {
             self.handleCancelButtonTap(sender: cancelButton)
-            self.view.addSubview(storeSearchViewController.view)
+            self.view.addSubview((storeSearchViewController?.view)!)
             isAlreadyShownSearchView.toggle()
             navigationBar.setArrowImage("UpArrow")
         }
         else{
             isAlreadyShownSearchView.toggle()
-            storeSearchViewController.cancelSearch()
+            storeSearchViewController?.cancelSearch()
         }
     }
 }

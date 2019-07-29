@@ -20,6 +20,22 @@ protocol StoreSearchViewControllerDelegate: class {
     func cancel()
 }
 
+extension UISearchBar {
+    
+    func getAllSubview<T : UIView>(type : T.Type) -> [T]{
+        var all = [T]()
+        func getSubview(view: UIView) {
+            if let aView = view as? T{
+                all.append(aView)
+            }
+            guard view.subviews.count>0 else { return }
+            view.subviews.forEach{ getSubview(view: $0) }
+        }
+        getSubview(view: self)
+        return all
+    }
+}
+
 class StoreSearchViewController: UIViewController {
     
     var stores: [Store]! {
@@ -42,7 +58,8 @@ class StoreSearchViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         // Glass Icon Customization
-        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField,
+        
+        if let textFieldInsideSearchBar = self.searchBar.getAllSubview(type: UITextField.self).first,
             let glassIconView = textFieldInsideSearchBar.leftView as? UIImageView {
             
             //Magnifying glass
