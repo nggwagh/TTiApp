@@ -18,7 +18,8 @@ class TTILocationManager: NSObject {
     static let sharedLocationManager = TTILocationManager()
     
     private var recordedTimeStamp = Date()
-    
+    let refreshStoreDistance = 100.0 //in meters
+
     //MARK:- Instance Methods
     
     override init() {}
@@ -75,27 +76,30 @@ class TTILocationManager: NSObject {
         }
     }
     
-    func saveCurrentLocationLocally() {
-        if let currentLocation = self.locationManager.location {
+    func saveCurrentLocationLocally(currentLocation:CLLocationCoordinate2D) {
+        
+        var currentLocationDetails = CurrentLocationDetails()
+        let currentCoordinate = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        
+        if let oldLat = UserDefaults.standard.value(forKey: "oldLat") as? Double
+            , let oldLong = UserDefaults.standard.value(forKey: "oldLong") as? Double {
+            let previousCoordinate = CLLocationCoordinate2D(latitude: oldLat, longitude: oldLong)
+            let distance = currentCoordinate.distanceFromCurrentLocationInMiles(latitude: previousCoordinate.latitude, longitude: previousCoordinate.longitude) * 1000 //In meters
             
-            var currentLocationDetails = CurrentLocationDetails()
-            
-            let oldLat = UserDefaults.standard.value(forKey: "oldLat") as? Double
-            let oldLong = UserDefaults.standard.value(forKey: "oldLong") as? Double
-
-            if ((currentLocation.coordinate.latitude != oldLat) && (currentLocation.coordinate.longitude != oldLong))
-            {
-                currentLocationDetails.currentlatitude = String(format: "%f", (currentLocation.coordinate.latitude))
-                currentLocationDetails.currentlongitude = String(format: "%f", (currentLocation.coordinate.longitude))
-                currentLocationDetails.timestamp = String(format: "%d", Date().currentTimeMillis())
-                
-                UserDefaults.standard.set(currentLocation.coordinate.latitude, forKey: "oldLat")
-                UserDefaults.standard.set(currentLocation.coordinate.longitude, forKey: "oldLong")
-                UserDefaults.standard.synchronize()
-                
-                TTILocationDBManager.save(currentLocationDetails: currentLocationDetails)
+            if (distance <= refreshStoreDistance || ((currentLocation.latitude == oldLat) && (currentLocation.longitude == oldLong))) {
+                return
             }
         }
+        
+        currentLocationDetails.currentlatitude = String(format: "%f", (currentLocation.latitude))
+        currentLocationDetails.currentlongitude = String(format: "%f", (currentLocation.longitude))
+        currentLocationDetails.timestamp = String(format: "%d", Date().currentTimeMillis())
+        
+        UserDefaults.standard.set(currentLocation.latitude, forKey: "oldLat")
+        UserDefaults.standard.set(currentLocation.longitude, forKey: "oldLong")
+        UserDefaults.standard.synchronize()
+        
+        TTILocationDBManager.save(currentLocationDetails: currentLocationDetails)
     }
   
     func sendLocations() {
@@ -154,8 +158,9 @@ extension TTILocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = locations.last?.coordinate else { return }
+        
         print("locations = \(locValue.latitude) \(locValue.longitude)")
-        self.saveCurrentLocationLocally()
+        self.saveCurrentLocationLocally(currentLocation: locValue)
     }
 }
 
