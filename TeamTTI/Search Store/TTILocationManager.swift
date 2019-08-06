@@ -160,7 +160,9 @@ extension TTILocationManager: CLLocationManagerDelegate {
         guard let locValue: CLLocationCoordinate2D = locations.last?.coordinate else { return }
         
         print("locations = \(locValue.latitude) \(locValue.longitude)")
-        self.saveCurrentLocationLocally(currentLocation: locValue)
+        if (UserDefaults.standard.bool(forKey: "isLogin")) {
+            self.saveCurrentLocationLocally(currentLocation: locValue)
+        }
     }
 }
 
