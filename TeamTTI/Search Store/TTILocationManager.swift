@@ -18,7 +18,7 @@ class TTILocationManager: NSObject {
     static let sharedLocationManager = TTILocationManager()
     
     private var recordedTimeStamp = Date()
-    let refreshStoreDistance = 100.0 //in meters
+    let refreshStoreDistance = 40.0 //in meters
 
     //MARK:- Instance Methods
     
@@ -44,7 +44,7 @@ class TTILocationManager: NSObject {
             // Ask for Authorisation from the User.
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             
-            locationManager.distanceFilter = 50
+            locationManager.distanceFilter = refreshStoreDistance
             
             locationManager.allowsBackgroundLocationUpdates = true
             
