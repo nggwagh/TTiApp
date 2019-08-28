@@ -84,9 +84,10 @@ class TTILocationManager: NSObject {
         if let oldLat = UserDefaults.standard.value(forKey: "oldLat") as? Double
             , let oldLong = UserDefaults.standard.value(forKey: "oldLong") as? Double {
             let previousCoordinate = CLLocationCoordinate2D(latitude: oldLat, longitude: oldLong)
+            
             let distance = currentCoordinate.distanceFromCurrentLocationInMiles(latitude: previousCoordinate.latitude, longitude: previousCoordinate.longitude) * 1000 //In meters
             
-            if (distance <= refreshStoreDistance || ((currentLocation.latitude == oldLat) && (currentLocation.longitude == oldLong))) {
+            if (distance <= 10 || ((currentLocation.latitude == oldLat) && (currentLocation.longitude == oldLong))) {
                 return
             }
         }
