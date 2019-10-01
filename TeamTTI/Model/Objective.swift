@@ -68,7 +68,7 @@ struct Objective {
     let startDate: Date?
     let endDate: Date?
     let description: String?
-    let status: ObjectiveStatus
+//  let status: ObjectiveStatus
     let dueDate: Date?
     let priority: Priority?
     let type: ObjectiveType
@@ -89,7 +89,7 @@ extension Objective {
                       startDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["startDate"]),
                       endDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["endDate"]),
                       description: objectiveJsonObject["description"] as? String,
-                      status: .status(for: objectiveJsonObject["status"]!),
+                  //  status: .status(for: objectiveJsonObject["status"]!),
                       dueDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["dueDate"]),
                       priority: .priority(for: objectiveJsonObject["priority"]!),
                       type: .type(for: objectiveJsonObject["type"]!),
@@ -112,7 +112,7 @@ extension Objective {
                       startDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["startDate"]),
                       endDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["endDate"]),
                       description: objectiveJsonObject["description"] as? String,
-                      status: .status(for: objectiveJsonObject["status"]!),
+           //         status: .status(for: objectiveJsonObject["status"]!),
                       dueDate: DateFormatter.formatter_yyyyMMdd.parse(value: objectiveJsonObject["dueDate"]),
                       priority: .priority(for: objectiveJsonObject["priority"]!),
                       type: .type(for: objectiveJsonObject["type"]!),
