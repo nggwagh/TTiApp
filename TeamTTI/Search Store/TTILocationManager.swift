@@ -28,6 +28,7 @@ class TTILocationManager: NSObject {
         // Ask for Authorisation from the User.
         locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
+        self.checkAuthorization()
     }
     
     func startUpdatingCurrentLocation() {
@@ -138,13 +139,8 @@ class TTILocationManager: NSObject {
             }
         }
     }
-}
-
-
-extension TTILocationManager: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
+    func checkAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             print("NotDetermined")
@@ -155,6 +151,14 @@ extension TTILocationManager: CLLocationManagerDelegate {
             print("Access")
             self.moveToNextViewController()
         }
+    }
+}
+
+
+extension TTILocationManager: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        self.checkAuthorization()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -45,6 +45,10 @@
 	<string>TTi App needs to use Camera to capture/upload photos.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>TTi App needs to use GPS for your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>TTi App needs to use GPS for your location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>TTi App needs to use GPS for your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>TTi App needs to use GPS for your location</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
