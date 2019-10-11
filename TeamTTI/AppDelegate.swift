@@ -186,11 +186,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         //TO AVOID CRASH WHEN APP LOCK SET PROTECTIONTYPE = NONE https://stackoverflow.com/questions/42693394/nspersistentcontainer-equivalent-for-nspersistentstorecoordinator-addpersistents
         
-        let description = NSPersistentStoreDescription()
-        description.shouldInferMappingModelAutomatically = true
-        description.shouldMigrateStoreAutomatically = true
-        description.setOption(FileProtectionType.none as NSObject, forKey: NSPersistentStoreFileProtectionKey)
-        container.persistentStoreDescriptions = [description]
+//        let description = NSPersistentStoreDescription()
+//        description.shouldInferMappingModelAutomatically = true
+//        description.shouldMigrateStoreAutomatically = true
+//        description.setOption(FileProtectionType.none as NSObject, forKey: NSPersistentStoreFileProtectionKey)
+//        container.persistentStoreDescriptions = [description]
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {

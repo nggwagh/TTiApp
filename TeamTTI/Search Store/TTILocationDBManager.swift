@@ -49,9 +49,12 @@ class TTILocationDBManager: NSObject {
     
     static func getLocationCount() -> Int {
         //1
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return 0
+        }
         
-        let managedContext = appDelegate!.persistentContainer.viewContext
+        let managedContext = appDelegate.persistentContainer.viewContext
         
         //2
         let fetchRequest =
@@ -70,9 +73,12 @@ class TTILocationDBManager: NSObject {
     
     static func fetchLocations() -> [TTICurrentLocation] {
         //1
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return [TTICurrentLocation]()
+        }
         
-        let managedContext = appDelegate!.persistentContainer.viewContext
+        let managedContext = appDelegate.persistentContainer.viewContext
         
         //2
         let fetchRequest =
