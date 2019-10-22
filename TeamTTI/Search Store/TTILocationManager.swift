@@ -36,6 +36,7 @@ class TTILocationManager: NSObject {
         if (UserDefaults.standard.bool(forKey: "isLaunched")) {
            
             locationManager.startMonitoringSignificantLocationChanges()
+            locationManager.pausesLocationUpdatesAutomatically = true
             
             UserDefaults.standard.set(false, forKey: "isLaunched")
             UserDefaults.standard.synchronize()
@@ -59,11 +60,13 @@ class TTILocationManager: NSObject {
         
         locationManager.stopUpdatingLocation()
         locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.pausesLocationUpdatesAutomatically = true
     }
     
     func restartUpdatingCurrentLocation() {
         locationManager.stopMonitoringSignificantLocationChanges()
         locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.pausesLocationUpdatesAutomatically = true
     }
     //MARK:- Private methods
     
