@@ -18,7 +18,7 @@ class TTILocationManager: NSObject {
     static let sharedLocationManager = TTILocationManager()
     
     private var recordedTimeStamp = Date()
-    let refreshStoreDistance = 40.0 //in meters
+    let refreshStoreDistance = 100.0 //in meters
 
     //MARK:- Instance Methods
     
@@ -91,7 +91,7 @@ class TTILocationManager: NSObject {
             
             let distance = currentCoordinate.distanceFromCurrentLocationInMiles(latitude: previousCoordinate.latitude, longitude: previousCoordinate.longitude) * 1000 //In meters
             
-            if (distance <= 10 || ((currentLocation.latitude == oldLat) && (currentLocation.longitude == oldLong))) {
+            if (distance < 100 || ((currentLocation.latitude == oldLat) && (currentLocation.longitude == oldLong))) {
                 return
             }
         }
