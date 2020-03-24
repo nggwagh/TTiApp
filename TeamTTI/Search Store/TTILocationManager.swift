@@ -102,6 +102,9 @@ class TTILocationManager: NSObject {
         
         UserDefaults.standard.set(currentLocation.latitude, forKey: "oldLat")
         UserDefaults.standard.set(currentLocation.longitude, forKey: "oldLong")
+        //UPDATING LAT/LONG TO LATEST
+        SettingsManager.shared().setUserLocationLatitude(currentLocation.latitude)
+        SettingsManager.shared().setUserLocationLongitude(currentLocation.longitude)
         UserDefaults.standard.synchronize()
         
         TTILocationDBManager.save(currentLocationDetails: currentLocationDetails)
